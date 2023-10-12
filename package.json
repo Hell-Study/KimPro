@@ -10,6 +10,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "recoil": "^0.7.7",
+    "styled-components": "^6.0.8",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -17,8 +19,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://hell-study.github.io/Final-Project/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -41,6 +45,7 @@
     "@types/node": "^20.8.4",
     "@types/react": "^18.2.27",
     "@types/react-dom": "^18.2.12",
+    "@types/styled-components": "^5.1.28",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
