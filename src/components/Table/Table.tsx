@@ -89,7 +89,7 @@ export const Table: React.FC = () => {
                 key={data.code}
                 id={data.code}
                 onClick={clickCoinHandler}
-                selected={selectedCoin[0].market === data.code}
+                $selected={selectedCoin[0].market === data.code}
               >
                 <CoinBoxName>
                   <div>
@@ -105,13 +105,13 @@ export const Table: React.FC = () => {
                     }
                   </div>
                 </CoinBoxName>
-                <CoinBoxPrice changeType={data.change}>
+                <CoinBoxPrice $changeType={data.change}>
                   {data.trade_price.toLocaleString('ko-KR')}
                 </CoinBoxPrice>
                 <CoinBoxKimchiPremium>
                   (국내코인원화 / 해외코인달러 x 환율 - 1)*100
                 </CoinBoxKimchiPremium>
-                <CoinBoxChange changeType={data.change}>
+                <CoinBoxChange $changeType={data.change}>
                   <CoinBoxChangeRate>
                     {data.signed_change_rate > 0 ? '+' : null}
                     {(data.signed_change_rate * 100).toFixed(2)}%

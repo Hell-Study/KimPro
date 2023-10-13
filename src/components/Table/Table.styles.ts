@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 interface CoinBoxProps {
-  selected: boolean;
+  $selected: boolean;
 }
 
 interface CoinBoxPriceProps {
-  changeType: string;
+  $changeType: string;
 }
 
 interface CoinBoxChangeProps {
-  changeType: string;
+  $changeType: string;
 }
 
 export const CoinListBox = styled.div`
@@ -49,7 +49,7 @@ export const CoinBox = styled.div<CoinBoxProps>`
   padding-left: 5px;
   padding-right: 5px;
   cursor: pointer;
-  background-color: ${(props) => (props.selected ? 'lightgrey' : 'inherit')};
+  background-color: ${(props) => (props.$selected ? 'lightgrey' : 'inherit')};
   &:hover {
     background-color: lightgrey;
   }
@@ -102,7 +102,7 @@ export const CoinBoxName = styled.div`
 export const CoinBoxPrice = styled.div<CoinBoxPriceProps>`
   font-weight: 600;
   color: ${(props) => {
-    switch (props.changeType) {
+    switch (props.$changeType) {
       case 'RISE':
         return '#EF1C1C';
       case 'EVEN':
@@ -118,7 +118,7 @@ export const CoinBoxKimchiPremium = styled.div``;
 
 export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
   color: ${(props) => {
-    switch (props.changeType) {
+    switch (props.$changeType) {
       case 'RISE':
         return '#EF1C1C';
       case 'EVEN':
