@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+## git commit convention
+제목은 간단하게 해당 커밋의 목적을 요약해서 작성합니다.
+**Feat: "로그인 함수 추가"**
+1. 50자 이내
+2. 시작할 때는 대문자로 시작 (보통 Fix, Add, Change 등의 명령어로 시작)
+3. 마칠 때 마침표 등의 특수문자 없이 작성,
+4. 개조식으로 작성
+5. “타입: 내용” 의 형식으로 작성
+```
+Feat : 새로운 기능 추가
+Fix : 버그 수정
+Env : 개발 환경 관련 설정
+Style : 코드 스타일 수정 (세미 콜론, 인덴트 등의 스타일적인 부분만)
+Refactor : 코드 리팩토링 (더 효율적인 코드로 변경 등)
+Design : CSS 등 디자인 추가/수정
+Comment : 주석 추가/수정
+Docs : 내부 문서 추가/수정
+Test : 테스트 추가/수정
+Chore : 빌드 관련 코드 수정
+Rename : 파일 및 폴더명 수정
+Remove : 파일 삭제
+```
+본문 은 다음과 같이 작성합니다.
+**로그인 기능 구현을 위해 로그인 요청을 보내는 axios 함수 작성**
+1. 한 줄 당 72자 이내
+2. 아무리 길어도 괜찮으니, 최대한 상세히 작성
+3. 무엇을, 왜 변경했는지 작성 (코드 자체를 상세히 적는 것은 지양)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+상수는 영문 대문자, 스네이크 표기법을 사용
+변수: 카멜케이스를 사용
+함수: 카멜케이스, 화살표 함수
+폴더: 카멜 케이스를 기본으로 하며, 컴포넌트 폴더일 경우에만 파스칼 케이스로 사용한다.
