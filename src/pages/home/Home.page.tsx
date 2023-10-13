@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import { Table } from 'components/Table';
 import { useFetchMarketCode } from 'use-upbit-api';
 import { marketCodesState } from 'recoil/atoms/upbit';
+import { DisplayBoard } from './Home.styles';
 
 export const Home: React.FC = () => {
   const { isLoading, marketCodes: fetchedMC } = useFetchMarketCode();
@@ -16,10 +17,8 @@ export const Home: React.FC = () => {
   }, [fetchedMC]);
 
   return (
-    <>
-      <div>ㅋㅋ</div>
-      <div>ㅋㅋ</div>
+    <DisplayBoard>
       <Table />
-    </>
+    </DisplayBoard>
   );
 };
