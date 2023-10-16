@@ -61,17 +61,22 @@ export const Table: React.FC = () => {
   return (
     <CoinListBox>
       <CoinBoxNav>
-        기준 거래소
-        <select>
-          <option value="upbit">업비트</option>
-          <option value="bithumb">빗썸</option>
-        </select>
-        -
-        <select>
-          <option value="binance">바이낸스 USDT 마켓</option>
-        </select>
-        해외 거래소 암호화폐 총 XX개
-        <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
+        <div>
+          기준 거래소
+          <select>
+            <option value="upbit">업비트</option>
+            <option value="bithumb">빗썸</option>
+          </select>
+          -
+          <select>
+            <option value="binance">바이낸스 USDT 마켓</option>
+          </select>
+          해외 거래소
+        </div>
+        <div>
+          암호화폐 총 {marketCodes.length}개
+          <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
+        </div>
       </CoinBoxNav>
       <CoinBoxHeader>
         <div>코인</div>

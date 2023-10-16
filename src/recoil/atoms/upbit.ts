@@ -1,17 +1,32 @@
 import { atom } from 'recoil';
 
-export type MarketCodeType = {
+export type MarketCodesType = {
   market: string;
   korean_name: string;
   english_name: string;
 };
 
-export const marketCodesState = atom<MarketCodeType[]>({
+export type SelectedCoinType = {
+  market: string;
+  korean_name: string;
+  english_name: string;
+};
+
+export type SelectedCoinInfoType = {
+  candle_date_time_kt: string;
+  opening_price: number;
+  high_price: number;
+  low_price: number;
+  trade_price: number;
+  trade_date: string;
+};
+
+export const marketCodesState = atom<MarketCodesType[]>({
   key: 'marketCodesState',
   default: [],
 });
 
-export const selectedCoinState = atom({
+export const selectedCoinState = atom<SelectedCoinType[]>({
   key: 'selectedCoinState',
   default: [
     {
@@ -22,7 +37,7 @@ export const selectedCoinState = atom({
   ],
 });
 
-export const selectedCoinInfoState = atom({
+export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
 });
