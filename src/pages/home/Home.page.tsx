@@ -4,7 +4,7 @@ import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { marketCodesState } from 'recoil/atoms/upbit';
-import { DisplayBoard } from './Home.styles';
+import { DisplayBoard, ChartsWrapper } from './Home.styles';
 import styled from 'styled-components';
 import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 
@@ -14,20 +14,10 @@ interface FetchedMCData {
   english_name: string;
 }
 
-const ChartsWrapper = styled.div`
-  background-color: whitesmoke;
-  padding: 5px;
-  display: grid;
-  gap: 5px;
-  grid-template-columns: 1fr 1fr;
-`;
-
 export const Home: React.FC = () => {
   const { isLoading, marketCodes: fetchedMC } = useFetchMarketCode();
   const [marketCodes, setMarketCodes] = useRecoilState(marketCodesState);
-  // useEffect(() => {
-  //   console.log('marketCodes', marketCodes);
-  // }, []);
+
   useEffect(() => {
     const MarketCodes_KRW = fetchedMC.filter((code: FetchedMCData) =>
       code.market.includes('KRW'),
