@@ -1,8 +1,7 @@
-import React, { memo, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 
-function ChartLeft() {
-  return <div>여기는 ChartLeft</div>;
+function Chartleft() {
+  return <div>dd</div>;
 }
 
-export default memo(ChartLeft);
+export default Chartleft;
