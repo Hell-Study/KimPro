@@ -25,7 +25,9 @@ const ChartsWrapper = styled.div`
 export const Home: React.FC = () => {
   const { isLoading, marketCodes: fetchedMC } = useFetchMarketCode();
   const [marketCodes, setMarketCodes] = useRecoilState(marketCodesState);
-
+  // useEffect(() => {
+  //   console.log('marketCodes', marketCodes);
+  // }, []);
   useEffect(() => {
     const MarketCodes_KRW = fetchedMC.filter((code: FetchedMCData) =>
       code.market.includes('KRW'),
