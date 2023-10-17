@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import styled from 'styled-components';
+import { ChartContainer } from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
 
 // interface CandleData {
@@ -22,16 +23,6 @@ import useCreateChart from 'api/upbit/useCreateChart';
 //   low: number;
 //   close: number;
 // }
-
-const ChartContainer = styled.div`
-  width: 100%;
-  height: 400;
-  background-color: white;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  div {
-    border: 1px solid white;
-  }
-`;
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
