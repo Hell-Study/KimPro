@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
-import { useWsTicker } from 'use-upbit-api';
+import useWsTicker from 'api/upbit/useWsTicker';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   marketCodesState,
@@ -36,7 +36,7 @@ export const Table: React.FC = () => {
   const marketCodes = useRecoilValue(marketCodesState);
   const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
   const webSocketOptions = { throttle_time: 400, max_length_queue: 100 };
-  const { socket, isConnected, socketData } = useWsTicker(marketCodes);
+  const { socketData } = useWsTicker(marketCodes);
 
   const [selectedCoinInfo, setSelectedCoinInfo] = useRecoilState(
     selectedCoinInfoState,
@@ -61,17 +61,22 @@ export const Table: React.FC = () => {
   return (
     <CoinListBox>
       <CoinBoxNav>
-        기준 거래소
-        <select>
-          <option value="upbit">업비트</option>
-          <option value="bithumb">빗썸</option>
-        </select>
-        -
-        <select>
-          <option value="binance">바이낸스 USDT 마켓</option>
-        </select>
-        해외 거래소 암호화폐 총 XX개
-        <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
+        <div>
+          기준 거래소
+          <select>
+            <option value="upbit">업비트</option>
+            <option value="bithumb">빗썸</option>
+          </select>
+          -
+          <select>
+            <option value="binance">바이낸스 USDT 마켓</option>
+          </select>
+          해외 거래소
+        </div>
+        <div>
+          암호화폐 총 {marketCodes.length}개
+          <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
+        </div>
       </CoinBoxNav>
       <CoinBoxHeader>
         <div>코인</div>
@@ -95,18 +100,18 @@ export const Table: React.FC = () => {
                   <div>
                     {
                       marketCodes.filter((code) => code.market === data.code)[0]
-                        .korean_name
+                        ?.korean_name
                     }
                   </div>
                   <div>
                     {
                       marketCodes.filter((code) => code.market === data.code)[0]
-                        .market
+                        ?.market
                     }
                   </div>
                 </CoinBoxName>
                 <CoinBoxPrice $changeType={data.change}>
-                  {data.trade_price.toLocaleString('ko-KR')}
+                  {data.trade_price?.toLocaleString('ko-KR')}
                 </CoinBoxPrice>
                 <CoinBoxKimchiPremium>
                   (국내코인원화 / 해외코인달러 x 환율 - 1)*100
@@ -117,7 +122,7 @@ export const Table: React.FC = () => {
                     {(data.signed_change_rate * 100).toFixed(2)}%
                   </CoinBoxChangeRate>
                   <CoinBoxChangePrice>
-                    {data.signed_change_price.toLocaleString('ko-KR')}
+                    {data.signed_change_price?.toLocaleString('ko-KR')}
                   </CoinBoxChangePrice>
                 </CoinBoxChange>
                 <CoinBoxHighestWeek>
@@ -131,7 +136,7 @@ export const Table: React.FC = () => {
                   </CoinBoxHighestWeekRate>
                   <CoinBoxHighestWeekPrice>
                     {data.highest_52_week_price
-                      ? data.highest_52_week_price.toLocaleString('ko-KR')
+                      ? data.highest_52_week_price?.toLocaleString('ko-KR')
                       : null}
                   </CoinBoxHighestWeekPrice>
                 </CoinBoxHighestWeek>
@@ -148,7 +153,7 @@ export const Table: React.FC = () => {
                   </CoinBoxLowestWeekRate>
                   <CoinBoxLowestWeekPrice>
                     {data.lowest_52_week_price
-                      ? data.lowest_52_week_price.toLocaleString('ko-KR')
+                      ? data.lowest_52_week_price?.toLocaleString('ko-KR')
                       : null}
                   </CoinBoxLowestWeekPrice>
                 </CoinBoxLowestWeek>
@@ -156,7 +161,7 @@ export const Table: React.FC = () => {
                   <div>
                     {Math.ceil(
                       convertMillonWon(data.acc_trade_price_24h),
-                    ).toLocaleString('ko-KR')}
+                    )?.toLocaleString('ko-KR')}
                   </div>
                   <div>백만</div>
                 </CoinBoxVolume>

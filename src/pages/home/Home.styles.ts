@@ -4,7 +4,7 @@ export const DisplayBoard = styled.main`
   width: 1250px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 300px 950px;
+  grid-template-rows: 320px 1fr;
   background-color: whitesmoke;
 
   font-family: Arial, Helvetica, sans-serif;
@@ -30,4 +30,12 @@ export const DisplayBoard = styled.main`
   }
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`;
+
+export const ChartsWrapper = styled.div`
+  background-color: whitesmoke;
+  padding: 5px;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr;
 `;
