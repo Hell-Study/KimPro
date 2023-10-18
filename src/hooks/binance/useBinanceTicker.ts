@@ -8,16 +8,13 @@ interface ITicker {
   Q: string; //  Last quantity
 }
 
-const useBinanceTicker = (url: string, limit: number) => {
+const useBinanceTicker = () => {
   const [tickers, setTickers] = useState<ITicker[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
+  const limit = 30;
 
   useEffect(() => {
-    const ws = new WebSocket(url);
-
-    ws.onopen = () => {
-      console.log('웹소켓 연결');
-    };
+    const ws = new WebSocket(SOCKET_URL);
 
     ws.onmessage = (e) => {
       try {
@@ -32,8 +29,7 @@ const useBinanceTicker = (url: string, limit: number) => {
     };
 
     ws.onerror = (err) => {
-      setError('웹소켓 에러');
-      console.log(err);
+      console.log('WebSocket Error', err);
     };
 
     return () => {
@@ -41,9 +37,9 @@ const useBinanceTicker = (url: string, limit: number) => {
         ws.close();
       }
     };
-  }, [url, limit]);
+  }, []);
 
-  return { tickers, error };
+  return { tickers };
 };
 
 export default useBinanceTicker;

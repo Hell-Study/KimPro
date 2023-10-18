@@ -1,28 +1,39 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { Table } from 'components/Table';
-import { useFetchMarketCode } from 'use-upbit-api';
+import { ChartRight } from 'components/ChartRight';
+import { ChartLeft } from 'components/ChartLeft';
 import { marketCodesState } from 'recoil/atoms/upbit';
-import { DisplayBoard } from './Home.styles';
-import { Test } from 'components/Test';
+import { DisplayBoard, ChartsWrapper } from './Home.styles';
+import Test from '../../components/Test';
+import styled from 'styled-components';
+import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
+
+interface FetchedMCData {
+  market: string;
+  korean_name: string;
+  english_name: string;
+}
 
 export const Home: React.FC = () => {
   const { isLoading, marketCodes: fetchedMC } = useFetchMarketCode();
   const [marketCodes, setMarketCodes] = useRecoilState(marketCodesState);
 
   useEffect(() => {
-    const MarketCodes_KRW = fetchedMC.filter((code) =>
+    const MarketCodes_KRW = fetchedMC.filter((code: FetchedMCData) =>
       code.market.includes('KRW'),
     );
     setMarketCodes(MarketCodes_KRW);
   }, [fetchedMC]);
 
   return (
-    <>
+    <DisplayBoard>
       <Test />
-      <DisplayBoard>
-        <Table />
-      </DisplayBoard>
-    </>
+      <ChartsWrapper>
+        <ChartLeft />
+        <ChartRight />
+      </ChartsWrapper>
+      <Table />
+    </DisplayBoard>
   );
 };

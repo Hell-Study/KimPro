@@ -20,7 +20,10 @@ export const CoinListBox = styled.div`
   overflow: overlay;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
-export const CoinBoxNav = styled.div``;
+export const CoinBoxNav = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const CoinBoxHeader = styled.div`
   position: -webkit-sticky;
   position: sticky;
