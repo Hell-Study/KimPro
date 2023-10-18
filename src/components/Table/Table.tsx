@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react';
+import * as style from './Table.styles';
 import useWsTicker from 'api/upbit/useWsTicker';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
-  marketCodesState,
+  baseExchangeState,
   selectedCoinInfoState,
   selectedCoinState,
-} from 'recoil/atoms/upbit';
-import * as style from './Table.styles';
-import { baseExchangeState } from 'recoil/atoms/common';
+} from 'recoil/atoms/common';
 import { convertMillonWon } from 'utils/convertMillonWon';
+import { UpbitMarketCodesType } from 'recoil/atoms/upbit';
+import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 
 export const Table: React.FC = () => {
-  const marketCodes = useRecoilValue(marketCodesState);
+  const [BaseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
+  const changeBaseExchange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setBaseExchange(e.target.value);
+  };
+
+  const { isLoading, marketCodes } = useFetchMarketCode();
+
   const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
   const { socketData } = useWsTicker(marketCodes);
 
@@ -30,7 +37,7 @@ export const Table: React.FC = () => {
 
   const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
     const currentTarget = marketCodes.filter(
-      (code) => code.market === evt.currentTarget.id,
+      (code: UpbitMarketCodesType) => code.market === evt.currentTarget.id,
     );
     setSelectedCoin(currentTarget);
   };
@@ -40,7 +47,7 @@ export const Table: React.FC = () => {
       <style.CoinBoxNav>
         <div>
           기준 거래소
-          <select>
+          <select onChange={changeBaseExchange}>
             <option value="upbit">업비트</option>
             <option value="bithumb">빗썸</option>
           </select>
@@ -76,14 +83,18 @@ export const Table: React.FC = () => {
                 <style.CoinBoxName>
                   <div>
                     {
-                      marketCodes.filter((code) => code.market === data.code)[0]
-                        ?.korean_name
+                      marketCodes.filter(
+                        (code: UpbitMarketCodesType) =>
+                          code.market === data.code,
+                      )[0]?.korean_name
                     }
                   </div>
                   <div>
                     {
-                      marketCodes.filter((code) => code.market === data.code)[0]
-                        ?.market
+                      marketCodes.filter(
+                        (code: UpbitMarketCodesType) =>
+                          code.market === data.code,
+                      )[0]?.market
                     }
                   </div>
                 </style.CoinBoxName>
