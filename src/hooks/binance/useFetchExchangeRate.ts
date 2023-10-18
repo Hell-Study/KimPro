@@ -5,7 +5,6 @@ interface IExchangeRate {
 }
 
 const useFetchExchangeRate = () => {
-  const [data, setData] = useState<IExchangeRate | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number>(0);
   const SSE_URL = process.env.REACT_APP_API_URL;
 
@@ -14,7 +13,6 @@ const useFetchExchangeRate = () => {
 
     eventSource.onmessage = (event) => {
       const json: IExchangeRate = JSON.parse(event.data);
-      setData(json);
 
       if (json.value) {
         const rate = parseFloat(json.value.toString().replace('.', ''));
