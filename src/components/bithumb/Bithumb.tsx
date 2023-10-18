@@ -1,7 +1,7 @@
-import { getMarketCode } from 'api/bithumb/getMarketCode';
 import { useEffect, useState } from 'react';
+import { getMarketCode } from 'api/bithumb/getMarketCode';
+import useBithumbTicker from 'hooks/bithumb/useBithumbTicker';
 import BithumbTable from './BithumbTable';
-import useBithumbTicker from 'api/bithumb/useBithumbTicker';
 
 export function Bithumb() {
   const [marketCodes, setMarketCodes] = useState<string[]>([]);

@@ -1,5 +1,5 @@
-import { ITicker } from 'api/bithumb/useBithumbTicker';
 import styled from 'styled-components';
+import { ITicker } from './Bithumb.type';
 
 interface Props {
   socketData: ITicker;
