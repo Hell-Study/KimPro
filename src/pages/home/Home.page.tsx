@@ -5,6 +5,7 @@ import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { marketCodesState } from 'recoil/atoms/upbit';
 import { DisplayBoard, ChartsWrapper } from './Home.styles';
+import Test from '../../components/Test';
 import styled from 'styled-components';
 import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 
@@ -27,6 +28,7 @@ export const Home: React.FC = () => {
 
   return (
     <DisplayBoard>
+      <Test />
       <ChartsWrapper>
         <ChartLeft />
         <ChartRight />
