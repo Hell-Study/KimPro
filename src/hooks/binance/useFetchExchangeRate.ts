@@ -15,7 +15,7 @@ const useFetchExchangeRate = () => {
       const json: IExchangeRate = JSON.parse(event.data);
 
       if (json.value) {
-        const rate = parseFloat(json.value.toString().replace('.', ''));
+        const rate = json.value;
         setExchangeRate(rate);
       }
     };
