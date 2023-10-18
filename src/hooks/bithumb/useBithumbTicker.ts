@@ -1,23 +1,5 @@
+import { ITicker } from 'components/bithumb/Bithumb.type';
 import { useEffect, useState } from 'react';
-
-export interface ITicker {
-  volumePower: string;
-  chgAmt: string;
-  chgRate: string;
-  prevClosePrice: string;
-  buyVolume: string;
-  sellVolume: string;
-  volume: string;
-  value: string;
-  highPrice: string;
-  lowPrice: string;
-  closePrice: string;
-  openPrice: string;
-  time: string;
-  date: string;
-  tickType: string;
-  symbol: string;
-}
 
 export default function useBithumbTicker(
   marketCodes: string[],
