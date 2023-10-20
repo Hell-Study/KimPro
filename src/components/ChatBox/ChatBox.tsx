@@ -12,14 +12,8 @@ import { MessageType } from 'components/Message/Message';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
-import {
-  StyledModal,
-  overlayStyles,
-  ChatBoxHeader,
-  MessagesWrapper,
-  ScrollToBottomButton,
-} from './ChatBox.styles';
-
+import * as styled from './ChatBox.styles';
+import { StyledModal } from './ChatBox.styles';
 // 닉네임 업데이트 함수
 const updateNickname = () => {
   const userChosenNickname = prompt('변경할 닉네임을 입력해주세요');
@@ -30,6 +24,13 @@ const updateNickname = () => {
       console.error('Error updating nickname:', error);
     }
   }
+};
+
+const overlayStyles = {
+  overlay: {
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
 };
 
 const ChatBox = () => {
@@ -119,20 +120,22 @@ const ChatBox = () => {
       onRequestClose={closeModal}
       style={overlayStyles}
     >
-      <ChatBoxHeader>
+      <styled.ChatBoxHeader>
         <div>CHAT</div>
         <div onClick={updateNickname} style={{ cursor: 'pointer' }}>
           {storedDisplayName}
         </div>
-      </ChatBoxHeader>
-      <MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
+      </styled.ChatBoxHeader>
+      <styled.MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
         {messages?.map((message) => (
           <Message key={message.id} message={message} />
         ))}
         <div ref={messagesEndRef} />
-      </MessagesWrapper>
+      </styled.MessagesWrapper>
       {!isAtBottom && (
-        <ScrollToBottomButton onClick={scrollToBottom}>🔻</ScrollToBottomButton>
+        <styled.ScrollToBottomButton onClick={scrollToBottom}>
+          🔻
+        </styled.ScrollToBottomButton>
       )}
       <SendMessage />
     </StyledModal>

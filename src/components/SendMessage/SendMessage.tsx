@@ -3,11 +3,7 @@ import { db } from '../../firebase/config';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import shortId from 'shortid';
 import getNickname from 'api/getNickname';
-import {
-  SendMessageForm,
-  SendMessageInput,
-  SendMessageButton,
-} from './SendMessage.styles';
+import * as styled from './SendMessage.styles';
 
 function generateRandomUID() {
   const randomString = shortId.generate();
@@ -57,16 +53,16 @@ const SendMessage = () => {
   }, []);
 
   return (
-    <SendMessageForm onSubmit={(event) => sendMessage(event)}>
-      <SendMessageInput
+    <styled.SendMessageForm onSubmit={(event) => sendMessage(event)}>
+      <styled.SendMessageInput
         name="messageInput"
         type="text"
         placeholder="메시지를 입력해주세요..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <SendMessageButton type="submit">전송</SendMessageButton>
-    </SendMessageForm>
+      <styled.SendMessageButton type="submit">전송</styled.SendMessageButton>
+    </styled.SendMessageForm>
   );
 };
 

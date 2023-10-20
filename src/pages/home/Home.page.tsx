@@ -5,7 +5,7 @@ import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
 import { marketCodesState } from 'recoil/atoms/upbit';
-import { DisplayBoard, ChartsWrapper, ChatButton } from './Home.styles';
+import * as styled from './Home.styles';
 import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 
@@ -33,15 +33,15 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <DisplayBoard>
-        <ChartsWrapper>
+      <styled.DisplayBoard>
+        <styled.ChartsWrapper>
           <ChartLeft />
           <ChartRight />
-        </ChartsWrapper>
+        </styled.ChartsWrapper>
         <Table />
         <ChatBox />
-      </DisplayBoard>
-      <ChatButton onClick={openModal}>CHAT</ChatButton>
+      </styled.DisplayBoard>
+      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
     </>
   );
 };

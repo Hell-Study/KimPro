@@ -13,13 +13,6 @@ export const StyledModal = styled(Modal)`
   height: 600px;
 `;
 
-export const overlayStyles = {
-  overlay: {
-    zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-  },
-};
-
 export const ChatBoxHeader = styled.div`
   position: fixed;
   top: 0px;

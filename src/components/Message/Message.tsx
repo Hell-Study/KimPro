@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { Timestamp } from 'firebase/firestore';
-import {
-  MessageRight,
-  MessageLeft,
-  UserMessage,
-  UserName,
-  ChatBubble,
-} from './Message.styles';
+import * as styled from './Message.styles';
 
 export type MessageType = {
   uid: string;
@@ -31,28 +25,28 @@ const Message: React.FC<MessageProps> = ({ message }) => {
   const isCurrentUser = message.uid === storedUid;
 
   return (
-    <ChatBubble style={isCurrentUser ? { marginLeft: 'auto' } : {}}>
+    <styled.ChatBubble style={isCurrentUser ? { marginLeft: 'auto' } : {}}>
       <div>
-        <UserName>
+        <styled.UserName>
           {message.name} {firstThreeChars}
-        </UserName>
+        </styled.UserName>
         {isCurrentUser ? (
-          <MessageRight>
+          <styled.MessageRight>
             <div>{formattedTime}</div>
-            <UserMessage style={{ marginLeft: '10px' }}>
+            <styled.UserMessage style={{ marginLeft: '10px' }}>
               {message.text}
-            </UserMessage>
-          </MessageRight>
+            </styled.UserMessage>
+          </styled.MessageRight>
         ) : (
-          <MessageLeft>
-            <UserMessage style={{ marginRight: '10px' }}>
+          <styled.MessageLeft>
+            <styled.UserMessage style={{ marginRight: '10px' }}>
               {message.text}
-            </UserMessage>
+            </styled.UserMessage>
             <div>{formattedTime}</div>
-          </MessageLeft>
+          </styled.MessageLeft>
         )}
       </div>
-    </ChatBubble>
+    </styled.ChatBubble>
   );
 };
 export default Message;
