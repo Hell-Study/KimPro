@@ -1,11 +1,11 @@
-import { ITicker } from 'components/bithumb/Bithumb.type';
+import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { useEffect, useState } from 'react';
 
 export default function useBithumbTicker(
   marketCodes: string[],
   tickTypes: string[],
 ) {
-  const [socketData, setSocketData] = useState<ITicker[]>([]);
+  const [socketData, setSocketData] = useState<IBithumbTicker[]>([]);
 
   useEffect(() => {
     if (marketCodes.length > 0) {

@@ -1,10 +1,5 @@
+import { IUpbitMarketCode } from 'api/upbit/useWsTicker';
 import { atom } from 'recoil';
-
-export type SelectedCoinType = {
-  market: string;
-  korean_name: string;
-  english_name: string;
-};
 
 export type SelectedCoinInfoType = {
   candle_date_time_kt: string;
@@ -20,7 +15,7 @@ export const baseExchangeState = atom<string>({
   default: 'upbit',
 });
 
-export const selectedCoinState = atom<SelectedCoinType[]>({
+export const selectedCoinState = atom<IUpbitMarketCode[]>({
   key: 'selectedCoinState',
   default: [
     {

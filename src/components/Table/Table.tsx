@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as style from './Table.styles';
-import useWsTicker from 'api/upbit/useWsTicker';
+import useWsTicker, { IUpbitMarketCode } from 'api/upbit/useWsTicker';
 import { useRecoilState } from 'recoil';
 import {
   baseExchangeState,
@@ -8,7 +8,6 @@ import {
   selectedCoinState,
 } from 'recoil/atoms/common';
 import { convertMillonWon } from 'utils/convertMillonWon';
-import { UpbitMarketCodesType } from 'recoil/atoms/upbit';
 import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 
 export const Table: React.FC = () => {
@@ -37,7 +36,7 @@ export const Table: React.FC = () => {
 
   const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
     const currentTarget = marketCodes.filter(
-      (code: UpbitMarketCodesType) => code.market === evt.currentTarget.id,
+      (code: IUpbitMarketCode) => code.market === evt.currentTarget.id,
     );
     setSelectedCoin(currentTarget);
   };
@@ -84,16 +83,14 @@ export const Table: React.FC = () => {
                   <div>
                     {
                       marketCodes.filter(
-                        (code: UpbitMarketCodesType) =>
-                          code.market === data.code,
+                        (code: IUpbitMarketCode) => code.market === data.code,
                       )[0]?.korean_name
                     }
                   </div>
                   <div>
                     {
                       marketCodes.filter(
-                        (code: UpbitMarketCodesType) =>
-                          code.market === data.code,
+                        (code: IUpbitMarketCode) => code.market === data.code,
                       )[0]?.market
                     }
                   </div>

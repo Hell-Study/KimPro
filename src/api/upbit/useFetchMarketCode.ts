@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { UpbitMarketCodesType } from 'recoil/atoms/upbit';
+import { IUpbitMarketCode } from './useWsTicker';
 
 function useFetchMarketCode(): {
   isLoading: boolean;
@@ -18,7 +18,7 @@ function useFetchMarketCode(): {
       }
       const json = await response.text(); // 텍스트 형식으로 추출
 
-      const result = JSON.parse(json).filter((code: UpbitMarketCodesType) =>
+      const result = JSON.parse(json).filter((code: IUpbitMarketCode) =>
         code.market.includes('KRW'),
       ); // 텍스트 데이터를 객체로 변환 후 원화만 필터링
       setMarketCodes(result);

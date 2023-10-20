@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { ITicker } from './Bithumb.type';
+import { IBithumbTicker } from './Bithumb.type';
 
 interface Props {
-  socketData: ITicker;
+  socketData: IBithumbTicker;
 }
 
 export default function BithumbTable({ socketData }: Props) {
