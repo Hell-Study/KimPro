@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  query,
-  collection,
-  orderBy,
-  onSnapshot,
-  limit,
-} from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { fetchMessages } from '../../firebase/fetchMessages';
 import { Message } from 'components/Message';
 import { MessageType } from 'components/Message/Message';
 import { SendMessage } from 'components/SendMessage';
@@ -83,34 +76,7 @@ const ChatBox = () => {
   }, [messages, isAtBottom]);
 
   useEffect(() => {
-    const q = query(
-      collection(db, 'messages'),
-      orderBy('createdAt', 'desc'),
-      limit(50),
-    );
-
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      const fetchedMessages: MessageType[] = [];
-
-      QuerySnapshot.forEach((doc) => {
-        const data: any = doc.data();
-
-        if (data.createdAt) {
-          const message: MessageType = {
-            ...data,
-            id: doc.id,
-          };
-          fetchedMessages.push(message);
-        } else {
-          console.warn('Skipping message without createdAt:', data);
-        }
-      });
-
-      const sortedMessages = fetchedMessages.sort(
-        (a, b) => a.createdAt.toMillis() - b.createdAt.toMillis(),
-      );
-      setMessages(sortedMessages);
-    });
+    const unsubscribe = fetchMessages(setMessages);
     return () => unsubscribe();
   }, []);
 
