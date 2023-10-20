@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { getMarketCode } from 'api/bithumb/getMarketCode';
+import { getBithumbMarketCode } from 'api/bithumb/getMarketCode';
 import useBithumbTicker from 'hooks/bithumb/useBithumbTicker';
 import BithumbTable from './BithumbTable';
 
 export function Bithumb() {
   const [marketCodes, setMarketCodes] = useState<string[]>([]);
   useEffect(() => {
-    getMarketCode().then((res) => {
+    getBithumbMarketCode().then((res) => {
       setMarketCodes(res);
     });
   }, []);
 
-  const socketDatas = useBithumbTicker(marketCodes, ['MID', '24H']);
+  const socketDatas = useBithumbTicker(marketCodes);
 
   return (
     <>
