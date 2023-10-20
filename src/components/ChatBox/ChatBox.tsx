@@ -10,33 +10,26 @@ import { db } from '../../firebase/config';
 import { Message } from 'components/Message';
 import { MessageType } from 'components/Message/Message';
 import { SendMessage } from 'components/SendMessage';
-import Modal from 'react-modal';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
-import styled from 'styled-components';
 import {
+  StyledModal,
+  overlayStyles,
   ChatBoxHeader,
   MessagesWrapper,
   ScrollToBottomButton,
 } from './ChatBox.styles';
 
-const StyledModal = styled(Modal)`
-  position: fixed;
-  top: 55%;
-  right: 0;
-  transform: translateY(-50%);
-  margin-right: 10px;
-  border-radius: 20px;
-  background-color: #1c2c4c;
-  width: 400px;
-  height: 600px;
-`;
-
-const overlayStyles = {
-  overlay: {
-    zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-  },
+// 닉네임 업데이트 함수
+const updateNickname = () => {
+  const userChosenNickname = prompt('변경할 닉네임을 입력해주세요');
+  if (userChosenNickname) {
+    try {
+      localStorage.setItem('displayName', userChosenNickname);
+    } catch (error) {
+      console.error('Error updating nickname:', error);
+    }
+  }
 };
 
 const ChatBox = () => {
@@ -128,8 +121,9 @@ const ChatBox = () => {
     >
       <ChatBoxHeader>
         <div>CHAT</div>
-        <div>{storedDisplayName}</div>
-        <div>설정</div>
+        <div onClick={updateNickname} style={{ cursor: 'pointer' }}>
+          {storedDisplayName}
+        </div>
       </ChatBoxHeader>
       <MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
         {messages?.map((message) => (

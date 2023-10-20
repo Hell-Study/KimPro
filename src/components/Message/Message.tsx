@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { Timestamp } from 'firebase/firestore';
-import { MessageRight, MessageLeft } from './Message.styles';
+import {
+  MessageRight,
+  MessageLeft,
+  UserMessage,
+  UserName,
+  ChatBubble,
+} from './Message.styles';
 
 export type MessageType = {
   uid: string;
@@ -25,28 +31,28 @@ const Message: React.FC<MessageProps> = ({ message }) => {
   const isCurrentUser = message.uid === storedUid;
 
   return (
-    <div className={`chat-bubble ${isCurrentUser ? 'right' : ''}`}>
-      <div className="chat-bubble__right">
-        <p className="user-name">
+    <ChatBubble style={isCurrentUser ? { marginLeft: 'auto' } : {}}>
+      <div>
+        <UserName>
           {message.name} {firstThreeChars}
-        </p>
+        </UserName>
         {isCurrentUser ? (
           <MessageRight>
             <div>{formattedTime}</div>
-            <div className="user-message" style={{ marginLeft: '10px' }}>
+            <UserMessage style={{ marginLeft: '10px' }}>
               {message.text}
-            </div>
+            </UserMessage>
           </MessageRight>
         ) : (
           <MessageLeft>
-            <div className="user-message" style={{ marginRight: '10px' }}>
+            <UserMessage style={{ marginRight: '10px' }}>
               {message.text}
-            </div>
+            </UserMessage>
             <div>{formattedTime}</div>
           </MessageLeft>
         )}
       </div>
-    </div>
+    </ChatBubble>
   );
 };
 export default Message;

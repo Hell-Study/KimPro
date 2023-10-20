@@ -1,4 +1,24 @@
 import styled from 'styled-components';
+import Modal from 'react-modal';
+
+export const StyledModal = styled(Modal)`
+  position: fixed;
+  top: 55%;
+  right: 0;
+  transform: translateY(-50%);
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: #1c2c4c;
+  width: 400px;
+  height: 600px;
+`;
+
+export const overlayStyles = {
+  overlay: {
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
+};
 
 export const ChatBoxHeader = styled.div`
   position: fixed;

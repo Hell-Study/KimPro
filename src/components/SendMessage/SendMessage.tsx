@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import shortId from 'shortid';
+import getNickname from 'api/getNickname';
+import {
+  SendMessageForm,
+  SendMessageInput,
+  SendMessageButton,
+} from './SendMessage.styles';
 
-// 랜덤 uid 생성 함수
 function generateRandomUID() {
-  // 임의의 숫자를 생성하고 문자열로 변환
-  const randomString = Math.random().toString(36).substr(2, 10);
+  const randomString = shortId.generate();
   const uppercaseString = randomString.replace(/[a-z]/g, (char) =>
     char.toUpperCase(),
   );
   return uppercaseString;
 }
-
-// 랜덤 displayName 생성 함수
-function generateRandomDisplayName() {
-  const adjectives = ['Happy', 'Sad', 'Angry', 'Excited', 'Calm', 'Funny'];
-  const nouns = ['Penguin', 'Unicorn', 'Kangaroo', 'Elephant', 'Dolphin'];
-  const randomAdjective =
-    adjectives[Math.floor(Math.random() * adjectives.length)];
-  const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-  return `${randomAdjective}${randomNoun}`;
-}
-
-// uid와 displayName을 로컬 스토리지에 저장
-function saveUserInfoToLocalStorage() {
+async function saveUserInfoToLocalStorage() {
   const uid = generateRandomUID();
-  const displayName = generateRandomDisplayName();
+  const displayName = await getNickname();
   localStorage.setItem('uid', uid);
   localStorage.setItem('displayName', displayName);
 }
-
-// 로컬 스토리지에서 uid와 displayName을 가져오는 함수
 function getUserInfoFromLocalStorage() {
   const uid = localStorage.getItem('uid');
   const displayName = localStorage.getItem('displayName');
@@ -43,7 +34,7 @@ const SendMessage = () => {
   const sendMessage = async (event: any) => {
     event.preventDefault();
     if (message.trim() === '') {
-      alert('Enter valid message');
+      alert('메시지를 입력해주세요');
       return;
     }
     const { uid, displayName } = getUserInfoFromLocalStorage();
@@ -58,31 +49,24 @@ const SendMessage = () => {
   };
 
   useEffect(() => {
-    // 페이지 로드 시 사용자 정보를 로컬 스토리지에 저장
     const storedUid = localStorage.getItem('uid');
     const storedDisplayName = localStorage.getItem('displayName');
-
     if (!storedUid || !storedDisplayName) {
       saveUserInfoToLocalStorage();
     }
   }, []);
 
   return (
-    <form onSubmit={(event) => sendMessage(event)} className="send-message">
-      <label htmlFor="messageInput" hidden>
-        Enter Message
-      </label>
-      <input
-        id="messageInput"
+    <SendMessageForm onSubmit={(event) => sendMessage(event)}>
+      <SendMessageInput
         name="messageInput"
         type="text"
-        className="form-input__input"
-        placeholder="type message..."
+        placeholder="메시지를 입력해주세요..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
-    </form>
+      <SendMessageButton type="submit">전송</SendMessageButton>
+    </SendMessageForm>
   );
 };
 
