@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectState } from '../../recoil/atoms/selectState';
+import { TRADING_VIEW_SYMBOLS } from './ChartLeft.constant';
 
 declare global {
   interface Window {
@@ -59,17 +60,26 @@ export default function TradingViewWidget() {
         });
       }
     }
-    function getTradingViewSymbol(selected: string) {
-      switch (selected) {
-        case 'upbit':
-          return '(BINANCE:BTCUSD/BINANCE:BTCUSD*UPBIT:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
-        case 'bithumb':
-          return '(BINANCE:BTCUSD/BINANCE:BTCUSD*BITHUMB:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
-        case 'binance':
-        default:
-          return 'BTCUSDT';
+
+    function getTradingViewSymbol(exchange: string) {
+      if (exchange in TRADING_VIEW_SYMBOLS) {
+        return TRADING_VIEW_SYMBOLS[
+          exchange as keyof typeof TRADING_VIEW_SYMBOLS
+        ];
       }
+      return TRADING_VIEW_SYMBOLS.BINANCE;
     }
+    // function getTradingViewSymbol(selected: string) {
+    //   switch (selected) {
+    //     case 'upbit':
+    //       return '(BINANCE:BTCUSD/BINANCE:BTCUSD*UPBIT:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
+    //     case 'bithumb':
+    //       return '(BINANCE:BTCUSD/BINANCE:BTCUSD*BITHUMB:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
+    //     case 'binance':
+    //     default:
+    //       return 'BTCUSDT';
+    //   }
+    // }
   }, [selectedOption]);
 
   return (

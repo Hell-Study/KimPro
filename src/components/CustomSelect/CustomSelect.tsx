@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectState } from '../../recoil/atoms/selectState';
+import { useDropdown } from '../../hooks/useDropdown';
 import {
   SelectBox,
   Label,
@@ -22,9 +23,8 @@ interface CustomSelectProps {
 export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
   const [selectedOption, setSelectedOption] = useRecoilState(selectState);
   const [currentValue, setCurrentValue] = useState(optionData[0].value);
-  const [showOptions, setShowOptions] = useState(false);
+  const { ref, isOpen, setIsOpen } = useDropdown();
 
-  const selectBoxRef = useRef<HTMLDivElement>(null);
   const handleOnChangeSelectValue = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
     const targetValue = e.currentTarget.getAttribute('value') || '';
@@ -33,28 +33,11 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
       optionData.find((opt) => opt.value === targetValue)?.key ||
       optionData[0].key;
     setSelectedOption(selectedKey);
-    setShowOptions(false);
+    setIsOpen(false);
   };
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        selectBoxRef.current &&
-        !selectBoxRef.current.contains(e.target as Node)
-      ) {
-        setShowOptions(false);
-      }
-    };
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, []);
 
   return (
-    <SelectBox
-      ref={selectBoxRef}
-      onClick={() => setShowOptions((prev) => !prev)}
-    >
+    <SelectBox ref={ref} onClick={() => setIsOpen((prev: boolean) => !prev)}>
       <Label>
         <img
           src={optionData.find((opt) => opt.value === currentValue)?.symbol}
@@ -65,7 +48,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
         {currentValue}
       </Label>
       <DropdownIcon />
-      <SelectOptions $show={showOptions}>
+      <SelectOptions $show={isOpen}>
         {optionData.map((data) => (
           <Option
             key={data.key}
