@@ -12,6 +12,7 @@ import {
   CoinBoxHeader,
   CoinBox,
   CoinBoxName,
+  CoinBoxNameMarket,
   CoinBoxPrice,
   CoinBoxKimchiPremium,
   CoinBoxChange,
@@ -97,25 +98,38 @@ export const Table: React.FC = () => {
                 $selected={selectedCoin[0].market === data.code}
               >
                 <CoinBoxName>
-                  <div>
-                    {
-                      marketCodes.filter((code) => code.market === data.code)[0]
-                        ?.korean_name
-                    }
+                  <div style={{ display: 'flex', flexDirection: 'row' }}>
+                    <img
+                      alt={`${data.code?.split('-')[1]} 아이콘`}
+                      width="15"
+                      height="15"
+                      decoding="async"
+                      data-nimg="1"
+                      className="rounded-full"
+                      src={`https://static.upbit.com/logos/${data.code?.split(
+                        '-',
+                      )[1]}.png`}
+                    />
+                    <div>
+                      {
+                        marketCodes.filter(
+                          (code) => code.market === data.code,
+                        )[0]?.korean_name
+                      }
+                    </div>
                   </div>
-                  <div>
+                  <CoinBoxNameMarket>
                     {
-                      marketCodes.filter((code) => code.market === data.code)[0]
-                        ?.market
+                      marketCodes
+                        .filter((code) => code.market === data.code)[0]
+                        ?.market?.split('-')[1]
                     }
-                  </div>
+                  </CoinBoxNameMarket>
                 </CoinBoxName>
                 <CoinBoxPrice $changeType={data.change}>
                   {data.trade_price?.toLocaleString('ko-KR')}
                 </CoinBoxPrice>
-                <CoinBoxKimchiPremium>
-                  (국내코인원화 / 해외코인달러 x 환율 - 1)*100
-                </CoinBoxKimchiPremium>
+                <CoinBoxKimchiPremium>aa</CoinBoxKimchiPremium>
                 <CoinBoxChange $changeType={data.change}>
                   <CoinBoxChangeRate>
                     {data.signed_change_rate > 0 ? '+' : null}
