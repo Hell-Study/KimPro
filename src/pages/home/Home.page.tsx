@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { Header } from 'components/common/Header';
 import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
@@ -33,6 +34,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
+      <Header />
       <styled.DisplayBoard>
         <styled.ChartsWrapper>
           <ChartLeft />
