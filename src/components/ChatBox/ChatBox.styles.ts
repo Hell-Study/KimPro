@@ -25,6 +25,19 @@ export const ChatBoxHeader = styled.div`
   color: white;
 `;
 
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+export const Button = styled.button`
+  border-radius: 10px;
+  padding: 5px 10px;
+`;
+
 export const MessagesWrapper = styled.div`
   padding: 60px 20px 50px;
   max-height: 560px; /* 600 - 40 */

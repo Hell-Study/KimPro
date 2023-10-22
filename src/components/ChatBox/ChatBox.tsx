@@ -38,7 +38,18 @@ const ChatBox = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const messagesWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
+  const [lastMessage, setLastMessage] = useState<MessageType | null>(null);
 
+  const loadPreviousMessages = () => {
+    if (messages.length > 0) {
+      const newLastMessage = messages[0]; // 가장 오래된 메시지
+      fetchMessages(
+        (newMessages) => setMessages([...newMessages, ...messages]),
+        newLastMessage,
+      );
+      setLastMessage(newLastMessage);
+    }
+  };
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView();
@@ -92,7 +103,13 @@ const ChatBox = () => {
           {storedDisplayName}
         </div>
       </styled.ChatBoxHeader>
+
       <styled.MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
+        <styled.ButtonWrapper>
+          <styled.Button onClick={loadPreviousMessages}>
+            이전 채팅 불러오기
+          </styled.Button>
+        </styled.ButtonWrapper>
         {messages?.map((message) => (
           <Message key={message.id} message={message} />
         ))}
