@@ -10,6 +10,7 @@ interface ITicker {
   highest_52_week_price: number;
   lowest_52_week_price: number;
   acc_trade_price_24h: number;
+  acc_trade_volume_24h: number;
 }
 
 interface ImarketCodes {

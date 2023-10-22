@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { marketCodesState } from 'recoil/atoms/upbit';
 import { Header } from 'components/common/Header';
 import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
-import { marketCodesState } from 'recoil/atoms/upbit';
 import * as styled from './Home.styles';
 import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
