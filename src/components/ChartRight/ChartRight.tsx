@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';

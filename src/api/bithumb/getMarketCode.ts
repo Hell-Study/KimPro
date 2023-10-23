@@ -1,6 +1,6 @@
 const options = { method: 'GET', headers: { accept: 'application/json' } };
 
-export const getMarketCode = async (): Promise<string[]> => {
+export const getBithumbMarketCode = async (): Promise<string[]> => {
   const marketCode = Object.keys(
     (
       await (

@@ -1,12 +1,21 @@
 import { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import { atom } from 'recoil';
 
-export const upbitMarketCodesState = atom<IUpbitMarketCode[]>({
-  key: 'upbitMarketCodesState',
-  default: [],
+export type SelectedCoinInfoType = {
+  candle_date_time_kt: string;
+  opening_price: number;
+  high_price: number;
+  low_price: number;
+  trade_price: number;
+  trade_date: string;
+};
+
+export const baseExchangeState = atom<string>({
+  key: 'baseExchangeState',
+  default: 'upbit',
 });
 
-export const selectedCoinState = atom<SelectedCoinType[]>({
+export const selectedCoinState = atom<IUpbitMarketCode[]>({
   key: 'selectedCoinState',
   default: [
     {
@@ -20,9 +29,4 @@ export const selectedCoinState = atom<SelectedCoinType[]>({
 export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
-});
-
-export const modalIsOpenState = atom({
-  key: 'modalIsOpenState',
-  default: true,
 });
