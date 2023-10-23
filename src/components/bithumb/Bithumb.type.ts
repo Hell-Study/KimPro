@@ -1,4 +1,4 @@
-export interface ITicker {
+export interface IBithumbTicker {
   volumePower: string;
   chgAmt: string;
   chgRate: string;
