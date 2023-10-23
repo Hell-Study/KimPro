@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { selectState } from '../../recoil/atoms/selectState';
 import { useDropdown } from '../../hooks/useDropdown';
-import {
-  SelectBox,
-  Label,
-  SelectOptions,
-  Option,
-  DropdownIcon,
-  Check,
-} from './CustomSelect.styles';
+import * as Style from './CustomSelect.styles';
 
 interface IOptionData {
   key: string;
@@ -37,8 +30,11 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
   };
 
   return (
-    <SelectBox ref={ref} onClick={() => setIsOpen((prev: boolean) => !prev)}>
-      <Label>
+    <Style.SelectBox
+      ref={ref}
+      onClick={() => setIsOpen((prev: boolean) => !prev)}
+    >
+      <Style.Label>
         <img
           src={optionData.find((opt) => opt.value === currentValue)?.symbol}
           alt={currentValue}
@@ -46,21 +42,21 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
           height="20"
         />
         {currentValue}
-      </Label>
-      <DropdownIcon />
-      <SelectOptions $show={isOpen}>
+      </Style.Label>
+      <Style.DropdownIcon />
+      <Style.SelectOptions $show={isOpen}>
         {optionData.map((data) => (
-          <Option
+          <Style.Option
             key={data.key}
             value={data.value}
             onClick={handleOnChangeSelectValue}
           >
             <img src={data.symbol} alt={data.value} width="20" height="20" />
             {data.value}
-            <Check $isChecked={data.value === currentValue ? 1 : 0} />
-          </Option>
+            <Style.Check $isChecked={data.value === currentValue ? 1 : 0} />
+          </Style.Option>
         ))}
-      </SelectOptions>
-    </SelectBox>
+      </Style.SelectOptions>
+    </Style.SelectBox>
   );
 };
