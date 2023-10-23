@@ -1,45 +1,19 @@
-import React, { useEffect } from 'react';
 import * as style from './Table.styles';
-import useWsTicker, { IUpbitMarketCode } from 'api/upbit/useWsTicker';
-import { useRecoilState } from 'recoil';
-import {
-  baseExchangeState,
-  selectedCoinInfoState,
-  selectedCoinState,
-} from 'recoil/atoms/common';
-import { convertMillonWon } from 'utils/convertMillonWon';
-import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { baseExchangeState } from 'recoil/atoms/common';
+import UpbitTable from './UpbitTable';
+import { Bithumb } from 'components/bithumb';
+import { upbitMarketCodesState } from 'recoil/atoms/upbit';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
 
 export const Table: React.FC = () => {
-  const [BaseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
+  const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
   const changeBaseExchange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBaseExchange(e.target.value);
   };
 
-  const { isLoading, marketCodes } = useFetchMarketCode();
-
-  const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
-  const { socketData } = useWsTicker(marketCodes);
-
-  const [selectedCoinInfo, setSelectedCoinInfo] = useRecoilState(
-    selectedCoinInfoState,
-  );
-
-  useEffect(() => {
-    if (socketData) {
-      const targetData = socketData.filter(
-        (data) => data.code == selectedCoin[0].market,
-      );
-      setSelectedCoinInfo([...targetData]);
-    }
-  }, [selectedCoin, socketData]);
-
-  const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
-    const currentTarget = marketCodes.filter(
-      (code: IUpbitMarketCode) => code.market === evt.currentTarget.id,
-    );
-    setSelectedCoin(currentTarget);
-  };
+  const upbitMarketCodes = useRecoilValue(upbitMarketCodesState);
+  const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
 
   return (
     <style.CoinListBox>
@@ -57,7 +31,11 @@ export const Table: React.FC = () => {
           해외 거래소
         </div>
         <div>
-          암호화폐 총 {marketCodes.length}개
+          암호화폐 총{' '}
+          {baseExchange === 'upbit'
+            ? upbitMarketCodes.length
+            : bithumbMarketCodes.length}
+          개
           <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
         </div>
       </style.CoinBoxNav>
@@ -66,94 +44,11 @@ export const Table: React.FC = () => {
         <div>현재가</div>
         <div>김프</div>
         <div>전일대비</div>
-        <div>고가대비(52주)</div>
-        <div>저가대비(52주)</div>
+        <div>고가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
+        <div>저가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
         <div>거래대금</div>
       </style.CoinBoxHeader>
-      {socketData
-        ? socketData.map((data) => {
-            return (
-              <style.CoinBox
-                key={data.code}
-                id={data.code}
-                onClick={clickCoinHandler}
-                $selected={selectedCoin[0].market === data.code}
-              >
-                <style.CoinBoxName>
-                  <div>
-                    {
-                      marketCodes.filter(
-                        (code: IUpbitMarketCode) => code.market === data.code,
-                      )[0]?.korean_name
-                    }
-                  </div>
-                  <div>
-                    {
-                      marketCodes.filter(
-                        (code: IUpbitMarketCode) => code.market === data.code,
-                      )[0]?.market
-                    }
-                  </div>
-                </style.CoinBoxName>
-                <style.CoinBoxPrice $changeType={data.change}>
-                  {data.trade_price?.toLocaleString('ko-KR')}
-                </style.CoinBoxPrice>
-                <style.CoinBoxKimchiPremium>
-                  (국내코인원화 / 해외코인달러 x 환율 - 1)*100
-                </style.CoinBoxKimchiPremium>
-                <style.CoinBoxChange $changeType={data.change}>
-                  <style.CoinBoxChangeRate>
-                    {data.signed_change_rate > 0 ? '+' : null}
-                    {(data.signed_change_rate * 100).toFixed(2)}%
-                  </style.CoinBoxChangeRate>
-                  <style.CoinBoxChangePrice>
-                    {data.signed_change_price?.toLocaleString('ko-KR')}
-                  </style.CoinBoxChangePrice>
-                </style.CoinBoxChange>
-                <style.CoinBoxHighestWeek>
-                  <style.CoinBoxHighestWeekRate>
-                    {data.highest_52_week_price
-                      ? (
-                          (data.trade_price / data.highest_52_week_price - 1) *
-                          100
-                        ).toFixed(2) + '%'
-                      : null}
-                  </style.CoinBoxHighestWeekRate>
-                  <style.CoinBoxHighestWeekPrice>
-                    {data.highest_52_week_price
-                      ? data.highest_52_week_price?.toLocaleString('ko-KR')
-                      : null}
-                  </style.CoinBoxHighestWeekPrice>
-                </style.CoinBoxHighestWeek>
-                <style.CoinBoxLowestWeek>
-                  <style.CoinBoxLowestWeekRate>
-                    {data.lowest_52_week_price
-                      ? '+' +
-                        (
-                          (data.trade_price / data.lowest_52_week_price - 1) *
-                          100
-                        ).toFixed(2) +
-                        '%'
-                      : null}
-                  </style.CoinBoxLowestWeekRate>
-                  <style.CoinBoxLowestWeekPrice>
-                    {data.lowest_52_week_price
-                      ? data.lowest_52_week_price?.toLocaleString('ko-KR')
-                      : null}
-                  </style.CoinBoxLowestWeekPrice>
-                </style.CoinBoxLowestWeek>
-                <style.CoinBoxVolume>
-                  <div>
-                    {Math.ceil(
-                      convertMillonWon(data.acc_trade_price_24h),
-                    )?.toLocaleString('ko-KR')}
-                  </div>
-                  <div>백만</div>
-                </style.CoinBoxVolume>
-              </style.CoinBox>
-            );
-          })
-        : null}
+      {baseExchange === 'upbit' ? <UpbitTable /> : <Bithumb />}
     </style.CoinListBox>
   );
 };

@@ -28,7 +28,7 @@ const createWebSocketRequest = (
   return JSON.stringify(request);
 };
 
-function useWsTicker(marketCodes: IUpbitMarketCode[]) {
+function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const SOCKET_URL = 'wss://api.upbit.com/websocket/v1';
   const socket = useRef<WebSocket | null>(null);
   const [list, setList] = useState<IUpbitTicker[]>([]);
@@ -77,7 +77,7 @@ function useWsTicker(marketCodes: IUpbitMarketCode[]) {
     socket.current.onmessage = socketMessageHandler;
   }, [marketCodes]);
 
-  return { socketData: list };
+  return { socketDatas: list };
 }
 
-export default useWsTicker;
+export default useUpbitTicker;

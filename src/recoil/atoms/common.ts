@@ -1,4 +1,4 @@
-import { IUpbitMarketCode } from 'api/upbit/useWsTicker';
+import { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import { atom } from 'recoil';
 
 export type SelectedCoinInfoType = {

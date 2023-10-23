@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { IUpbitMarketCode } from './useWsTicker';
+import { IUpbitMarketCode } from './useUpbitTicker';
 
-function useFetchMarketCode(): {
+function useFetchUpbitMarketCode(): {
   isLoading: boolean;
-  marketCodes: any;
+  marketCodes: IUpbitMarketCode[];
 } {
   const REST_API_URL = 'https://api.upbit.com/v1/market/all?isDetails=false';
 
@@ -36,4 +36,4 @@ function useFetchMarketCode(): {
   return { isLoading, marketCodes };
 }
 
-export default useFetchMarketCode;
+export default useFetchUpbitMarketCode;
