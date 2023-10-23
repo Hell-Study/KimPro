@@ -6,6 +6,8 @@ export type GlobalCoinType = {
   total_mcap: number;
   total_volume: number;
   btc_d: number;
+  mcap_change: number;
+  volume_change: number;
 };
 
 export const globalCoinState = atom<GlobalCoinType[]>({
