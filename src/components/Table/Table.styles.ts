@@ -4,10 +4,6 @@ interface CoinBoxProps {
   $selected: boolean;
 }
 
-interface CoinBoxPriceProps {
-  $changeType: string;
-}
-
 interface CoinBoxChangeProps {
   $changeType: string;
 }
@@ -32,9 +28,9 @@ export const CoinBoxHeader = styled.div`
   opacity: 0.8;
   height: 35px;
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-bottom: 0.5px solid lightgrey;
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: 600;
   div {
     display: flex;
@@ -46,9 +42,9 @@ export const CoinBoxHeader = styled.div`
 export const CoinBox = styled.div<CoinBoxProps>`
   height: 45px;
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-bottom: 0.5px solid lightgrey;
-  font-size: 12px;
+  font-size: 0.9rem;
   padding-left: 5px;
   padding-right: 5px;
   cursor: pointer;
@@ -65,25 +61,28 @@ export const CoinBox = styled.div<CoinBoxProps>`
     align-items: flex-start;
   }
   div:nth-child(2) {
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(3) {
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
   }
   div:nth-child(4) {
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(5) {
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(6) {
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(7) {
     justify-content: flex-end;
@@ -93,33 +92,43 @@ export const CoinBox = styled.div<CoinBoxProps>`
 
 export const CoinBoxName = styled.div`
   font-weight: 600;
-  font-size: 11px;
+  font-size: 0.9rem;
+`;
 
-  div:nth-child(2) {
-    color: gray;
-    font-weight: 400;
-    font-size: 7px;
+export const CoinBoxNameKorean = styled.div`
+  display: flex;
+  flex-direction: row !important;
+  align-items: center !important;
+  > img {
+    margin-right: 3px;
   }
 `;
 
-export const CoinBoxPrice = styled.div<CoinBoxPriceProps>`
-  font-weight: 600;
-  color: ${(props) => {
-    switch (props.$changeType) {
-      case 'RISE':
-        return '#EF1C1C';
-      case 'EVEN':
-        return '#000000';
-      case 'FALL':
-        return '#1261C4';
-      default:
-        return '#000000';
-    }
-  }};
+export const CoinBoxNameMarket = styled.div`
+  color: gray;
+  font-size: 0.8rem;
 `;
+
+export const CoinBoxPrice = styled.div`
+  font-weight: 600;
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: #4c769d;
+  }
+`;
+export const CoinBoxPriceKorean = styled.div``;
+export const CoinBoxPriceBinance = styled.div``;
 export const CoinBoxKimchiPremium = styled.div``;
 
 export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
+  font-weight: bold;
+
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: #4c769d;
+  }
   color: ${(props) => {
     switch (props.$changeType) {
       case 'RISE':
@@ -136,20 +145,34 @@ export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
 export const CoinBoxChangeRate = styled.div``;
 export const CoinBoxChangePrice = styled.div``;
 
-export const CoinBoxHighestWeek = styled.div``;
+export const CoinBoxHighestWeek = styled.div`
+  font-weight: bold;
+
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
+`;
 export const CoinBoxHighestWeekRate = styled.div`
   color: #1261c4;
 `;
 export const CoinBoxHighestWeekPrice = styled.div``;
 
-export const CoinBoxLowestWeek = styled.div``;
+export const CoinBoxLowestWeek = styled.div`
+  font-weight: bold;
+
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
+`;
 export const CoinBoxLowestWeekRate = styled.div`
   color: #ef1c1c;
 `;
 export const CoinBoxLowestWeekPrice = styled.div``;
 
 export const CoinBoxVolume = styled.div`
-  font-size: 11px;
+  font-size: 0.9rem;
   div:nth-child(2) {
     color: grey;
   }
