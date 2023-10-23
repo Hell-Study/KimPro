@@ -41,3 +41,8 @@ export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
 });
+
+export const modalIsOpenState = atom({
+  key: 'modalIsOpenState',
+  default: true,
+});
