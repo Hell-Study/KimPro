@@ -4,8 +4,8 @@ import useBithumbTicker from 'hooks/bithumb/useBithumbTicker';
 import BithumbTable from '../Table/BithumbTable';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
-import { coingeckoCoinsListState } from 'recoil/atoms/coingecko';
-import { getCoingeckoCoinList } from 'api/coingecko/getCoingeckoCoinList';
+import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
+import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 
 export function Bithumb() {
   const [bithumbMarketCodes, setBithumbMarketCodes] = useRecoilState(
@@ -20,11 +20,10 @@ export function Bithumb() {
 
   const socketDatas = useBithumbTicker(bithumbMarketCodes);
 
-  const setCoingeckoCoinsList = useSetRecoilState(coingeckoCoinsListState);
-
+  const setCoingeckoData = useSetRecoilState(coingeckoCoinDataState);
   useEffect(() => {
-    getCoingeckoCoinList().then((res) => {
-      setCoingeckoCoinsList(res);
+    getCoingeckoData().then((res) => {
+      setCoingeckoData(res.coins);
     });
   }, []);
 

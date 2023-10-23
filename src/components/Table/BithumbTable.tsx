@@ -4,8 +4,8 @@ import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import {
-  ICoingeckoCoin,
-  coingeckoCoinsListState,
+  ICoingeckoCoinData,
+  coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
 
 interface Props {
@@ -45,12 +45,15 @@ export default function BithumbTable({ socketData }: Props) {
   };
 
   const [englishName, setEnglishName] = useState('');
-  const coingeckoCoinsList = useRecoilValue(coingeckoCoinsListState);
+  const [thumb, setThumb] = useState('');
+
+  const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
-    const target = coingeckoCoinsList.filter((coin: ICoingeckoCoin) => {
-      return coin.symbol == symbol.replace('_KRW', '').toLowerCase();
+    const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
+      return coin.symbol == symbol.replace('_KRW', '');
     });
     setEnglishName(target[0].name);
+    setThumb(target[0].thumb);
   }, []);
 
   return (
@@ -63,6 +66,7 @@ export default function BithumbTable({ socketData }: Props) {
         $selected={false}
       >
         <style.CoinBoxName>
+          <img src={thumb} />
           <div>{englishName}</div>
           <div>{simpleSymbol}</div>
         </style.CoinBoxName>
