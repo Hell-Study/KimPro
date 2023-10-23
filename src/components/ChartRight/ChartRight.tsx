@@ -1,27 +1,7 @@
 import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
-import { ChartContainer } from './ChartRight.styles';
+import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
-
-// interface CandleData {
-//   time: string;
-//   open: number;
-//   high: number;
-//   low: number;
-//   close: number;
-// }
-
-// interface UpdatedCandleData {
-//   time: {
-//     day: string;
-//     month: string;
-//     year: string;
-//   } | null;
-//   open: number;
-//   high: number;
-//   low: number;
-//   close: number;
-// }
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
@@ -90,9 +70,9 @@ function ChartRight() {
   }, [updatedCandle]);
 
   return (
-    <ChartContainer>
+    <styled.ChartContainer>
       <div ref={chartContainerRef}></div>
-    </ChartContainer>
+    </styled.ChartContainer>
   );
 }
 
