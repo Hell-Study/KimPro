@@ -1,7 +1,7 @@
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { useEffect, useState } from 'react';
 
-export default function useBithumbTicker(marketCodes: string[]) {
+export default function useBithumbWsTicker(marketCodes: string[]) {
   const [socketData, setSocketData] = useState<IBithumbTicker[]>([]);
 
   useEffect(() => {

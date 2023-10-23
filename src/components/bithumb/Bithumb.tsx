@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getBithumbMarketCode } from 'api/bithumb/getMarketCode';
-import useBithumbTicker from 'hooks/bithumb/useBithumbTicker';
+import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
 import BithumbTable from '../Table/BithumbTable';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
@@ -18,7 +18,7 @@ export function Bithumb() {
     });
   }, []);
 
-  const socketDatas = useBithumbTicker(bithumbMarketCodes);
+  const socketDatas = useBithumbWsTicker(bithumbMarketCodes);
 
   const setCoingeckoData = useSetRecoilState(coingeckoCoinDataState);
   useEffect(() => {
