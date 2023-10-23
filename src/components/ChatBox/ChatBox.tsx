@@ -21,7 +21,7 @@ const updateNickname = () => {
 
 const overlayStyles = {
   overlay: {
-    zIndex: 1,
+    zIndex: 2, // 1 이하이면 차트 선택됨
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
 };
@@ -97,30 +97,34 @@ const ChatBox = () => {
       onRequestClose={closeModal}
       style={overlayStyles}
     >
-      <styled.ChatBoxHeader>
-        <div>CHAT</div>
-        <div onClick={updateNickname} style={{ cursor: 'pointer' }}>
-          {storedDisplayName}
-        </div>
-      </styled.ChatBoxHeader>
-
-      <styled.MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
-        <styled.ButtonWrapper>
-          <styled.Button onClick={loadPreviousMessages}>
-            이전 채팅 불러오기
-          </styled.Button>
-        </styled.ButtonWrapper>
-        {messages?.map((message) => (
-          <Message key={message.id} message={message} />
-        ))}
-        <div ref={messagesEndRef} />
-      </styled.MessagesWrapper>
-      {!isAtBottom && (
-        <styled.ScrollToBottomButton onClick={scrollToBottom}>
-          🔻
-        </styled.ScrollToBottomButton>
-      )}
-      <SendMessage />
+      <styled.ModalInsideWrapper>
+        <styled.ChatBoxHeader>
+          <div>CHAT</div>
+          <div onClick={updateNickname} style={{ cursor: 'pointer' }}>
+            {storedDisplayName}
+          </div>
+        </styled.ChatBoxHeader>
+        <styled.MessagesWrapper
+          onScroll={handleScroll}
+          ref={messagesWrapperRef}
+        >
+          <styled.ButtonWrapper>
+            <styled.Button onClick={loadPreviousMessages}>
+              이전 채팅 불러오기
+            </styled.Button>
+          </styled.ButtonWrapper>
+          {messages?.map((message) => (
+            <Message key={message.id} message={message} />
+          ))}
+          <div ref={messagesEndRef} />
+        </styled.MessagesWrapper>
+        {!isAtBottom && (
+          <styled.ScrollToBottomButton onClick={scrollToBottom}>
+            🔻
+          </styled.ScrollToBottomButton>
+        )}
+        <SendMessage />
+      </styled.ModalInsideWrapper>
     </StyledModal>
   );
 };
