@@ -1,37 +1,31 @@
-import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import * as styled from './Home.styles';
 import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
-import { marketCodesState } from 'recoil/atoms/upbit';
-import { DisplayBoard, ChartsWrapper } from './Home.styles';
-import styled from 'styled-components';
-import useFetchMarketCode from 'api/upbit/useFetchMarketCode';
-
-interface FetchedMCData {
-  market: string;
-  korean_name: string;
-  english_name: string;
-}
+import { ChatBox } from 'components/ChatBox';
+import { modalIsOpenState } from 'recoil/atoms/upbit';
+import { useRecoilState } from 'recoil';
+import { Header } from 'components/common/Header';
 
 export const Home: React.FC = () => {
-  const { isLoading, marketCodes: fetchedMC } = useFetchMarketCode();
-  const [marketCodes, setMarketCodes] = useRecoilState(marketCodesState);
+  const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
 
-  useEffect(() => {
-    const MarketCodes_KRW = fetchedMC.filter((code: FetchedMCData) =>
-      code.market.includes('KRW'),
-    );
-    setMarketCodes(MarketCodes_KRW);
-  }, [fetchedMC]);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
 
   return (
-    <DisplayBoard>
-      <ChartsWrapper>
-        <ChartLeft />
-        <ChartRight />
-      </ChartsWrapper>
-      <Table />
-    </DisplayBoard>
+    <>
+      <Header />
+      <styled.DisplayBoard>
+        <styled.ChartsWrapper>
+          <ChartLeft />
+          <ChartRight />
+        </styled.ChartsWrapper>
+        <Table />
+        <ChatBox />
+      </styled.DisplayBoard>
+      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
+    </>
   );
 };

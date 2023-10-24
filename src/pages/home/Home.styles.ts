@@ -39,3 +39,13 @@ export const ChartsWrapper = styled.div`
   gap: 5px;
   grid-template-columns: 1fr 1fr;
 `;
+
+export const ChatButton = styled.button`
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+`;

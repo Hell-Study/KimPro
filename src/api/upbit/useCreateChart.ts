@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/upbit';
+import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import getTodayDate from 'utils/getTodayDate';
 
 function useCreateChart() {

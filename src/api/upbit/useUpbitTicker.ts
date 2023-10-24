@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 // import { throttle } from 'lodash';
 
-interface ITicker {
+export interface IUpbitTicker {
   code: string;
   change: string;
   trade_price: number;
@@ -10,9 +10,10 @@ interface ITicker {
   highest_52_week_price: number;
   lowest_52_week_price: number;
   acc_trade_price_24h: number;
+  acc_trade_volume_24h: number;
 }
 
-interface ImarketCodes {
+export interface IUpbitMarketCode {
   market: string;
   korean_name: string;
   english_name: string;
@@ -28,10 +29,10 @@ const createWebSocketRequest = (
   return JSON.stringify(request);
 };
 
-function useWsTicker(marketCodes: ImarketCodes[]) {
+function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const SOCKET_URL = 'wss://api.upbit.com/websocket/v1';
   const socket = useRef<WebSocket | null>(null);
-  const [list, setList] = useState<ITicker[]>([]);
+  const [list, setList] = useState<IUpbitTicker[]>([]);
 
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
@@ -77,7 +78,7 @@ function useWsTicker(marketCodes: ImarketCodes[]) {
     socket.current.onmessage = socketMessageHandler;
   }, [marketCodes]);
 
-  return { socketData: list };
+  return { socketDatas: list };
 }
 
-export default useWsTicker;
+export default useUpbitTicker;
