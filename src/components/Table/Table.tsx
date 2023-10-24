@@ -1,4 +1,4 @@
-import * as style from './Table.styles';
+import * as styled from './Table.styles';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { baseExchangeState } from 'recoil/atoms/common';
 import UpbitTable from './UpbitTable';
@@ -16,8 +16,8 @@ export const Table: React.FC = () => {
   const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
 
   return (
-    <style.CoinListBox>
-      <style.CoinBoxNav>
+    <styled.CoinListBox>
+      <styled.CoinBoxNav>
         <div>
           기준 거래소
           <select onChange={changeBaseExchange}>
@@ -31,15 +31,15 @@ export const Table: React.FC = () => {
           해외 거래소
         </div>
         <div>
-          암호화폐 총{' '}
+          암호화폐 총
           {baseExchange === 'upbit'
             ? upbitMarketCodes.length
             : bithumbMarketCodes.length}
           개
           <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
         </div>
-      </style.CoinBoxNav>
-      <style.CoinBoxHeader>
+      </styled.CoinBoxNav>
+      <styled.CoinBoxHeader>
         <div>코인</div>
         <div>현재가</div>
         <div>김프</div>
@@ -47,8 +47,8 @@ export const Table: React.FC = () => {
         <div>고가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
         <div>저가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
         <div>거래대금</div>
-      </style.CoinBoxHeader>
+      </styled.CoinBoxHeader>
       {baseExchange === 'upbit' ? <UpbitTable /> : <Bithumb />}
-    </style.CoinListBox>
+    </styled.CoinListBox>
   );
 };

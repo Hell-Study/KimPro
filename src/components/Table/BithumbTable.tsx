@@ -1,4 +1,4 @@
-import * as style from './Table.styles';
+import * as styled from './Table.styles';
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
@@ -55,50 +55,51 @@ export default function BithumbTable({ socketData }: Props) {
 
   return (
     <>
-      <style.CoinBox
+      <styled.CoinBox
         key={socketData.symbol}
         id={socketData.symbol}
         // onClick={clickCoinHandler}
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
       >
-        <style.CoinBoxName>
+        <styled.CoinBoxName>
           <div>{englishName}</div>
           <div>{simpleSymbol}</div>
-        </style.CoinBoxName>
-        <style.CoinBoxPrice $changeType={'EVEN'}>
-          {closePrice}
-        </style.CoinBoxPrice>
-        <style.CoinBoxKimchiPremium>
-          (국내코인원화 / 해외코인달러 x 환율 - 1)*100
-        </style.CoinBoxKimchiPremium>
-        <style.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
-          <style.CoinBoxChangeRate>
+        </styled.CoinBoxName>
+        <styled.CoinBoxPrice>
+          <styled.CoinBoxPriceKorean>{closePrice}</styled.CoinBoxPriceKorean>
+          <styled.CoinBoxPriceBinance>바이낸스 시세</styled.CoinBoxPriceBinance>
+        </styled.CoinBoxPrice>
+        <styled.CoinBoxKimchiPremium>김치프리미엄%</styled.CoinBoxKimchiPremium>
+        <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
+          <styled.CoinBoxChangeRate>
             {changesRatio > 0 ? '+' : null}
             {changesRatio.toFixed(2)}%
-          </style.CoinBoxChangeRate>
-          <style.CoinBoxChangePrice>
+          </styled.CoinBoxChangeRate>
+          <styled.CoinBoxChangePrice>
             {changes.toFixed(2)}
-          </style.CoinBoxChangePrice>
-        </style.CoinBoxChange>
-        <style.CoinBoxHighestWeek>
-          <style.CoinBoxHighestWeekRate>
+          </styled.CoinBoxChangePrice>
+        </styled.CoinBoxChange>
+        <styled.CoinBoxHighestWeek>
+          <styled.CoinBoxHighestWeekRate>
             {highRatio > 0 ? '+' : null}
             {highRatio.toFixed(2) + '%'}
-          </style.CoinBoxHighestWeekRate>
-          <style.CoinBoxHighestWeekPrice>{high}</style.CoinBoxHighestWeekPrice>
-        </style.CoinBoxHighestWeek>
-        <style.CoinBoxLowestWeek>
-          <style.CoinBoxLowestWeekRate>
+          </styled.CoinBoxHighestWeekRate>
+          <styled.CoinBoxHighestWeekPrice>
+            {high}
+          </styled.CoinBoxHighestWeekPrice>
+        </styled.CoinBoxHighestWeek>
+        <styled.CoinBoxLowestWeek>
+          <styled.CoinBoxLowestWeekRate>
             {'+' + lowRatio.toFixed(2) + '%'}
-          </style.CoinBoxLowestWeekRate>
-          <style.CoinBoxLowestWeekPrice>{low}</style.CoinBoxLowestWeekPrice>
-        </style.CoinBoxLowestWeek>
-        <style.CoinBoxVolume>
+          </styled.CoinBoxLowestWeekRate>
+          <styled.CoinBoxLowestWeekPrice>{low}</styled.CoinBoxLowestWeekPrice>
+        </styled.CoinBoxLowestWeek>
+        <styled.CoinBoxVolume>
           <div>{Math.ceil(convertMillonWon(Number(value)))}</div>
           <div>백만</div>
-        </style.CoinBoxVolume>
-      </style.CoinBox>
+        </styled.CoinBoxVolume>
+      </styled.CoinBox>
     </>
   );
 }
