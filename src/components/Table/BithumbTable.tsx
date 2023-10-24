@@ -63,8 +63,21 @@ export default function BithumbTable({ socketData }: Props) {
         $selected={false}
       >
         <styled.CoinBoxName>
-          <div>{englishName}</div>
-          <div>{simpleSymbol}</div>
+          <styled.CoinBoxNameKorean>
+            <img
+              alt={`아이콘`}
+              width="15"
+              height="15"
+              decoding="async"
+              data-nimg="1"
+              className="rounded-full"
+              src={`a`}
+            />
+            <div>{englishName}</div>
+          </styled.CoinBoxNameKorean>
+          <styled.CoinBoxNameMarket>
+            <div>{simpleSymbol}</div>
+          </styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>{closePrice}</styled.CoinBoxPriceKorean>
