@@ -5,16 +5,16 @@ import { useRecoilState } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoin';
 import { themeState } from 'recoil/atoms/theme';
 import { HiSun, HiMoon } from 'react-icons/hi2';
-import { SwitchButton } from './Header.styles';
+import { DiGithubAlt } from 'react-icons/di';
+import LogoDark from 'assets/images/Logo-Dark.svg';
+import LogoLight from 'assets/images/Logo-Light.svg';
 
 function Header() {
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
   const [theme, setTheme] = useRecoilState(themeState);
 
   const isDarkMode = theme === 'dark';
-  const handleToggle = () => {
-    setTheme(isDarkMode ? 'light' : 'dark');
-  };
+  const handleToggle = () => setTheme(isDarkMode ? 'light' : 'dark');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,24 +32,23 @@ function Header() {
   return (
     <styled.HeaderContainer>
       <styled.Topbar>
-        <div>김프사이트</div>
-        <div>환율 : xx</div>
+        <div>USD/KRW xx</div>
         {globalCoin && (
           <>
             <div>
-              암호화폐 :
+              <styled.Label>암호화폐</styled.Label>
               {globalCoin[0]?.coins_count
                 ? globalCoin[0].coins_count.toString()
                 : '로딩 중...'}
             </div>
             <div>
-              거래소 :
+              <styled.Label>거래소</styled.Label>
               {globalCoin[0]?.active_markets
                 ? globalCoin[0].active_markets.toString()
                 : '로딩 중...'}
             </div>
             <div>
-              시가총액 :
+              <styled.Label>시가총액</styled.Label>
               {globalCoin[0]?.total_mcap
                 ? `$${globalCoin[0].total_mcap.toString()}`
                 : '로딩 중...'}
@@ -62,7 +61,7 @@ function Header() {
               </styled.Rate>
             </div>
             <div>
-              24시간 거래량 :
+              <styled.Label>24시간 거래량</styled.Label>
               {globalCoin[0]?.total_volume
                 ? `$${globalCoin[0].total_volume.toString()}`
                 : '로딩 중...'}
@@ -75,17 +74,30 @@ function Header() {
               </styled.Rate>
             </div>
             <div>
-              BTC 점유율 :
+              <styled.Label>BTC 점유율</styled.Label>
               {globalCoin[0]?.btc_d ? `${globalCoin[0].btc_d}%` : '로딩 중...'}
             </div>
           </>
         )}
       </styled.Topbar>
       <styled.HeaderWrapper>
-        <h1>로고</h1>
-        <SwitchButton $isDarkMode={isDarkMode} onClick={handleToggle}>
-          {isDarkMode ? <HiMoon /> : <HiSun />}
-        </SwitchButton>
+        <styled.Logo href="/Final-Project">
+          <img src={isDarkMode ? LogoDark : LogoLight} alt="logo" />
+        </styled.Logo>
+        <styled.BtnGroup>
+          <a
+            href="https://github.com/Hell-Study/Final-Project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <styled.GithubButton>
+              <DiGithubAlt />
+            </styled.GithubButton>
+          </a>
+          <styled.SwitchButton $isDarkMode={isDarkMode} onClick={handleToggle}>
+            {isDarkMode ? <HiMoon /> : <HiSun />}
+          </styled.SwitchButton>
+        </styled.BtnGroup>
       </styled.HeaderWrapper>
     </styled.HeaderContainer>
   );

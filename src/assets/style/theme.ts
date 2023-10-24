@@ -31,7 +31,8 @@ export const lightTheme: DefaultTheme = {
     icon: '#919eab',
     border1: '#edeef2',
     alpha1: 'rgba(48, 73, 191, 0.7)',
-    alpha2: 'rgba(48, 73, 191, 0.3)',
+    alpha2: 'rgba(0, 0, 0, 0.05)',
+    alpha3: `rgba(255, 255, 255, 0.7)`,
   },
 };
 
@@ -48,13 +49,14 @@ export const darkTheme: DefaultTheme = {
     bg_element2: '#303346',
     bg_element3: '#282a38',
     bg_element4: '#232533',
-    bg_element5: '#14151c',
+    bg_element5: '#0a0b0e',
     text1: '#ebebef',
     text2: '#b3b6c4',
     text3: '#7d8096',
     icon: '#8c91aa',
     border1: '#434557',
     alpha1: 'rgba(255, 255, 255, 0.1)',
-    alpha2: 'rgba(10,10,10,0.5)',
+    alpha2: 'rgba(255, 255, 255, 0.05)',
+    alpha3: `rgb(10, 11, 14, 0.8)`,
   },
 };
