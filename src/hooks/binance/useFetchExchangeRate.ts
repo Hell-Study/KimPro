@@ -6,7 +6,7 @@ interface IExchangeRate {
 
 const useFetchExchangeRate = () => {
   const [exchangeRate, setExchangeRate] = useState<number>(0);
-  const SSE_URL = process.env.REACT_APP_API_URL;
+  const SSE_URL = process.env.FX_IDC_API_URL;
 
   useEffect(() => {
     const eventSource = new EventSource(SSE_URL!);
