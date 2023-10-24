@@ -50,7 +50,6 @@ const ChatBox = () => {
       setLastMessage(newLastMessage);
     }
   };
-
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView();

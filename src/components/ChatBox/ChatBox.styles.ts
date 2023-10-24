@@ -13,6 +13,7 @@ export const StyledModal = styled(Modal)`
   height: 600px;
 `;
 export const ModalInsideWrapper = styled.div``;
+
 export const ChatBoxHeader = styled.div`
   position: fixed;
   top: 0px;
