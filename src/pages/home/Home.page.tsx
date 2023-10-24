@@ -5,6 +5,7 @@ import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { useRecoilState } from 'recoil';
+import { Header } from 'components/common/Header';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -15,6 +16,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
+      <Header />
       <styled.DisplayBoard>
         <styled.ChartsWrapper>
           <ChartLeft />
