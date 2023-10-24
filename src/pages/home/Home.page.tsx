@@ -1,9 +1,10 @@
-import * as style from './Home.styles';
+import * as styled from './Home.styles';
 import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
+import { useRecoilState } from 'recoil';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
