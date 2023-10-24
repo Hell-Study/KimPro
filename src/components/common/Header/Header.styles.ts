@@ -10,10 +10,22 @@ export const HeaderContainer = styled.header`
   z-index: 2;
 `;
 
+export const Inner = styled.div`
+  width: 1140px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+`;
+
+export const InnerSpaceBetween = styled(Inner)`
+  justify-content: space-between;
+`;
+
 export const Topbar = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 250px;
+  justify-content: center;
   height: 3.8vh;
   gap: 0.75rem;
   font-size: 0.74rem;
@@ -43,8 +55,7 @@ export const HeaderWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 250px;
+  justify-content: center;
   height: 7.5vh;
   background-color: ${({ theme }) => theme.colors.alpha3};
   backdrop-filter: blur(8px);
