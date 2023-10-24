@@ -17,8 +17,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Test />
-      {/* <Header />
+      <Header />
       <styled.DisplayBoard>
         <styled.ChartsWrapper>
           <ChartLeft />
@@ -27,7 +26,8 @@ export const Home: React.FC = () => {
         <Table />
         <ChatBox />
       </styled.DisplayBoard>
-      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton> */}
+      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
+      <Test />
     </>
   );
 };

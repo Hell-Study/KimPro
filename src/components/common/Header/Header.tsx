@@ -3,9 +3,11 @@ import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
 import { useRecoilState } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoin';
+import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
 function Header() {
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
+  const { exchangeRate } = useFetchExchangeRate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,10 +22,14 @@ function Header() {
     fetchData();
   }, []);
 
+  const multiplyByExchangeRate = (value: number) => {
+    return exchangeRate ? (value * exchangeRate).toFixed(2) : '로딩 중...';
+  };
+
   return (
     <styled.HeaderContainer>
       <div>김프사이트</div>
-      <div>환율 : xx</div>
+      <div>환율(USD/KRW): {exchangeRate || null}</div>
       {globalCoin && (
         <>
           <div>
@@ -41,7 +47,7 @@ function Header() {
           <div>
             시가총액 :
             {globalCoin[0]?.total_mcap
-              ? `$${globalCoin[0].total_mcap.toString()}`
+              ? `${multiplyByExchangeRate(globalCoin[0].total_mcap)}원`
               : '로딩 중...'}
             <styled.Rate $isPositive={globalCoin[0]?.mcap_change >= 0}>
               {globalCoin[0]?.mcap_change !== undefined
@@ -54,7 +60,7 @@ function Header() {
           <div>
             24시간 거래량 :
             {globalCoin[0]?.total_volume
-              ? `$${globalCoin[0].total_volume.toString()}`
+              ? `${multiplyByExchangeRate(globalCoin[0].total_volume)}원`
               : '로딩 중...'}
             <styled.Rate $isPositive={globalCoin[0]?.volume_change >= 0}>
               {globalCoin[0]?.volume_change !== undefined

@@ -83,7 +83,9 @@ export default function BithumbTable({ socketData }: Props) {
           <styled.CoinBoxPriceKorean>{closePrice}</styled.CoinBoxPriceKorean>
           <styled.CoinBoxPriceBinance>바이낸스 시세</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium>김치프리미엄%</styled.CoinBoxKimchiPremium>
+        <styled.CoinBoxKimchiPremium $isPositive={false}>
+          김치프리미엄%
+        </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
             {changesRatio > 0 ? '+' : null}

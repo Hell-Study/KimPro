@@ -11,7 +11,7 @@ interface ITicker {
 const useBinanceTicker = () => {
   const [tickers, setTickers] = useState<ITicker[] | null>(null);
   const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
-  const limit = 30;
+  // const limit = 30;
 
   useEffect(() => {
     const ws = new WebSocket(SOCKET_URL);
@@ -22,7 +22,8 @@ const useBinanceTicker = () => {
         const filteredData = data.filter((ticker: ITicker) =>
           ticker.s.endsWith('USDT'),
         );
-        setTickers(filteredData.slice(0, limit));
+        // setTickers(filteredData.slice(0, limit));
+        setTickers(filteredData);
       } catch (e) {
         console.log('파싱 에러:', e);
       }

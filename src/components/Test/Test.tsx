@@ -5,17 +5,18 @@ import useFetchExchangeRate from '../../hooks/binance/useFetchExchangeRate';
 export const Test = () => {
   const { exchangeRate } = useFetchExchangeRate();
   const { tickers } = useBinanceTicker();
+  const removeUSDT = (symbol: string) => {
+    return symbol.replace('USDT', '');
+  };
 
   return (
     <>
-      <p>바이낸스 기준 현재가(1-30):</p>
-      <p>현재 환율(USD/KRW): {exchangeRate || null}</p>
       <ul>
         {tickers && exchangeRate
           ? tickers.map((ticker) => {
               return (
                 <li key={ticker.s}>
-                  {ticker.s}: ₩
+                  {removeUSDT(ticker.s)}: ₩
                   {(parseFloat(ticker.c) * exchangeRate).toFixed(2)}
                 </li>
               );
