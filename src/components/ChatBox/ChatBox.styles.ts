@@ -12,6 +12,7 @@ export const StyledModal = styled(Modal)`
   width: 400px;
   height: 600px;
 `;
+export const ModalInsideWrapper = styled.div``;
 
 export const ChatBoxHeader = styled.div`
   position: fixed;
@@ -24,7 +25,18 @@ export const ChatBoxHeader = styled.div`
   border-radius: 20px 20px 0 0;
   color: white;
 `;
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+`;
 
+export const Button = styled.button`
+  border-radius: 10px;
+  padding: 5px 10px;
+`;
 export const MessagesWrapper = styled.div`
   padding: 60px 20px 50px;
   max-height: 560px; /* 600 - 40 */

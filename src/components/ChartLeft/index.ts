@@ -1,2 +1,1 @@
-import ChartLeft from './ChartLeft';
-export { ChartLeft };
+export { ChartLeft } from './ChartLeft';
