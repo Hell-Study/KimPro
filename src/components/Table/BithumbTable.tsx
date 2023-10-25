@@ -1,5 +1,5 @@
 import * as styled from './Table.styles';
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
+import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -7,60 +7,54 @@ import {
   ICoingeckoCoinData,
   coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
+import judgeColor from 'utils/judgeColor';
 
-interface Props {
-  socketData: IBithumbTicker;
-}
-
-export default function BithumbTable({ socketData }: Props) {
+export default function BithumbTable({
+  socketData,
+}: {
+  socketData: IBithumbFetchTicker;
+}) {
   const {
-    symbol, // 통화코드
-    closePrice, // 종가
-    lowPrice, // 저가
-    highPrice, // 고가
-    value, // 누적거래금액
-    prevClosePrice, // 전일종가
-  } = socketData;
+    closing_price,
+    min_price,
+    max_price,
+    prev_closing_price,
+    acc_trade_value_24H,
+  } = socketData[1];
 
-  const simpleSymbol = symbol.replace('_KRW', '');
-  const changesRatio =
-    ((Number(closePrice) - Number(prevClosePrice)) / Number(prevClosePrice)) *
-    100; // 전일 대비 증감률
-  const changes = Number(closePrice) - Number(prevClosePrice); // 전일 대비
-  const highRatio =
-    ((Number(closePrice) - Number(highPrice)) / Number(highPrice)) * 100; // 고가 대비 증감률(전일)
-  const high = Number(highPrice); // 고가(전일)
-  const lowRatio =
-    ((Number(closePrice) - Number(lowPrice)) / Number(lowPrice)) * 100; // 저가 대비 증감률(전일)
-  const low = Number(lowPrice); // 저가(전일)
-
-  const judgeColor = (num: number) => {
-    if (num > 0) {
-      return 'RISE';
-    } else if (num < 0) {
-      return 'FALL';
-    } else {
-      return 'EVEN';
-    }
-  };
-
-  const [englishName, setEnglishName] = useState('');
   const [thumb, setThumb] = useState('');
-
+  const [englishName, setEnglishName] = useState('');
   const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
-    const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
-      return coin.symbol == symbol.replace('_KRW', '');
-    });
-    setEnglishName(target[0].name);
-    setThumb(target[0].thumb);
+    if (simpleSymbol !== undefined) {
+      const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
+        return coin.symbol === simpleSymbol;
+      });
+      setEnglishName(target[0]?.name);
+      setThumb(target[0]?.thumb);
+    }
   }, []);
+
+  const simpleSymbol = socketData[0];
+  const nowPrice = Number(closing_price);
+  const changesRatio =
+    ((Number(closing_price) - Number(prev_closing_price)) /
+      Number(prev_closing_price)) *
+    100; // 전일 대비 증감률
+  const changes = Number(closing_price) - Number(prev_closing_price); // 전일 대비
+  const highRatio =
+    ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100; // 고가 대비 증감률(전일)
+  const high = Number(max_price); // 고가(전일)
+  const lowRatio =
+    ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
+  const low = Number(min_price); // 저가(전일)
+  const value = Number(acc_trade_value_24H);
 
   return (
     <>
       <styled.CoinBox
-        key={socketData.symbol}
-        id={socketData.symbol}
+        key={socketData[0]}
+        id={socketData[0]}
         // onClick={clickCoinHandler}
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
@@ -71,7 +65,7 @@ export default function BithumbTable({ socketData }: Props) {
           <div>{simpleSymbol}</div>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice $changeType={'EVEN'}>
-          {closePrice}
+          {nowPrice}
         </styled.CoinBoxPrice>
         <styled.CoinBoxKimchiPremium>
           (국내코인원화 / 해외코인달러 x 환율 - 1)*100
@@ -88,7 +82,7 @@ export default function BithumbTable({ socketData }: Props) {
         <styled.CoinBoxHighestWeek>
           <styled.CoinBoxHighestWeekRate>
             {highRatio > 0 ? '+' : null}
-            {highRatio.toFixed(2) + '%'}
+            {highRatio.toFixed(2)}%
           </styled.CoinBoxHighestWeekRate>
           <styled.CoinBoxHighestWeekPrice>
             {high}

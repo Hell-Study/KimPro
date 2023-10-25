@@ -1,11 +1,17 @@
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
-import { useEffect, useState } from 'react';
+import { IBithumbWsTicker } from 'components/bithumb/Bithumb.type';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  bithumbMarketCodesState,
+  bithumbTickerState,
+} from 'recoil/atoms/bithumb';
 
-export default function useBithumbWsTicker(marketCodes: string[]) {
-  const [socketData, setSocketData] = useState<IBithumbTicker[]>([]);
+export default function useBithumbWsTicker() {
+  const marketCodes = useRecoilValue(bithumbMarketCodesState);
+  const [socketData, setSocketData] = useRecoilState(bithumbTickerState);
 
   useEffect(() => {
-    if (marketCodes.length > 0) {
+    if (marketCodes.length > 0 && socketData.length > 0) {
       const ws = new WebSocket('wss://pubwss.bithumb.com/pub/ws');
 
       ws.onopen = () => {
@@ -13,7 +19,9 @@ export default function useBithumbWsTicker(marketCodes: string[]) {
           ws.send(
             JSON.stringify({
               type: 'ticker',
-              symbols: marketCodes,
+              symbols: marketCodes.map((x: string) => {
+                return x + '_KRW';
+              }),
               tickTypes: ['MID', '24H'],
             }),
           );
@@ -21,33 +29,47 @@ export default function useBithumbWsTicker(marketCodes: string[]) {
       };
 
       ws.onmessage = async (e) => {
-        const data = await JSON.parse(e.data);
+        const data: { type: string; content: IBithumbWsTicker } =
+          await JSON.parse(e.data);
 
         if (data.type === 'ticker') {
-          setSocketData((prevList) => {
-            const existingIndex = prevList.findIndex(
-              (item) => item.symbol === data.content.symbol,
+          const { closePrice, lowPrice, highPrice, prevClosePrice, value } =
+            data.content;
+
+          setSocketData((prevState) => {
+            const existingIndex = prevState.findIndex(
+              (item) => item[0] === data.content.symbol.replace('_KRW', ''),
             );
-            const { value, ...otherData } = data.content;
-            if (data.content.tickType === 'MID') {
-              if (existingIndex !== -1) {
-                prevList[existingIndex] = {
-                  ...prevList[existingIndex],
-                  ...otherData,
+
+            if (existingIndex !== -1) {
+              if (data.content.tickType === 'MID') {
+                const updatedItem = {
+                  ...prevState[existingIndex][1],
+                  closing_price: closePrice,
+                  min_price: lowPrice,
+                  max_price: highPrice,
+                  prev_closing_price: prevClosePrice,
                 };
-                return [...prevList];
+                const updatedState = [...prevState];
+                updatedState[existingIndex] = [
+                  prevState[existingIndex][0],
+                  updatedItem,
+                ];
+                return updatedState;
               } else {
-                return [...prevList, data.content];
-              }
-            } else {
-              if (existingIndex !== -1) {
-                prevList[existingIndex] = {
-                  ...prevList[existingIndex],
-                  value,
+                const updatedItem = {
+                  ...prevState[existingIndex][1],
+                  acc_trade_value_24H: value,
                 };
+                const updatedState = [...prevState];
+                updatedState[existingIndex] = [
+                  prevState[existingIndex][0],
+                  updatedItem,
+                ];
+                return updatedState;
               }
-              return [...prevList];
             }
+            return prevState;
           });
         }
       };
@@ -59,6 +81,4 @@ export default function useBithumbWsTicker(marketCodes: string[]) {
       };
     }
   }, [marketCodes]);
-
-  return socketData;
 }
