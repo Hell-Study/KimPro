@@ -1,5 +1,6 @@
 import * as styled from './Table.styles';
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
+import { IBinanceTicker } from 'hooks/binance/useBinanceTicker';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
@@ -7,12 +8,14 @@ import {
   ICoingeckoCoin,
   coingeckoCoinsListState,
 } from 'recoil/atoms/coingecko';
+import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
 interface Props {
   socketData: IBithumbTicker;
+  matchingTicker?: IBinanceTicker; // '?'를 통해 선택적 사용하여 undefined 에러 해결
 }
 
-export default function BithumbTable({ socketData }: Props) {
+export default function BithumbTable({ socketData, matchingTicker }: Props) {
   const {
     symbol, // 통화코드
     closePrice, // 종가
@@ -48,11 +51,14 @@ export default function BithumbTable({ socketData }: Props) {
   const coingeckoCoinsList = useRecoilValue(coingeckoCoinsListState);
   useEffect(() => {
     const target = coingeckoCoinsList.filter((coin: ICoingeckoCoin) => {
-      return coin.symbol == symbol.replace('_KRW', '').toLowerCase();
+      return coin.symbol == simpleSymbol.toLowerCase();
     });
-    setEnglishName(target[0].name);
+    setEnglishName(target[0]?.name);
   }, []);
-
+  const { exchangeRate } = useFetchExchangeRate();
+  useEffect(() => {
+    console.log('matchingTicker', matchingTicker);
+  }, [matchingTicker]);
   return (
     <>
       <styled.CoinBox
@@ -81,10 +87,17 @@ export default function BithumbTable({ socketData }: Props) {
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>{closePrice}</styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>바이낸스 시세</styled.CoinBoxPriceBinance>
+          <styled.CoinBoxPriceBinance>
+            {matchingTicker
+              ? `${(parseFloat(matchingTicker.c) * exchangeRate).toLocaleString(
+                  'ko-KR',
+                )}`
+              : '로딩중'}
+          </styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
         <styled.CoinBoxKimchiPremium $isPositive={false}>
-          김치프리미엄%
+          <styled.CoinBoxKimchiPremiumRate>d</styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>a</styled.CoinBoxKimchiPremiumDiff>
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>

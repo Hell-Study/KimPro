@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-interface ITicker {
+export interface IBinanceTicker {
   e: string; // Event type
   E: number; // Event time
   s: string; // Symbol
@@ -9,7 +9,7 @@ interface ITicker {
 }
 
 const useBinanceTicker = () => {
-  const [tickers, setTickers] = useState<ITicker[] | null>(null);
+  const [tickers, setTickers] = useState<IBinanceTicker[] | null>(null);
   const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
   // const limit = 30;
 
@@ -18,8 +18,8 @@ const useBinanceTicker = () => {
 
     ws.onmessage = (e) => {
       try {
-        const data: ITicker[] = JSON.parse(e.data);
-        const filteredData = data.filter((ticker: ITicker) =>
+        const data: IBinanceTicker[] = JSON.parse(e.data);
+        const filteredData = data.filter((ticker: IBinanceTicker) =>
           ticker.s.endsWith('USDT'),
         );
         // setTickers(filteredData.slice(0, limit));
