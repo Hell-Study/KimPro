@@ -8,6 +8,10 @@ interface CoinBoxChangeProps {
   $changeType: string;
 }
 
+interface CoinBoxKimchiPremiumProps {
+  $isPositive: boolean;
+}
+
 export const CoinListBox = styled.div`
   width: 1240px;
   height: 800px;
@@ -66,8 +70,9 @@ export const CoinBox = styled.div<CoinBoxProps>`
     align-items: flex-end;
   }
   div:nth-child(3) {
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(4) {
     flex-direction: column;
@@ -119,8 +124,18 @@ export const CoinBoxPrice = styled.div`
 `;
 export const CoinBoxPriceKorean = styled.div``;
 export const CoinBoxPriceBinance = styled.div``;
-export const CoinBoxKimchiPremium = styled.div``;
-
+export const CoinBoxKimchiPremium = styled.div<CoinBoxKimchiPremiumProps>`
+  font-weight: bold;
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: #4c769d;
+  }
+  color: gray;
+  color: ${(props) => (props.$isPositive ? '#EF1C1C' : '#1261C4')};
+`;
+export const CoinBoxKimchiPremiumRate = styled.div``;
+export const CoinBoxKimchiPremiumDiff = styled.div``;
 export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
   font-weight: bold;
 

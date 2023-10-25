@@ -6,6 +6,7 @@ import { ChatBox } from 'components/ChatBox';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { useRecoilState } from 'recoil';
 import { Header } from 'components/common/Header';
+import { Test } from 'components/Test';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -26,6 +27,7 @@ export const Home: React.FC = () => {
         <ChatBox />
       </styled.DisplayBoard>
       <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
+      <Test />
     </>
   );
 };
