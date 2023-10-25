@@ -60,16 +60,14 @@ export default function BithumbTable({
         $selected={false}
       >
         <styled.CoinBoxName>
-          <img src={thumb} />
           <div>{englishName}</div>
           <div>{simpleSymbol}</div>
         </styled.CoinBoxName>
-        <styled.CoinBoxPrice $changeType={'EVEN'}>
-          {nowPrice}
+        <styled.CoinBoxPrice>
+          <styled.CoinBoxPriceKorean>{nowPrice}</styled.CoinBoxPriceKorean>
+          <styled.CoinBoxPriceBinance>바이낸스 시세</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium>
-          (국내코인원화 / 해외코인달러 x 환율 - 1)*100
-        </styled.CoinBoxKimchiPremium>
+        <styled.CoinBoxKimchiPremium>김치프리미엄%</styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
             {changesRatio > 0 ? '+' : null}

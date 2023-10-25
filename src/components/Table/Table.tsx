@@ -31,7 +31,7 @@ export const Table: React.FC = () => {
           해외 거래소
         </div>
         <div>
-          암호화폐 총{' '}
+          암호화폐 총
           {baseExchange === 'upbit'
             ? upbitMarketCodes.length
             : bithumbMarketCodes.length}

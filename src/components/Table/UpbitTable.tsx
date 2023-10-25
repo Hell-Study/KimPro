@@ -35,29 +35,47 @@ export default function UpbitTable() {
                 key={data.code}
                 id={data.code}
                 onClick={clickCoinHandler}
-                $selected={selectedCoin[0].market === data.code}
+                $selected={selectedCoin[0]?.market === data.code}
               >
                 <styled.CoinBoxName>
-                  <div>
+                  <styled.CoinBoxNameKorean>
+                    <img
+                      alt={`${data.code?.split('-')[1]} 아이콘`}
+                      width="15"
+                      height="15"
+                      decoding="async"
+                      data-nimg="1"
+                      className="rounded-full"
+                      src={`https://static.upbit.com/logos/${data.code?.split(
+                        '-',
+                      )[1]}.png`}
+                    />
+                    <div>
+                      {
+                        marketCodes.filter(
+                          (code) => code?.market === data.code,
+                        )[0]?.korean_name
+                      }
+                    </div>
+                  </styled.CoinBoxNameKorean>
+                  <styled.CoinBoxNameMarket>
                     {
-                      upbitMarketCodes.filter(
-                        (code: IUpbitMarketCode) => code.market === data.code,
-                      )[0]?.korean_name
+                      marketCodes
+                        .filter((code) => code?.market === data.code)[0]
+                        ?.market?.split('-')[1]
                     }
-                  </div>
-                  <div>
-                    {
-                      upbitMarketCodes.filter(
-                        (code: IUpbitMarketCode) => code.market === data.code,
-                      )[0]?.market
-                    }
-                  </div>
+                  </styled.CoinBoxNameMarket>
                 </styled.CoinBoxName>
-                <styled.CoinBoxPrice $changeType={data.change}>
-                  {data.trade_price?.toLocaleString('ko-KR')}
+                <styled.CoinBoxPrice>
+                  <styled.CoinBoxPriceKorean>
+                    {data.trade_price?.toLocaleString('ko-KR')}
+                  </styled.CoinBoxPriceKorean>
+                  <styled.CoinBoxPriceBinance>
+                    바이낸스 시세
+                  </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium>
-                  (국내코인원화 / 해외코인달러 x 환율 - 1)*100
+                  김치프리미엄%
                 </styled.CoinBoxKimchiPremium>
                 <styled.CoinBoxChange $changeType={data.change}>
                   <styled.CoinBoxChangeRate>
