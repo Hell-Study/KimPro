@@ -48,7 +48,8 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
   const highRatio =
     ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100; // 고가 대비 증감률(전일)
   const high = Number(max_price); // 고가(전일)
-  const lowRatio = ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
+  const lowRatio =
+    ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
   const low = Number(min_price); // 저가(전일)
   const value = Number(acc_trade_value_24H);
 

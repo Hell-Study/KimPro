@@ -8,7 +8,6 @@ import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import useFetchBithumbTicker from 'hooks/bithumb/useFetchBithumbticker';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
-        
 
 export function Bithumb() {
   useFetchBithumbTicker();
@@ -32,7 +31,7 @@ export function Bithumb() {
     <>
       {socketDatas.map((socketData) => {
         const matchingTicker = tickers?.find(
-          (ticker) => removeUSDT(ticker.s) === socketData.symbol?.split('_')[0],
+          (ticker) => removeUSDT(ticker.s) === socketData[0],
         );
         return (
           <BithumbTable
@@ -41,7 +40,6 @@ export function Bithumb() {
             matchingTicker={matchingTicker}
           />
         );
-
       })}
     </>
   );
