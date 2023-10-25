@@ -3,6 +3,7 @@ import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
 import { useRecoilState } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoin';
+import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 import useTheme from 'hooks/useTheme';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { DiGithubAlt } from 'react-icons/di';
@@ -12,6 +13,7 @@ import LogoLight from 'assets/images/Logo-Light.svg';
 function Header() {
   const { theme, onChangeTheme } = useTheme();
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
+  const { exchangeRate } = useFetchExchangeRate();
 
   const isDarkMode = theme === 'dark';
 
@@ -28,11 +30,16 @@ function Header() {
     fetchData();
   }, []);
 
+  const multiplyByExchangeRate = (value: number) => {
+    return exchangeRate ? (value * exchangeRate).toFixed(2) : '로딩 중...';
+  };
+
   return (
     <styled.HeaderContainer>
+
       <styled.Topbar>
         <styled.Inner>
-          <div>USD/KRW xx</div>
+        <div>환율(USD/KRW): {exchangeRate || null}</div>
           {globalCoin && (
             <>
               <div>
@@ -49,9 +56,9 @@ function Header() {
               </div>
               <div>
                 <styled.Label>시가총액</styled.Label>
-                {globalCoin[0]?.total_mcap
-                  ? `$${globalCoin[0].total_mcap.toString()}`
-                  : '로딩 중...'}
+              {globalCoin[0]?.total_mcap
+              ? `${multiplyByExchangeRate(globalCoin[0].total_mcap)}원`
+              : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.mcap_change >= 0}>
                   {globalCoin[0]?.mcap_change !== undefined
                     ? (globalCoin[0].mcap_change >= 0 ? '+' : '-') +
@@ -62,9 +69,9 @@ function Header() {
               </div>
               <div>
                 <styled.Label>24시간 거래량</styled.Label>
-                {globalCoin[0]?.total_volume
-                  ? `$${globalCoin[0].total_volume.toString()}`
-                  : '로딩 중...'}
+            {globalCoin[0]?.total_volume
+              ? `${multiplyByExchangeRate(globalCoin[0].total_volume)}원`
+              : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.volume_change >= 0}>
                   {globalCoin[0]?.volume_change !== undefined
                     ? (globalCoin[0].volume_change >= 0 ? '+' : '-') +

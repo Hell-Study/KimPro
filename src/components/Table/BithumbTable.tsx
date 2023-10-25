@@ -1,4 +1,5 @@
 import * as styled from './Table.styles';
+import { IBinanceTicker } from 'hooks/binance/useBinanceTicker';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
@@ -8,12 +9,14 @@ import {
   coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
 import judgeColor from 'utils/judgeColor';
+import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
-export default function BithumbTable({
-  socketData,
-}: {
+interface IProps {
   socketData: IBithumbFetchTicker;
-}) {
+  matchingTicker?: IBinanceTicker; // '?'를 통해 선택적 사용하여 undefined 에러 해결
+}
+
+export default function BithumbTable({ socketData, matchingTicker }: IProps) {
   const {
     closing_price,
     min_price,
@@ -45,10 +48,11 @@ export default function BithumbTable({
   const highRatio =
     ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100; // 고가 대비 증감률(전일)
   const high = Number(max_price); // 고가(전일)
-  const lowRatio =
-    ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
+  const lowRatio = ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
   const low = Number(min_price); // 저가(전일)
   const value = Number(acc_trade_value_24H);
+
+  const { exchangeRate } = useFetchExchangeRate();
 
   return (
     <>
@@ -60,14 +64,36 @@ export default function BithumbTable({
         $selected={false}
       >
         <styled.CoinBoxName>
-          <div>{englishName}</div>
-          <div>{simpleSymbol}</div>
+          <styled.CoinBoxNameKorean>
+            <img
+              alt={`아이콘`}
+              width="15"
+              height="15"
+              decoding="async"
+              data-nimg="1"
+              className="rounded-full"
+              src={`a`}
+            />
+            <div>{englishName}</div>
+          </styled.CoinBoxNameKorean>
+          <styled.CoinBoxNameMarket>
+            <div>{simpleSymbol}</div>
+          </styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>{nowPrice}</styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>바이낸스 시세</styled.CoinBoxPriceBinance>
+          <styled.CoinBoxPriceBinance>
+            {matchingTicker
+              ? `${(parseFloat(matchingTicker.c) * exchangeRate).toLocaleString(
+                  'ko-KR',
+                )}`
+              : '로딩중'}
+          </styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium>김치프리미엄%</styled.CoinBoxKimchiPremium>
+        <styled.CoinBoxKimchiPremium $isPositive={false}>
+          <styled.CoinBoxKimchiPremiumRate>d</styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>a</styled.CoinBoxKimchiPremiumDiff>
+        </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
             {changesRatio > 0 ? '+' : null}

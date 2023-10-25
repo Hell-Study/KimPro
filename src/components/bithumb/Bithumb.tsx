@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
 import BithumbTable from '../Table/BithumbTable';
+
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { bithumbTickerState } from 'recoil/atoms/bithumb';
 import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import useFetchBithumbTicker from 'hooks/bithumb/useFetchBithumbticker';
+import useBinanceTicker from 'hooks/binance/useBinanceTicker';
+        
 
 export function Bithumb() {
   useFetchBithumbTicker();
@@ -20,10 +23,25 @@ export function Bithumb() {
     });
   }, []);
 
+  const { tickers } = useBinanceTicker();
+  const removeUSDT = (symbol: string) => {
+    return symbol.replace('USDT', '');
+  };
+
   return (
     <>
       {socketDatas.map((socketData) => {
-        return <BithumbTable key={socketData[0]} socketData={socketData} />;
+        const matchingTicker = tickers?.find(
+          (ticker) => removeUSDT(ticker.s) === socketData.symbol?.split('_')[0],
+        );
+        return (
+          <BithumbTable
+            key={socketData[0]}
+            socketData={socketData}
+            matchingTicker={matchingTicker}
+          />
+        );
+
       })}
     </>
   );
