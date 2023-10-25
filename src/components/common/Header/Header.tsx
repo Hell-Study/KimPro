@@ -36,10 +36,9 @@ function Header() {
 
   return (
     <styled.HeaderContainer>
-
       <styled.Topbar>
         <styled.Inner>
-        <div>환율(USD/KRW): {exchangeRate || null}</div>
+          <div>환율(USD/KRW): {exchangeRate || null}</div>
           {globalCoin && (
             <>
               <div>
@@ -56,9 +55,9 @@ function Header() {
               </div>
               <div>
                 <styled.Label>시가총액</styled.Label>
-              {globalCoin[0]?.total_mcap
-              ? `${multiplyByExchangeRate(globalCoin[0].total_mcap)}원`
-              : '로딩 중...'}
+                {globalCoin[0]?.total_mcap
+                  ? `${multiplyByExchangeRate(globalCoin[0].total_mcap)}원`
+                  : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.mcap_change >= 0}>
                   {globalCoin[0]?.mcap_change !== undefined
                     ? (globalCoin[0].mcap_change >= 0 ? '+' : '-') +
@@ -69,9 +68,9 @@ function Header() {
               </div>
               <div>
                 <styled.Label>24시간 거래량</styled.Label>
-            {globalCoin[0]?.total_volume
-              ? `${multiplyByExchangeRate(globalCoin[0].total_volume)}원`
-              : '로딩 중...'}
+                {globalCoin[0]?.total_volume
+                  ? `${multiplyByExchangeRate(globalCoin[0].total_volume)}원`
+                  : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.volume_change >= 0}>
                   {globalCoin[0]?.volume_change !== undefined
                     ? (globalCoin[0].volume_change >= 0 ? '+' : '-') +

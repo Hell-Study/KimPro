@@ -9,7 +9,7 @@ import {
   coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
 import judgeColor from 'utils/judgeColor';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { exchangeRateState } from 'recoil/atoms/exchange';
 
 interface IProps {
   socketData: IBithumbFetchTicker;
@@ -53,7 +53,7 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
   const low = Number(min_price); // 저가(전일)
   const value = Number(acc_trade_value_24H);
 
-  const { exchangeRate } = useFetchExchangeRate();
+  const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
     <>
@@ -85,15 +85,44 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
           <styled.CoinBoxPriceKorean>{nowPrice}</styled.CoinBoxPriceKorean>
           <styled.CoinBoxPriceBinance>
             {matchingTicker
-              ? `${(parseFloat(matchingTicker.c) * exchangeRate).toLocaleString(
-                  'ko-KR',
-                )}`
-              : '로딩중'}
+              ? `${(
+                  parseFloat(matchingTicker.c) * myExchangeRate
+                ).toLocaleString('ko-KR')}`
+              : ''}
           </styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium $isPositive={false}>
-          <styled.CoinBoxKimchiPremiumRate>d</styled.CoinBoxKimchiPremiumRate>
-          <styled.CoinBoxKimchiPremiumDiff>a</styled.CoinBoxKimchiPremiumDiff>
+        <styled.CoinBoxKimchiPremium
+          $isPositive={
+            matchingTicker &&
+            nowPrice > parseFloat(matchingTicker.c) * myExchangeRate
+              ? true
+              : false
+          }
+        >
+          <styled.CoinBoxKimchiPremiumRate>
+            {matchingTicker &&
+              (nowPrice / (parseFloat(matchingTicker.c) * myExchangeRate) - 1) *
+                100 >
+                0 &&
+              '+'}
+            {matchingTicker
+              ? `${(
+                  (nowPrice / (parseFloat(matchingTicker.c) * myExchangeRate) -
+                    1) *
+                  100
+                ).toFixed(2)}%`
+              : ''}
+          </styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>
+            {matchingTicker &&
+              nowPrice - parseFloat(matchingTicker.c) * myExchangeRate > 0 &&
+              '+'}
+            {matchingTicker &&
+              (
+                nowPrice -
+                parseFloat(matchingTicker.c) * myExchangeRate
+              ).toFixed(2)}
+          </styled.CoinBoxKimchiPremiumDiff>
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>

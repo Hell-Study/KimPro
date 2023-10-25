@@ -1,12 +1,12 @@
 import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { exchangeRateState } from 'recoil/atoms/exchange';
 
 export default function UpbitTable() {
   const { marketCodes } = useFetchUpbitMarketCode();
@@ -28,11 +28,11 @@ export default function UpbitTable() {
     setSelectedCoin(currentTarget);
   };
 
-  const { exchangeRate } = useFetchExchangeRate();
   const { tickers } = useBinanceTicker();
   const removeUSDT = (symbol: string) => {
     return symbol.replace('USDT', '');
   };
+  const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
     <>
@@ -84,16 +84,16 @@ export default function UpbitTable() {
                   <styled.CoinBoxPriceBinance>
                     {matchingTicker
                       ? `${(
-                          parseFloat(matchingTicker.c) * exchangeRate
+                          parseFloat(matchingTicker.c) * myExchangeRate
                         ).toLocaleString('ko-KR')}`
-                      : '로딩중'}
+                      : ''}
                   </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
                   $isPositive={
                     matchingTicker &&
                     data.trade_price >
-                      parseFloat(matchingTicker.c) * exchangeRate
+                      parseFloat(matchingTicker.c) * myExchangeRate
                       ? true
                       : false
                   }
@@ -101,7 +101,7 @@ export default function UpbitTable() {
                   <styled.CoinBoxKimchiPremiumRate>
                     {matchingTicker &&
                       (data.trade_price /
-                        (parseFloat(matchingTicker.c) * exchangeRate) -
+                        (parseFloat(matchingTicker.c) * myExchangeRate) -
                         1) *
                         100 >
                         0 &&
@@ -109,22 +109,22 @@ export default function UpbitTable() {
                     {matchingTicker
                       ? `${(
                           (data.trade_price /
-                            (parseFloat(matchingTicker.c) * exchangeRate) -
+                            (parseFloat(matchingTicker.c) * myExchangeRate) -
                             1) *
                           100
                         ).toFixed(2)}%`
-                      : '로딩중'}
+                      : ''}
                   </styled.CoinBoxKimchiPremiumRate>
                   <styled.CoinBoxKimchiPremiumDiff>
                     {matchingTicker &&
                       data.trade_price -
-                        parseFloat(matchingTicker.c) * exchangeRate >
+                        parseFloat(matchingTicker.c) * myExchangeRate >
                         0 &&
                       '+'}
                     {matchingTicker &&
                       (
                         data.trade_price -
-                        parseFloat(matchingTicker.c) * exchangeRate
+                        parseFloat(matchingTicker.c) * myExchangeRate
                       ).toFixed(2)}
                   </styled.CoinBoxKimchiPremiumDiff>
                 </styled.CoinBoxKimchiPremium>
