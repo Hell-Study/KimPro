@@ -1,31 +1,25 @@
 import { useEffect } from 'react';
-import { getBithumbMarketCode } from 'api/bithumb/getMarketCode';
-import useBithumbTicker from 'hooks/bithumb/useBithumbTicker';
+import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
 import BithumbTable from '../Table/BithumbTable';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
-import { coingeckoCoinsListState } from 'recoil/atoms/coingecko';
-import { getCoingeckoCoinList } from 'api/coingecko/getCoingeckoCoinList';
+
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { bithumbTickerState } from 'recoil/atoms/bithumb';
+import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
+import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
+import useFetchBithumbTicker from 'hooks/bithumb/useFetchBithumbticker';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
+        
 
 export function Bithumb() {
-  const [bithumbMarketCodes, setBithumbMarketCodes] = useRecoilState(
-    bithumbMarketCodesState,
-  );
+  useFetchBithumbTicker();
+  useBithumbWsTicker();
 
+  const socketDatas = useRecoilValue(bithumbTickerState);
+
+  const setCoingeckoData = useSetRecoilState(coingeckoCoinDataState);
   useEffect(() => {
-    getBithumbMarketCode().then((res) => {
-      setBithumbMarketCodes(res);
-    });
-  }, []);
-
-  const socketDatas = useBithumbTicker(bithumbMarketCodes);
-
-  const setCoingeckoCoinsList = useSetRecoilState(coingeckoCoinsListState);
-
-  useEffect(() => {
-    getCoingeckoCoinList().then((res) => {
-      setCoingeckoCoinsList(res);
+    getCoingeckoData().then((res) => {
+      setCoingeckoData(res.coins);
     });
   }, []);
 
@@ -42,11 +36,12 @@ export function Bithumb() {
         );
         return (
           <BithumbTable
-            key={socketData.symbol}
+            key={socketData[0]}
             socketData={socketData}
             matchingTicker={matchingTicker}
           />
         );
+
       })}
     </>
   );

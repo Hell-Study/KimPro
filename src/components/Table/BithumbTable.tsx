@@ -1,69 +1,64 @@
 import * as styled from './Table.styles';
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { IBinanceTicker } from 'hooks/binance/useBinanceTicker';
+import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import {
-  ICoingeckoCoin,
-  coingeckoCoinsListState,
+  ICoingeckoCoinData,
+  coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
+import judgeColor from 'utils/judgeColor';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
-interface Props {
-  socketData: IBithumbTicker;
+interface IProps {
+  socketData: IBithumbFetchTicker;
   matchingTicker?: IBinanceTicker; // '?'를 통해 선택적 사용하여 undefined 에러 해결
 }
 
-export default function BithumbTable({ socketData, matchingTicker }: Props) {
+export default function BithumbTable({ socketData, matchingTicker }: IProps) {
   const {
-    symbol, // 통화코드
-    closePrice, // 종가
-    lowPrice, // 저가
-    highPrice, // 고가
-    value, // 누적거래금액
-    prevClosePrice, // 전일종가
-  } = socketData;
+    closing_price,
+    min_price,
+    max_price,
+    prev_closing_price,
+    acc_trade_value_24H,
+  } = socketData[1];
 
-  const simpleSymbol = symbol.replace('_KRW', '');
-  const changesRatio =
-    ((Number(closePrice) - Number(prevClosePrice)) / Number(prevClosePrice)) *
-    100; // 전일 대비 증감률
-  const changes = Number(closePrice) - Number(prevClosePrice); // 전일 대비
-  const highRatio =
-    ((Number(closePrice) - Number(highPrice)) / Number(highPrice)) * 100; // 고가 대비 증감률(전일)
-  const high = Number(highPrice); // 고가(전일)
-  const lowRatio =
-    ((Number(closePrice) - Number(lowPrice)) / Number(lowPrice)) * 100; // 저가 대비 증감률(전일)
-  const low = Number(lowPrice); // 저가(전일)
-
-  const judgeColor = (num: number) => {
-    if (num > 0) {
-      return 'RISE';
-    } else if (num < 0) {
-      return 'FALL';
-    } else {
-      return 'EVEN';
-    }
-  };
-
+  const [thumb, setThumb] = useState('');
   const [englishName, setEnglishName] = useState('');
-  const coingeckoCoinsList = useRecoilValue(coingeckoCoinsListState);
+  const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
-    const target = coingeckoCoinsList.filter((coin: ICoingeckoCoin) => {
-      return coin.symbol == simpleSymbol.toLowerCase();
-    });
-    setEnglishName(target[0]?.name);
+    if (simpleSymbol !== undefined) {
+      const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
+        return coin.symbol === simpleSymbol;
+      });
+      setEnglishName(target[0]?.name);
+      setThumb(target[0]?.thumb);
+    }
   }, []);
+
+  const simpleSymbol = socketData[0];
+  const nowPrice = Number(closing_price);
+  const changesRatio =
+    ((Number(closing_price) - Number(prev_closing_price)) /
+      Number(prev_closing_price)) *
+    100; // 전일 대비 증감률
+  const changes = Number(closing_price) - Number(prev_closing_price); // 전일 대비
+  const highRatio =
+    ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100; // 고가 대비 증감률(전일)
+  const high = Number(max_price); // 고가(전일)
+  const lowRatio = ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
+  const low = Number(min_price); // 저가(전일)
+  const value = Number(acc_trade_value_24H);
+
   const { exchangeRate } = useFetchExchangeRate();
-  useEffect(() => {
-    console.log('matchingTicker', matchingTicker);
-  }, [matchingTicker]);
+
   return (
     <>
       <styled.CoinBox
-        key={socketData.symbol}
-        id={socketData.symbol}
+        key={socketData[0]}
+        id={socketData[0]}
         // onClick={clickCoinHandler}
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
@@ -86,7 +81,7 @@ export default function BithumbTable({ socketData, matchingTicker }: Props) {
           </styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
-          <styled.CoinBoxPriceKorean>{closePrice}</styled.CoinBoxPriceKorean>
+          <styled.CoinBoxPriceKorean>{nowPrice}</styled.CoinBoxPriceKorean>
           <styled.CoinBoxPriceBinance>
             {matchingTicker
               ? `${(parseFloat(matchingTicker.c) * exchangeRate).toLocaleString(
@@ -111,7 +106,7 @@ export default function BithumbTable({ socketData, matchingTicker }: Props) {
         <styled.CoinBoxHighestWeek>
           <styled.CoinBoxHighestWeekRate>
             {highRatio > 0 ? '+' : null}
-            {highRatio.toFixed(2) + '%'}
+            {highRatio.toFixed(2)}%
           </styled.CoinBoxHighestWeekRate>
           <styled.CoinBoxHighestWeekPrice>
             {high}
