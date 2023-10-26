@@ -5,7 +5,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
-import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { exchangeRateState } from 'recoil/atoms/exchange';
 
 export default function UpbitTable() {
@@ -28,19 +27,12 @@ export default function UpbitTable() {
     setSelectedCoin(currentTarget);
   };
 
-  const { tickers } = useBinanceTicker();
-  const removeUSDT = (symbol: string) => {
-    return symbol.replace('USDT', '');
-  };
   const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
     <>
       {socketDatas
         ? socketDatas.map((data) => {
-            const matchingTicker = tickers?.find(
-              (ticker) => removeUSDT(ticker.s) === data.code?.split('-')[1],
-            );
             return (
               <styled.CoinBox
                 key={data.code}
@@ -82,50 +74,40 @@ export default function UpbitTable() {
                     {data.trade_price?.toLocaleString('ko-KR')}
                   </styled.CoinBoxPriceKorean>
                   <styled.CoinBoxPriceBinance>
-                    {matchingTicker
-                      ? `${(
-                          parseFloat(matchingTicker.c) * myExchangeRate
-                        ).toLocaleString('ko-KR')}`
-                      : ''}
+                    {`${(
+                      parseFloat(data.binancePrice) * myExchangeRate
+                    ).toLocaleString('ko-KR')}`}
                   </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
                   $isPositive={
-                    matchingTicker &&
                     data.trade_price >
-                      parseFloat(matchingTicker.c) * myExchangeRate
+                    parseFloat(data.binancePrice) * myExchangeRate
                       ? true
                       : false
                   }
                 >
                   <styled.CoinBoxKimchiPremiumRate>
-                    {matchingTicker &&
+                    {(data.trade_price /
+                      (parseFloat(data.binancePrice) * myExchangeRate) -
+                      1) *
+                      100 >
+                      0 && '+'}
+                    {`${(
                       (data.trade_price /
-                        (parseFloat(matchingTicker.c) * myExchangeRate) -
+                        (parseFloat(data.binancePrice) * myExchangeRate) -
                         1) *
-                        100 >
-                        0 &&
-                      '+'}
-                    {matchingTicker
-                      ? `${(
-                          (data.trade_price /
-                            (parseFloat(matchingTicker.c) * myExchangeRate) -
-                            1) *
-                          100
-                        ).toFixed(2)}%`
-                      : ''}
+                      100
+                    ).toFixed(2)}%`}
                   </styled.CoinBoxKimchiPremiumRate>
                   <styled.CoinBoxKimchiPremiumDiff>
-                    {matchingTicker &&
+                    {data.trade_price -
+                      parseFloat(data.binancePrice) * myExchangeRate >
+                      0 && '+'}
+                    {(
                       data.trade_price -
-                        parseFloat(matchingTicker.c) * myExchangeRate >
-                        0 &&
-                      '+'}
-                    {matchingTicker &&
-                      (
-                        data.trade_price -
-                        parseFloat(matchingTicker.c) * myExchangeRate
-                      ).toFixed(2)}
+                      parseFloat(data.binancePrice) * myExchangeRate
+                    ).toFixed(2)}
                   </styled.CoinBoxKimchiPremiumDiff>
                 </styled.CoinBoxKimchiPremium>
                 <styled.CoinBoxChange $changeType={data.change}>

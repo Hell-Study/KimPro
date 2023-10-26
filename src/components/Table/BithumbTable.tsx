@@ -13,10 +13,9 @@ import { exchangeRateState } from 'recoil/atoms/exchange';
 
 interface IProps {
   socketData: IBithumbFetchTicker;
-  matchingTicker?: IBinanceTicker; // '?'를 통해 선택적 사용하여 undefined 에러 해결
 }
 
-export default function BithumbTable({ socketData, matchingTicker }: IProps) {
+export default function BithumbTable({ socketData }: IProps) {
   const {
     closing_price,
     min_price,
@@ -82,47 +81,14 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
           </styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
-          <styled.CoinBoxPriceKorean>{nowPrice}</styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>
-            {matchingTicker
-              ? `${(
-                  parseFloat(matchingTicker.c) * myExchangeRate
-                ).toLocaleString('ko-KR')}`
-              : ''}
-          </styled.CoinBoxPriceBinance>
+          <styled.CoinBoxPriceKorean>
+            {nowPrice.toLocaleString('ko-KR')}
+          </styled.CoinBoxPriceKorean>
+          <styled.CoinBoxPriceBinance>dd</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium
-          $isPositive={
-            matchingTicker &&
-            nowPrice > parseFloat(matchingTicker.c) * myExchangeRate
-              ? true
-              : false
-          }
-        >
-          <styled.CoinBoxKimchiPremiumRate>
-            {matchingTicker &&
-              (nowPrice / (parseFloat(matchingTicker.c) * myExchangeRate) - 1) *
-                100 >
-                0 &&
-              '+'}
-            {matchingTicker
-              ? `${(
-                  (nowPrice / (parseFloat(matchingTicker.c) * myExchangeRate) -
-                    1) *
-                  100
-                ).toFixed(2)}%`
-              : ''}
-          </styled.CoinBoxKimchiPremiumRate>
-          <styled.CoinBoxKimchiPremiumDiff>
-            {matchingTicker &&
-              nowPrice - parseFloat(matchingTicker.c) * myExchangeRate > 0 &&
-              '+'}
-            {matchingTicker &&
-              (
-                nowPrice -
-                parseFloat(matchingTicker.c) * myExchangeRate
-              ).toFixed(2)}
-          </styled.CoinBoxKimchiPremiumDiff>
+        <styled.CoinBoxKimchiPremium $isPositive={false}>
+          <styled.CoinBoxKimchiPremiumRate>dd</styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>dd</styled.CoinBoxKimchiPremiumDiff>
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
