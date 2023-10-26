@@ -35,7 +35,7 @@ export default function UpbitTable() {
   };
 
   return (
-    <>
+    <styled.CoinListWrapper>
       {socketDatas
         ? socketDatas.map((data) => {
             const matchingTicker = tickers?.find(
@@ -48,19 +48,22 @@ export default function UpbitTable() {
                 onClick={clickCoinHandler}
                 $selected={selectedCoin[0]?.market === data.code}
               >
+                <div>
+                  <img
+                    alt={`${data.code?.split('-')[1]} 아이콘`}
+                    width="15"
+                    height="15"
+                    decoding="async"
+                    data-nimg="1"
+                    className="rounded-full"
+                    src={`https://static.upbit.com/logos/${data.code?.split(
+                      '-',
+                    )[1]}.png`}
+                  />
+                </div>
+
                 <styled.CoinBoxName>
                   <styled.CoinBoxNameKorean>
-                    <img
-                      alt={`${data.code?.split('-')[1]} 아이콘`}
-                      width="15"
-                      height="15"
-                      decoding="async"
-                      data-nimg="1"
-                      className="rounded-full"
-                      src={`https://static.upbit.com/logos/${data.code?.split(
-                        '-',
-                      )[1]}.png`}
-                    />
                     <div>
                       {
                         marketCodes.filter(
@@ -181,6 +184,6 @@ export default function UpbitTable() {
             );
           })
         : null}
-    </>
+    </styled.CoinListWrapper>
   );
 }

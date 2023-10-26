@@ -9,6 +9,7 @@ export const TableHeaderContainer = styled.div`
 export const TableHeaderLeft = styled.div`
   display: flex;
   align-items: center;
+
   color: ${({ theme }) => theme.colors.heading1};
   font-family: DM Sans;
   font-size: 0.75rem;

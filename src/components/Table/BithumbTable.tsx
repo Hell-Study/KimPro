@@ -64,17 +64,19 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
       >
+        <div>
+          <img
+            alt={`${coinName} 아이콘`}
+            width="15"
+            height="15"
+            decoding="async"
+            data-nimg="1"
+            className="rounded-full"
+            src={thumb}
+          />
+        </div>
         <styled.CoinBoxName>
           <styled.CoinBoxNameKorean>
-            <img
-              alt={`${coinName} 아이콘`}
-              width="15"
-              height="15"
-              decoding="async"
-              data-nimg="1"
-              className="rounded-full"
-              src={thumb}
-            />
             <div>{coinName}</div>
           </styled.CoinBoxNameKorean>
           <styled.CoinBoxNameMarket>{simpleSymbol}</styled.CoinBoxNameMarket>
