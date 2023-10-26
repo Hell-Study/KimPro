@@ -31,4 +31,5 @@ export interface IBithumbTickerData {
   acc_trade_value_24H: string;
   fluctate_24H: string;
   fluctate_rate_24H: string;
+  binancePrice: string;
 }
