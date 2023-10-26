@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
-import { updateListWithBinanceData } from 'hooks/binance/updateListWithBinanceData';
+import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
 // import { throttle } from 'lodash';
 
 export interface IUpbitTicker {
@@ -37,10 +37,6 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const socket = useRef<WebSocket | null>(null);
   const [list, setList] = useState<IUpbitTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
-
-  const removeUSDT = (symbol: string) => {
-    return symbol.replace('USDT', '');
-  };
 
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
@@ -92,11 +88,7 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
 
   useEffect(() => {
     if (binanceTickers) {
-      const newList = updateListWithBinanceData(
-        list,
-        binanceTickers,
-        removeUSDT,
-      );
+      const newList = updateUpbitListWithBinance(list, binanceTickers);
       setList(newList);
     }
   }, [binanceTickers]);

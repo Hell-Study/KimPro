@@ -1,10 +1,13 @@
 import { IUpbitTicker } from 'api/upbit/useUpbitTicker';
 import { IBinanceTicker } from './useBinanceTicker';
-export function updateListWithBinanceData(
+export function updateUpbitListWithBinance(
   list: IUpbitTicker[],
   binanceTickers: IBinanceTicker[],
-  removeUSDT: (symbol: string) => string,
 ): IUpbitTicker[] {
+  const removeUSDT = (symbol: string) => {
+    return symbol.replace('USDT', '');
+  };
+
   return list.map((item) => {
     const binanceTicker = binanceTickers?.find(
       (ticker) => removeUSDT(ticker.s) === item.code?.split('-')[1],

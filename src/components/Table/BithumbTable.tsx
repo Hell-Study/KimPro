@@ -22,6 +22,7 @@ export default function BithumbTable({ socketData }: IProps) {
     max_price,
     prev_closing_price,
     acc_trade_value_24H,
+    binancePrice,
   } = socketData[1];
 
   const [thumb, setThumb] = useState('');
@@ -84,11 +85,24 @@ export default function BithumbTable({ socketData }: IProps) {
           <styled.CoinBoxPriceKorean>
             {nowPrice.toLocaleString('ko-KR')}
           </styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>dd</styled.CoinBoxPriceBinance>
+          <styled.CoinBoxPriceBinance>{`${(
+            parseFloat(binancePrice) * myExchangeRate
+          ).toLocaleString('ko-KR')}`}</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
         <styled.CoinBoxKimchiPremium $isPositive={false}>
-          <styled.CoinBoxKimchiPremiumRate>dd</styled.CoinBoxKimchiPremiumRate>
-          <styled.CoinBoxKimchiPremiumDiff>dd</styled.CoinBoxKimchiPremiumDiff>
+          <styled.CoinBoxKimchiPremiumRate>
+            {(nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) *
+              100 >
+              0 && '+'}
+            {`${(
+              (nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) *
+              100
+            ).toFixed(2)}%`}
+          </styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>
+            {nowPrice - parseFloat(binancePrice) * myExchangeRate > 0 && '+'}
+            {(nowPrice - parseFloat(binancePrice) * myExchangeRate).toFixed(2)}
+          </styled.CoinBoxKimchiPremiumDiff>
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
