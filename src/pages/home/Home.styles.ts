@@ -4,7 +4,7 @@ export const DisplayBoard = styled.main`
   width: 1250px;
   margin: 0 auto;
   display: grid;
-  grid-template-rows: 320px 1fr;
+  //grid-template-rows: 320px 1fr;
   background-color: whitesmoke;
 
   font-family: Arial, Helvetica, sans-serif;

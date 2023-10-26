@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Inner = styled.div`
-  width: 1140px;
+  width: ${({ theme }) => theme.sizes.lg};
   display: flex;
   align-items: center;
   justify-content: flex-start;
