@@ -1,6 +1,7 @@
+import * as styled from './Table.styles';
 import { useEffect } from 'react';
 import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
-import BithumbTable from '../Table/BithumbTable';
+import BithumbTable from './BithumbTable';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { bithumbTickerState } from 'recoil/atoms/bithumb';
@@ -28,7 +29,7 @@ export function Bithumb() {
   };
 
   return (
-    <>
+    <styled.CoinListWrapper>
       {socketDatas.map((socketData) => {
         const matchingTicker = tickers?.find(
           (ticker) => removeUSDT(ticker.s) === socketData[0],
@@ -41,6 +42,6 @@ export function Bithumb() {
           />
         );
       })}
-    </>
+    </styled.CoinListWrapper>
   );
 }

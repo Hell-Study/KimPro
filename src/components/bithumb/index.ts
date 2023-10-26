@@ -1,1 +1,1 @@
-export { Bithumb } from './Bithumb';
+export { Bithumb } from '../Table/Bithumb';
