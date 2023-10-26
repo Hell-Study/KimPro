@@ -5,6 +5,7 @@ import UpbitTable from './UpbitTable';
 import { Bithumb } from 'components/bithumb';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
+import { TableHeader } from './TableHeader';
 
 export const Table: React.FC = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
@@ -16,8 +17,8 @@ export const Table: React.FC = () => {
   const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
 
   return (
-    <styled.CoinListBox>
-      <styled.CoinBoxNav>
+    <styled.TableContainer>
+      <styled.TableNav>
         <div>
           기준 거래소
           <select onChange={changeBaseExchange}>
@@ -38,17 +39,12 @@ export const Table: React.FC = () => {
           개
           <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
         </div>
-      </styled.CoinBoxNav>
-      <styled.CoinBoxHeader>
-        <div>코인</div>
-        <div>현재가</div>
-        <div>김프</div>
-        <div>전일대비</div>
-        <div>고가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
-        <div>저가대비{baseExchange === 'upbit' ? '(52주)' : '(전일)'}</div>
-        <div>거래대금</div>
-      </styled.CoinBoxHeader>
-      {baseExchange === 'upbit' ? <UpbitTable /> : <Bithumb />}
-    </styled.CoinListBox>
+      </styled.TableNav>
+
+      <styled.TableBox>
+        <TableHeader />
+        {baseExchange === 'upbit' ? <UpbitTable /> : <Bithumb />}
+      </styled.TableBox>
+    </styled.TableContainer>
   );
 };
