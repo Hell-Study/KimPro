@@ -1,10 +1,15 @@
-import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
+import { useEffect } from 'react';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
-import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
+import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
+import useUpbitTicker, {
+  IUpbitMarketCode,
+  IUpbitTicker,
+} from 'api/upbit/useUpbitTicker';
+import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
@@ -33,6 +38,99 @@ export default function UpbitTable() {
   const removeUSDT = (symbol: string) => {
     return symbol.replace('USDT', '');
   };
+
+  const highest_52_week_rate = (data: IUpbitTicker) =>
+    (data.trade_price / data.highest_52_week_price - 1) * 100;
+  const lowest_52_week_rate = (data: IUpbitTicker) =>
+    (data.trade_price / data.lowest_52_week_price - 1) * 100;
+
+  const tableSortValue = useRecoilValue(tableSortValueState);
+  const tableSortUpDown = useRecoilValue(tableSortUpDownState);
+  useEffect(() => {
+    switch (tableSortValue) {
+      case '코인':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => {
+            if (a.code > b.code) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
+        } else {
+          socketDatas.sort((a, b) => {
+            if (a.code > b.code) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        }
+        break;
+
+      case '현재가':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => a.trade_price - b.trade_price);
+        } else {
+          socketDatas.sort((a, b) => b.trade_price - a.trade_price);
+        }
+        break;
+
+      // case '김프':
+      //   socketDatas.sort(
+      //     (a, b) => a.acc_trade_price_24h - b.acc_trade_price_24h,
+      //   );
+      //   break;
+
+      case '전일대비':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) => a.signed_change_rate - b.signed_change_rate,
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) => b.signed_change_rate - a.signed_change_rate,
+          );
+        }
+        break;
+
+      case '고가대비(52주)':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) => highest_52_week_rate(a) - highest_52_week_rate(b),
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) => highest_52_week_rate(b) - highest_52_week_rate(a),
+          );
+        }
+        break;
+
+      case '저가대비(52주)':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) => lowest_52_week_rate(a) - lowest_52_week_rate(b),
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) => lowest_52_week_rate(b) - lowest_52_week_rate(a),
+          );
+        }
+        break;
+
+      case '거래액(일)':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) => a.acc_trade_price_24h - b.acc_trade_price_24h,
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) => b.acc_trade_price_24h - a.acc_trade_price_24h,
+          );
+        }
+        break;
+    }
+  }, [socketDatas]);
 
   return (
     <styled.CoinListWrapper>
@@ -143,10 +241,7 @@ export default function UpbitTable() {
                 <styled.CoinBoxHighestWeek>
                   <styled.CoinBoxHighestWeekRate>
                     {data.highest_52_week_price
-                      ? (
-                          (data.trade_price / data.highest_52_week_price - 1) *
-                          100
-                        ).toFixed(2) + '%'
+                      ? highest_52_week_rate(data).toFixed(2) + '%'
                       : null}
                   </styled.CoinBoxHighestWeekRate>
                   <styled.CoinBoxHighestWeekPrice>
@@ -158,12 +253,7 @@ export default function UpbitTable() {
                 <styled.CoinBoxLowestWeek>
                   <styled.CoinBoxLowestWeekRate>
                     {data.lowest_52_week_price
-                      ? '+' +
-                        (
-                          (data.trade_price / data.lowest_52_week_price - 1) *
-                          100
-                        ).toFixed(2) +
-                        '%'
+                      ? '+' + lowest_52_week_rate(data).toFixed(2) + '%'
                       : null}
                   </styled.CoinBoxLowestWeekRate>
                   <styled.CoinBoxLowestWeekPrice>
