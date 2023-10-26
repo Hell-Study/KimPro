@@ -10,7 +10,9 @@ const commonStyle = {
     white: '#ffffff',
     black: '#000000',
     red: '#EC635F',
+    alpha_red: 'rgb(255, 72, 66, 0.3)',
     green: '#74E293',
+    alpha_green: 'rgb(116, 226, 147, 0.3)',
     alpha_primary1: 'rgb(60, 87, 214, 0.3)',
     alpha_primary2: 'rgb(197, 206, 250, 0.2)',
   },
@@ -20,7 +22,7 @@ export const lightTheme: DefaultTheme = {
   ...commonStyle,
   colors: {
     ...commonStyle.colors,
-    primary: '#4361ee',
+    primary1: '#4361ee',
     primary2: '#7d92ff',
     bg_page: '#f9fafc',
     heading1: '#1d1e23',
