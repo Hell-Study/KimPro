@@ -10,6 +10,7 @@ import {
 } from 'recoil/atoms/coingecko';
 import judgeColor from 'utils/judgeColor';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { changes, changesRatio, highRatio, lowRatio } from 'utils/bithumbCalc';
 
 interface IProps {
   socketData: IBithumbFetchTicker;
@@ -17,17 +18,13 @@ interface IProps {
 }
 
 export default function BithumbTable({ socketData, matchingTicker }: IProps) {
-  const {
-    closing_price,
-    min_price,
-    max_price,
-    prev_closing_price,
-    acc_trade_value_24H,
-  } = socketData[1];
+  const { closing_price, min_price, max_price, acc_trade_value_24H } =
+    socketData[1];
 
   const [thumb, setThumb] = useState('');
   const [coinName, setCoinName] = useState('');
   const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
+  const simpleSymbol = socketData[0];
   useEffect(() => {
     if (simpleSymbol !== undefined) {
       const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
@@ -37,21 +34,6 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
       setThumb(target[0]?.thumb);
     }
   }, []);
-
-  const simpleSymbol = socketData[0];
-  const nowPrice = Number(closing_price);
-  const changesRatio =
-    ((Number(closing_price) - Number(prev_closing_price)) /
-      Number(prev_closing_price)) *
-    100; // 전일 대비 증감률
-  const changes = Number(closing_price) - Number(prev_closing_price); // 전일 대비
-  const highRatio =
-    ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100; // 고가 대비 증감률(전일)
-  const high = Number(max_price); // 고가(전일)
-  const lowRatio =
-    ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100; // 저가 대비 증감률(전일)
-  const low = Number(min_price); // 저가(전일)
-  const value = Number(acc_trade_value_24H);
 
   const { exchangeRate } = useFetchExchangeRate();
 
@@ -83,7 +65,7 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>
-            {nowPrice.toLocaleString('ko-KR')}
+            {Number(closing_price).toLocaleString('ko-KR')}
           </styled.CoinBoxPriceKorean>
           <styled.CoinBoxPriceBinance>
             {matchingTicker
@@ -99,33 +81,35 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>
-            {changesRatio > 0 ? '+' : null}
-            {changesRatio.toFixed(2)}%
+            {changesRatio(socketData) > 0 ? '+' : null}
+            {changesRatio(socketData).toFixed(2)}%
           </styled.CoinBoxChangeRate>
           <styled.CoinBoxChangePrice>
-            {changes.toLocaleString('ko-KR')}
+            {changes(socketData).toLocaleString('ko-KR')}
           </styled.CoinBoxChangePrice>
         </styled.CoinBoxChange>
         <styled.CoinBoxHighestWeek>
           <styled.CoinBoxHighestWeekRate>
-            {highRatio > 0 ? '+' : null}
-            {highRatio.toFixed(2)}%
+            {highRatio(socketData) > 0 ? '+' : null}
+            {highRatio(socketData).toFixed(2)}%
           </styled.CoinBoxHighestWeekRate>
           <styled.CoinBoxHighestWeekPrice>
-            {high.toLocaleString('ko-KR')}
+            {Number(max_price).toLocaleString('ko-KR')}
           </styled.CoinBoxHighestWeekPrice>
         </styled.CoinBoxHighestWeek>
         <styled.CoinBoxLowestWeek>
           <styled.CoinBoxLowestWeekRate>
-            {'+' + lowRatio.toFixed(2) + '%'}
+            {'+' + lowRatio(socketData).toFixed(2) + '%'}
           </styled.CoinBoxLowestWeekRate>
           <styled.CoinBoxLowestWeekPrice>
-            {low.toLocaleString('ko-KR')}
+            {Number(min_price).toLocaleString('ko-KR')}
           </styled.CoinBoxLowestWeekPrice>
         </styled.CoinBoxLowestWeek>
         <styled.CoinBoxVolume>
           <div>
-            {Math.ceil(convertMillonWon(Number(value))).toLocaleString('ko-KR')}
+            {Math.ceil(
+              convertMillonWon(Number(Number(acc_trade_value_24H))),
+            ).toLocaleString('ko-KR')}
           </div>
           <div>백만</div>
         </styled.CoinBoxVolume>
