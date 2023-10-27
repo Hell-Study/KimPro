@@ -2,19 +2,13 @@ import * as styled from './Table.styles';
 import { useEffect } from 'react';
 import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
 import BithumbTable from './BithumbTable';
-
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { bithumbTickerState } from 'recoil/atoms/bithumb';
 import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
-import useFetchBithumbTicker from 'hooks/bithumb/useFetchBithumbticker';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 
 export function Bithumb() {
-  useFetchBithumbTicker();
-  useBithumbWsTicker();
-
-  const socketDatas = useRecoilValue(bithumbTickerState);
+  const socketDatas = useBithumbWsTicker();
 
   const setCoingeckoData = useSetRecoilState(coingeckoCoinDataState);
   useEffect(() => {
