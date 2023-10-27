@@ -13,7 +13,7 @@ interface CoinBoxKimchiPremiumProps {
 }
 
 export const CoinListBox = styled.div`
-  width: 1240px;
+  width: 1040px;
   height: 800px;
   margin: 5px;
   background-color: white;
