@@ -1,39 +1,123 @@
-import React from 'react';
-import { useWidgetTickers } from 'hooks/useWidgetTickers';
-import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
+import { createChart, ColorType, UTCTimestamp } from 'lightweight-charts';
+import React, { useEffect, useRef } from 'react';
+import useChartTickers from 'hooks/useChartTickers';
+import { useRecoilValue } from 'recoil';
+import { prevPriceDataState } from 'recoil/atoms/prevPriceData';
+import styled, { useTheme } from 'styled-components';
+import { IWidgetTicker } from './Widget.types';
 
-interface TickerWidgetProps {
+interface IWidgetTickerProps {
   pairId: string;
-  interval: Interval;
+  baseData?: IWidgetTicker;
 }
 
-export const ChartWidget: React.FC<TickerWidgetProps> = ({
+export const ChartWidget: React.FC<IWidgetTickerProps> = ({
   pairId,
-  interval,
+  baseData,
 }) => {
-  const { data, error, isLoading } = useWidgetTickers(pairId, interval);
+  const chartContainerRef = useRef<HTMLDivElement | null>(null);
+  const { data, isLoading } = useChartTickers(pairId, 'PT1H');
+  const theme = useTheme();
+  const baselineValue = useRecoilValue(prevPriceDataState);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!data) {
-    return <div>No data available</div>;
-  }
+  useEffect(() => {
+    if (!chartContainerRef.current || !data || data.length === 0) return;
 
-  return (
-    <div>
-      <h2>
-        Data for {pairId} with interval {interval}
-      </h2>
-      <ul>
-        <li>
-          Time: {new Date(data.timestamp).toLocaleString()} - Value:{' '}
-          {data.value}
-        </li>
-      </ul>
-    </div>
-  );
+    const baselineValue = baseData?.value;
+    console.log(baselineValue);
+
+    const handleResize = () => {
+      chart.applyOptions({ width: chartContainerRef.current?.clientWidth });
+    };
+    const chart = createChart(chartContainerRef.current as HTMLElement, {
+      layout: {
+        background: { type: ColorType.Solid, color: 'transparent' },
+      },
+      width: 64,
+      height: 32,
+      timeScale: {
+        visible: false,
+      },
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        },
+      },
+      rightPriceScale: {
+        visible: false,
+      },
+      handleScroll: {
+        mouseWheel: false,
+        pressedMouseMove: false,
+      },
+      handleScale: {
+        mouseWheel: false,
+        pinch: false,
+        axisPressedMouseMove: {
+          time: false,
+          price: false,
+        },
+      },
+      crosshair: {
+        vertLine: {
+          visible: false,
+        },
+        horzLine: {
+          visible: false,
+        },
+      },
+    });
+
+    const newSeries = chart.addBaselineSeries({
+      baseValue: { type: 'price', price: baselineValue },
+      lineWidth: 1,
+      topLineColor: 'rgb( 239, 83, 80)',
+      topFillColor1: 'rgba( 239, 83, 80, 0.03)',
+      topFillColor2: 'rgba( 239, 83, 80, 0.4)',
+      bottomLineColor: 'rgb(42,127,255)',
+      bottomFillColor1: 'rgba( 42,127,255, 0.03)',
+      bottomFillColor2: 'rgba(42,127,255,0.4)',
+      crosshairMarkerVisible: false,
+      priceLineVisible: false,
+    });
+
+    const convertedData = data.map((item) => ({
+      time: item.time as UTCTimestamp,
+      value: item.value,
+    }));
+
+    newSeries.setData(convertedData);
+
+    const lineSeries = chart.addLineSeries({
+      color: '#B2B5BE',
+      priceLineVisible: false,
+      lineWidth: 1,
+      lineStyle: 2,
+      crosshairMarkerVisible: false,
+    });
+
+    const lineData = data.map((item) => ({
+      time: item.time as UTCTimestamp,
+      value: baselineValue,
+    }));
+
+    chart.timeScale().fitContent();
+    lineSeries.setData(lineData);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+
+      chart.remove();
+    };
+  }, [data, baselineValue]);
+
+  if (isLoading) return <>로딩중...</>;
+  if (!data) return <>데이터 없음</>;
+
+  return <div ref={chartContainerRef} />;
 };
