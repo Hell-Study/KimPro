@@ -85,10 +85,12 @@ export default function UpbitTable() {
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
                   $isPositive={
-                    data.trade_price >
-                    parseFloat(data.binancePrice) * myExchangeRate
-                      ? true
-                      : false
+                    data.binancePrice
+                      ? data.trade_price >
+                        parseFloat(data.binancePrice) * myExchangeRate
+                        ? 'true'
+                        : 'false'
+                      : 'none'
                   }
                 >
                   <styled.CoinBoxKimchiPremiumRate>
