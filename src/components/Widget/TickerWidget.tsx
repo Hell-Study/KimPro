@@ -26,11 +26,6 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = ({
     isLoading,
     error,
   } = useWidgetTickers(pairId, currentInterval, 'current');
-  // const {
-  //   data: prevPriceData,
-  //   error,
-  //   isLoading,
-  // } = useWidgetTickers(pairId, 'P1D', 'previous');
 
   const prevData = useRef<IWidgetTicker | null>(currentData!);
 

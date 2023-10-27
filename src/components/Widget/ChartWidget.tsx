@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import useChartTickers from 'hooks/useChartTickers';
 import { useRecoilValue } from 'recoil';
 import { prevPriceDataState } from 'recoil/atoms/prevPriceData';
-import styled, { useTheme } from 'styled-components';
 import { IWidgetTicker } from './Widget.types';
 
 interface IWidgetTickerProps {
@@ -17,14 +16,11 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
 }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const { data, isLoading } = useChartTickers(pairId, 'PT1H');
-  const theme = useTheme();
   const baselineValue = useRecoilValue(prevPriceDataState);
 
   useEffect(() => {
     if (!chartContainerRef.current || !data || data.length === 0) return;
-
     const baselineValue = baseData?.value;
-    console.log(baselineValue);
 
     const handleResize = () => {
       chart.applyOptions({ width: chartContainerRef.current?.clientWidth });
@@ -33,8 +29,8 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
       layout: {
         background: { type: ColorType.Solid, color: 'transparent' },
       },
-      width: 64,
-      height: 32,
+      width: 72,
+      height: 44,
       timeScale: {
         visible: false,
       },

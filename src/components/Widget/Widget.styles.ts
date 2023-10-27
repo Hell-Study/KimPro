@@ -1,19 +1,94 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: ${({ theme }) => theme.sizes.lg};
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.75rem;
   font-family: 'Pretendard', sans-serif;
   padding: 1rem 0;
+`;
+
+interface ButtonProps {
+  $visible: boolean;
+}
+
+const Button = styled.button<ButtonProps>`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(${(props) => (props.$visible ? 1 : 0.7)});
+  transition:
+    opacity 0.5s cubic-bezier(0.5, -0.75, 0.7, 2),
+    transform 0.6s cubic-bezier(0.5, -0.75, 0.7, 2);
+  opacity: ${(props) => (props.$visible ? 1 : 0)};
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  padding: 0px;
+  min-width: 0px;
+  width: 40px;
+  height: 40px;
+  background-color: ${({ theme }) => theme.colors.primary1};
+  z-index: 9;
+`;
+
+export const PrevButton = styled(Button)`
+  left: 8px;
+`;
+
+export const NextButton = styled(Button)`
+  left: auto;
+  right: 8px;
+`;
+
+export const Icon = styled.span`
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 1.5rem;
+  line-height: 0.5;
+`;
+
+export const SliderContainer = styled.div`
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+  gap: 0.75rem;
+`;
+
+const Shade = styled.div<ButtonProps>`
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 140px;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  z-index: 1;
+`;
+
+export const LeftShade = styled(Shade)`
+  opacity: ${(props) => (props.$visible ? 1 : 0)};
+  left: 0px;
+  background-image: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.bg_page} 10%,
+    transparent
+  );
+`;
+
+export const RightShade = styled(Shade)`
+  opacity: ${(props) => (props.$visible ? 1 : 0)};
+  right: 0px;
+  background-image: linear-gradient(
+    270deg,
+    ${({ theme }) => theme.colors.bg_page} 10%,
+    transparent
+  );
 `;
 
 export const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.bg_element4};
   display: flex;
-  padding: 0.8rem 0.9rem;
-  gap: 1.2rem;
+  padding: 1rem 1.1rem;
+  gap: 1.5rem;
   border: 1px solid ${({ theme }) => theme.colors.border1};
   border-radius: 12px;
   box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 5px 20px 0px;
