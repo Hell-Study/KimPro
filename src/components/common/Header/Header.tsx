@@ -31,9 +31,22 @@ function Header() {
   }, []);
 
   const multiplyByExchangeRate = (value: number) => {
-    return exchangeRate ? (value * exchangeRate).toFixed(2) : '로딩 중...';
+    return exchangeRate ? value * exchangeRate : 0;
   };
+  const formatCurrency = (value: number) => {
+    if (value === null || value === undefined) {
+      return '로딩 중...';
+    }
 
+    const trillion = Math.floor(value / 1e12);
+    const billion = Math.floor((value % 1e12) / 1e8);
+
+    if (trillion > 0) {
+      return `${trillion}조 ${billion}억`;
+    } else {
+      return `${billion}억`;
+    }
+  };
   return (
     <styled.HeaderContainer>
       <styled.Topbar>
@@ -56,7 +69,9 @@ function Header() {
               <div>
                 <styled.Label>시가총액</styled.Label>
                 {globalCoin[0]?.total_mcap
-                  ? `${multiplyByExchangeRate(globalCoin[0].total_mcap)}원`
+                  ? formatCurrency(
+                      multiplyByExchangeRate(globalCoin[0].total_mcap),
+                    )
                   : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.mcap_change >= 0}>
                   {globalCoin[0]?.mcap_change !== undefined
@@ -69,7 +84,9 @@ function Header() {
               <div>
                 <styled.Label>24시간 거래량</styled.Label>
                 {globalCoin[0]?.total_volume
-                  ? `${multiplyByExchangeRate(globalCoin[0].total_volume)}원`
+                  ? formatCurrency(
+                      multiplyByExchangeRate(globalCoin[0].total_volume),
+                    )
                   : '로딩 중...'}
                 <styled.Rate $isPositive={globalCoin[0]?.volume_change >= 0}>
                   {globalCoin[0]?.volume_change !== undefined

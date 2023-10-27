@@ -1,4 +1,4 @@
-import { IUpbitTicker } from 'api/upbit/useUpbitTicker';
+import { IUpbitTicker } from 'hooks/upbit/useUpbitTicker';
 import { IBinanceTicker } from './useBinanceTicker';
 export function updateUpbitListWithBinance(
   list: IUpbitTicker[],
