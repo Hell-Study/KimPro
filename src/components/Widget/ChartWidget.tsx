@@ -1,8 +1,6 @@
 import { createChart, ColorType, UTCTimestamp } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 import useChartTickers from 'hooks/useChartTickers';
-import { useRecoilValue } from 'recoil';
-import { prevPriceDataState } from 'recoil/atoms/prevPriceData';
 import { IWidgetTicker } from './Widget.types';
 
 interface IWidgetTickerProps {
@@ -16,7 +14,6 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
 }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const { data, isLoading } = useChartTickers(pairId, 'PT1H');
-  const baselineValue = useRecoilValue(prevPriceDataState);
 
   useEffect(() => {
     if (!chartContainerRef.current || !data || data.length === 0) return;
@@ -110,7 +107,7 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
 
       chart.remove();
     };
-  }, [data, baselineValue]);
+  }, [data]);
 
   if (isLoading) return <>로딩중...</>;
   if (!data) return <>데이터 없음</>;
