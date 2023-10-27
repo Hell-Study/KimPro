@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IUpbitMarketCode } from './useUpbitTicker';
+import { IUpbitMarketCode } from '../../hooks/upbit/useUpbitTicker';
 
 function useFetchUpbitMarketCode(): {
   isLoading: boolean;

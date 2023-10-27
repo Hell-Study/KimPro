@@ -5,10 +5,13 @@ import {
   bithumbMarketCodesState,
   bithumbTickerState,
 } from 'recoil/atoms/bithumb';
+import useBinanceTicker from 'hooks/binance/useBinanceTicker';
+import { updateBithumbSocketDataWithBinance } from 'hooks/binance/updateBithumbSocketDataWithBinance';
 
 export default function useBithumbWsTicker() {
   const marketCodes = useRecoilValue(bithumbMarketCodesState);
   const [socketData, setSocketData] = useRecoilState(bithumbTickerState);
+  const { binanceTickers } = useBinanceTicker();
 
   useEffect(() => {
     if (marketCodes.length > 0 && socketData.length > 0) {
@@ -81,4 +84,14 @@ export default function useBithumbWsTicker() {
       };
     }
   }, [marketCodes]);
+
+  useEffect(() => {
+    if (binanceTickers) {
+      const newList = updateBithumbSocketDataWithBinance(
+        socketData,
+        binanceTickers,
+      );
+      setSocketData(newList);
+    }
+  }, [binanceTickers]);
 }
