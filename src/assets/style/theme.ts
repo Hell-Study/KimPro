@@ -37,8 +37,8 @@ export const lightTheme: DefaultTheme = {
     text3: '#8c8f9f',
     icon: '#919eab',
     border1: '#edeef2',
-    alpha1: 'rgba(48, 73, 191, 0.7)',
-    alpha2: 'rgba(0, 0, 0, 0.05)',
+    alpha1: 'rgba(48, 73, 191, 0.07)',
+    alpha2: 'rgba(0, 0, 0, 0.04)',
     alpha3: `rgba(255, 255, 255, 0.7)`,
   },
 };

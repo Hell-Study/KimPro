@@ -4,6 +4,7 @@ import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
 import getFormattedValues from 'utils/getFormattedValues';
 import { IWidgetTicker } from './Widget.types';
 import * as styled from './Widget.styles';
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
 interface TickerWidgetProps {
   pairId: string;
@@ -56,18 +57,22 @@ export const TickerWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
 
   return (
     <styled.Price>
-      <styled.Difference
-        $isIncrease={changeRatePrev === 'increase'}
-        $isDecrease={changeRatePrev === 'decrease'}
-      >
-        {changeRatePrev === 'increase' ? '▲' : '▼'} {percent}% {diff}
-      </styled.Difference>
       <styled.Nowprice
         $isIncrease={changeRateCurrent === 'increase'}
         $isDecrease={changeRateCurrent === 'decrease'}
       >
         {currentData.value.toFixed(2)}
       </styled.Nowprice>
+      <styled.DiffPrice
+        $isIncrease={changeRatePrev === 'increase'}
+        $isDecrease={changeRatePrev === 'decrease'}
+      >
+        <styled.Perc>
+          {changeRatePrev === 'increase' ? <FaCaretUp /> : <FaCaretDown />}{' '}
+          {percent}%{' '}
+        </styled.Perc>
+        <styled.Diff>{diff}</styled.Diff>
+      </styled.DiffPrice>
     </styled.Price>
   );
 };
