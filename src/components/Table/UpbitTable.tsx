@@ -5,10 +5,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
-import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import { exchangeRateState } from 'recoil/atoms/exchange';
 import { highest_52_week_rate, lowest_52_week_rate } from 'utils/priceCalc';
+import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 
 export default function UpbitTable() {
   const { marketCodes } = useFetchUpbitMarketCode();
