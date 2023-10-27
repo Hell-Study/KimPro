@@ -9,10 +9,13 @@ export const Widget: React.FC = () => {
     <styled.Container>
       {Object.entries(PAIR_DATA).map(([key, { id }]) => (
         <styled.Card key={key}>
-          <>
+          <styled.Row>
+            <styled.Ticker>{key}</styled.Ticker>
             <TickerWidget pairId={id} />
-          </>
-          <ChartWidget pairId={id} interval={'PT30M'} />
+          </styled.Row>
+          <styled.Row>
+            <ChartWidget pairId={id} />
+          </styled.Row>
         </styled.Card>
       ))}
     </styled.Container>

@@ -13,8 +13,6 @@ const setRefetchInterval = (interval: Interval): number | false => {
       return 60 * 1000;
     case 'PT5M':
       return 5 * 60 * 1000;
-    case 'PT30M':
-      return 30 * 60 * 1000;
     case 'P1D':
       return 24 * 60 * 60 * 1000;
     default:

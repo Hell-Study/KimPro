@@ -55,19 +55,19 @@ export const TickerWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
   );
 
   return (
-    <div>
-      <styled.Nowprice
-        isIncrease={changeRateCurrent === 'increase'}
-        isDecrease={changeRateCurrent === 'decrease'}
-      >
-        {currentData.value.toFixed(2)}
-      </styled.Nowprice>
+    <styled.Price>
       <styled.Difference
-        isIncrease={changeRatePrev === 'increase'}
-        isDecrease={changeRatePrev === 'decrease'}
+        $isIncrease={changeRatePrev === 'increase'}
+        $isDecrease={changeRatePrev === 'decrease'}
       >
         {changeRatePrev === 'increase' ? '▲' : '▼'} {percent}% {diff}
       </styled.Difference>
-    </div>
+      <styled.Nowprice
+        $isIncrease={changeRateCurrent === 'increase'}
+        $isDecrease={changeRateCurrent === 'decrease'}
+      >
+        {currentData.value.toFixed(2)}
+      </styled.Nowprice>
+    </styled.Price>
   );
 };
