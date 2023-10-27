@@ -130,7 +130,7 @@ export default function UpbitTable() {
         }
         break;
     }
-  }, [socketDatas]);
+  }, [socketDatas, tableSortValue, tableSortUpDown]);
 
   return (
     <styled.CoinListWrapper>
