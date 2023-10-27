@@ -8,7 +8,7 @@ import * as styled from './Widget.styles';
 
 export const Widget: React.FC = () => {
   return (
-    <Carousel slidesToShow={3}>
+    <Carousel slidesToShow={4}>
       {Object.entries(PAIR_DATA).map(([key, { id }]) => {
         const { data: baseData } = useWidgetTickers(id, 'P1D', 'previous');
         if (!baseData) return null;

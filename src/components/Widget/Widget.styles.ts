@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  width: ${({ theme }) => theme.sizes.md};
+  width: ${({ theme }) => theme.sizes.lg};
   overflow-x: auto;
   scroll-behavior: smooth;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem 0;
+  padding: 1rem 0.3rem;
   font-family: 'Pretendard', sans-serif;
 `;
 
@@ -53,7 +53,7 @@ export const Icon = styled.span`
 export const SliderContainer = styled.div`
   display: flex;
   transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
-  gap: 0.9rem;
+  gap: 0.6rem;
 `;
 
 const Shade = styled.div<ButtonProps>`

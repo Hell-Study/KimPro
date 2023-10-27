@@ -4,12 +4,12 @@ import * as styled from './Widget.styles';
 
 interface CarouselProps {
   children: React.ReactNode[];
-  slidesToShow?: number;
+  slidesToShow: number;
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
   children,
-  slidesToShow = 5,
+  slidesToShow,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0); // 현재 슬라이드 인덱스
   const totalSlides = React.Children.count(children); // 전체 슬라이드의 개수
