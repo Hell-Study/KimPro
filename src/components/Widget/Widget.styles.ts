@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  overflow: hidden;
-  width: ${({ theme }) => theme.sizes.lg};
+  width: ${({ theme }) => theme.sizes.md};
+  overflow-x: auto;
+  scroll-behavior: smooth;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-family: 'Pretendard', sans-serif;
   padding: 1rem 0;
+  font-family: 'Pretendard', sans-serif;
 `;
 
 interface ButtonProps {
@@ -52,7 +53,7 @@ export const Icon = styled.span`
 export const SliderContainer = styled.div`
   display: flex;
   transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
-  gap: 0.75rem;
+  gap: 0.9rem;
 `;
 
 const Shade = styled.div<ButtonProps>`

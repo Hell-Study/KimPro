@@ -2,8 +2,8 @@ import { DefaultTheme } from 'styled-components';
 
 const commonStyle = {
   sizes: {
-    sm: '380px',
-    md: '560px',
+    sm: '540px',
+    md: '960px',
     lg: '1140px',
   },
   colors: {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DisplayBoard = styled.main`
-  width: ${({ theme }) => theme.sizes.lg};
+  width: ${({ theme }) => theme.sizes.md};
   margin: 0 auto;
   display: grid;
   //grid-template-rows: 320px 1fr;
