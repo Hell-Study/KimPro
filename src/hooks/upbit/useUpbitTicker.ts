@@ -84,7 +84,7 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
 
     socket.current.onopen = socketOpenHandler;
     socket.current.onmessage = socketMessageHandler;
-  }, [marketCodes, binanceTickers]);
+  }, [marketCodes]);
 
   useEffect(() => {
     if (binanceTickers) {

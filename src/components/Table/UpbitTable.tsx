@@ -1,4 +1,4 @@
-import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
+import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -74,9 +74,13 @@ export default function UpbitTable() {
                     {data.trade_price?.toLocaleString('ko-KR')}
                   </styled.CoinBoxPriceKorean>
                   <styled.CoinBoxPriceBinance>
-                    {`${(
-                      parseFloat(data.binancePrice) * myExchangeRate
-                    ).toLocaleString('ko-KR')}`}
+                    {`${
+                      data.binancePrice
+                        ? (
+                            parseFloat(data.binancePrice) * myExchangeRate
+                          ).toLocaleString('ko-KR')
+                        : ''
+                    }`}
                   </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
@@ -88,26 +92,38 @@ export default function UpbitTable() {
                   }
                 >
                   <styled.CoinBoxKimchiPremiumRate>
-                    {(data.trade_price /
-                      (parseFloat(data.binancePrice) * myExchangeRate) -
-                      1) *
-                      100 >
-                      0 && '+'}
-                    {`${(
-                      (data.trade_price /
-                        (parseFloat(data.binancePrice) * myExchangeRate) -
-                        1) *
-                      100
-                    ).toFixed(2)}%`}
+                    {data.binancePrice ? (
+                      <>
+                        {(data.trade_price /
+                          (parseFloat(data.binancePrice) * myExchangeRate) -
+                          1) *
+                          100 >
+                          0 && '+'}
+                        {`${(
+                          (data.trade_price /
+                            (parseFloat(data.binancePrice) * myExchangeRate) -
+                            1) *
+                          100
+                        ).toFixed(2)}%`}
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </styled.CoinBoxKimchiPremiumRate>
                   <styled.CoinBoxKimchiPremiumDiff>
-                    {data.trade_price -
-                      parseFloat(data.binancePrice) * myExchangeRate >
-                      0 && '+'}
-                    {(
-                      data.trade_price -
-                      parseFloat(data.binancePrice) * myExchangeRate
-                    ).toFixed(2)}
+                    {data.binancePrice ? (
+                      <>
+                        {data.trade_price -
+                          parseFloat(data.binancePrice) * myExchangeRate >
+                          0 && '+'}
+                        {(
+                          data.trade_price -
+                          parseFloat(data.binancePrice) * myExchangeRate
+                        ).toFixed(2)}
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </styled.CoinBoxKimchiPremiumDiff>
                 </styled.CoinBoxKimchiPremium>
                 <styled.CoinBoxChange $changeType={data.change}>
