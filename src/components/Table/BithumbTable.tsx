@@ -1,5 +1,4 @@
 import * as styled from './Table.styles';
-import { IBinanceTicker } from 'hooks/binance/useBinanceTicker';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
@@ -9,22 +8,27 @@ import {
   coingeckoCoinDataState,
 } from 'recoil/atoms/coingecko';
 import judgeColor from 'utils/judgeColor';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { exchangeRateState } from 'recoil/atoms/exchange';
 import { changes, changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
 
 interface IProps {
   socketData: IBithumbFetchTicker;
-  matchingTicker?: IBinanceTicker; // '?'를 통해 선택적 사용하여 undefined 에러 해결
 }
 
-export default function BithumbTable({ socketData, matchingTicker }: IProps) {
-  const { closing_price, min_price, max_price, acc_trade_value_24H } =
-    socketData[1];
+export default function BithumbTable({ socketData }: IProps) {
+  const {
+    closing_price,
+    min_price,
+    max_price,
+    acc_trade_value_24H,
+    binancePrice,
+  } = socketData[1];
 
   const [thumb, setThumb] = useState('');
   const [coinName, setCoinName] = useState('');
-  const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
+  const nowPrice = Number(closing_price);
   const simpleSymbol = socketData[0];
+  const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
     if (simpleSymbol !== undefined) {
       const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
@@ -35,7 +39,7 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
     }
   }, []);
 
-  const { exchangeRate } = useFetchExchangeRate();
+  const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
     <>
@@ -67,17 +71,50 @@ export default function BithumbTable({ socketData, matchingTicker }: IProps) {
           <styled.CoinBoxPriceKorean>
             {Number(closing_price).toLocaleString('ko-KR')}
           </styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>
-            {matchingTicker
-              ? `${(parseFloat(matchingTicker.c) * exchangeRate).toLocaleString(
+          <styled.CoinBoxPriceBinance>{`${
+            binancePrice
+              ? (parseFloat(binancePrice) * myExchangeRate).toLocaleString(
                   'ko-KR',
-                )}`
-              : '로딩중'}
-          </styled.CoinBoxPriceBinance>
+                )
+              : ''
+          }`}</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium $isPositive={false}>
-          <styled.CoinBoxKimchiPremiumRate>d</styled.CoinBoxKimchiPremiumRate>
-          <styled.CoinBoxKimchiPremiumDiff>a</styled.CoinBoxKimchiPremiumDiff>
+        <styled.CoinBoxKimchiPremium
+          $isPositive={
+            binancePrice
+              ? nowPrice > parseFloat(binancePrice) * myExchangeRate
+                ? 'true'
+                : 'false'
+              : 'none'
+          }
+        >
+          <styled.CoinBoxKimchiPremiumRate>
+            {binancePrice ? (
+              <>
+                {nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1 >
+                  0 && '+'}
+                {`${(
+                  (nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) *
+                  100
+                ).toFixed(2)}%`}
+              </>
+            ) : (
+              ''
+            )}
+          </styled.CoinBoxKimchiPremiumRate>
+          <styled.CoinBoxKimchiPremiumDiff>
+            {binancePrice ? (
+              <>
+                {nowPrice - parseFloat(binancePrice) * myExchangeRate > 0 &&
+                  '+'}
+                {(nowPrice - parseFloat(binancePrice) * myExchangeRate).toFixed(
+                  2,
+                )}
+              </>
+            ) : (
+              ''
+            )}
+          </styled.CoinBoxKimchiPremiumDiff>
         </styled.CoinBoxKimchiPremium>
         <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
           <styled.CoinBoxChangeRate>

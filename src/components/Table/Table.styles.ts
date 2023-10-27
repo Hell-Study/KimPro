@@ -9,7 +9,7 @@ interface CoinBoxChangeProps {
 }
 
 interface CoinBoxKimchiPremiumProps {
-  $isPositive: boolean;
+  $isPositive: string;
 }
 
 export const TableContainer = styled.div`
@@ -127,7 +127,16 @@ export const CoinBoxKimchiPremium = styled.div<CoinBoxKimchiPremiumProps>`
     color: #4c769d;
   }
   color: gray;
-  color: ${(props) => (props.$isPositive ? '#EF1C1C' : '#1261C4')};
+  color: ${(props) => {
+    switch (props.$isPositive) {
+      case 'true':
+        return '#EF1C1C';
+      case 'false':
+        return '#1261C4';
+      case 'none':
+        return '#000000';
+    }
+  }};
 `;
 export const CoinBoxKimchiPremiumRate = styled.div``;
 export const CoinBoxKimchiPremiumDiff = styled.div``;

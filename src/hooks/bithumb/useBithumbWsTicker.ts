@@ -6,11 +6,14 @@ import {
   IBithumbFetchTicker,
   IBithumbWsTicker,
 } from 'components/bithumb/Bithumb.type';
+import useBinanceTicker from 'hooks/binance/useBinanceTicker';
+import { updateBithumbSocketDataWithBinance } from 'hooks/binance/updateBithumbSocketDataWithBinance';
 
 export default function useBithumbWsTicker() {
   const marketCodes = useRecoilValue(bithumbMarketCodesState);
   const fetchData = useFetchBithumbTicker();
   const [socketDatas, setSocketDatas] = useState<IBithumbFetchTicker[]>([]);
+  const { binanceTickers } = useBinanceTicker();
 
   useEffect(() => {
     if (marketCodes.length > 0 && fetchData.length > 0) {
@@ -84,6 +87,16 @@ export default function useBithumbWsTicker() {
       };
     }
   }, [marketCodes, fetchData]);
+
+  useEffect(() => {
+    if (binanceTickers) {
+      const newList = updateBithumbSocketDataWithBinance(
+        socketDatas,
+        binanceTickers,
+      );
+      setSocketDatas(newList);
+    }
+  }, [binanceTickers]);
 
   return socketDatas;
 }

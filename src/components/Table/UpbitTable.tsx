@@ -7,8 +7,7 @@ import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
-import useBinanceTicker from 'hooks/binance/useBinanceTicker';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { exchangeRateState } from 'recoil/atoms/exchange';
 import { highest_52_week_rate, lowest_52_week_rate } from 'utils/priceCalc';
 
 export default function UpbitTable() {
@@ -31,11 +30,7 @@ export default function UpbitTable() {
     setSelectedCoin(currentTarget);
   };
 
-  const { exchangeRate } = useFetchExchangeRate();
-  const { tickers } = useBinanceTicker();
-  const removeUSDT = (symbol: string) => {
-    return symbol.replace('USDT', '');
-  };
+  const myExchangeRate = useRecoilValue(exchangeRateState);
 
   // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
@@ -130,9 +125,6 @@ export default function UpbitTable() {
     <styled.CoinListWrapper>
       {socketDatas
         ? socketDatas.map((data) => {
-            const matchingTicker = tickers?.find(
-              (ticker) => removeUSDT(ticker.s) === data.code?.split('-')[1],
-            );
             return (
               <styled.CoinBox
                 key={data.code}
@@ -177,50 +169,58 @@ export default function UpbitTable() {
                     {data.trade_price?.toLocaleString('ko-KR')}
                   </styled.CoinBoxPriceKorean>
                   <styled.CoinBoxPriceBinance>
-                    {matchingTicker
-                      ? `${(
-                          parseFloat(matchingTicker.c) * exchangeRate
-                        ).toLocaleString('ko-KR')}`
-                      : '로딩중'}
+                    {`${
+                      data.binancePrice
+                        ? (
+                            parseFloat(data.binancePrice) * myExchangeRate
+                          ).toLocaleString('ko-KR')
+                        : ''
+                    }`}
                   </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
                   $isPositive={
-                    matchingTicker &&
-                    data.trade_price >
-                      parseFloat(matchingTicker.c) * exchangeRate
-                      ? true
-                      : false
+                    data.binancePrice
+                      ? data.trade_price >
+                        parseFloat(data.binancePrice) * myExchangeRate
+                        ? 'true'
+                        : 'false'
+                      : 'none'
                   }
                 >
                   <styled.CoinBoxKimchiPremiumRate>
-                    {matchingTicker &&
-                      (data.trade_price /
-                        (parseFloat(matchingTicker.c) * exchangeRate) -
-                        1) *
-                        100 >
-                        0 &&
-                      '+'}
-                    {matchingTicker
-                      ? `${(
+                    {data.binancePrice ? (
+                      <>
+                        {(data.trade_price /
+                          (parseFloat(data.binancePrice) * myExchangeRate) -
+                          1) *
+                          100 >
+                          0 && '+'}
+                        {`${(
                           (data.trade_price /
-                            (parseFloat(matchingTicker.c) * exchangeRate) -
+                            (parseFloat(data.binancePrice) * myExchangeRate) -
                             1) *
                           100
-                        ).toFixed(2)}%`
-                      : '로딩중'}
+                        ).toFixed(2)}%`}
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </styled.CoinBoxKimchiPremiumRate>
                   <styled.CoinBoxKimchiPremiumDiff>
-                    {matchingTicker &&
-                      data.trade_price -
-                        parseFloat(matchingTicker.c) * exchangeRate >
-                        0 &&
-                      '+'}
-                    {matchingTicker &&
-                      (
-                        data.trade_price -
-                        parseFloat(matchingTicker.c) * exchangeRate
-                      ).toFixed(2)}
+                    {data.binancePrice ? (
+                      <>
+                        {data.trade_price -
+                          parseFloat(data.binancePrice) * myExchangeRate >
+                          0 && '+'}
+                        {(
+                          data.trade_price -
+                          parseFloat(data.binancePrice) * myExchangeRate
+                        ).toFixed(2)}
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </styled.CoinBoxKimchiPremiumDiff>
                 </styled.CoinBoxKimchiPremium>
                 <styled.CoinBoxChange $changeType={data.change}>

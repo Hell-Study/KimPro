@@ -9,7 +9,9 @@ export interface IBinanceTicker {
 }
 
 const useBinanceTicker = () => {
-  const [tickers, setTickers] = useState<IBinanceTicker[] | null>(null);
+  const [binanceTickers, setBinanceTickers] = useState<IBinanceTicker[] | null>(
+    null,
+  );
   const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
   // const limit = 30;
 
@@ -22,8 +24,8 @@ const useBinanceTicker = () => {
         const filteredData = data.filter((ticker: IBinanceTicker) =>
           ticker.s.endsWith('USDT'),
         );
-        // setTickers(filteredData.slice(0, limit));
-        setTickers(filteredData);
+        // setBinanceTickers(filteredData.slice(0, limit));
+        setBinanceTickers(filteredData);
       } catch (e) {
         console.log('파싱 에러:', e);
       }
@@ -40,7 +42,7 @@ const useBinanceTicker = () => {
     };
   }, []);
 
-  return { tickers };
+  return { binanceTickers };
 };
 
 export default useBinanceTicker;
