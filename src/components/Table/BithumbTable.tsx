@@ -26,14 +26,14 @@ export default function BithumbTable({ socketData }: IProps) {
   } = socketData[1];
 
   const [thumb, setThumb] = useState('');
-  const [englishName, setEnglishName] = useState('');
+  const [coinName, setCoinName] = useState('');
   const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
     if (simpleSymbol !== undefined) {
       const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
         return coin.symbol === simpleSymbol;
       });
-      setEnglishName(target[0]?.name);
+      setCoinName(target[0]?.name);
       setThumb(target[0]?.thumb);
     }
   }, []);
@@ -67,19 +67,17 @@ export default function BithumbTable({ socketData }: IProps) {
         <styled.CoinBoxName>
           <styled.CoinBoxNameKorean>
             <img
-              alt={`아이콘`}
+              alt={`${coinName} 아이콘`}
               width="15"
               height="15"
               decoding="async"
               data-nimg="1"
               className="rounded-full"
-              src={`a`}
+              src={thumb}
             />
-            <div>{englishName}</div>
+            <div>{coinName}</div>
           </styled.CoinBoxNameKorean>
-          <styled.CoinBoxNameMarket>
-            <div>{simpleSymbol}</div>
-          </styled.CoinBoxNameMarket>
+          <styled.CoinBoxNameMarket>{simpleSymbol}</styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>
@@ -128,7 +126,7 @@ export default function BithumbTable({ socketData }: IProps) {
             {changesRatio.toFixed(2)}%
           </styled.CoinBoxChangeRate>
           <styled.CoinBoxChangePrice>
-            {changes.toFixed(2)}
+            {changes.toLocaleString('ko-KR')}
           </styled.CoinBoxChangePrice>
         </styled.CoinBoxChange>
         <styled.CoinBoxHighestWeek>
@@ -137,17 +135,21 @@ export default function BithumbTable({ socketData }: IProps) {
             {highRatio.toFixed(2)}%
           </styled.CoinBoxHighestWeekRate>
           <styled.CoinBoxHighestWeekPrice>
-            {high}
+            {high.toLocaleString('ko-KR')}
           </styled.CoinBoxHighestWeekPrice>
         </styled.CoinBoxHighestWeek>
         <styled.CoinBoxLowestWeek>
           <styled.CoinBoxLowestWeekRate>
             {'+' + lowRatio.toFixed(2) + '%'}
           </styled.CoinBoxLowestWeekRate>
-          <styled.CoinBoxLowestWeekPrice>{low}</styled.CoinBoxLowestWeekPrice>
+          <styled.CoinBoxLowestWeekPrice>
+            {low.toLocaleString('ko-KR')}
+          </styled.CoinBoxLowestWeekPrice>
         </styled.CoinBoxLowestWeek>
         <styled.CoinBoxVolume>
-          <div>{Math.ceil(convertMillonWon(Number(value)))}</div>
+          <div>
+            {Math.ceil(convertMillonWon(Number(value))).toLocaleString('ko-KR')}
+          </div>
           <div>백만</div>
         </styled.CoinBoxVolume>
       </styled.CoinBox>
