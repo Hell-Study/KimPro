@@ -33,8 +33,8 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
       layout: {
         background: { type: ColorType.Solid, color: 'transparent' },
       },
-      width: 64,
-      height: 32,
+      width: 72,
+      height: 44,
       timeScale: {
         visible: false,
       },
