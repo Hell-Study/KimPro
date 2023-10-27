@@ -24,6 +24,7 @@ export function Bithumb() {
     return symbol.replace('USDT', '');
   };
 
+  // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
   const tableSortUpDown = useRecoilValue(tableSortUpDownState);
   useEffect(() => {
