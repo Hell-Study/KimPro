@@ -93,7 +93,15 @@ export default function BithumbTable({ socketData }: IProps) {
               : ''
           }`}</styled.CoinBoxPriceBinance>
         </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium $isPositive={false}>
+        <styled.CoinBoxKimchiPremium
+          $isPositive={
+            binancePrice
+              ? nowPrice > parseFloat(binancePrice) * myExchangeRate
+                ? 'true'
+                : 'false'
+              : 'none'
+          }
+        >
           <styled.CoinBoxKimchiPremiumRate>
             {binancePrice ? (
               <>
