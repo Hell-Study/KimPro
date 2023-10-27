@@ -1,4 +1,4 @@
-import { IUpbitTicker } from 'api/upbit/useUpbitTicker';
+import { IUpbitTicker } from 'hooks/upbit/useUpbitTicker';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 
 // 업비트
