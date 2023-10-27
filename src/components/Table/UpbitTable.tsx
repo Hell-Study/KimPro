@@ -5,13 +5,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
-import useUpbitTicker, {
-  IUpbitMarketCode,
-  IUpbitTicker,
-} from 'api/upbit/useUpbitTicker';
+import useUpbitTicker, { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { highest_52_week_rate, lowest_52_week_rate } from 'utils/priceCalc';
 
 export default function UpbitTable() {
   const { marketCodes } = useFetchUpbitMarketCode();
@@ -38,11 +36,6 @@ export default function UpbitTable() {
   const removeUSDT = (symbol: string) => {
     return symbol.replace('USDT', '');
   };
-
-  const highest_52_week_rate = (data: IUpbitTicker) =>
-    (data.trade_price / data.highest_52_week_price - 1) * 100;
-  const lowest_52_week_rate = (data: IUpbitTicker) =>
-    (data.trade_price / data.lowest_52_week_price - 1) * 100;
 
   const tableSortValue = useRecoilValue(tableSortValueState);
   const tableSortUpDown = useRecoilValue(tableSortUpDownState);

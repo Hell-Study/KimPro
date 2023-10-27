@@ -7,7 +7,7 @@ import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
-import { changesRatio, highRatio, lowRatio } from 'utils/bithumbCalc';
+import { changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
 
 export function Bithumb() {
   const socketDatas = useBithumbWsTicker();

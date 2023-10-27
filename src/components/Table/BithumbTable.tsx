@@ -10,7 +10,7 @@ import {
 } from 'recoil/atoms/coingecko';
 import judgeColor from 'utils/judgeColor';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
-import { changes, changesRatio, highRatio, lowRatio } from 'utils/bithumbCalc';
+import { changes, changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
 
 interface IProps {
   socketData: IBithumbFetchTicker;
