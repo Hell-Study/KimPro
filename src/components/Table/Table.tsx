@@ -1,10 +1,13 @@
 import * as styled from './Table.styles';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { baseExchangeState } from 'recoil/atoms/common';
 import UpbitTable from './UpbitTable';
 import { Bithumb } from 'components/bithumb';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
+import { exchangeRateState } from 'recoil/atoms/exchange';
+import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 
 export const Table: React.FC = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
@@ -14,6 +17,12 @@ export const Table: React.FC = () => {
 
   const upbitMarketCodes = useRecoilValue(upbitMarketCodesState);
   const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
+
+  const { exchangeRate } = useFetchExchangeRate();
+  const [myExchangeRate, mySetExchangeRate] = useRecoilState(exchangeRateState);
+  useEffect(() => {
+    mySetExchangeRate(exchangeRate);
+  }, [exchangeRate]);
 
   return (
     <styled.CoinListBox>
