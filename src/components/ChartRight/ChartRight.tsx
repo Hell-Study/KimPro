@@ -2,9 +2,14 @@ import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { selectedCoinState, selectedCoinInfoState } from 'recoil/atoms/common';
+import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
+  const selectedCoin = useRecoilValue(selectedCoinState);
+  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
 
   const backgroundColor = 'white';
   const textColor = 'black';
@@ -68,10 +73,64 @@ function ChartRight() {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
+  useEffect(() => {
+    console.log('selectedCoinInfo ', selectedCoinInfo);
+  }, [selectedCoinInfo]);
 
   return (
     <styled.ChartContainer>
-      <div ref={chartContainerRef}></div>
+      <styled.CoinInfoContainer>
+        <styled.CoinImgWrapper>
+          <img
+            alt={`${selectedCoin[0].market.split('-')[1]} 아이콘`}
+            width="45"
+            height="45px"
+            decoding="async"
+            data-nimg="1"
+            className="rounded-full"
+            src={`https://static.upbit.com/logos/${
+              selectedCoin[0].market.split('-')[1]
+            }.png`}
+          />
+        </styled.CoinImgWrapper>
+        <styled.CoinInfo>
+          <styled.CoinIdentity>
+            <styled.CoinName>{selectedCoin[0].korean_name}</styled.CoinName>
+            <styled.CoinSymbol>
+              /{selectedCoin[0].market.split('-')[1]}
+            </styled.CoinSymbol>
+          </styled.CoinIdentity>
+
+          <styled.CoinPrice
+            $isPositive={
+              selectedCoinInfo?.[0]?.signed_change_price > 0 ? 'true' : 'false'
+            }
+          >
+            {selectedCoinInfo?.[0]?.trade_price.toLocaleString('ko-KR')}{' '}
+            <span style={{ fontSize: '0.9rem' }}>KRW</span>
+          </styled.CoinPrice>
+        </styled.CoinInfo>
+
+        <styled.CoinChangeWrapper
+          $isPositive={
+            selectedCoinInfo?.[0]?.signed_change_price > 0 ? 'true' : 'false'
+          }
+        >
+          <styled.CoinChangeRate>
+            <span>전일대비</span>
+            {selectedCoinInfo?.[0]?.signed_change_rate > 0 ? '+' : null}
+            {(selectedCoinInfo?.[0]?.signed_change_rate * 100).toFixed(2)}%
+          </styled.CoinChangeRate>
+          <styled.CoinChangePrice>
+            {selectedCoinInfo?.[0]?.signed_change_price > 0 ? '▲' : '▼'}
+            {Math.abs(
+              selectedCoinInfo?.[0]?.signed_change_price,
+            )?.toLocaleString('ko-KR')}
+          </styled.CoinChangePrice>
+        </styled.CoinChangeWrapper>
+      </styled.CoinInfoContainer>
+
+      <styled.ChartRefDiv ref={chartContainerRef}></styled.ChartRefDiv>
     </styled.ChartContainer>
   );
 }

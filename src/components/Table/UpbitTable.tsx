@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
@@ -20,6 +21,16 @@ export default function UpbitTable() {
   const [selectedCoinInfo, setSelectedCoinInfo] = useRecoilState(
     selectedCoinInfoState,
   );
+
+  useEffect(() => {
+    if (socketDatas) {
+      const targetData = socketDatas.filter(
+        (data) => data.code == selectedCoin[0].market,
+      );
+      setSelectedCoinInfo(targetData);
+    }
+  }, [selectedCoin, socketDatas]);
+
   const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
     const currentTarget = marketCodes.filter(
       (code: IUpbitMarketCode) => code.market === evt.currentTarget.id,
