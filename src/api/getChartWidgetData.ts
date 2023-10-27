@@ -1,28 +1,32 @@
 import axios from 'axios';
 import { Interval } from 'components/Widget/Widget.constants';
-
-interface ITicker {
-  time: number;
-  value: number;
-}
+import { IWidgetTicker } from 'components/Widget/Widget.types';
 
 export default async function getChartWidgetData(
   pairId: string,
   interval: Interval,
-): Promise<ITicker[]> {
+): Promise<IWidgetTicker[]> {
   try {
+    const currentDate = new Date();
+    const prev9AM = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate() - 1,
+      9,
+    );
+    const prev9AMTimestamp = prev9AM.getTime();
+
     const response = await axios.get(
       `https://api.investing.com/api/financialdata/${pairId}/historical/chart/?interval=${interval}&pointscount=60`,
     );
 
-    const data: ITicker[] = response.data.data
-      .map((item: any) => ({
-        time: item[0],
-        value: item[4], // 종가
-      }))
-      .slice(-20);
+    const data: IWidgetTicker[] = response.data.data.map((item: any) => ({
+      time: item[0],
+      value: item[4], // 종가
+    }));
 
-    return data;
+    const filteredData = data.filter((item) => item.time >= prev9AMTimestamp); // 전일 9시 데이터부터
+    return filteredData;
   } catch (error) {
     console.error('An error occurred while fetching the data:', error);
     throw error;

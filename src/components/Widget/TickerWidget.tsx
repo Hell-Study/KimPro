@@ -7,26 +7,30 @@ import { IWidgetTicker } from './Widget.types';
 import * as styled from './Widget.styles';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
-interface TickerWidgetProps {
+interface IWidgetTickerProps {
   pairId: string;
+  baseData?: IWidgetTicker;
 }
 
-export const TickerWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
+export const TickerWidget: React.FC<IWidgetTickerProps> = ({
+  pairId,
+  baseData,
+}) => {
   const validInterval =
     Object.values(PAIR_DATA).find((p) => p.id === pairId)?.intervals || [];
   const currentInterval: Interval = validInterval.includes('PT1M')
     ? 'PT1M'
     : 'PT5M';
-  const { data: currentData } = useWidgetTickers(
-    pairId,
-    currentInterval,
-    'current',
-  );
   const {
-    data: prevPriceData,
-    error,
+    data: currentData,
     isLoading,
-  } = useWidgetTickers(pairId, 'P1D', 'previous');
+    error,
+  } = useWidgetTickers(pairId, currentInterval, 'current');
+  // const {
+  //   data: prevPriceData,
+  //   error,
+  //   isLoading,
+  // } = useWidgetTickers(pairId, 'P1D', 'previous');
 
   const prevData = useRef<IWidgetTicker | null>(currentData!);
 
@@ -64,15 +68,15 @@ export const TickerWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
   };
 
   const changeRateCurrent = getChangeRate(currentData, prevData.current);
-  const changeRatePrev = getChangeRate(currentData, prevPriceData);
+  const changeRatePrev = getChangeRate(currentData, baseData);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!currentData || !prevPriceData) return null;
+  if (!currentData || !baseData) return null;
 
   const { diff, percent } = getFormattedValues(
     currentData.value,
-    prevPriceData.value,
+    baseData.value,
   );
 
   return (

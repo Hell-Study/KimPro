@@ -1,26 +1,30 @@
 import { createChart, ColorType, UTCTimestamp } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 import useChartTickers from 'hooks/useChartTickers';
+import { useRecoilValue } from 'recoil';
+import { prevPriceDataState } from 'recoil/atoms/prevPriceData';
 import styled, { useTheme } from 'styled-components';
+import { IWidgetTicker } from './Widget.types';
 
-interface TickerWidgetProps {
+interface IWidgetTickerProps {
   pairId: string;
+  baseData?: IWidgetTicker;
 }
 
-export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
+export const ChartWidget: React.FC<IWidgetTickerProps> = ({
+  pairId,
+  baseData,
+}) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const { data, isLoading, prevCloseData } = useChartTickers(pairId, 'PT1H');
+  const { data, isLoading } = useChartTickers(pairId, 'PT1H');
   const theme = useTheme();
+  const baselineValue = useRecoilValue(prevPriceDataState);
 
   useEffect(() => {
-    if (
-      !chartContainerRef.current ||
-      !data ||
-      data.length === 0 ||
-      !prevCloseData
-    )
-      return;
-    const baselineValue = prevCloseData.value;
+    if (!chartContainerRef.current || !data || data.length === 0) return;
+
+    const baselineValue = baseData?.value;
+    console.log(baselineValue);
 
     const handleResize = () => {
       chart.applyOptions({ width: chartContainerRef.current?.clientWidth });
@@ -66,7 +70,6 @@ export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
         },
       },
     });
-    chart.timeScale().fitContent();
 
     const newSeries = chart.addBaselineSeries({
       baseValue: { type: 'price', price: baselineValue },
@@ -101,6 +104,7 @@ export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
       value: baselineValue,
     }));
 
+    chart.timeScale().fitContent();
     lineSeries.setData(lineData);
 
     window.addEventListener('resize', handleResize);
@@ -110,7 +114,7 @@ export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
 
       chart.remove();
     };
-  }, [data, prevCloseData]);
+  }, [data, baselineValue]);
 
   if (isLoading) return <>로딩중...</>;
   if (!data) return <>데이터 없음</>;

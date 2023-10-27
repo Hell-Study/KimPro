@@ -1,11 +1,9 @@
 import { useQuery, UseQueryResult } from 'react-query';
-import { Interval, PAIR_DATA } from 'components/Widget/Widget.constants';
+import { Interval } from 'components/Widget/Widget.constants';
 import getTickerWidgetData from 'api/getTickerWidgetData';
-
-interface ITicker {
-  time: number;
-  value: number;
-}
+import { useRecoilState } from 'recoil';
+import { prevPriceDataState } from 'recoil/atoms/prevPriceData';
+import { IWidgetTicker } from 'components/Widget/Widget.types';
 
 const setRefetchInterval = (interval: Interval): number | false => {
   switch (interval) {
@@ -24,12 +22,18 @@ export const useWidgetTickers = (
   pairId: string,
   interval: Interval,
   type: 'current' | 'previous' = 'current',
-): UseQueryResult<ITicker, Error> => {
+): UseQueryResult<IWidgetTicker, Error> => {
+  const [prevPriceData, setPrevPriceData] = useRecoilState(prevPriceDataState);
   return useQuery(
     [pairId, interval, type],
     () => getTickerWidgetData(pairId, interval, type),
     {
       refetchInterval: setRefetchInterval(interval),
+      onSuccess: (data) => {
+        if (type === 'previous') {
+          setPrevPriceData(data);
+        }
+      },
     },
   );
 };
