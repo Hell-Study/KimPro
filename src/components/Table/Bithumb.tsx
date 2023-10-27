@@ -1,12 +1,10 @@
-import * as styled from './Table.styles';
 import { useEffect } from 'react';
 import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
-import BithumbTable from './BithumbTable';
+import BithumbTable from '../Table/BithumbTable';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
-import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
-import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
+import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import { changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
 
 export function Bithumb() {
@@ -18,11 +16,6 @@ export function Bithumb() {
       setCoingeckoData(res.coins);
     });
   }, []);
-
-  const { tickers } = useBinanceTicker();
-  const removeUSDT = (symbol: string) => {
-    return symbol.replace('USDT', '');
-  };
 
   // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
@@ -104,19 +97,10 @@ export function Bithumb() {
   }, [socketDatas, tableSortValue, tableSortUpDown]);
 
   return (
-    <styled.CoinListWrapper>
+    <>
       {socketDatas.map((socketData) => {
-        const matchingTicker = tickers?.find(
-          (ticker) => removeUSDT(ticker.s) === socketData[0],
-        );
-        return (
-          <BithumbTable
-            key={socketData[0]}
-            socketData={socketData}
-            matchingTicker={matchingTicker}
-          />
-        );
+        return <BithumbTable key={socketData[0]} socketData={socketData} />;
       })}
-    </styled.CoinListWrapper>
+    </>
   );
 }
