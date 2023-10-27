@@ -1,4 +1,4 @@
 export interface IWidgetTicker {
-  timestamp: number;
+  time: number;
   value: number;
 }

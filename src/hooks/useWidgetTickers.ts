@@ -3,7 +3,7 @@ import { Interval, PAIR_DATA } from 'components/Widget/Widget.constants';
 import getTickerWidgetData from 'api/getTickerWidgetData';
 
 interface ITicker {
-  timestamp: number;
+  time: number;
   value: number;
 }
 
@@ -23,10 +23,11 @@ const setRefetchInterval = (interval: Interval): number | false => {
 export const useWidgetTickers = (
   pairId: string,
   interval: Interval,
+  type: 'current' | 'previous' = 'current',
 ): UseQueryResult<ITicker, Error> => {
   return useQuery(
-    [pairId, interval],
-    () => getTickerWidgetData(pairId, interval),
+    [pairId, interval, type],
+    () => getTickerWidgetData(pairId, interval, type),
     {
       refetchInterval: setRefetchInterval(interval),
     },

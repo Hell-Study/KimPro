@@ -1,6 +1,7 @@
 import { createChart, ColorType, UTCTimestamp } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 import useChartTickers from 'hooks/useChartTickers';
+import styled, { useTheme } from 'styled-components';
 
 interface TickerWidgetProps {
   pairId: string;
@@ -8,11 +9,18 @@ interface TickerWidgetProps {
 
 export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const { data, isLoading } = useChartTickers(pairId, 'PT1H');
+  const { data, isLoading, prevCloseData } = useChartTickers(pairId, 'PT1H');
+  const theme = useTheme();
 
   useEffect(() => {
-    if (!chartContainerRef.current || !data || data.length === 0) return;
-    const baselineValue = data[0].value;
+    if (
+      !chartContainerRef.current ||
+      !data ||
+      data.length === 0 ||
+      !prevCloseData
+    )
+      return;
+    const baselineValue = prevCloseData.value;
 
     const handleResize = () => {
       chart.applyOptions({ width: chartContainerRef.current?.clientWidth });
@@ -63,12 +71,12 @@ export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
     const newSeries = chart.addBaselineSeries({
       baseValue: { type: 'price', price: baselineValue },
       lineWidth: 1,
-      topLineColor: 'rgba( 38, 166, 154, 1)',
-      topFillColor1: 'rgba( 38, 166, 154, 0.4)',
-      topFillColor2: 'rgba( 38, 166, 154, 0.05)',
-      bottomLineColor: 'rgba( 239, 83, 80, 1)',
-      bottomFillColor1: 'rgba( 239, 83, 80, 0.05)',
-      bottomFillColor2: 'rgba( 239, 83, 80, 0.4)',
+      topLineColor: 'rgb( 239, 83, 80)',
+      topFillColor1: 'rgba( 239, 83, 80, 0.03)',
+      topFillColor2: 'rgba( 239, 83, 80, 0.4)',
+      bottomLineColor: 'rgb(42,127,255)',
+      bottomFillColor1: 'rgba( 42,127,255, 0.03)',
+      bottomFillColor2: 'rgba(42,127,255,0.4)',
       crosshairMarkerVisible: false,
       priceLineVisible: false,
     });
@@ -102,7 +110,7 @@ export const ChartWidget: React.FC<TickerWidgetProps> = ({ pairId }) => {
 
       chart.remove();
     };
-  }, [data]);
+  }, [data, prevCloseData]);
 
   if (isLoading) return <>로딩중...</>;
   if (!data) return <>데이터 없음</>;

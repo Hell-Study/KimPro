@@ -18,6 +18,7 @@ export const Card = styled.div`
   border-radius: 12px;
   box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 5px 20px 0px;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.alpha1};
@@ -47,8 +48,9 @@ export const Price = styled.div`
 `;
 
 type PriceChangeProps = {
-  $isIncrease: boolean;
-  $isDecrease: boolean;
+  $isIncrease?: boolean;
+  $isDecrease?: boolean;
+  $highlight?: 'increase' | 'decrease' | null;
 };
 
 export const Nowprice = styled.span<PriceChangeProps>`
@@ -56,10 +58,10 @@ export const Nowprice = styled.span<PriceChangeProps>`
   font-size: 1.1rem;
   font-weight: 600;
   background-color: ${(props) =>
-    props.$isIncrease
+    props.$highlight === 'increase'
       ? props.theme.colors.alpha_red
-      : props.$isDecrease
-      ? props.theme.colors.alpha_green
+      : props.$highlight === 'decrease'
+      ? props.theme.colors.alpha_blue
       : 'transparent'};
 `;
 
@@ -73,7 +75,7 @@ export const DiffPrice = styled.span<PriceChangeProps>`
     props.$isIncrease
       ? props.theme.colors.red
       : props.$isDecrease
-      ? props.theme.colors.green
+      ? props.theme.colors.blue
       : props.theme.colors.heading1};
 `;
 
@@ -82,6 +84,6 @@ export const Perc = styled.span`
   display: flex;
 `;
 
-export const Diff = styled.span`
+export const Change = styled.span`
   font-size: 0.65rem;
 `;
