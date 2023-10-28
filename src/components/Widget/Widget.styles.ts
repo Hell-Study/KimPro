@@ -32,7 +32,7 @@ const Button = styled.button<ButtonProps>`
   width: 40px;
   height: 40px;
   background-color: ${({ theme }) => theme.colors.primary1};
-  z-index: 3;
+  z-index: 2;
 `;
 
 export const PrevButton = styled(Button)`

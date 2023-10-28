@@ -7,7 +7,7 @@ interface RateProps {
 export const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const Inner = styled.div`
