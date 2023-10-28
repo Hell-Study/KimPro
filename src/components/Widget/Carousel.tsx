@@ -11,8 +11,8 @@ export const Carousel: React.FC<CarouselProps> = ({
   children,
   slidesToShow,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0); // 현재 슬라이드 인덱스
-  const totalSlides = React.Children.count(children); // 전체 슬라이드의 개수
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalSlides = React.Children.count(children);
   const maxIndex = totalSlides - slidesToShow - 1;
 
   const handlePrevClick = () => {
@@ -21,7 +21,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   const handleNextClick = () => {
     if (currentIndex < maxIndex)
-      setCurrentIndex((prev) => Math.min(prev + 1, maxIndex)); // 현재 슬라이드 인덱스 2씩 증가
+      setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   return (
