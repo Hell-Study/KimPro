@@ -1,22 +1,40 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
 import BithumbTable from '../Table/BithumbTable';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { coingeckoCoinDataState } from 'recoil/atoms/coingecko';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import {
+  ICoingeckoCoinData,
+  coingeckoCoinDataState,
+} from 'recoil/atoms/coingecko';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import { changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
+import { searchCoinState } from 'recoil/atoms/common';
 
 export function Bithumb() {
   const socketDatas = useBithumbWsTicker();
 
-  const setCoingeckoData = useSetRecoilState(coingeckoCoinDataState);
+  const [coingeckoCoinData, setCoingeckoData] = useRecoilState(
+    coingeckoCoinDataState,
+  );
   useEffect(() => {
     getCoingeckoData().then((res) => {
       setCoingeckoData(res.coins);
     });
   }, []);
+  const searchCoin = useRecoilValue(searchCoinState);
+  const [filteredSocketDatas, setFilteredSocketDatas] = useState(socketDatas);
 
+  useEffect(() => {
+    const filteredSocketDatas = socketDatas.filter((socketData) =>
+      coingeckoCoinData.some(
+        (gecko: ICoingeckoCoinData) =>
+          gecko.symbol == socketData[0] &&
+          gecko.name.toLowerCase().includes(searchCoin.toLowerCase()),
+      ),
+    );
+    setFilteredSocketDatas(filteredSocketDatas);
+  }, [searchCoin, socketDatas]);
   // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
   const tableSortUpDown = useRecoilValue(tableSortUpDownState);
@@ -98,7 +116,7 @@ export function Bithumb() {
 
   return (
     <>
-      {socketDatas.map((socketData) => {
+      {filteredSocketDatas.map((socketData) => {
         return <BithumbTable key={socketData[0]} socketData={socketData} />;
       })}
     </>
