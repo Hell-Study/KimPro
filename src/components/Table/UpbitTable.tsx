@@ -23,6 +23,16 @@ export default function UpbitTable() {
   const [selectedCoinInfo, setSelectedCoinInfo] = useRecoilState(
     selectedCoinInfoState,
   );
+
+  useEffect(() => {
+    if (socketDatas) {
+      const targetData = socketDatas.filter(
+        (data) => data.code == selectedCoin[0].market,
+      );
+      setSelectedCoinInfo(targetData);
+    }
+  }, [selectedCoin, socketDatas]);
+
   const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
     const currentTarget = marketCodes.filter(
       (code: IUpbitMarketCode) => code.market === evt.currentTarget.id,
