@@ -1,22 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { useSetRecoilState } from 'recoil';
-import {
-  bithumbMarketCodesState,
-  bithumbTickerState,
-} from 'recoil/atoms/bithumb';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
 
 export default function useFetchBithumbTicker() {
-  const setSocketDatas = useSetRecoilState(bithumbTickerState);
   const setMarketCodes = useSetRecoilState(bithumbMarketCodesState);
+  const [fetchData, setFetchData] = useState<IBithumbFetchTicker[]>([]);
 
   useEffect(() => {
     fetchBithumbTicker().then((res) => {
-      const socketArr: IBithumbFetchTicker[] = Object.entries(res);
-      socketArr.splice(socketArr.length - 1);
-      setSocketDatas(socketArr);
+      const fetchArr: IBithumbFetchTicker[] = Object.entries(res);
+      fetchArr.splice(fetchArr.length - 1);
+      setFetchData(fetchArr);
       setMarketCodes(Object.keys(res));
     });
   }, []);
+
+  return fetchData;
 }

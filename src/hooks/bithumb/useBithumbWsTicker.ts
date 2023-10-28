@@ -1,20 +1,23 @@
-import { IBithumbWsTicker } from 'components/bithumb/Bithumb.type';
-import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import useFetchBithumbTicker from './useFetchBithumbticker';
+import { useRecoilValue } from 'recoil';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
 import {
-  bithumbMarketCodesState,
-  bithumbTickerState,
-} from 'recoil/atoms/bithumb';
+  IBithumbFetchTicker,
+  IBithumbWsTicker,
+} from 'components/bithumb/Bithumb.type';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { updateBithumbSocketDataWithBinance } from 'hooks/binance/updateBithumbSocketDataWithBinance';
 
 export default function useBithumbWsTicker() {
   const marketCodes = useRecoilValue(bithumbMarketCodesState);
-  const [socketData, setSocketData] = useRecoilState(bithumbTickerState);
+  const fetchData = useFetchBithumbTicker();
+  const [socketDatas, setSocketDatas] = useState<IBithumbFetchTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
 
   useEffect(() => {
-    if (marketCodes.length > 0 && socketData.length > 0) {
+    if (marketCodes.length > 0 && fetchData.length > 0) {
+      setSocketDatas(fetchData);
       const ws = new WebSocket('wss://pubwss.bithumb.com/pub/ws');
 
       ws.onopen = () => {
@@ -39,7 +42,7 @@ export default function useBithumbWsTicker() {
           const { closePrice, lowPrice, highPrice, prevClosePrice, value } =
             data.content;
 
-          setSocketData((prevState) => {
+          setSocketDatas((prevState) => {
             const existingIndex = prevState.findIndex(
               (item) => item[0] === data.content.symbol.replace('_KRW', ''),
             );
@@ -83,15 +86,17 @@ export default function useBithumbWsTicker() {
         }
       };
     }
-  }, [marketCodes]);
+  }, [marketCodes, fetchData]);
 
   useEffect(() => {
     if (binanceTickers) {
       const newList = updateBithumbSocketDataWithBinance(
-        socketData,
+        socketDatas,
         binanceTickers,
       );
-      setSocketData(newList);
+      setSocketDatas(newList);
     }
   }, [binanceTickers]);
+
+  return socketDatas;
 }
