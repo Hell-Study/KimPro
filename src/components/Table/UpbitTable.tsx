@@ -1,8 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
+import {
+  selectedCoinInfoState,
+  selectedCoinState,
+  searchCoinState,
+} from 'recoil/atoms/common';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
@@ -31,6 +35,19 @@ export default function UpbitTable() {
   };
 
   const myExchangeRate = useRecoilValue(exchangeRateState);
+  const searchCoin = useRecoilValue(searchCoinState);
+  const [filteredSocketDatas, setFilteredSocketDatas] = useState(socketDatas);
+
+  useEffect(() => {
+    const filteredSocketDatas = socketDatas.filter((data) =>
+      marketCodes.some(
+        (marketCode) =>
+          marketCode.market === data.code &&
+          marketCode.korean_name.includes(searchCoin),
+      ),
+    );
+    setFilteredSocketDatas(filteredSocketDatas);
+  }, [searchCoin, socketDatas]);
 
   // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
@@ -123,8 +140,8 @@ export default function UpbitTable() {
 
   return (
     <styled.CoinListWrapper>
-      {socketDatas
-        ? socketDatas.map((data) => {
+      {filteredSocketDatas
+        ? filteredSocketDatas.map((data) => {
             return (
               <styled.CoinBox
                 key={data.code}

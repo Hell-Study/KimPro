@@ -30,3 +30,8 @@ export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
 });
+
+export const searchCoinState = atom({
+  key: 'searchCoinState',
+  default: '',
+});

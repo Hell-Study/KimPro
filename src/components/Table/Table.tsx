@@ -1,7 +1,7 @@
 import * as styled from './Table.styles';
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { baseExchangeState } from 'recoil/atoms/common';
+import { baseExchangeState, searchCoinState } from 'recoil/atoms/common';
 import UpbitTable from './UpbitTable';
 import { Bithumb } from 'components/bithumb';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
@@ -18,6 +18,10 @@ export const Table: React.FC = () => {
 
   const upbitMarketCodes = useRecoilValue(upbitMarketCodesState);
   const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
+  const [searchCoin, setSearchCoin] = useRecoilState(searchCoinState);
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchCoin(e.target.value);
+  };
 
   const { exchangeRate } = useFetchExchangeRate();
   const [myExchangeRate, mySetExchangeRate] = useRecoilState(exchangeRateState);
@@ -46,7 +50,13 @@ export const Table: React.FC = () => {
             ? upbitMarketCodes.length
             : bithumbMarketCodes.length}
           개
-          <input type="text" name="검색어" placeholder="검색어를 입력하세요" />
+          <input
+            type="text"
+            name="검색어"
+            placeholder="검색어를 입력하세요"
+            value={searchCoin}
+            onChange={handleSearchInputChange}
+          />
         </div>
       </styled.TableNav>
 
