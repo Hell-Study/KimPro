@@ -13,16 +13,15 @@ export const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0); // 현재 슬라이드 인덱스
   const totalSlides = React.Children.count(children); // 전체 슬라이드의 개수
-  const maxIndex = totalSlides - slidesToShow - 1; // 다음 슬라이드 이동시, 허용되는 최대 인덱스
-  console.log(maxIndex);
+  const maxIndex = totalSlides - slidesToShow - 1;
 
   const handlePrevClick = () => {
-    if (currentIndex > 0) setCurrentIndex((prev) => Math.max(prev - 2, 0)); // 현재 슬라이드 인덱스 2씩 증가
+    if (currentIndex > 0) setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNextClick = () => {
     if (currentIndex < maxIndex)
-      setCurrentIndex((prev) => Math.min(prev + 2, maxIndex));
+      setCurrentIndex((prev) => Math.min(prev + 1, maxIndex)); // 현재 슬라이드 인덱스 2씩 증가
   };
 
   return (
@@ -35,7 +34,7 @@ export const Carousel: React.FC<CarouselProps> = ({
       <styled.LeftShade $visible={currentIndex > 0} />
       <styled.SliderContainer
         style={{
-          transform: `translateX(-${currentIndex * (100 / totalSlides)}%)`,
+          transform: `translateX(-${(100 / slidesToShow) * currentIndex}%)`,
         }}
       >
         {children}
