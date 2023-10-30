@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-interface ITicker {
+export interface IBinanceTicker {
   e: string; // Event type
   E: number; // Event time
   s: string; // Symbol
@@ -9,20 +9,23 @@ interface ITicker {
 }
 
 const useBinanceTicker = () => {
-  const [tickers, setTickers] = useState<ITicker[] | null>(null);
+  const [binanceTickers, setBinanceTickers] = useState<IBinanceTicker[] | null>(
+    null,
+  );
   const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
-  const limit = 30;
+  // const limit = 30;
 
   useEffect(() => {
     const ws = new WebSocket(SOCKET_URL);
 
     ws.onmessage = (e) => {
       try {
-        const data: ITicker[] = JSON.parse(e.data);
-        const filteredData = data.filter((ticker: ITicker) =>
+        const data: IBinanceTicker[] = JSON.parse(e.data);
+        const filteredData = data.filter((ticker: IBinanceTicker) =>
           ticker.s.endsWith('USDT'),
         );
-        setTickers(filteredData.slice(0, limit));
+        // setBinanceTickers(filteredData.slice(0, limit));
+        setBinanceTickers(filteredData);
       } catch (e) {
         console.log('파싱 에러:', e);
       }
@@ -39,7 +42,7 @@ const useBinanceTicker = () => {
     };
   }, []);
 
-  return { tickers };
+  return { binanceTickers };
 };
 
 export default useBinanceTicker;

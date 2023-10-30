@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createMessages } from '../../firebase/createMessages';
 import shortId from 'shortid';
 import getNickname from 'api/getNickname';
+import { RiSendPlaneFill } from 'react-icons/ri';
 import * as styled from './SendMessage.styles';
 
 function generateRandomUID() {
@@ -41,14 +42,18 @@ const SendMessage = () => {
 
   return (
     <styled.SendMessageForm onSubmit={(event) => handleSendMessage(event)}>
-      <styled.SendMessageInput
-        name="messageInput"
-        type="text"
-        placeholder="메시지를 입력해주세요..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <styled.SendMessageButton type="submit">전송</styled.SendMessageButton>
+      <styled.SendMessageWrapper>
+        <styled.SendMessageInput
+          name="messageInput"
+          type="text"
+          placeholder="메시지를 입력해주세요..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <styled.SendMessageButton type="submit">
+          <RiSendPlaneFill />
+        </styled.SendMessageButton>
+      </styled.SendMessageWrapper>
     </styled.SendMessageForm>
   );
 };

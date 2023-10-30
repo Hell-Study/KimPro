@@ -3,6 +3,7 @@ import { Table } from 'components/Table';
 import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
+import { Widget } from 'components/Widget';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { useRecoilState } from 'recoil';
 import { Header } from 'components/common/Header';
@@ -18,6 +19,7 @@ export const Home: React.FC = () => {
     <>
       <Header />
       <styled.DisplayBoard>
+        <Widget />
         <styled.ChartsWrapper>
           <ChartLeft />
           <ChartRight />
@@ -25,7 +27,9 @@ export const Home: React.FC = () => {
         <Table />
         <ChatBox />
       </styled.DisplayBoard>
-      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
+      <styled.ChatButton onClick={openModal} $isOpen={modalIsOpen}>
+        <styled.Icon />
+      </styled.ChatButton>
     </>
   );
 };
