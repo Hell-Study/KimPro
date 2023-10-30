@@ -13,8 +13,7 @@ interface CoinBoxKimchiPremiumProps {
 }
 
 export const TableContainer = styled.div`
-  width: ${({ theme }) => theme.sizes.lg};
-`;
+  width: 940px;
 
 export const TableNav = styled.div`
   display: flex;

@@ -2,7 +2,9 @@ import * as styled from './Table.styles';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { selectedBithumbCoinState } from 'recoil/atoms/common';
+
 import {
   ICoingeckoCoinData,
   coingeckoCoinDataState,
@@ -40,13 +42,21 @@ export default function BithumbTable({ socketData }: IProps) {
   }, []);
 
   const myExchangeRate = useRecoilValue(exchangeRateState);
+  const [selectedCoin, setSelectedCoin] = useRecoilState(
+    selectedBithumbCoinState,
+  );
+
+  const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
+    const targetId = (evt.target as HTMLDivElement).id;
+    setSelectedCoin(targetId);
+  };
 
   return (
     <>
       <styled.CoinBox
         key={socketData[0]}
         id={socketData[0]}
-        // onClick={clickCoinHandler}
+        onClick={clickCoinHandler}
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
       >

@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
 export const DisplayBoard = styled.main`
-  width: ${({ theme }) => theme.sizes.lg};
+  width: 1050px;
   margin: 0 auto;
   display: grid;
-  //grid-template-rows: 320px 1fr;
+  grid-template-rows: 360px 1fr;
+  background-color: whitesmoke;
+
+  font-family: Arial, Helvetica, sans-serif;
 
   *::-webkit-scrollbar,
   *::-webkit-scrollbar-thumb {
@@ -31,7 +34,6 @@ export const ChartsWrapper = styled.div`
   background-color: whitesmoke;
   padding: 5px;
   display: grid;
-  gap: 5px;
   grid-template-columns: 1fr 1fr;
 `;
 
