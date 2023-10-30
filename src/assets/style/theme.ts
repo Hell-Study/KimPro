@@ -4,7 +4,7 @@ const commonStyle = {
   sizes: {
     sm: '540px',
     md: '960px',
-    lg: '1140px',
+    lg: '1050px',
   },
   colors: {
     white: '#ffffff',

@@ -25,7 +25,10 @@ export default async function getChartWidgetData(
       value: item[4], // 종가
     }));
 
-    const filteredData = data.filter((item) => item.time >= prev9AMTimestamp); // 전일 9시 데이터부터
+    let filteredData = data.filter((item) => item.time >= prev9AMTimestamp); // 전일 9시 데이터부터
+    if (filteredData.length === 0) {
+      filteredData = data.slice(-25);
+    }
     return filteredData;
   } catch (error) {
     console.error('An error occurred while fetching the data:', error);

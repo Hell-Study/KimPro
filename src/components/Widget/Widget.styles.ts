@@ -32,7 +32,7 @@ const Button = styled.button<ButtonProps>`
   width: 40px;
   height: 40px;
   background-color: ${({ theme }) => theme.colors.primary1};
-  z-index: 9;
+  z-index: 2;
 `;
 
 export const PrevButton = styled(Button)`
@@ -54,6 +54,7 @@ export const SliderContainer = styled.div`
   display: flex;
   transition: transform 0.4s cubic-bezier(0.51, 0.92, 0.24, 1.15);
   gap: 0.6rem;
+  box-sizing: border-box;
 `;
 
 const Shade = styled.div<ButtonProps>`
