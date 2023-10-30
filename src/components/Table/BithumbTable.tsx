@@ -2,7 +2,7 @@ import * as styled from './Table.styles';
 import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   ICoingeckoCoinData,
   coingeckoCoinDataState,
