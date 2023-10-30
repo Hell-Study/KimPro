@@ -1,7 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
+import { memo, useRef, useState, useEffect } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
-// import { throttle } from 'lodash';
+import { throttle } from 'lodash';
 
 export interface IUpbitTicker {
   code: string;
@@ -38,6 +38,23 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const [list, setList] = useState<IUpbitTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
 
+  const handleSocketMessageThrottled = throttle((parsedData: IUpbitTicker) => {
+    setList((prevList) => {
+      const existingIndex = prevList.findIndex(
+        (item) => item.code === parsedData?.code,
+      );
+      if (existingIndex !== -1) {
+        prevList[existingIndex] = {
+          ...prevList[existingIndex],
+          ...parsedData,
+        };
+        return [...prevList]; // 중복이 아닐 경우, 새로운 배열을 반환하여 상태 업데이트
+      } else {
+        return [...prevList, parsedData]; // 중복일 경우, 새로운 데이터를 추가한 새 배열을 반환
+      }
+    });
+  }, 400);
+
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
 
@@ -60,20 +77,7 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
           try {
             const parsedData = JSON.parse(blobData as string);
 
-            setList((prevList) => {
-              const existingIndex = prevList.findIndex(
-                (item) => item.code === parsedData?.code,
-              );
-              if (existingIndex !== -1) {
-                prevList[existingIndex] = {
-                  ...prevList[existingIndex],
-                  ...parsedData,
-                };
-                return [...prevList]; // 중복이 아닐 경우, 새로운 배열을 반환하여 상태 업데이트
-              } else {
-                return [...prevList, parsedData]; // 중복일 경우, 새로운 데이터를 추가한 새 배열을 반환
-              }
-            });
+            handleSocketMessageThrottled(parsedData);
           } catch (error) {
             console.error('Error parsing JSON data:', error);
           }

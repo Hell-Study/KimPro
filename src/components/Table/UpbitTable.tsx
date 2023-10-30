@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import * as styled from './Table.styles';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -14,7 +14,7 @@ import { exchangeRateState } from 'recoil/atoms/exchange';
 import { highest_52_week_rate, lowest_52_week_rate } from 'utils/priceCalc';
 import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 
-export default function UpbitTable() {
+function UpbitTable() {
   const { marketCodes } = useFetchUpbitMarketCode();
   const [upbitMarketCodes, setUpbitMarketCodes] = useRecoilState(
     upbitMarketCodesState,
@@ -299,3 +299,5 @@ export default function UpbitTable() {
     </styled.CoinListWrapper>
   );
 }
+
+export default memo(UpbitTable);
