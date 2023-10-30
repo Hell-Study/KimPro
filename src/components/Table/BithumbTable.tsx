@@ -1,5 +1,5 @@
 import * as styled from './Table.styles';
-import { IBithumbFetchTicker } from 'components/bithumb/Bithumb.type';
+import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect, useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -14,27 +14,27 @@ import { exchangeRateState } from 'recoil/atoms/exchange';
 import { changes, changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
 
 interface IProps {
-  socketData: IBithumbFetchTicker;
+  socketData: IBithumbTicker;
 }
 
 export default function BithumbTable({ socketData }: IProps) {
   const {
+    symbol,
     closing_price,
     min_price,
     max_price,
     acc_trade_value_24H,
     binancePrice,
-  } = socketData[1];
+  } = socketData;
 
   const [thumb, setThumb] = useState('');
   const [coinName, setCoinName] = useState('');
   const nowPrice = Number(closing_price);
-  const simpleSymbol = socketData[0];
   const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
   useEffect(() => {
-    if (simpleSymbol !== undefined) {
+    if (symbol !== undefined) {
       const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
-        return coin.symbol === simpleSymbol;
+        return coin.symbol === symbol;
       });
       setCoinName(target[0]?.name);
       setThumb(target[0]?.thumb);
@@ -54,8 +54,8 @@ export default function BithumbTable({ socketData }: IProps) {
   return (
     <>
       <styled.CoinBox
-        key={socketData[0]}
-        id={socketData[0]}
+        key={symbol}
+        id={symbol}
         onClick={clickCoinHandler}
         // $selected={selectedCoin[0].market === data.code}
         $selected={false}
@@ -75,7 +75,7 @@ export default function BithumbTable({ socketData }: IProps) {
           <styled.CoinBoxNameKorean>
             <div>{coinName}</div>
           </styled.CoinBoxNameKorean>
-          <styled.CoinBoxNameMarket>{simpleSymbol}</styled.CoinBoxNameMarket>
+          <styled.CoinBoxNameMarket>{symbol}</styled.CoinBoxNameMarket>
         </styled.CoinBoxName>
         <styled.CoinBoxPrice>
           <styled.CoinBoxPriceKorean>

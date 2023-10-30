@@ -17,9 +17,8 @@ export interface IBithumbWsTicker {
   symbol: string;
 }
 
-export type IBithumbFetchTicker = [string, IBithumbTickerData];
-
-export interface IBithumbTickerData {
+export type IBithumbTicker = {
+  symbol: string;
   opening_price: string;
   closing_price: string;
   min_price: string;
@@ -32,4 +31,4 @@ export interface IBithumbTickerData {
   fluctate_24H: string;
   fluctate_rate_24H: string;
   binancePrice?: string;
-}
+};

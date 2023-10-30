@@ -3,7 +3,7 @@ import useFetchBithumbTicker from './useFetchBithumbticker';
 import { useRecoilValue } from 'recoil';
 import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
 import {
-  IBithumbFetchTicker,
+  IBithumbTicker,
   IBithumbWsTicker,
 } from 'components/bithumb/Bithumb.type';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
@@ -12,7 +12,7 @@ import { updateBithumbSocketDataWithBinance } from 'hooks/binance/updateBithumbS
 export default function useBithumbWsTicker() {
   const marketCodes = useRecoilValue(bithumbMarketCodesState);
   const fetchData = useFetchBithumbTicker();
-  const [socketDatas, setSocketDatas] = useState<IBithumbFetchTicker[]>([]);
+  const [socketDatas, setSocketDatas] = useState<IBithumbTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
 
   useEffect(() => {
@@ -39,43 +39,39 @@ export default function useBithumbWsTicker() {
           await JSON.parse(e.data);
 
         if (data.type === 'ticker') {
-          const { closePrice, lowPrice, highPrice, prevClosePrice, value } =
-            data.content;
+          const {
+            symbol,
+            closePrice,
+            lowPrice,
+            highPrice,
+            prevClosePrice,
+            value,
+          } = data.content;
 
           setSocketDatas((prevState) => {
             const existingIndex = prevState.findIndex(
-              (item) => item[0] === data.content.symbol.replace('_KRW', ''),
+              (item) => item.symbol === symbol.replace('_KRW', ''),
             );
 
             if (existingIndex !== -1) {
               if (data.content.tickType === 'MID') {
-                const updatedItem = {
-                  ...prevState[existingIndex][1],
+                prevState[existingIndex] = {
+                  ...prevState[existingIndex],
                   closing_price: closePrice,
                   min_price: lowPrice,
                   max_price: highPrice,
                   prev_closing_price: prevClosePrice,
                 };
-                const updatedState = [...prevState];
-                updatedState[existingIndex] = [
-                  prevState[existingIndex][0],
-                  updatedItem,
-                ];
-                return updatedState;
+                return [...prevState];
               } else {
-                const updatedItem = {
-                  ...prevState[existingIndex][1],
+                prevState[existingIndex] = {
+                  ...prevState[existingIndex],
                   acc_trade_value_24H: value,
                 };
-                const updatedState = [...prevState];
-                updatedState[existingIndex] = [
-                  prevState[existingIndex][0],
-                  updatedItem,
-                ];
-                return updatedState;
+                return [...prevState];
               }
             }
-            return prevState;
+            return [...prevState];
           });
         }
       };
