@@ -48,6 +48,9 @@ export const CoinSymbol = styled.div`
 export const CoinPrice = styled.div<FontColorProps>`
   flex: 1;
   color: ${(props) => (props.$isPositive ? 'red' : 'blue')};
+  span {
+    font-size: 0.9rem;
+  }
 `;
 
 export const CoinChangeWrapper = styled.div<FontColorProps>`

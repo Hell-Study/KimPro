@@ -107,7 +107,7 @@ function ChartRight() {
             }
           >
             {selectedCoinInfo?.[0]?.trade_price.toLocaleString('ko-KR')}{' '}
-            <span style={{ fontSize: '0.9rem' }}>KRW</span>
+            <span>KRW</span>
           </styled.CoinPrice>
         </styled.CoinInfo>
 
