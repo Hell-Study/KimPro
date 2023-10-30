@@ -8,7 +8,8 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem 0.3rem;
+  padding: 1rem 0.3rem 0;
+  margin-bottom: -0.7rem;
   font-family: 'Pretendard', sans-serif;
 `;
 

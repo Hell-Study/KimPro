@@ -6,8 +6,9 @@ interface FontColorProps {
 
 export const ChartContainer = styled.div`
   width: 100%;
-  height: 400;
   background-color: white;
+  border-radius: 15px;
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   div {
     border: 1px solid white;
@@ -78,4 +79,6 @@ export const CoinChangePrice = styled.div`
   flex-direction: column;
   justify-content: flex-end;
 `;
-export const ChartRefDiv = styled.div``;
+export const ChartRefDiv = styled.div`
+  border-radius: 15px;
+`;
