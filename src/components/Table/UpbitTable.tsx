@@ -170,6 +170,7 @@ export default function UpbitTable() {
                     src={`https://static.upbit.com/logos/${data.code?.split(
                       '-',
                     )[1]}.png`}
+                    loading="lazy"
                   />
                 </div>
 
