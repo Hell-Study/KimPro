@@ -31,7 +31,7 @@ function ChartRight() {
           textColor,
         },
         width: chartContainerRef.current?.clientWidth,
-        height: 300,
+        height: 250, // 300 - 50
         crosshair: {
           mode: CrosshairMode.Normal,
         },

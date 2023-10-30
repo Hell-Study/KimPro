@@ -4,8 +4,6 @@ export const DisplayBoard = styled.main`
   width: 1050px;
   margin: 0 auto;
   display: grid;
-  grid-template-rows: 360px 1fr;
-  background-color: whitesmoke;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -31,10 +29,11 @@ export const DisplayBoard = styled.main`
 `;
 
 export const ChartsWrapper = styled.div`
-  background-color: whitesmoke;
   padding: 5px;
   display: grid;
+  gap: 1rem;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 300px;
 `;
 
 export const ChatButton = styled.button`
