@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Inner = styled.div`
-  width: 1140px;
+  width: ${({ theme }) => theme.sizes.lg};
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -48,7 +48,7 @@ export const Rate = styled.span<RateProps>`
   font-size: 0.7rem;
   margin-left: 3px;
   color: ${(props) =>
-    props.$isPositive ? props.theme.colors.red : props.theme.colors.green};
+    props.$isPositive ? props.theme.colors.red : props.theme.colors.blue};
 `;
 
 export const HeaderWrapper = styled.div`

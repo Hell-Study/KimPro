@@ -28,8 +28,6 @@ export const DisplayBoard = styled.main`
   *:hover::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 0 10px;
   }
-
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const ChartsWrapper = styled.div`
