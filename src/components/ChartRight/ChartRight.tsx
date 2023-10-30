@@ -73,9 +73,6 @@ function ChartRight() {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
-  useEffect(() => {
-    console.log('selectedCoinInfo ', selectedCoinInfo);
-  }, [selectedCoinInfo]);
 
   return (
     <styled.ChartContainer>
