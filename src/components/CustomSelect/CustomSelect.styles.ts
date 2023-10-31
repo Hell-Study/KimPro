@@ -9,19 +9,21 @@ export const SelectBox = styled.div<{ $disabled?: boolean }>`
   position: relative;
   padding: 8px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.bg_element3};
+  background-color: ${({ theme }) => theme.colors.bg_element6};
   border: 1px solid ${({ theme }) => theme.colors.border1};
   align-self: center;
   gap: 0.8rem;
   box-shadow: ${({ theme }) => theme.colors.alpha2} 0px 5px 10px 0px;
   cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
   pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
+  user-select: none;
 `;
 
 export const Label = styled.label`
   display: flex;
   align-items: center;
   font-size: 0.8rem;
+  cursor: pointer;
 
   img {
     margin-right: 8px;
@@ -79,7 +81,8 @@ export const DropdownIcon = styled(FiChevronDown)`
 `;
 
 export const Check = styled(CgCheck)<{ $isChecked: boolean }>`
-  color: ${(props) => (props.$isChecked ? 'inherit' : 'transparent')};
+  color: ${(props) =>
+    props.$isChecked ? props.theme.colors.primary2 : 'transparent'};
   margin-left: auto;
   height: auto;
   width: 1.3rem;
