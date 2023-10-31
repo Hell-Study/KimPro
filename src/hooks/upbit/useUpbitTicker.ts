@@ -1,4 +1,4 @@
-import { memo, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
 import { throttle } from 'lodash';
@@ -38,23 +38,6 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const [list, setList] = useState<IUpbitTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
 
-  const handleSocketMessageThrottled = throttle((parsedData: IUpbitTicker) => {
-    setList((prevList) => {
-      const existingIndex = prevList.findIndex(
-        (item) => item.code === parsedData?.code,
-      );
-      if (existingIndex !== -1) {
-        prevList[existingIndex] = {
-          ...prevList[existingIndex],
-          ...parsedData,
-        };
-        return [...prevList]; // 중복이 아닐 경우, 새로운 배열을 반환하여 상태 업데이트
-      } else {
-        return [...prevList, parsedData]; // 중복일 경우, 새로운 데이터를 추가한 새 배열을 반환
-      }
-    });
-  }, 400);
-
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
 
@@ -68,7 +51,8 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
       }
     };
 
-    const socketMessageHandler = (evt: any) => {
+    const socketMessageHandler = throttle((evt) => {
+      // throttle 함수 사용
       if (evt.data instanceof Blob) {
         const reader = new FileReader();
 
@@ -77,17 +61,37 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
           try {
             const parsedData = JSON.parse(blobData as string);
 
-            handleSocketMessageThrottled(parsedData);
+            setList((prevList) => {
+              const updatedList = [...prevList];
+              const existingIndex = updatedList.findIndex(
+                (item) => item.code === parsedData?.code,
+              );
+              if (existingIndex !== -1) {
+                updatedList[existingIndex] = {
+                  ...updatedList[existingIndex],
+                  ...parsedData,
+                };
+              } else {
+                updatedList.push(parsedData);
+              }
+              return updatedList;
+            });
           } catch (error) {
             console.error('Error parsing JSON data:', error);
           }
         };
         reader.readAsText(evt.data);
       }
-    };
+    }, 100);
 
     socket.current.onopen = socketOpenHandler;
     socket.current.onmessage = socketMessageHandler;
+
+    return () => {
+      if (socket.current) {
+        socket.current.close();
+      }
+    };
   }, [marketCodes]);
 
   useEffect(() => {

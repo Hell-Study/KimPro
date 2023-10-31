@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import { fetchMessages } from '../../firebase/fetchMessages';
 import { Message } from 'components/Message';
 import { MessageType } from 'components/Message/Message';
@@ -129,4 +129,4 @@ const ChatBox = () => {
   );
 };
 
-export default ChatBox;
+export default memo(ChatBox);
