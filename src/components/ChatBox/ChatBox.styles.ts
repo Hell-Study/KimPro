@@ -55,6 +55,7 @@ export const InfoWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
   align-items: center;
+  cursor: pointer;
   & > span:last-child {
     color: ${({ theme }) => theme.colors.text2};
     font-size: 0.7rem;

@@ -43,7 +43,7 @@ export const UserMessage = styled.div`
 `;
 
 interface MessageProps {
-  isCurrentUser: boolean;
+  $isCurrentUser: boolean;
 }
 
 export const ChatBubble = styled.div<MessageProps>`
@@ -52,7 +52,7 @@ export const ChatBubble = styled.div<MessageProps>`
   display: flex;
   align-items: flex-start;
   justify-content: ${(props) =>
-    props.isCurrentUser ? 'flex-end' : 'flex-start'};
+    props.$isCurrentUser ? 'flex-end' : 'flex-start'};
   .scroll::-webkit-scrollbar {
     display: none;
   }
