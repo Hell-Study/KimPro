@@ -31,7 +31,7 @@ function ChartRight() {
           textColor,
         },
         width: chartContainerRef.current?.clientWidth,
-        height: 300,
+        height: 250, // 300 - 50
         crosshair: {
           mode: CrosshairMode.Normal,
         },
@@ -104,7 +104,7 @@ function ChartRight() {
             }
           >
             {selectedCoinInfo?.[0]?.trade_price.toLocaleString('ko-KR')}{' '}
-            <span style={{ fontSize: '0.9rem' }}>KRW</span>
+            <span>KRW</span>
           </styled.CoinPrice>
         </styled.CoinInfo>
 

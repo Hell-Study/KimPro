@@ -4,7 +4,7 @@ const commonStyle = {
   sizes: {
     sm: '540px',
     md: '960px',
-    lg: '1140px',
+    lg: '1050px',
   },
   colors: {
     white: '#ffffff',
@@ -64,7 +64,7 @@ export const darkTheme: DefaultTheme = {
     text3: '#7d8096',
     icon: '#8c91aa',
     border1: '#434557',
-    alpha1: 'rgba(255, 255, 255, 0.1)',
+    alpha1: 'rgba(255, 255, 255, 0.05)',
     alpha2: 'rgba(255, 255, 255, 0.05)',
     alpha3: `rgb(10, 11, 14, 0.8)`,
     blue: 'rgb(74,141,245)',

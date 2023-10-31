@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="111" height="90" fill="none" viewBox="0 0 111 90">
+  <g filter="url(#a)">
+    <path fill="url(#b)" fill-opacity=".5" fill-rule="evenodd" d="M71.376 0c21.587 0 39.087 17.524 39.087 39.142 0 21.617-17.502 39.142-39.089 39.142H33.139c-1.207 0-2.945 2.872-4.699 5.77-1.785 2.952-3.587 5.93-4.86 5.93-1.201 0-1.894-2.864-2.594-5.757-.715-2.956-1.438-5.943-2.717-5.943C8.179 78.284 0 70.093 0 59.989V39.142C0 17.524 17.5 0 39.087 0h32.289ZM39.724 45.098a4.89 4.89 0 0 0 4.886-4.892 4.89 4.89 0 0 0-4.886-4.893 4.89 4.89 0 0 0-4.886 4.892 4.89 4.89 0 0 0 4.886 4.893Zm20.606-4.892a4.89 4.89 0 0 1-4.886 4.892 4.89 4.89 0 0 1-4.886-4.892 4.89 4.89 0 0 1 4.886-4.893 4.89 4.89 0 0 1 4.886 4.892Zm10.833 4.892a4.89 4.89 0 0 0 4.886-4.892 4.89 4.89 0 0 0-4.886-4.893 4.89 4.89 0 0 0-4.886 4.892 4.89 4.89 0 0 0 4.886 4.893Z" clip-rule="evenodd"/>
+  </g>
+  <defs>
+    <linearGradient id="b" x1="2.337" x2="86.142" y1="0" y2="77.74" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8490FF" stop-opacity=".45"/>
+      <stop offset=".516" stop-color="#6B7AFF"/>
+      <stop offset=".78" stop-color="#363EFF"/>
+      <stop offset=".988" stop-color="#6B7AFF"/>
+    </linearGradient>
+    <filter id="a" width="160.463" height="139.984" x="-25" y="-25" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feGaussianBlur in="BackgroundImageFix" stdDeviation="12.5"/>
+      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_9_29"/>
+      <feBlend in="SourceGraphic" in2="effect1_backgroundBlur_9_29" result="shape"/>
+      <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="4"/>
+      <feGaussianBlur stdDeviation="20"/>
+      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+      <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0"/>
+      <feBlend in2="shape" result="effect2_innerShadow_9_29"/>
+    </filter>
+  </defs>
+</svg>
