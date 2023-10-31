@@ -1,46 +1,58 @@
 import styled from 'styled-components';
 
 export const SendMessageForm = styled.form`
-  position: fixed;
-  bottom: 0px;
   width: 100%;
-  padding: 20px 30px;
-  background-color: #4c768d;
-  display: flex;
-  border-radius: 0 0 20px 20px;
+  padding: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border1};
 `;
+
+export const SendMessageWrapper = styled.div`
+  position: relative;
+`;
+
 export const SendMessageInput = styled.input`
-  height: 40px;
-  padding: 10px 10px;
-  border-radius: 5px 0 0 5px;
+  padding: 0.75rem 3.5rem 0.75rem 0.75rem;
   border: none;
-  flex-grow: 1;
-  background-color: white;
-  color: #1c2c4c;
-  font-size: 1rem;
+  outline: none;
+  border-radius: 7px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.bg_element3};
+  color: ${({ theme }) => theme.colors.text1};
+  font-size: 0.75rem;
 
   &::placeholder {
-    color: #bebebe;
+    color: ${({ theme }) => theme.colors.text3};
   }
 
   &:focus {
     outline: none;
-    border-bottom: 1px solid #7cc5d9;
   }
 `;
 
 export const SendMessageButton = styled.button`
-  width: 70px;
-  height: 40px;
-  padding: 5px 10px;
-  border-radius: 0 5px 5px 0;
-  color: #242443;
-  border: 1px solid #7cc5d9;
-  background-color: #7cc5d9;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: ${({ theme }) => theme.colors.bg_element5};
+  border-radius: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.border1};
+  color: ${({ theme }) => theme.colors.primary1};
+  cursor: pointer;
+  transition: all 0.1s ease-out 0s;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 
-  &:focus {
-    outline: none;
-    border-bottom: 1px solid #7cc5d9;
+  svg {
+    height: 1.5em;
+    width: 1.5em;
+  }
+
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.colors.primary1};
+    box-shadow: ${({ theme }) => theme.colors.alpha_primary1} 0px 0px 0px 3px;
+  }
   }
 `;
