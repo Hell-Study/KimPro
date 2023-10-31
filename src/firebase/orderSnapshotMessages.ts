@@ -1,4 +1,4 @@
-import { MessageType } from 'components/Message/Message';
+import { MessageType } from 'components/Message/Message.types';
 
 // Firestore 스냅샷을 처리하고 메시지를 정렬하는 함수
 export function orderSnapshotMessages(QuerySnapshot: any) {
