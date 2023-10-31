@@ -51,19 +51,15 @@ export const ChatButton = styled.button<ChatButtonProps>`
   top: 50%;
   right: 0;
   padding: 0 1.4rem;
+  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 5px 20px 0px;
   transform: ${({ $isOpen }) =>
     $isOpen ? 'translate(130px, 0)' : 'translate(30px, 0)'};
-  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 5px 20px 0px;
   transition:
     background 180ms cubic-bezier(0.25, 0.75, 0.5, 1.25) 0ms,
     transform 0.4s cubic-bezier(0.25, 0.75, 0.5, 1.25);
   z-index: 1;
   cursor: pointer;
-
-  & img {
-    width: 100%;
-    height: auto;
-  }
+  overflow: hidden;
 
   &:hover {
     background: ${({ theme }) => theme.colors.bg_element1};

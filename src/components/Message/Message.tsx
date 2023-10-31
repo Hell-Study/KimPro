@@ -26,7 +26,7 @@ const Message: React.FC<MessageProps> = ({ message }) => {
   const isCurrentUser = message.uid === storedUid;
 
   return (
-    <styled.ChatBubble isCurrentUser={isCurrentUser}>
+    <styled.ChatBubble $isCurrentUser={isCurrentUser}>
       {isCurrentUser ? (
         <styled.MessageRight>
           <styled.TimeRight>{formattedTime}</styled.TimeRight>

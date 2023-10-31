@@ -101,10 +101,7 @@ const ChatBox = () => {
           <styled.Title>Chat</styled.Title>
         </styled.HeaderWrapper>
 
-        <styled.InfoWrapper
-          onClick={updateNickname}
-          style={{ cursor: 'pointer' }}
-        >
+        <styled.InfoWrapper onClick={updateNickname}>
           <styled.Nickname>
             {storedDisplayName ? storedDisplayName : 'unknown'}
           </styled.Nickname>
