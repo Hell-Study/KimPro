@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
 import { throttle } from 'lodash';

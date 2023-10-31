@@ -31,7 +31,12 @@ function useCreateChart() {
 
   useEffect(() => {
     if (selectedCoin) {
-      fetchDayCandle(selectedCoin[0].market, getTodayDate(), 200);
+      const cachedData = sessionStorage.getItem(selectedCoin[0].market); // 시장 코드를 키로 사용
+      if (cachedData) {
+        setFetchedData(JSON.parse(cachedData));
+      } else {
+        fetchDayCandle(selectedCoin[0].market, getTodayDate(), 200);
+      }
     }
   }, [selectedCoin]);
 
@@ -47,6 +52,10 @@ function useCreateChart() {
         };
       });
       setProcessedData(processed);
+      sessionStorage.setItem(
+        selectedCoin[0].market,
+        JSON.stringify(fetchedData),
+      );
     }
   }, [fetchedData]);
 
