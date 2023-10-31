@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
+import useBinanceTicker from 'hooks/binance/useBinanceTicker';
+import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
 // import { throttle } from 'lodash';
 
 export interface IUpbitTicker {
@@ -11,6 +13,7 @@ export interface IUpbitTicker {
   lowest_52_week_price: number;
   acc_trade_price_24h: number;
   acc_trade_volume_24h: number;
+  binancePrice?: string;
 }
 
 export interface IUpbitMarketCode {
@@ -33,6 +36,7 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const SOCKET_URL = 'wss://api.upbit.com/websocket/v1';
   const socket = useRef<WebSocket | null>(null);
   const [list, setList] = useState<IUpbitTicker[]>([]);
+  const { binanceTickers } = useBinanceTicker();
 
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
@@ -53,22 +57,26 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
 
         reader.onload = function () {
           const blobData = reader.result;
-          const parsedData = JSON.parse(blobData as string);
+          try {
+            const parsedData = JSON.parse(blobData as string);
 
-          setList((prevList) => {
-            const existingIndex = prevList.findIndex(
-              (item) => item.code === parsedData?.code,
-            );
-            if (existingIndex !== -1) {
-              prevList[existingIndex] = {
-                ...prevList[existingIndex],
-                ...parsedData,
-              };
-              return [...prevList]; // 새로운 배열을 반환하여 상태 업데이트
-            } else {
-              return [...prevList, parsedData]; // 새로운 데이터를 추가한 새 배열을 반환
-            }
-          });
+            setList((prevList) => {
+              const existingIndex = prevList.findIndex(
+                (item) => item.code === parsedData?.code,
+              );
+              if (existingIndex !== -1) {
+                prevList[existingIndex] = {
+                  ...prevList[existingIndex],
+                  ...parsedData,
+                };
+                return [...prevList]; // 중복이 아닐 경우, 새로운 배열을 반환하여 상태 업데이트
+              } else {
+                return [...prevList, parsedData]; // 중복일 경우, 새로운 데이터를 추가한 새 배열을 반환
+              }
+            });
+          } catch (error) {
+            console.error('Error parsing JSON data:', error);
+          }
         };
         reader.readAsText(evt.data);
       }
@@ -77,6 +85,13 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
     socket.current.onopen = socketOpenHandler;
     socket.current.onmessage = socketMessageHandler;
   }, [marketCodes]);
+
+  useEffect(() => {
+    if (binanceTickers) {
+      const newList = updateUpbitListWithBinance(list, binanceTickers);
+      setList(newList);
+    }
+  }, [binanceTickers]);
 
   return { socketDatas: list };
 }

@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
 export const DisplayBoard = styled.main`
-  width: 1250px;
+  width: 1050px;
   margin: 0 auto;
   display: grid;
-  grid-template-rows: 320px 1fr;
-  background-color: whitesmoke;
 
   font-family: Arial, Helvetica, sans-serif;
 
@@ -28,16 +26,14 @@ export const DisplayBoard = styled.main`
   *:hover::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 0 10px;
   }
-
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const ChartsWrapper = styled.div`
-  background-color: whitesmoke;
   padding: 5px;
   display: grid;
-  gap: 5px;
+  gap: 1rem;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 300px;
 `;
 
 export const ChatButton = styled.button`

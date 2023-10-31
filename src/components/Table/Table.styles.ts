@@ -8,41 +8,39 @@ interface CoinBoxChangeProps {
   $changeType: string;
 }
 
-export const CoinListBox = styled.div`
-  width: 1240px;
-  height: 800px;
-  margin: 5px;
-  background-color: white;
-  overflow: overlay;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+interface CoinBoxKimchiPremiumProps {
+  $isPositive: string;
+}
+
+export const TableContainer = styled.div`
+  width: 100%;
 `;
-export const CoinBoxNav = styled.div`
+
+export const TableNav = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-export const CoinBoxHeader = styled.div`
-  position: -webkit-sticky;
-  position: sticky;
-  top: 1px;
-  background-color: white;
-  opacity: 0.8;
-  height: 35px;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  border-bottom: 0.5px solid lightgrey;
-  font-size: 1rem;
-  font-weight: 600;
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
+export const TableBox = styled.div`
+  padding: 0 0.9375rem 1.375rem 0.9375rem;
+  background-color: ${({ theme }) => theme.colors.bg_element4};
+  border-radius: 15px;
+  box-shadow: 0px 0px 25px 0px rgba(48, 73, 191, 0.07);
+`;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+`;
+
+export const CoinListWrapper = styled.div`
+  overflow: overlay;
+  height: 24.75rem;
 `;
 
 export const CoinBox = styled.div<CoinBoxProps>`
   height: 45px;
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-bottom: 0.5px solid lightgrey;
   font-size: 0.9rem;
   padding-left: 5px;
@@ -58,16 +56,17 @@ export const CoinBox = styled.div<CoinBoxProps>`
   div:nth-child(1) {
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
   }
   div:nth-child(2) {
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
   }
   div:nth-child(3) {
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
   }
   div:nth-child(4) {
     flex-direction: column;
@@ -85,6 +84,11 @@ export const CoinBox = styled.div<CoinBoxProps>`
     align-items: flex-end;
   }
   div:nth-child(7) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  div:nth-child(8) {
     justify-content: flex-end;
     align-items: center;
   }
@@ -119,8 +123,27 @@ export const CoinBoxPrice = styled.div`
 `;
 export const CoinBoxPriceKorean = styled.div``;
 export const CoinBoxPriceBinance = styled.div``;
-export const CoinBoxKimchiPremium = styled.div``;
-
+export const CoinBoxKimchiPremium = styled.div<CoinBoxKimchiPremiumProps>`
+  font-weight: bold;
+  div:nth-child(2) {
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: #4c769d;
+  }
+  color: gray;
+  color: ${(props) => {
+    switch (props.$isPositive) {
+      case 'true':
+        return '#EF1C1C';
+      case 'false':
+        return '#1261C4';
+      case 'none':
+        return '#000000';
+    }
+  }};
+`;
+export const CoinBoxKimchiPremiumRate = styled.div``;
+export const CoinBoxKimchiPremiumDiff = styled.div``;
 export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
   font-weight: bold;
 

@@ -1,4 +1,4 @@
-import { IUpbitMarketCode } from 'api/upbit/useUpbitTicker';
+import { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 import { atom } from 'recoil';
 
 export type SelectedCoinInfoType = {
@@ -26,7 +26,17 @@ export const selectedCoinState = atom<IUpbitMarketCode[]>({
   ],
 });
 
+export const selectedBithumbCoinState = atom({
+  key: 'selectedBithumbCoinState',
+  default: {},
+});
+
 export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
+});
+
+export const searchCoinState = atom({
+  key: 'searchCoinState',
+  default: '',
 });

@@ -7,7 +7,10 @@ import * as styled from './ChartLeft.styles';
 export const ChartLeft = () => {
   return (
     <styled.ChartContainer>
-      <CustomSelect optionData={SELECT_OPTION} />
+      <styled.SelectWrapper>
+        <styled.ChartInfo>차트정보</styled.ChartInfo>
+        <CustomSelect optionData={SELECT_OPTION} />
+      </styled.SelectWrapper>
       <TradingViewWidget />
     </styled.ChartContainer>
   );
