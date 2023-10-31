@@ -26,3 +26,24 @@ export const TRADING_VIEW_SYMBOLS = {
   BITHUMB:
     '(BINANCE:BTCUSD/BINANCE:BTCUSD*BITHUMB:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100',
 };
+
+export const TRADING_VIEW_TICKERS = {
+  BINANCE: {
+    name: 'Bitcoin / TetherUS',
+    ticker: 'BTCUSDT',
+    symbol1: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCBTC--big.svg',
+    symbol2: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCUSDT--big.svg',
+  },
+  UPBIT: {
+    name: '비트코인 김치프리미엄',
+    ticker: 'Upbit',
+    symbol1: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCBTC--big.svg',
+    symbol2: 'https://kimpga.com/images/exchange-symbols/upbit.svg',
+  },
+  BITHUMB: {
+    name: '비트코인 김치프리미엄',
+    ticker: 'Bithumb',
+    symbol1: 'https://s3-symbol-logo.tradingview.com/crypto/XTVCBTC--big.svg',
+    symbol2: 'https://kimpga.com/images/exchange-symbols/bithumb.svg',
+  },
+};

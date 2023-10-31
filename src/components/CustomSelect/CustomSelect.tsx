@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { selectState } from 'recoil/atoms/selectState';
 import { useDropdown } from 'hooks/useDropdown';
 import { CustomSelectProps } from './CustomSelect.types';
 import * as styled from './CustomSelect.styles';
@@ -10,7 +8,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   onChange,
   disabled,
 }) => {
-  const setSelectedOption = useSetRecoilState(selectState);
   const [currentValue, setCurrentValue] = useState(optionData[0].value);
   const [currentTitle, setCurrentTitle] = useState(optionData[0].title);
   const { ref, isOpen, setIsOpen } = useDropdown();
@@ -23,7 +20,6 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
     if (selectedData) {
       setCurrentValue(selectedData.value);
       setCurrentTitle(selectedData.title);
-      setSelectedOption(selectedData.key);
     }
 
     setIsOpen(false);

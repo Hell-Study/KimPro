@@ -5,8 +5,6 @@ export const DisplayBoard = styled.main`
   margin: 0 auto;
   display: grid;
 
-  font-family: Arial, Helvetica, sans-serif;
-
   *::-webkit-scrollbar,
   *::-webkit-scrollbar-thumb {
     width: 0px;
