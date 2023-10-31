@@ -81,6 +81,5 @@ export const WidgetContainer = styled.div`
 `;
 
 export const Chart = styled.div`
-  height: calc(100% - 32px);
   width: 100%;
 `;

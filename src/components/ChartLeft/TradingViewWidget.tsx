@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { selectState } from 'recoil/atoms/selectState';
 import { TRADING_VIEW_SYMBOLS } from './ChartLeft.constant';
 import { themeState } from 'recoil/atoms/theme';
+import { useTheme } from 'styled-components';
 import * as styled from './ChartLeft.styles';
 declare global {
   interface Window {
@@ -16,6 +17,7 @@ export default function TradingViewWidget() {
   const currentTheme = useRecoilValue(themeState);
   const selectedOption = useRecoilValue(selectState);
   const onLoadScriptRef = useRef<null | (() => void)>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     onLoadScriptRef.current = createWidget;
@@ -54,14 +56,15 @@ export default function TradingViewWidget() {
           height: '100%',
           interval: '15',
           timezone: 'Asia/Seoul',
-          theme: 'light',
+          theme: currentTheme === 'light' ? 'light' : 'dark',
           style: '1',
           locale: 'kr',
           enable_publishing: false,
           hide_top_toolbar: true,
-          hide_volume: true,
+          hide_legend: true,
           save_image: false,
-          backgroundColor: 'transparent',
+          hide_volume: true,
+          backgroundColor: theme.colors.bg_element4,
           container_id: 'tradingview_0e511',
         });
       }
@@ -75,7 +78,7 @@ export default function TradingViewWidget() {
       }
       return TRADING_VIEW_SYMBOLS.BINANCE;
     }
-  }, [selectedOption]);
+  }, [selectedOption, currentTheme]);
 
   return (
     <styled.WidgetContainer>
