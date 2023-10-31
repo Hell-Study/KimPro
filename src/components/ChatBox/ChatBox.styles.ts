@@ -104,7 +104,7 @@ export const MessagesWrapper = styled.div`
   scroll-behavior: smooth;
   min-height: 6rem;
   max-height: 24rem;
-
+  overscroll-behavior: contain;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -139,5 +139,5 @@ export const BottomIcon = styled(FiChevronDown)`
   margin: auto;
   height: 1.5rem;
   width: 1.5rem;
-  color: ${({ theme }) => theme.colors.heading1};
+  color: ${({ theme }) => theme.colors.bg_element5};
 `;
