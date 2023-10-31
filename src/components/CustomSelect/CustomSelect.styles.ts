@@ -56,7 +56,7 @@ export const Option = styled.li`
   display: flex;
   align-items: center;
   padding: 5px;
-  transition: background-color 0.2s ease-in;
+  transition: background-color 0.1s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
