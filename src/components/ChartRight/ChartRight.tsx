@@ -2,9 +2,8 @@ import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { selectedCoinState, selectedCoinInfoState } from 'recoil/atoms/common';
-import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();

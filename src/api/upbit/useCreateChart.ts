@@ -5,7 +5,6 @@ import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import getTodayDate from 'utils/getTodayDate';
 
 function useCreateChart() {
-  const [baseExchange, setBaseExchange] = useRecoilValue(baseExchangeState);
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const [fetchedData, setFetchedData] = useState<any>(null);
