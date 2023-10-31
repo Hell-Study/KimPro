@@ -42,7 +42,7 @@ export default function TradingViewWidget() {
 
     function createWidget() {
       if (
-        document.getElementById('tradingview_e7b82') &&
+        document.getElementById('tradingview_0e511') &&
         'TradingView' in window
       ) {
         new window.TradingView.widget({
@@ -54,9 +54,11 @@ export default function TradingViewWidget() {
           style: '1',
           locale: 'kr',
           enable_publishing: false,
-          allow_symbol_change: true,
+          hide_top_toolbar: true,
+          hide_volume: true,
           save_image: false,
-          container_id: 'tradingview_e7b82',
+          backgroundColor: 'transparent',
+          container_id: 'tradingview_0e511',
         });
       }
     }
@@ -78,18 +80,9 @@ export default function TradingViewWidget() {
         style={{ height: '100%', width: '100%' }}
       >
         <div
-          id="tradingview_e7b82"
+          id="tradingview_0e511"
           style={{ height: 'calc(100% - 32px)', width: '100%' }}
         />
-        <div className="tradingview-widget-copyright">
-          <a
-            href="https://kr.tradingview.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span className="blue-text">트레이딩뷰에서 모든 시장 추적</span>
-          </a>
-        </div>
       </div>
     </>
   );

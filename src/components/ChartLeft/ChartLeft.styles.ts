@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const ChartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background-color: ${({ theme }) => theme.colors.bg_element4};
   padding: 1rem 1.1rem;
   border-radius: 12px;
