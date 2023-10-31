@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectState } from '../../recoil/atoms/selectState';
+import { selectState } from 'recoil/atoms/selectState';
 import { TRADING_VIEW_SYMBOLS } from './ChartLeft.constant';
-
+import { themeState } from 'recoil/atoms/theme';
+import * as styled from './ChartLeft.styles';
 declare global {
   interface Window {
     TradingView: any;
@@ -12,6 +13,7 @@ declare global {
 let tvScriptLoadingPromise: Promise<void> | undefined;
 
 export default function TradingViewWidget() {
+  const currentTheme = useRecoilValue(themeState);
   const selectedOption = useRecoilValue(selectState);
   const onLoadScriptRef = useRef<null | (() => void)>(null);
 
@@ -42,21 +44,25 @@ export default function TradingViewWidget() {
 
     function createWidget() {
       if (
-        document.getElementById('tradingview_e7b82') &&
+        document.getElementById('tradingview_0e511') &&
         'TradingView' in window
       ) {
         new window.TradingView.widget({
           autosize: true,
           symbol: getTradingViewSymbol(selectedOption),
+          width: '100%',
+          height: '100%',
           interval: '15',
           timezone: 'Asia/Seoul',
           theme: 'light',
           style: '1',
           locale: 'kr',
           enable_publishing: false,
-          allow_symbol_change: true,
+          hide_top_toolbar: true,
+          hide_volume: true,
           save_image: false,
-          container_id: 'tradingview_e7b82',
+          backgroundColor: 'transparent',
+          container_id: 'tradingview_0e511',
         });
       }
     }
@@ -72,25 +78,8 @@ export default function TradingViewWidget() {
   }, [selectedOption]);
 
   return (
-    <>
-      <div
-        className="tradingview-widget-container"
-        style={{ height: '100%', width: '100%' }}
-      >
-        <div
-          id="tradingview_e7b82"
-          style={{ height: 'calc(100% - 32px)', width: '100%' }}
-        />
-        <div className="tradingview-widget-copyright">
-          <a
-            href="https://kr.tradingview.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span className="blue-text">트레이딩뷰에서 모든 시장 추적</span>
-          </a>
-        </div>
-      </div>
-    </>
+    <styled.WidgetContainer>
+      <styled.Chart id="tradingview_0e511" />
+    </styled.WidgetContainer>
   );
 }
