@@ -87,6 +87,12 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
     socket.current = new WebSocket(SOCKET_URL);
     socket.current.onopen = socketOpenHandler;
     socket.current.onmessage = socketMessageHandler;
+
+    return () => {
+      if (socket.current) {
+        socket.current.close();
+      }
+    };
   }, [marketCodes, wsRequest]);
 
   useEffect(() => {

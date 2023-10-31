@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { baseExchangeState } from 'recoil/atoms/common';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import getTodayDate from 'utils/getTodayDate';
 
