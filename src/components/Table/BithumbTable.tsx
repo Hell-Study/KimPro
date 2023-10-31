@@ -1,17 +1,16 @@
 import * as styled from './Table.styles';
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
-import { useEffect, useState } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { selectedBithumbCoinState } from 'recoil/atoms/common';
-
-import {
-  ICoingeckoCoinData,
-  coingeckoCoinDataState,
-} from 'recoil/atoms/coingecko';
+import { useEffect } from 'react';
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import judgeColor from 'utils/judgeColor';
 import { exchangeRateState } from 'recoil/atoms/exchange';
 import { changes, changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
+import {
+  selectedBithumbCoinInfoState,
+  selectedBithumbCoinState,
+} from 'recoil/atoms/bithumb';
+import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
 
 interface IProps {
   socketData: IBithumbTicker;
@@ -27,29 +26,26 @@ export default function BithumbTable({ socketData }: IProps) {
     binancePrice,
   } = socketData;
 
-  const [thumb, setThumb] = useState('');
-  const [coinName, setCoinName] = useState('');
-  const nowPrice = Number(closing_price);
-  const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);
-  useEffect(() => {
-    if (symbol !== undefined) {
-      const target = coingeckoCoinData.filter((coin: ICoingeckoCoinData) => {
-        return coin.symbol === symbol;
-      });
-      setCoinName(target[0]?.name);
-      setThumb(target[0]?.thumb);
-    }
-  }, []);
-
-  const myExchangeRate = useRecoilValue(exchangeRateState);
-  const [selectedCoin, setSelectedCoin] = useRecoilState(
+  const [selectedBithumbCoin, setSelectedBithumbCoin] = useRecoilState(
     selectedBithumbCoinState,
   );
+  const setSelectedBithumbCoinInfo = useSetRecoilState(
+    selectedBithumbCoinInfoState,
+  );
+  const { thumb, coinName } = useMatchCoingecko(symbol);
+  const nowPrice = Number(closing_price);
 
-  const clickCoinHandler = (evt: React.MouseEvent<HTMLDivElement>) => {
-    const targetId = (evt.target as HTMLDivElement).id;
-    setSelectedCoin(targetId);
+  useEffect(() => {
+    if (socketData.symbol === selectedBithumbCoin) {
+      setSelectedBithumbCoinInfo(socketData);
+    }
+  }, [selectedBithumbCoin, socketData]);
+
+  const clickCoinHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    setSelectedBithumbCoin(e.currentTarget.id);
   };
+
+  const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
     <>
@@ -57,8 +53,7 @@ export default function BithumbTable({ socketData }: IProps) {
         key={symbol}
         id={symbol}
         onClick={clickCoinHandler}
-        // $selected={selectedCoin[0].market === data.code}
-        $selected={false}
+        $selected={selectedBithumbCoin === socketData.symbol}
       >
         <div>
           <img

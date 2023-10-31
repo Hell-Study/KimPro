@@ -40,12 +40,15 @@ export default function useBithumbWsTicker() {
 
         if (data.type === 'ticker') {
           const {
+            tickType,
             symbol,
             closePrice,
             lowPrice,
             highPrice,
             prevClosePrice,
             value,
+            date,
+            time,
           } = data.content;
 
           setSocketDatas((prevState) => {
@@ -54,13 +57,15 @@ export default function useBithumbWsTicker() {
             );
 
             if (existingIndex !== -1) {
-              if (data.content.tickType === 'MID') {
+              if (tickType === 'MID') {
                 prevState[existingIndex] = {
                   ...prevState[existingIndex],
                   closing_price: closePrice,
                   min_price: lowPrice,
                   max_price: highPrice,
                   prev_closing_price: prevClosePrice,
+                  date: date,
+                  time: time,
                 };
                 return [...prevState];
               } else {
