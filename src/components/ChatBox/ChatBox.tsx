@@ -5,8 +5,9 @@ import { MessageType } from 'components/Message/Message';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
+import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
-import { StyledModal } from './ChatBox.styles';
+
 // 닉네임 업데이트 함수
 const updateNickname = () => {
   const userChosenNickname = prompt('변경할 닉네임을 입력해주세요');
@@ -17,13 +18,6 @@ const updateNickname = () => {
       console.error('Error updating nickname:', error);
     }
   }
-};
-
-const overlayStyles = {
-  overlay: {
-    zIndex: 2, // 1 이하이면 차트 선택됨
-    backgroundColor: 'rgba(0, 0, 0, 0)',
-  },
 };
 
 const ChatBox = () => {
@@ -91,41 +85,51 @@ const ChatBox = () => {
     return () => unsubscribe();
   }, []);
 
+  const overlayStyles: ReactModal.Styles = {
+    overlay: {
+      zIndex: 2,
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      pointerEvents: 'none',
+    },
+  };
+
   return (
-    <StyledModal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={overlayStyles}
-    >
-      <styled.ModalInsideWrapper>
-        <styled.ChatBoxHeader>
-          <div>CHAT</div>
-          <div onClick={updateNickname} style={{ cursor: 'pointer' }}>
-            {storedDisplayName}
-          </div>
-        </styled.ChatBoxHeader>
-        <styled.MessagesWrapper
-          onScroll={handleScroll}
-          ref={messagesWrapperRef}
-        >
-          <styled.ButtonWrapper>
-            <styled.Button onClick={loadPreviousMessages}>
-              이전 채팅 불러오기
-            </styled.Button>
-          </styled.ButtonWrapper>
-          {messages?.map((message) => (
-            <Message key={message.id} message={message} />
-          ))}
-          <div ref={messagesEndRef} />
-        </styled.MessagesWrapper>
-        {!isAtBottom && (
-          <styled.ScrollToBottomButton onClick={scrollToBottom}>
-            🔻
-          </styled.ScrollToBottomButton>
-        )}
-        <SendMessage />
-      </styled.ModalInsideWrapper>
-    </StyledModal>
+    <styled.StyledModal isOpen={modalIsOpen} style={overlayStyles}>
+      <styled.ChatBoxHeader>
+        <styled.HeaderWrapper onClick={closeModal}>
+          <styled.CloseButton />
+          <styled.Title>Chat</styled.Title>
+        </styled.HeaderWrapper>
+
+        <styled.InfoWrapper onClick={updateNickname}>
+          <styled.Nickname>
+            {storedDisplayName ? storedDisplayName : 'unknown'}
+          </styled.Nickname>
+          <span>님</span>
+        </styled.InfoWrapper>
+      </styled.ChatBoxHeader>
+      <styled.MessagesWrapper onScroll={handleScroll} ref={messagesWrapperRef}>
+        <styled.ButtonWrapper>
+          <styled.Button onClick={loadPreviousMessages}>
+            <styled.Icon>
+              <AiFillMessage />
+            </styled.Icon>
+            이전 채팅 불러오기
+          </styled.Button>
+        </styled.ButtonWrapper>
+        {messages?.map((message) => (
+          <Message key={message.id} message={message} />
+        ))}
+        <div ref={messagesEndRef} />
+      </styled.MessagesWrapper>
+      <styled.ScrollToBottomButton
+        onClick={scrollToBottom}
+        $isVisible={!isAtBottom}
+      >
+        <styled.BottomIcon />
+      </styled.ScrollToBottomButton>
+      <SendMessage />
+    </styled.StyledModal>
   );
 };
 

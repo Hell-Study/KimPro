@@ -27,7 +27,9 @@ export const Home: React.FC = () => {
         <Table />
         <ChatBox />
       </styled.DisplayBoard>
-      <styled.ChatButton onClick={openModal}>CHAT</styled.ChatButton>
+      <styled.ChatButton onClick={openModal} $isOpen={modalIsOpen}>
+        <styled.Icon />
+      </styled.ChatButton>
     </>
   );
 };
