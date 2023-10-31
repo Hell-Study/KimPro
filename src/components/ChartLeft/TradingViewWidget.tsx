@@ -69,17 +69,6 @@ export default function TradingViewWidget() {
       }
       return TRADING_VIEW_SYMBOLS.BINANCE;
     }
-    // function getTradingViewSymbol(selected: string) {
-    //   switch (selected) {
-    //     case 'upbit':
-    //       return '(BINANCE:BTCUSD/BINANCE:BTCUSD*UPBIT:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
-    //     case 'bithumb':
-    //       return '(BINANCE:BTCUSD/BINANCE:BTCUSD*BITHUMB:BTCKRW-BINANCE:BTCUSDT*FX_IDC:USDKRW)/(BINANCE:BTCUSD*FX_IDC:USDKRW)*100';
-    //     case 'binance':
-    //     default:
-    //       return 'BTCUSDT';
-    //   }
-    // }
   }, [selectedOption]);
 
   return (

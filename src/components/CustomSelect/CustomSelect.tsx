@@ -1,62 +1,68 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectState } from '../../recoil/atoms/selectState';
-import { useDropdown } from '../../hooks/useDropdown';
-import * as Style from './CustomSelect.styles';
+import { useSetRecoilState } from 'recoil';
+import { selectState } from 'recoil/atoms/selectState';
+import { useDropdown } from 'hooks/useDropdown';
+import { CustomSelectProps } from './CustomSelect.types';
+import * as styled from './CustomSelect.styles';
 
-interface IOptionData {
-  key: string;
-  value: string;
-  symbol: string;
-}
-interface CustomSelectProps {
-  optionData: IOptionData[];
-}
-
-export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
-  const [selectedOption, setSelectedOption] = useRecoilState(selectState);
+export const CustomSelect: React.FC<CustomSelectProps> = ({
+  optionData,
+  onChange,
+  disabled,
+}) => {
+  const setSelectedOption = useSetRecoilState(selectState);
   const [currentValue, setCurrentValue] = useState(optionData[0].value);
+  const [currentTitle, setCurrentTitle] = useState(optionData[0].title);
   const { ref, isOpen, setIsOpen } = useDropdown();
 
   const handleOnChangeSelectValue = (e: React.MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
-    const targetValue = e.currentTarget.getAttribute('value') || '';
-    setCurrentValue(targetValue);
-    const selectedKey =
-      optionData.find((opt) => opt.value === targetValue)?.key ||
-      optionData[0].key;
-    setSelectedOption(selectedKey);
+    const targetTitle = e.currentTarget.getAttribute('value') || '';
+    const selectedData = optionData.find((opt) => opt.title === targetTitle);
+
+    if (selectedData) {
+      setCurrentValue(selectedData.value);
+      setCurrentTitle(selectedData.title);
+      setSelectedOption(selectedData.key);
+    }
+
     setIsOpen(false);
+    if (onChange && selectedData) {
+      onChange(selectedData.value);
+    }
   };
 
   return (
-    <Style.SelectBox
+    <styled.SelectBox
       ref={ref}
-      onClick={() => setIsOpen((prev: boolean) => !prev)}
+      onClick={() => {
+        if (!disabled) {
+          setIsOpen((prev: boolean) => !prev);
+        }
+      }}
+      $disabled={disabled}
     >
-      <Style.Label>
-        <img
+      <styled.Label>
+        <styled.Symbol
           src={optionData.find((opt) => opt.value === currentValue)?.symbol}
           alt={currentValue}
-          width="20"
-          height="20"
         />
-        {currentValue}
-      </Style.Label>
-      <Style.DropdownIcon />
-      <Style.SelectOptions $show={isOpen}>
+        {currentTitle}
+      </styled.Label>
+      <styled.DropdownIcon />
+      <styled.SelectOptions $show={isOpen}>
         {optionData.map((data) => (
-          <Style.Option
+          <styled.Option
             key={data.key}
-            value={data.value}
+            value={data.title}
             onClick={handleOnChangeSelectValue}
           >
-            <img src={data.symbol} alt={data.value} width="20" height="20" />
-            {data.value}
-            <Style.Check $isChecked={data.value === currentValue ? 1 : 0} />
-          </Style.Option>
+            <styled.Symbol src={data.symbol} alt={data.value} />
+            {data.title}
+            <styled.Check $isChecked={data.value === currentValue} />
+          </styled.Option>
         ))}
-      </Style.SelectOptions>
-    </Style.SelectBox>
+      </styled.SelectOptions>
+    </styled.SelectBox>
   );
 };
