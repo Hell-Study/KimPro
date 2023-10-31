@@ -1,7 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
-// import { throttle } from 'lodash';
+import { throttle } from 'lodash';
 
 export interface IUpbitTicker {
   code: string;
@@ -38,53 +38,56 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const [list, setList] = useState<IUpbitTicker[]>([]);
   const { binanceTickers } = useBinanceTicker();
 
+  const wsRequest = useMemo(() => {
+    const ticket = 'seungjun2';
+    const type = 'ticker';
+    const codes = marketCodes.map((code) => code.market);
+    return createWebSocketRequest(ticket, type, codes);
+  }, [marketCodes]);
+
+  const handleSocketMessage = (evt: any) => {
+    if (evt.data instanceof Blob) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const blobData = reader.result;
+        try {
+          const parsedData = JSON.parse(blobData as string);
+          setList((prevList) => {
+            const existingIndex = prevList.findIndex(
+              (item) => item.code === parsedData?.code,
+            );
+            if (existingIndex !== -1) {
+              return prevList.map((item, index) =>
+                index === existingIndex ? { ...item, ...parsedData } : item,
+              );
+            } else {
+              return [...prevList, parsedData];
+            }
+          });
+        } catch (error) {
+          console.error('JSON 데이터 파싱 오류:', error);
+        }
+      };
+      reader.readAsText(evt.data);
+    }
+  };
+
+  const socketMessageHandler = useCallback(
+    throttle(handleSocketMessage, 100, { leading: true }),
+    [],
+  );
+
+  const socketOpenHandler = () => {
+    if (socket.current?.readyState == 1) {
+      socket.current.send(wsRequest);
+    }
+  };
+
   useEffect(() => {
     socket.current = new WebSocket(SOCKET_URL);
-
-    const socketOpenHandler = () => {
-      if (socket.current?.readyState == 1) {
-        const ticket = 'seungjun2';
-        const type = 'ticker';
-        const codes = marketCodes.map((code) => code.market);
-        const wsRequest = createWebSocketRequest(ticket, type, codes);
-        socket.current.send(wsRequest);
-      }
-    };
-
-    const socketMessageHandler = (evt: any) => {
-      if (evt.data instanceof Blob) {
-        const reader = new FileReader();
-
-        reader.onload = function () {
-          const blobData = reader.result;
-          try {
-            const parsedData = JSON.parse(blobData as string);
-
-            setList((prevList) => {
-              const existingIndex = prevList.findIndex(
-                (item) => item.code === parsedData?.code,
-              );
-              if (existingIndex !== -1) {
-                prevList[existingIndex] = {
-                  ...prevList[existingIndex],
-                  ...parsedData,
-                };
-                return [...prevList]; // 중복이 아닐 경우, 새로운 배열을 반환하여 상태 업데이트
-              } else {
-                return [...prevList, parsedData]; // 중복일 경우, 새로운 데이터를 추가한 새 배열을 반환
-              }
-            });
-          } catch (error) {
-            console.error('Error parsing JSON data:', error);
-          }
-        };
-        reader.readAsText(evt.data);
-      }
-    };
-
     socket.current.onopen = socketOpenHandler;
     socket.current.onmessage = socketMessageHandler;
-  }, [marketCodes]);
+  }, [marketCodes, wsRequest]);
 
   useEffect(() => {
     if (binanceTickers) {

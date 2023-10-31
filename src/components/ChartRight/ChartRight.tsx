@@ -2,9 +2,8 @@ import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { selectedCoinState, selectedCoinInfoState } from 'recoil/atoms/common';
-import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
@@ -73,9 +72,6 @@ function ChartRight() {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
-  useEffect(() => {
-    console.log('selectedCoinInfo ', selectedCoinInfo);
-  }, [selectedCoinInfo]);
 
   return (
     <styled.ChartContainer>
@@ -91,6 +87,7 @@ function ChartRight() {
             src={`https://static.upbit.com/logos/${
               selectedCoin[0].market.split('-')[1]
             }.png`}
+            loading="lazy"
           />
         </styled.CoinImgWrapper>
         <styled.CoinInfo>

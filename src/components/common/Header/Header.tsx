@@ -109,7 +109,11 @@ function Header() {
       <styled.HeaderWrapper>
         <styled.InnerSpaceBetween>
           <styled.Logo href="/Final-Project">
-            <img src={isDarkMode ? LogoDark : LogoLight} alt="logo" />
+            <img
+              src={isDarkMode ? LogoDark : LogoLight}
+              alt="logo"
+              loading="lazy"
+            />
           </styled.Logo>
           <styled.BtnGroup>
             <a

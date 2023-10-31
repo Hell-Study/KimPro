@@ -40,6 +40,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
           alt={currentValue}
           width="20"
           height="20"
+          loading="lazy"
         />
         {currentValue}
       </Style.Label>
@@ -51,7 +52,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({ optionData }) => {
             value={data.value}
             onClick={handleOnChangeSelectValue}
           >
-            <img src={data.symbol} alt={data.value} width="20" height="20" />
+            <img
+              src={data.symbol}
+              alt={data.value}
+              width="20"
+              height="20"
+              loading="lazy"
+            />
             {data.value}
             <Style.Check $isChecked={data.value === currentValue ? 1 : 0} />
           </Style.Option>
