@@ -1,18 +1,6 @@
 import React from 'react';
-import { Timestamp } from 'firebase/firestore';
 import * as styled from './Message.styles';
-
-export type MessageType = {
-  uid: string;
-  name: string;
-  text: string;
-  createdAt: Timestamp;
-  id: string;
-};
-
-interface MessageProps {
-  message: MessageType;
-}
+import { MessageProps } from './Message.types';
 
 const Message: React.FC<MessageProps> = ({ message }) => {
   const storedUid = localStorage.getItem('uid');

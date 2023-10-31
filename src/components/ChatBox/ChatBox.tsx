@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, memo } from 'react';
 import { fetchMessages } from '../../firebase/fetchMessages';
 import { Message } from 'components/Message';
-import { MessageType } from 'components/Message/Message';
+import { MessageType } from 'components/Message/Message.types';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';

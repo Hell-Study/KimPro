@@ -1,5 +1,5 @@
 import { onSnapshot } from 'firebase/firestore';
-import { MessageType } from 'components/Message/Message';
+import { MessageType } from 'components/Message/Message.types';
 import { messageQuery } from './messageQuery';
 import { orderSnapshotMessages } from './orderSnapshotMessages';
 
