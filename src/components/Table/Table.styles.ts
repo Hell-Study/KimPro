@@ -1,4 +1,5 @@
 import styled, { DefaultTheme } from 'styled-components';
+import { CiSearch } from 'react-icons/ci';
 
 export const TableContainer = styled.div`
   width: 100%;
@@ -46,6 +47,42 @@ export const CoinCount = styled.div`
   line-height: normal;
 
   margin-right: 1.25rem;
+`;
+
+export const SearchForm = styled.form`
+  display: flex;
+  align-items: center;
+  padding: 0.5625rem 1rem;
+
+  width: 232px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.border1};
+  background: ${({ theme }) => theme.colors.bg_element4};
+  box-shadow: 0px 0px 40px 0px ${({ theme }) => theme.colors.border1};
+
+  &:focus-within {
+    border: 1px solid ${({ theme }) => theme.colors.blue};
+  }
+`;
+
+export const SearchIcon = styled(CiSearch)`
+  width: 18px;
+  height: 18px;
+  margin-right: 0.625rem;
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+
+  color: ${({ theme }) => theme.colors.text3};
+  font-family: Pretendard;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 export const CoinListWrapper = styled.div`

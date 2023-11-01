@@ -56,13 +56,16 @@ export const Table: React.FC = () => {
             개
           </styled.CoinCount>
 
-          <input
-            type="text"
-            name="검색어"
-            placeholder="검색어를 입력하세요"
-            value={searchCoin}
-            onChange={handleSearchInputChange}
-          />
+          <styled.SearchForm>
+            <styled.SearchIcon />
+            <styled.SearchInput
+              type="text"
+              name="검색어"
+              placeholder="검색어를 입력하세요"
+              value={searchCoin}
+              onChange={handleSearchInputChange}
+            />
+          </styled.SearchForm>
         </styled.SearchWrapper>
       </styled.TableNav>
 
