@@ -64,6 +64,7 @@ export default function BithumbTable({ socketData }: IProps) {
             data-nimg="1"
             className="rounded-full"
             src={thumb}
+            loading="lazy"
           />
         </div>
         <styled.CoinBoxName>
