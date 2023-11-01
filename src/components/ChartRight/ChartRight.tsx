@@ -1,20 +1,23 @@
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
-import * as styled from './ChartRight.styles';
 import useCreateChart from 'api/upbit/useCreateChart';
 import { useRecoilValue } from 'recoil';
 import { selectedCoinState, selectedCoinInfoState } from 'recoil/atoms/common';
+import { useTheme } from 'styled-components';
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import * as styled from './ChartRight.styles';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
+  const theme = useTheme();
 
-  const backgroundColor = 'white';
-  const textColor = 'black';
+  const textColor = theme.colors.text1;
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const chart = useRef<any>(null);
   const newSeries = useRef<any>(null);
+
   useEffect(() => {
     if (processedData) {
       const handleResize = () => {
@@ -25,12 +28,19 @@ function ChartRight() {
       chart.current = createChart(chartContainerRef.current as HTMLElement, {
         layout: {
           background: {
-            color: backgroundColor,
+            color: 'transparent',
           },
           textColor,
         },
-        width: chartContainerRef.current?.clientWidth,
-        height: 250, // 300 - 50
+        autoSize: true,
+        grid: {
+          vertLines: {
+            color: theme.colors.border2,
+          },
+          horzLines: {
+            color: theme.colors.border2,
+          },
+        },
         crosshair: {
           mode: CrosshairMode.Normal,
         },
@@ -39,6 +49,7 @@ function ChartRight() {
         },
         rightPriceScale: {
           borderVisible: false,
+          textColor: theme.colors.text1,
           scaleMargins: {
             top: 0.1,
             bottom: 0.1,
@@ -46,14 +57,19 @@ function ChartRight() {
         },
         timeScale: {
           borderVisible: false,
+          fixLeftEdge: true,
+          fixRightEdge: true,
         },
       });
-      chart.current.timeScale().fitContent();
+      chart.current.timeScale().applyOptions({
+        barSpacing: 8,
+      });
+
       newSeries.current = chart.current.addCandlestickSeries({
-        upColor: '#D24F45',
-        wickUpColor: '#D24F45',
-        downColor: '#1261C4',
-        wickDownColor: '#1261C4',
+        upColor: 'rgb( 239, 83, 80)',
+        wickUpColor: 'rgb( 239, 83, 80)',
+        downColor: 'rgb(42,127,255)',
+        wickDownColor: 'rgb(42,127,255)',
         borderVisible: false,
       });
       window.addEventListener('resize', handleResize);
@@ -65,13 +81,17 @@ function ChartRight() {
         chart.current.remove();
       };
     }
-  }, [processedData]);
+  }, [processedData, theme]);
 
   useEffect(() => {
     if (updatedCandle && newSeries.current) {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
+
+  const selectedRate = selectedCoinInfo?.[0]?.signed_change_rate;
+  const selectedChangePrice = selectedCoinInfo?.[0]?.signed_change_price;
+  const isPositiveRate = selectedRate > 0;
 
   return (
     <styled.ChartContainer>
@@ -98,31 +118,23 @@ function ChartRight() {
             </styled.CoinSymbol>
           </styled.CoinIdentity>
 
-          <styled.CoinPrice
-            $isPositive={
-              selectedCoinInfo?.[0]?.signed_change_price > 0 ? 'true' : 'false'
-            }
-          >
+          <styled.CoinPrice $isPositive={isPositiveRate ? 'true' : 'false'}>
             {selectedCoinInfo?.[0]?.trade_price.toLocaleString('ko-KR')}{' '}
             <span>KRW</span>
           </styled.CoinPrice>
         </styled.CoinInfo>
 
         <styled.CoinChangeWrapper
-          $isPositive={
-            selectedCoinInfo?.[0]?.signed_change_price > 0 ? 'true' : 'false'
-          }
+          $isPositive={isPositiveRate ? 'true' : 'false'}
         >
           <styled.CoinChangeRate>
             <span>전일대비</span>
-            {selectedCoinInfo?.[0]?.signed_change_rate > 0 ? '+' : null}
-            {(selectedCoinInfo?.[0]?.signed_change_rate * 100).toFixed(2)}%
+            {isPositiveRate ? <FaCaretUp /> : <FaCaretDown />}
+            {Math.abs(selectedRate * 100).toFixed(2)}%
           </styled.CoinChangeRate>
           <styled.CoinChangePrice>
-            {selectedCoinInfo?.[0]?.signed_change_price > 0 ? '▲' : '▼'}
-            {Math.abs(
-              selectedCoinInfo?.[0]?.signed_change_price,
-            )?.toLocaleString('ko-KR')}
+            {selectedChangePrice > 0 ? '+' : '-'}
+            {Math.abs(selectedChangePrice)?.toLocaleString('ko-KR')}
           </styled.CoinChangePrice>
         </styled.CoinChangeWrapper>
       </styled.CoinInfoContainer>

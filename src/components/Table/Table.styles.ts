@@ -28,6 +28,10 @@ export const TableBox = styled.div`
   box-shadow: 0px 0px 25px 0px rgba(48, 73, 191, 0.07);
 `;
 
+export const SelectWrapper = styled.div`
+  display: flex;
+`;
+
 export const CoinListWrapper = styled.div`
   overflow: overlay;
   height: 24.75rem;

@@ -3,13 +3,12 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: ${({ theme }) => theme.sizes.lg};
-  overflow-x: auto;
+  overflow: hidden;
   scroll-behavior: smooth;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem 0.3rem 0;
-  margin-bottom: -0.7rem;
+  padding: 1rem 0.3rem;
   font-family: 'Pretendard', sans-serif;
 `;
 
@@ -94,7 +93,7 @@ export const Card = styled.div`
   gap: 1.5rem;
   border: 1px solid ${({ theme }) => theme.colors.border1};
   border-radius: 12px;
-  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 5px 20px 0px;
+  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 2px 10px 0px;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   cursor: pointer;
 

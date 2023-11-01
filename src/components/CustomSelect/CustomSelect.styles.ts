@@ -1,24 +1,29 @@
 import styled from 'styled-components';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { FiChevronDown } from 'react-icons/fi';
 import { CgCheck } from 'react-icons/cg';
 
-export const SelectBox = styled.div`
+export const SelectBox = styled.div<{ $disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   padding: 8px;
-  border-radius: 12px;
-  background-color: #ffffff;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.bg_element6};
+  border: 1px solid ${({ theme }) => theme.colors.border1};
   align-self: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
+  gap: 0.8rem;
+  box-shadow: ${({ theme }) => theme.colors.alpha2} 0px 5px 10px 0px;
+  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
+  user-select: none;
 `;
 
 export const Label = styled.label`
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
 
   img {
     margin-right: 8px;
@@ -32,48 +37,59 @@ interface SelectOptionsProps {
 export const SelectOptions = styled.ul<SelectOptionsProps>`
   position: absolute;
   list-style: none;
-  top: 25px;
+  top: 35px;
   left: 0;
-  width: 250px;
   overflow: hidden;
-  height: 90px;
   max-height: ${(props) => (props.$show ? 'none' : '0')};
-  padding: 0;
+  padding: ${(props) => (props.$show ? '3px' : 0)};
   border-radius: 8px;
-  background-color: #222222;
-  color: #fefefe;
-  z-index: 9999;
+  background-color: ${({ theme }) => theme.colors.bg_element2};
+  color: ${({ theme }) => theme.colors.text1};
+  box-shadow: ${(props) => (props.$show ? '0 2px 4px #0003' : 'none')};
+  border: ${({ theme, $show }) =>
+    $show ? `1px solid ${theme.colors.border1}` : 'none'};
+  font-size: 0.8rem;
+  z-index: 3;
 `;
 
 export const Option = styled.li`
   display: flex;
   align-items: center;
-  font-size: 14px;
-  padding: 6px 8px;
-  transition: background-color 0.2s ease-in;
+  padding: 5px;
+  transition: background-color 0.1s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
+  gap: 0.4rem;
 
-  img {
-    margin-right: 8px;
-    vertical-align: middle;
-  }
-
-  span {
-    margin-left: 8px;
+  &:last-child {
+    border-bottom: none;
   }
 
   &:hover {
-    background-color: #595959;
+    background-color: ${({ theme }) => theme.colors.bg_element1};
+    border-radius: 0.25rem;
   }
 `;
 
-export const DropdownIcon = styled(MdKeyboardArrowDown)`
+export const DropdownIcon = styled(FiChevronDown)`
   margin-left: auto;
-  color: #49c181;
-  font-size: 20px;
+  color: ${({ theme }) => theme.colors.icon};
+  height: 1rem;
+  width: 1rem;
 `;
 
-export const Check = styled(CgCheck)<{ $isChecked: number }>`
-  opacity: ${(props) => props.$isChecked};
+export const Check = styled(CgCheck)<{ $isChecked: boolean }>`
+  color: ${(props) =>
+    props.$isChecked ? props.theme.colors.primary2 : 'transparent'};
   margin-left: auto;
-  font-size: 20px;
+  height: auto;
+  width: 1.3rem;
+`;
+
+export const Symbol = styled.img`
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
 `;

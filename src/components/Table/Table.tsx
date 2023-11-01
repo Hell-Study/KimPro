@@ -9,6 +9,8 @@ import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
 import { TableHeader } from './TableHeader';
 import { exchangeRateState } from 'recoil/atoms/exchange';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { CustomSelect } from 'components/CustomSelect';
+import { SELECT_OPTION, SELECT_SINGLE_OPTION } from './Table.constant';
 
 export const Table: React.FC = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
@@ -32,18 +34,18 @@ export const Table: React.FC = () => {
   return (
     <styled.TableContainer>
       <styled.TableNav>
-        <div>
+        <styled.SelectWrapper>
           기준 거래소
-          <select onChange={changeBaseExchange}>
-            <option value="upbit">업비트</option>
-            <option value="bithumb">빗썸</option>
-          </select>
+          <CustomSelect
+            optionData={SELECT_OPTION}
+            onChange={(value) => {
+              setBaseExchange(value);
+            }}
+          />
           -
-          <select>
-            <option value="binance">바이낸스 USDT 마켓</option>
-          </select>
+          <CustomSelect optionData={SELECT_SINGLE_OPTION} disabled={true} />
           해외 거래소
-        </div>
+        </styled.SelectWrapper>
         <div>
           암호화폐 총
           {baseExchange === 'upbit'
