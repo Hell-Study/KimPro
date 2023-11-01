@@ -5,7 +5,15 @@ import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import judgeColor from 'utils/judgeColor';
 import { exchangeRateState } from 'recoil/atoms/exchange';
-import { changes, changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
+import {
+  binancePriceToKRW,
+  changes,
+  changesRatio,
+  highRatio,
+  kimchiPremiumDiff,
+  kimchiPremiumRatio,
+  lowRatio,
+} from 'utils/priceCalc';
 import {
   selectedBithumbCoinInfoState,
   selectedBithumbCoinState,
@@ -79,7 +87,7 @@ export default function BithumbTable({ socketData }: IProps) {
           </styled.CoinBoxPriceKorean>
           <styled.CoinBoxPriceBinance>{`${
             binancePrice
-              ? (parseFloat(binancePrice) * myExchangeRate).toLocaleString(
+              ? binancePriceToKRW(binancePrice, myExchangeRate).toLocaleString(
                   'ko-KR',
                 )
               : ''
@@ -88,7 +96,7 @@ export default function BithumbTable({ socketData }: IProps) {
         <styled.CoinBoxKimchiPremium
           $isPositive={
             binancePrice
-              ? nowPrice > parseFloat(binancePrice) * myExchangeRate
+              ? nowPrice > binancePriceToKRW(binancePrice, myExchangeRate)
                 ? 'true'
                 : 'false'
               : 'none'
@@ -97,12 +105,14 @@ export default function BithumbTable({ socketData }: IProps) {
           <styled.CoinBoxKimchiPremiumRate>
             {binancePrice ? (
               <>
-                {nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1 >
+                {kimchiPremiumRatio(nowPrice, binancePrice, myExchangeRate) >
                   0 && '+'}
-                {`${(
-                  (nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) *
-                  100
-                ).toFixed(2)}%`}
+                {kimchiPremiumRatio(
+                  nowPrice,
+                  binancePrice,
+                  myExchangeRate,
+                ).toFixed(2)}
+                %
               </>
             ) : (
               ''
@@ -111,11 +121,13 @@ export default function BithumbTable({ socketData }: IProps) {
           <styled.CoinBoxKimchiPremiumDiff>
             {binancePrice ? (
               <>
-                {nowPrice - parseFloat(binancePrice) * myExchangeRate > 0 &&
-                  '+'}
-                {(nowPrice - parseFloat(binancePrice) * myExchangeRate).toFixed(
-                  2,
-                )}
+                {kimchiPremiumDiff(nowPrice, binancePrice, myExchangeRate) >
+                  0 && '+'}
+                {kimchiPremiumDiff(
+                  nowPrice,
+                  binancePrice,
+                  myExchangeRate,
+                ).toFixed(2)}
               </>
             ) : (
               ''

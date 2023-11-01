@@ -1,6 +1,27 @@
 import { IUpbitTicker } from 'hooks/upbit/useUpbitTicker';
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 
+// 공통
+// 김프
+export const binancePriceToKRW = (
+  binancePrice: string,
+  myExchangeRate: number,
+) => parseFloat(binancePrice) * myExchangeRate;
+
+// 김프 비율
+export const kimchiPremiumRatio = (
+  nowPrice: number,
+  binancePrice: string,
+  myExchangeRate: number,
+) => (nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) * 100;
+
+// 김프와 국내 거래소 가격 차이
+export const kimchiPremiumDiff = (
+  nowPrice: number,
+  binancePrice: string,
+  myExchangeRate: number,
+) => nowPrice - parseFloat(binancePrice) * myExchangeRate;
+
 // 업비트
 // 고가 대비 증감률(52주)
 export const highest_52_week_rate = (data: IUpbitTicker) =>

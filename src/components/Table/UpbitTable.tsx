@@ -11,7 +11,13 @@ import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
 import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
 import { exchangeRateState } from 'recoil/atoms/exchange';
-import { highest_52_week_rate, lowest_52_week_rate } from 'utils/priceCalc';
+import {
+  binancePriceToKRW,
+  kimchiPremiumRatio,
+  kimchiPremiumDiff,
+  highest_52_week_rate,
+  lowest_52_week_rate,
+} from 'utils/priceCalc';
 import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 
 function UpbitTable() {
@@ -92,11 +98,51 @@ function UpbitTable() {
         }
         break;
 
-      // case '김프':
-      //   socketDatas.sort(
-      //     (a, b) => a.acc_trade_price_24h - b.acc_trade_price_24h,
-      //   );
-      //   break;
+      case '김프':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  a.trade_price,
+                  a.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  b.trade_price,
+                  b.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        } else {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  b.trade_price,
+                  b.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  a.trade_price,
+                  a.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        }
+        break;
 
       case '전일대비':
         if (tableSortUpDown) {
@@ -197,20 +243,19 @@ function UpbitTable() {
                     {data.trade_price?.toLocaleString('ko-KR')}
                   </styled.CoinBoxPriceKorean>
                   <styled.CoinBoxPriceBinance>
-                    {`${
-                      data.binancePrice
-                        ? (
-                            parseFloat(data.binancePrice) * myExchangeRate
-                          ).toLocaleString('ko-KR')
-                        : ''
-                    }`}
+                    {data.binancePrice
+                      ? binancePriceToKRW(
+                          data.binancePrice,
+                          myExchangeRate,
+                        ).toLocaleString('ko-KR')
+                      : ''}
                   </styled.CoinBoxPriceBinance>
                 </styled.CoinBoxPrice>
                 <styled.CoinBoxKimchiPremium
                   $isPositive={
                     data.binancePrice
                       ? data.trade_price >
-                        parseFloat(data.binancePrice) * myExchangeRate
+                        binancePriceToKRW(data.binancePrice, myExchangeRate)
                         ? 'true'
                         : 'false'
                       : 'none'
@@ -219,17 +264,17 @@ function UpbitTable() {
                   <styled.CoinBoxKimchiPremiumRate>
                     {data.binancePrice ? (
                       <>
-                        {(data.trade_price /
-                          (parseFloat(data.binancePrice) * myExchangeRate) -
-                          1) *
-                          100 >
-                          0 && '+'}
-                        {`${(
-                          (data.trade_price /
-                            (parseFloat(data.binancePrice) * myExchangeRate) -
-                            1) *
-                          100
-                        ).toFixed(2)}%`}
+                        {kimchiPremiumRatio(
+                          data.trade_price,
+                          data.binancePrice,
+                          myExchangeRate,
+                        ) > 0 && '+'}
+                        {kimchiPremiumRatio(
+                          data.trade_price,
+                          data.binancePrice,
+                          myExchangeRate,
+                        ).toFixed(2)}
+                        %
                       </>
                     ) : (
                       ''
@@ -238,12 +283,15 @@ function UpbitTable() {
                   <styled.CoinBoxKimchiPremiumDiff>
                     {data.binancePrice ? (
                       <>
-                        {data.trade_price -
-                          parseFloat(data.binancePrice) * myExchangeRate >
-                          0 && '+'}
-                        {(
-                          data.trade_price -
-                          parseFloat(data.binancePrice) * myExchangeRate
+                        {kimchiPremiumDiff(
+                          data.trade_price,
+                          data.binancePrice,
+                          myExchangeRate,
+                        ) > 0 && '+'}
+                        {kimchiPremiumDiff(
+                          data.trade_price,
+                          data.binancePrice,
+                          myExchangeRate,
                         ).toFixed(2)}
                       </>
                     ) : (
