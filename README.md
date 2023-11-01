@@ -81,7 +81,7 @@
 ## 📌 프로젝트 구성도
 |                                   아키텍처(Architecture)                                   |
 | :----------------------------------------------------------------------------------------: |
-| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/6d83fcc2-b496-4ce7-b184-d48718ccc938" /> |
+| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/023485a5-276b-4c82-9a13-a2b4e06c75d0" /> |
 
 <div id="5"></div>
 
@@ -99,6 +99,8 @@
 |   Total Blocking Time    |       100ms       |        0ms        |
 | Largest Contentful Paint |       6.2s        |       2.2s        |
 | Cumulative Layout Shift  |       0.128       |       0.001       |
+
+> 무엇, 무엇을 사용하여서 어떻게 바뀌었다
 
 <div id="6"></div>
 
