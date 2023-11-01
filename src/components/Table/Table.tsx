@@ -11,6 +11,7 @@ import { exchangeRateState } from 'recoil/atoms/exchange';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 import { CustomSelect } from 'components/CustomSelect';
 import { SELECT_OPTION, SELECT_SINGLE_OPTION } from './Table.constant';
+import { BsArrowLeftRight } from 'react-icons/bs';
 
 export const Table: React.FC = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
@@ -42,24 +43,30 @@ export const Table: React.FC = () => {
               setBaseExchange(value);
             }}
           />
-          -
+          <BsArrowLeftRight />
           <CustomSelect optionData={SELECT_SINGLE_OPTION} disabled={true} />
           해외 거래소
         </styled.SelectWrapper>
-        <div>
-          암호화폐 총
-          {baseExchange === 'upbit'
-            ? upbitMarketCodes.length
-            : bithumbMarketCodes.length}
-          개
-          <input
-            type="text"
-            name="검색어"
-            placeholder="검색어를 입력하세요"
-            value={searchCoin}
-            onChange={handleSearchInputChange}
-          />
-        </div>
+        <styled.SearchWrapper>
+          <styled.CoinCount>
+            암호화폐 총{' '}
+            {baseExchange === 'upbit'
+              ? upbitMarketCodes.length
+              : bithumbMarketCodes.length}
+            개
+          </styled.CoinCount>
+
+          <styled.SearchForm>
+            <styled.SearchIcon />
+            <styled.SearchInput
+              type="text"
+              name="검색어"
+              placeholder="검색어를 입력하세요"
+              value={searchCoin}
+              onChange={handleSearchInputChange}
+            />
+          </styled.SearchForm>
+        </styled.SearchWrapper>
       </styled.TableNav>
 
       <styled.TableBox>
