@@ -7,6 +7,9 @@ export const TableContainer = styled.div`
 export const TableNav = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  margin: 1.625rem 0;
 `;
 
 export const TableBox = styled.div`
@@ -18,6 +21,31 @@ export const TableBox = styled.div`
 
 export const SelectWrapper = styled.div`
   display: flex;
+  align-items: center;
+  gap: 0.9375rem;
+
+  color: ${({ theme }) => theme.colors.text1};
+  font-family: Uni Neue-Trial;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+export const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const CoinCount = styled.div`
+  color: ${({ theme }) => theme.colors.text1};
+  font-family: Uni Neue-Trial;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  margin-right: 1.25rem;
 `;
 
 export const CoinListWrapper = styled.div`
