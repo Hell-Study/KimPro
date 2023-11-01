@@ -107,6 +107,7 @@ function ChartRight() {
             src={`https://static.upbit.com/logos/${
               selectedCoin[0].market.split('-')[1]
             }.png`}
+            loading="lazy"
           />
         </styled.CoinImgWrapper>
         <styled.CoinInfo>

@@ -7,7 +7,7 @@ import {
   startAfter,
 } from 'firebase/firestore';
 import { db } from './config';
-import { MessageType } from 'components/Message/Message';
+import { MessageType } from 'components/Message/Message.types';
 
 // Firebase Firestore 쿼리를 생성하는 함수
 export function messageQuery(lastMessage?: MessageType | null) {

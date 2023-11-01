@@ -8,7 +8,7 @@ export function updateUpbitListWithBinance(
     return symbol.replace('USDT', '');
   };
 
-  return list.map((item) => {
+  const updatedList = list.map((item) => {
     const binanceTicker = binanceTickers?.find(
       (ticker) => removeUSDT(ticker.s) === item.code?.split('-')[1],
     );
@@ -20,4 +20,6 @@ export function updateUpbitListWithBinance(
     }
     return item;
   });
+
+  return updatedList;
 }

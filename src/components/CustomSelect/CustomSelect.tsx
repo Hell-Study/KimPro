@@ -42,6 +42,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         <styled.Symbol
           src={optionData.find((opt) => opt.value === currentValue)?.symbol}
           alt={currentValue}
+          loading="lazy"
         />
         {currentTitle}
       </styled.Label>
@@ -53,7 +54,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
             value={data.title}
             onClick={handleOnChangeSelectValue}
           >
-            <styled.Symbol src={data.symbol} alt={data.value} />
+            <styled.Symbol src={data.symbol} alt={data.value} loading="lazy" />
             {data.title}
             <styled.Check $isChecked={data.value === currentValue} />
           </styled.Option>
