@@ -44,6 +44,7 @@ export const lightTheme: DefaultTheme = {
     alpha2: 'rgba(0, 0, 0, 0.04)',
     alpha3: `rgba(255, 255, 255, 0.7)`,
     blue: '#2962ff',
+    bg_coinbox: '#E8E8E8',
   },
 };
 
@@ -72,5 +73,6 @@ export const darkTheme: DefaultTheme = {
     alpha2: 'rgba(255, 255, 255, 0.05)',
     alpha3: `rgb(10, 11, 14, 0.8)`,
     blue: 'rgb(74,141,245)',
+    bg_coinbox: '#4C4F5E',
   },
 };

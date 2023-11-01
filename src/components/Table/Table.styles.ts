@@ -46,9 +46,11 @@ export const CoinBox = styled.div<CoinBoxProps>`
   padding-left: 5px;
   padding-right: 5px;
   cursor: pointer;
-  background-color: ${(props) => (props.$selected ? 'lightgrey' : 'inherit')};
+
+  background-color: ${(props) =>
+    props.$selected ? props.theme.colors.bg_coinbox : 'inherit'};
   &:hover {
-    background-color: lightgrey;
+    background-color: ${({ theme }) => theme.colors.bg_coinbox};
   }
   div {
     display: flex;
