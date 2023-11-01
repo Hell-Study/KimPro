@@ -29,13 +29,17 @@ export const CoinBox = styled.div<{ $selected: boolean }>`
   height: 4rem;
   display: grid;
   grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 0.625rem 0.9375rem;
+  border-radius: 15px;
+
   cursor: pointer;
+
   background-color: ${({ $selected }) => {
     return $selected
       ? ({ theme }: DefaultTheme) => theme.colors.alpha2
       : 'inherit';
   }};
-  padding: 0.625rem 0.9375rem;
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.alpha2};
   }
