@@ -32,7 +32,7 @@ function ChartRight() {
           },
           textColor,
         },
-        autoSize: true,
+        autoSize: false,
         grid: {
           vertLines: {
             color: theme.colors.border2,
