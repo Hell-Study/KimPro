@@ -5,8 +5,10 @@ import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
 import { Widget } from 'components/Widget';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Header } from 'components/common/Header';
+import RealTimeChart from 'components/bithumb/RealTimeChart';
+import { baseExchangeState } from 'recoil/atoms/common';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -15,6 +17,8 @@ export const Home: React.FC = () => {
     setModalIsOpen(true);
   };
 
+  const baseExchange = useRecoilValue(baseExchangeState);
+
   return (
     <>
       <Header />
@@ -22,7 +26,7 @@ export const Home: React.FC = () => {
         <Widget />
         <styled.ChartsWrapper>
           <ChartLeft />
-          <ChartRight />
+          {baseExchange === 'upbit' ? <ChartRight /> : <RealTimeChart />}
         </styled.ChartsWrapper>
         <Table />
         <ChatBox />

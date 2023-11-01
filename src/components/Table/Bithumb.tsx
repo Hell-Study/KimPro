@@ -29,7 +29,7 @@ export function Bithumb() {
     const filteredSocketDatas = socketDatas.filter((socketData) =>
       coingeckoCoinData.some(
         (gecko: ICoingeckoCoinData) =>
-          gecko.symbol == socketData[0] &&
+          gecko.symbol == socketData.symbol &&
           gecko.name.toLowerCase().includes(searchCoin.toLowerCase()),
       ),
     );
@@ -43,7 +43,7 @@ export function Bithumb() {
       case '코인':
         if (tableSortUpDown) {
           socketDatas.sort((a, b) => {
-            if (a[0] > b[0]) {
+            if (a.symbol > b.symbol) {
               return 1;
             } else {
               return -1;
@@ -51,7 +51,7 @@ export function Bithumb() {
           });
         } else {
           socketDatas.sort((a, b) => {
-            if (a[0] > b[0]) {
+            if (a.symbol > b.symbol) {
               return -1;
             } else {
               return 1;
@@ -62,11 +62,11 @@ export function Bithumb() {
       case '현재가':
         if (tableSortUpDown) {
           socketDatas.sort(
-            (a, b) => Number(a[1].closing_price) - Number(b[1].closing_price),
+            (a, b) => Number(a.closing_price) - Number(b.closing_price),
           );
         } else {
           socketDatas.sort(
-            (a, b) => Number(b[1].closing_price) - Number(a[1].closing_price),
+            (a, b) => Number(b.closing_price) - Number(a.closing_price),
           );
         }
         break;
@@ -100,14 +100,12 @@ export function Bithumb() {
         if (tableSortUpDown) {
           socketDatas.sort(
             (a, b) =>
-              Number(a[1].acc_trade_value_24H) -
-              Number(b[1].acc_trade_value_24H),
+              Number(a.acc_trade_value_24H) - Number(b.acc_trade_value_24H),
           );
         } else {
           socketDatas.sort(
             (a, b) =>
-              Number(b[1].acc_trade_value_24H) -
-              Number(a[1].acc_trade_value_24H),
+              Number(b.acc_trade_value_24H) - Number(a.acc_trade_value_24H),
           );
         }
         break;
@@ -117,7 +115,7 @@ export function Bithumb() {
   return (
     <>
       {filteredSocketDatas.map((socketData) => {
-        return <BithumbTable key={socketData[0]} socketData={socketData} />;
+        return <BithumbTable key={socketData.symbol} socketData={socketData} />;
       })}
     </>
   );

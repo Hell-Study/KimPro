@@ -26,11 +26,6 @@ export const selectedCoinState = atom<IUpbitMarketCode[]>({
   ],
 });
 
-export const selectedBithumbCoinState = atom({
-  key: 'selectedBithumbCoinState',
-  default: {},
-});
-
 export const selectedCoinInfoState = atom<SelectedCoinInfoType | any>({
   key: 'selectedCoinInfoState',
   default: {},
