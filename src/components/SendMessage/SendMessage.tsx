@@ -22,7 +22,7 @@ async function saveUserInfoToLocalStorage() {
 const SendMessage = () => {
   const [message, setMessage] = useState('');
 
-  const handleSendMessage = async (event: any) => {
+  const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
     if (message.trim() === '') {
       alert('메시지를 입력해주세요');

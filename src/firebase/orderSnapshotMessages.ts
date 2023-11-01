@@ -1,11 +1,11 @@
 import { MessageType } from 'components/Message/Message.types';
-
+import { QuerySnapshot } from 'firebase/firestore';
 // Firestore 스냅샷을 처리하고 메시지를 정렬하는 함수
-export function orderSnapshotMessages(QuerySnapshot: any) {
+export function orderSnapshotMessages(QuerySnapshot: QuerySnapshot) {
   const fetchedMessages: MessageType[] = [];
 
-  QuerySnapshot.forEach((doc: any) => {
-    const data = doc.data();
+  QuerySnapshot.forEach((doc) => {
+    const data = doc.data() as MessageType;
 
     if (data.createdAt) {
       const message = {

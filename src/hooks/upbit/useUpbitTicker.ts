@@ -45,7 +45,7 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
     return createWebSocketRequest(ticket, type, codes);
   }, [marketCodes]);
 
-  const handleSocketMessage = (evt: any) => {
+  const handleSocketMessage = (evt: MessageEvent) => {
     if (evt.data instanceof Blob) {
       const reader = new FileReader();
       reader.onload = function () {
