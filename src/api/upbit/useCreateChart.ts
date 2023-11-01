@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import getTodayDate from 'utils/getTodayDate';
 
-interface CandleData {
+export interface CandleData {
   time: string;
   open: number;
   high: number;
@@ -11,7 +11,7 @@ interface CandleData {
   close: number;
 }
 
-interface UpdatedCandleData {
+export interface UpdatedCandleData {
   time: {
     day: string;
     month: string;

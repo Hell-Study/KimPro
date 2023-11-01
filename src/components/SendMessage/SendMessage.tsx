@@ -4,6 +4,7 @@ import shortId from 'shortid';
 import getNickname from 'api/getNickname';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import * as styled from './SendMessage.styles';
+import swal from 'sweetalert';
 
 function generateRandomUID() {
   const randomString = shortId.generate();
@@ -25,8 +26,11 @@ const SendMessage = () => {
   const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
     if (message.trim() === '') {
-      alert('메시지를 입력해주세요');
-      return;
+      swal({
+        title: '메시지를 입력해주세요.',
+        text: '아무것도 입력하지 않으면 메시지를 전송할 수 없습니다.',
+        icon: 'error',
+      });
     }
     createMessages(message);
     setMessage('');

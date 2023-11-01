@@ -14,10 +14,6 @@ import { SELECT_OPTION, SELECT_SINGLE_OPTION } from './Table.constant';
 
 export const Table: React.FC = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
-  const changeBaseExchange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBaseExchange(e.target.value);
-  };
-
   const upbitMarketCodes = useRecoilValue(upbitMarketCodesState);
   const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
   const [searchCoin, setSearchCoin] = useRecoilState(searchCoinState);
