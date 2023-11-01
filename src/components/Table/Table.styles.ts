@@ -1,16 +1,4 @@
-import styled from 'styled-components';
-
-interface CoinBoxProps {
-  $selected: boolean;
-}
-
-interface CoinBoxChangeProps {
-  $changeType: string;
-}
-
-interface CoinBoxKimchiPremiumProps {
-  $isPositive: string;
-}
+import styled, { DefaultTheme } from 'styled-components';
 
 export const TableContainer = styled.div`
   width: 100%;
@@ -37,166 +25,92 @@ export const CoinListWrapper = styled.div`
   height: 24.75rem;
 `;
 
-export const CoinBox = styled.div<CoinBoxProps>`
-  height: 45px;
+export const CoinBox = styled.div<{ $selected: boolean }>`
+  height: 4rem;
   display: grid;
   grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  border-bottom: 0.5px solid lightgrey;
-  font-size: 0.9rem;
-  padding-left: 5px;
-  padding-right: 5px;
   cursor: pointer;
-  background-color: ${(props) => (props.$selected ? 'lightgrey' : 'inherit')};
+  background-color: ${({ $selected }) => {
+    return $selected
+      ? ({ theme }: DefaultTheme) => theme.colors.alpha2
+      : 'inherit';
+  }};
+  padding: 0.625rem 0.9375rem;
   &:hover {
-    background-color: lightgrey;
-  }
-  div {
-    display: flex;
-  }
-  div:nth-child(1) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  div:nth-child(2) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  div:nth-child(3) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  div:nth-child(4) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  div:nth-child(5) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  div:nth-child(6) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  div:nth-child(7) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  div:nth-child(8) {
-    justify-content: flex-end;
-    align-items: center;
+    background-color: ${({ theme }) => theme.colors.alpha2};
   }
 `;
 
-export const CoinBoxName = styled.div`
-  font-weight: 600;
-  font-size: 0.9rem;
-`;
-
-export const CoinBoxNameKorean = styled.div`
+export const CoinIconWrap = styled.div`
   display: flex;
-  flex-direction: row !important;
-  align-items: center !important;
-  > img {
-    margin-right: 3px;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
-export const CoinBoxNameMarket = styled.div`
-  color: gray;
-  font-size: 0.8rem;
+export const CoinIcon = styled.img`
+  width: 1.6875rem;
+  height: 1.6875rem;
 `;
 
-export const CoinBoxPrice = styled.div`
-  font-weight: 600;
-  div:nth-child(2) {
-    font-weight: normal;
-    font-size: 0.8rem;
-    color: #4c769d;
-  }
+export const CoinLeftWrap = styled(CoinIconWrap)`
+  flex-direction: column;
+  align-items: flex-start;
 `;
-export const CoinBoxPriceKorean = styled.div``;
-export const CoinBoxPriceBinance = styled.div``;
-export const CoinBoxKimchiPremium = styled.div<CoinBoxKimchiPremiumProps>`
-  font-weight: bold;
-  div:nth-child(2) {
-    font-weight: normal;
-    font-size: 0.8rem;
-    color: #4c769d;
-  }
-  color: gray;
-  color: ${(props) => {
-    switch (props.$isPositive) {
+
+export const CoinName = styled.div`
+  color: ${({ theme }) => theme.colors.heading1};
+  font-family: Pretendard;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const CoinSubText = styled.div`
+  color: ${({ theme }) => theme.colors.text3};
+  font-family: Pretendard;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const CoinRightWrap = styled(CoinLeftWrap)`
+  align-items: flex-end;
+`;
+
+export const CoinKoreanPrice = styled(CoinName)``;
+
+export const CoinKimpRatio = styled(CoinName)<{ $isPositive: string }>`
+  color: ${({ $isPositive }) => {
+    switch ($isPositive) {
       case 'true':
-        return '#EF1C1C';
+        return ({ theme }: DefaultTheme) => theme.colors.red;
       case 'false':
-        return '#1261C4';
+        return ({ theme }: DefaultTheme) => theme.colors.blue;
       case 'none':
-        return '#000000';
+        return ({ theme }: DefaultTheme) => theme.colors.heading1;
     }
   }};
 `;
-export const CoinBoxKimchiPremiumRate = styled.div``;
-export const CoinBoxKimchiPremiumDiff = styled.div``;
-export const CoinBoxChange = styled.div<CoinBoxChangeProps>`
-  font-weight: bold;
 
-  div:nth-child(2) {
-    font-weight: normal;
-    font-size: 0.8rem;
-    color: #4c769d;
-  }
-  color: ${(props) => {
-    switch (props.$changeType) {
+export const CoinChangeRatio = styled(CoinName)<{ $changeType: string }>`
+  color: ${({ $changeType }) => {
+    switch ($changeType) {
       case 'RISE':
-        return '#EF1C1C';
+        return ({ theme }: DefaultTheme) => theme.colors.red;
       case 'EVEN':
-        return '#000000';
+        return ({ theme }: DefaultTheme) => theme.colors.heading1;
       case 'FALL':
-        return '#1261C4';
-      default:
-        return '#000000';
+        return ({ theme }: DefaultTheme) => theme.colors.blue;
     }
   }};
 `;
-export const CoinBoxChangeRate = styled.div``;
-export const CoinBoxChangePrice = styled.div``;
 
-export const CoinBoxHighestWeek = styled.div`
-  font-weight: bold;
-
-  div:nth-child(2) {
-    font-weight: normal;
-    font-size: 0.8rem;
-  }
+export const CoinHighestRatio = styled(CoinName)`
+  color: ${({ theme }: DefaultTheme) => theme.colors.blue};
 `;
-export const CoinBoxHighestWeekRate = styled.div`
-  color: #1261c4;
-`;
-export const CoinBoxHighestWeekPrice = styled.div``;
 
-export const CoinBoxLowestWeek = styled.div`
-  font-weight: bold;
-
-  div:nth-child(2) {
-    font-weight: normal;
-    font-size: 0.8rem;
-  }
-`;
-export const CoinBoxLowestWeekRate = styled.div`
-  color: #ef1c1c;
-`;
-export const CoinBoxLowestWeekPrice = styled.div``;
-
-export const CoinBoxVolume = styled.div`
-  font-size: 0.9rem;
-  div:nth-child(2) {
-    color: grey;
-  }
+export const CoinLowestRatio = styled(CoinName)`
+  color: ${({ theme }: DefaultTheme) => theme.colors.red};
 `;

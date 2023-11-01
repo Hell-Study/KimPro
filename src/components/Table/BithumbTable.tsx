@@ -56,44 +56,39 @@ export default function BithumbTable({ socketData }: IProps) {
   const myExchangeRate = useRecoilValue(exchangeRateState);
 
   return (
-    <>
-      <styled.CoinBox
-        key={symbol}
-        id={symbol}
-        onClick={clickCoinHandler}
-        $selected={selectedBithumbCoin === socketData.symbol}
-      >
-        <div>
-          <img
-            alt={`${coinName} 아이콘`}
-            width="15"
-            height="15"
-            decoding="async"
-            data-nimg="1"
-            className="rounded-full"
-            src={thumb}
-            loading="lazy"
-          />
-        </div>
-        <styled.CoinBoxName>
-          <styled.CoinBoxNameKorean>
-            <div>{coinName}</div>
-          </styled.CoinBoxNameKorean>
-          <styled.CoinBoxNameMarket>{symbol}</styled.CoinBoxNameMarket>
-        </styled.CoinBoxName>
-        <styled.CoinBoxPrice>
-          <styled.CoinBoxPriceKorean>
-            {Number(closing_price).toLocaleString('ko-KR')}
-          </styled.CoinBoxPriceKorean>
-          <styled.CoinBoxPriceBinance>{`${
-            binancePrice
-              ? binancePriceToKRW(binancePrice, myExchangeRate).toLocaleString(
-                  'ko-KR',
-                )
-              : ''
-          }`}</styled.CoinBoxPriceBinance>
-        </styled.CoinBoxPrice>
-        <styled.CoinBoxKimchiPremium
+    <styled.CoinBox
+      id={symbol}
+      onClick={clickCoinHandler}
+      $selected={selectedBithumbCoin === socketData.symbol}
+    >
+      <styled.CoinIconWrap>
+        <styled.CoinIcon
+          alt={`${coinName} 아이콘`}
+          src={thumb}
+          loading="lazy"
+        />
+      </styled.CoinIconWrap>
+
+      <styled.CoinLeftWrap>
+        <styled.CoinName>{coinName}</styled.CoinName>
+        <styled.CoinSubText>{symbol}</styled.CoinSubText>
+      </styled.CoinLeftWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinKoreanPrice>
+          {Number(closing_price).toLocaleString('ko-KR')}
+        </styled.CoinKoreanPrice>
+        <styled.CoinSubText>{`${
+          binancePrice
+            ? binancePriceToKRW(binancePrice, myExchangeRate).toLocaleString(
+                'ko-KR',
+              )
+            : ''
+        }`}</styled.CoinSubText>
+      </styled.CoinRightWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinKimpRatio
           $isPositive={
             binancePrice
               ? nowPrice > binancePriceToKRW(binancePrice, myExchangeRate)
@@ -102,73 +97,75 @@ export default function BithumbTable({ socketData }: IProps) {
               : 'none'
           }
         >
-          <styled.CoinBoxKimchiPremiumRate>
-            {binancePrice ? (
-              <>
-                {kimchiPremiumRatio(nowPrice, binancePrice, myExchangeRate) >
-                  0 && '+'}
-                {kimchiPremiumRatio(
-                  nowPrice,
-                  binancePrice,
-                  myExchangeRate,
-                ).toFixed(2)}
-                %
-              </>
-            ) : (
-              ''
-            )}
-          </styled.CoinBoxKimchiPremiumRate>
-          <styled.CoinBoxKimchiPremiumDiff>
-            {binancePrice ? (
-              <>
-                {kimchiPremiumDiff(nowPrice, binancePrice, myExchangeRate) >
-                  0 && '+'}
-                {kimchiPremiumDiff(
-                  nowPrice,
-                  binancePrice,
-                  myExchangeRate,
-                ).toFixed(2)}
-              </>
-            ) : (
-              ''
-            )}
-          </styled.CoinBoxKimchiPremiumDiff>
-        </styled.CoinBoxKimchiPremium>
-        <styled.CoinBoxChange $changeType={judgeColor(Number(changesRatio))}>
-          <styled.CoinBoxChangeRate>
-            {changesRatio(socketData) > 0 ? '+' : null}
-            {changesRatio(socketData).toFixed(2)}%
-          </styled.CoinBoxChangeRate>
-          <styled.CoinBoxChangePrice>
-            {changes(socketData).toLocaleString('ko-KR')}
-          </styled.CoinBoxChangePrice>
-        </styled.CoinBoxChange>
-        <styled.CoinBoxHighestWeek>
-          <styled.CoinBoxHighestWeekRate>
-            {highRatio(socketData) > 0 ? '+' : null}
-            {highRatio(socketData).toFixed(2)}%
-          </styled.CoinBoxHighestWeekRate>
-          <styled.CoinBoxHighestWeekPrice>
-            {Number(max_price).toLocaleString('ko-KR')}
-          </styled.CoinBoxHighestWeekPrice>
-        </styled.CoinBoxHighestWeek>
-        <styled.CoinBoxLowestWeek>
-          <styled.CoinBoxLowestWeekRate>
-            {'+' + lowRatio(socketData).toFixed(2) + '%'}
-          </styled.CoinBoxLowestWeekRate>
-          <styled.CoinBoxLowestWeekPrice>
-            {Number(min_price).toLocaleString('ko-KR')}
-          </styled.CoinBoxLowestWeekPrice>
-        </styled.CoinBoxLowestWeek>
-        <styled.CoinBoxVolume>
-          <div>
-            {Math.ceil(
-              convertMillonWon(Number(Number(acc_trade_value_24H))),
-            ).toLocaleString('ko-KR')}
-          </div>
-          <div>백만</div>
-        </styled.CoinBoxVolume>
-      </styled.CoinBox>
-    </>
+          {binancePrice ? (
+            <>
+              {kimchiPremiumRatio(nowPrice, binancePrice, myExchangeRate) > 0 &&
+                '+'}
+              {kimchiPremiumRatio(
+                nowPrice,
+                binancePrice,
+                myExchangeRate,
+              ).toFixed(2)}
+              %
+            </>
+          ) : (
+            ''
+          )}
+        </styled.CoinKimpRatio>
+        <styled.CoinSubText>
+          {binancePrice ? (
+            <>
+              {kimchiPremiumDiff(nowPrice, binancePrice, myExchangeRate) > 0 &&
+                '+'}
+              {kimchiPremiumDiff(
+                nowPrice,
+                binancePrice,
+                myExchangeRate,
+              ).toFixed(2)}
+            </>
+          ) : (
+            ''
+          )}
+        </styled.CoinSubText>
+      </styled.CoinRightWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinChangeRatio $changeType={judgeColor(Number(changesRatio))}>
+          {changesRatio(socketData) > 0 ? '+' : null}
+          {changesRatio(socketData).toFixed(2)}%
+        </styled.CoinChangeRatio>
+        <styled.CoinSubText>
+          {changes(socketData).toLocaleString('ko-KR')}
+        </styled.CoinSubText>
+      </styled.CoinRightWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinHighestRatio>
+          {highRatio(socketData) > 0 ? '+' : null}
+          {highRatio(socketData).toFixed(2)}%
+        </styled.CoinHighestRatio>
+        <styled.CoinSubText>
+          {Number(max_price).toLocaleString('ko-KR')}
+        </styled.CoinSubText>
+      </styled.CoinRightWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinLowestRatio>
+          {'+' + lowRatio(socketData).toFixed(2) + '%'}
+        </styled.CoinLowestRatio>
+        <styled.CoinSubText>
+          {Number(min_price).toLocaleString('ko-KR')}
+        </styled.CoinSubText>
+      </styled.CoinRightWrap>
+
+      <styled.CoinRightWrap>
+        <styled.CoinSubText>
+          {Math.ceil(
+            convertMillonWon(Number(Number(acc_trade_value_24H))),
+          ).toLocaleString('ko-KR')}
+          백만
+        </styled.CoinSubText>
+      </styled.CoinRightWrap>
+    </styled.CoinBox>
   );
 }
