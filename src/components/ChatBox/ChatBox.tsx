@@ -103,9 +103,7 @@ const ChatBox = () => {
         </styled.HeaderWrapper>
 
         <styled.InfoWrapper onClick={updateNickname}>
-          <styled.Nickname>
-            {storedDisplayName ? storedDisplayName : '유저'}
-          </styled.Nickname>
+          <styled.Nickname>{storedDisplayName}</styled.Nickname>
           <span>님</span>
         </styled.InfoWrapper>
       </styled.ChatBoxHeader>

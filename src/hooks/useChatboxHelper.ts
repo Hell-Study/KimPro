@@ -20,10 +20,10 @@ function generateRandomUID() {
   return uppercaseString;
 }
 
-export async function saveUserInfoToLocalStorage() {
+export function saveUserInfoToLocalStorage() {
   const uid = generateRandomUID();
-  const displayName = await getNickname();
-  console.log('displayName', displayName);
+  const displayName = getNickname();
+
   localStorage.setItem('uid', uid);
   localStorage.setItem('displayName', displayName);
 }
