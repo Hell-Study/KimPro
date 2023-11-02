@@ -77,12 +77,14 @@ export const SearchInput = styled.input`
   border: none;
   outline: none;
 
-  color: ${({ theme }) => theme.colors.text3};
+  color: ${({ theme }) => theme.colors.text1};
   font-family: Pretendard;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  background-color: inherit;
 `;
 
 export const CoinListWrapper = styled.div`
