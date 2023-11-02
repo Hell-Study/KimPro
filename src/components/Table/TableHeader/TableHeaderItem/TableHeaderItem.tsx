@@ -31,9 +31,11 @@ export const TableHeaderItem = ({ value }: IProps) => {
       <styled.SortIconWrapper>
         <styled.SortUpIcon
           className={isSameValue ? (tableSortUpDown ? 'active' : '') : ''}
+          viewBox="0 -250 320 512"
         />
         <styled.SortDownIcon
           className={isSameValue ? (tableSortUpDown ? '' : 'active') : ''}
+          viewBox="0 250 320 512"
         />
       </styled.SortIconWrapper>
     </styled.TableHeaderItemContainer>

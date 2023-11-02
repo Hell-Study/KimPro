@@ -8,8 +8,15 @@ import {
 } from 'recoil/atoms/coingecko';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
-import { changesRatio, highRatio, lowRatio } from 'utils/priceCalc';
+import {
+  changesRatio,
+  highRatio,
+  kimchiPremiumRatio,
+  lowRatio,
+} from 'utils/priceCalc';
 import { searchCoinState } from 'recoil/atoms/common';
+import { exchangeRateState } from 'recoil/atoms/exchange';
+import * as styled from './Table.styles';
 
 export function Bithumb() {
   const socketDatas = useBithumbWsTicker();
@@ -35,6 +42,9 @@ export function Bithumb() {
     );
     setFilteredSocketDatas(filteredSocketDatas);
   }, [searchCoin, socketDatas]);
+
+  const myExchangeRate = useRecoilValue(exchangeRateState);
+
   // TODO|서지수 - 모듈화 예정
   const tableSortValue = useRecoilValue(tableSortValueState);
   const tableSortUpDown = useRecoilValue(tableSortUpDownState);
@@ -70,11 +80,51 @@ export function Bithumb() {
           );
         }
         break;
-      // case '김프':
-      //   socketDatas.sort(
-      //     (a, b) => a.acc_trade_price_24h - b.acc_trade_price_24h,
-      //   );
-      //   break;
+      case '김프':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  Number(a.closing_price),
+                  a.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  Number(b.closing_price),
+                  b.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        } else {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  Number(b.closing_price),
+                  b.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  Number(a.closing_price),
+                  a.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        }
+        break;
       case '전일대비':
         if (tableSortUpDown) {
           socketDatas.sort((a, b) => changesRatio(a) - changesRatio(b));
@@ -113,10 +163,10 @@ export function Bithumb() {
   }, [socketDatas, tableSortValue, tableSortUpDown]);
 
   return (
-    <>
+    <styled.CoinListWrapper>
       {filteredSocketDatas.map((socketData) => {
         return <BithumbTable key={socketData.symbol} socketData={socketData} />;
       })}
-    </>
+    </styled.CoinListWrapper>
   );
 }
