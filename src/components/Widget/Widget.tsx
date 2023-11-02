@@ -10,7 +10,12 @@ export const Widget: React.FC = () => {
   return (
     <Carousel slidesToShow={4}>
       {Object.entries(PAIR_DATA).map(([key, { id }]) => {
-        const { data: baseData } = useWidgetTickers(id, 'P1D', 'previous');
+        const { data: baseData, status } = useWidgetTickers(
+          id,
+          'P1D',
+          'previous',
+        );
+        console.log(status);
         if (!baseData) return null;
         return (
           <styled.Card key={key}>

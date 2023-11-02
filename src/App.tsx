@@ -24,7 +24,7 @@ function App() {
             </Suspense>
           </div>
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
+        {/*<ReactQueryDevtools initialIsOpen={true} />*/}
       </ThemeProvider>
     </>
   );
