@@ -59,9 +59,7 @@ export const Table: React.FC = () => {
           <styled.SearchForm>
             <styled.SearchIcon />
             <styled.SearchInput
-              type="text"
-              name="검색어"
-              placeholder="검색어를 입력하세요"
+              placeholder="암호 화폐 검색"
               value={searchCoin}
               onChange={handleSearchInputChange}
             />
