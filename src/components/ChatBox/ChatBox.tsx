@@ -7,34 +7,11 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
-import shortId from 'shortid';
-import getNickname from 'api/getNickname';
 
-// 닉네임 업데이트 함수
-const updateNickname = () => {
-  const userChosenNickname = prompt('변경할 닉네임을 입력해주세요');
-  if (userChosenNickname) {
-    try {
-      localStorage.setItem('displayName', userChosenNickname);
-    } catch (error) {
-      console.error('Error updating nickname:', error);
-    }
-  }
-};
-function generateRandomUID() {
-  const randomString = shortId.generate();
-  const uppercaseString = randomString.replace(/[a-z]/g, (char) =>
-    char.toUpperCase(),
-  );
-  return uppercaseString;
-}
-async function saveUserInfoToLocalStorage() {
-  const uid = generateRandomUID();
-  const displayName = await getNickname();
-  console.log('displayName', displayName);
-  localStorage.setItem('uid', uid);
-  localStorage.setItem('displayName', displayName);
-}
+import {
+  updateNickname,
+  saveUserInfoToLocalStorage,
+} from 'hooks/useChatboxHelper';
 
 const ChatBox = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
