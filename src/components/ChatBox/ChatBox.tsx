@@ -7,6 +7,8 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
+import shortId from 'shortid';
+import getNickname from 'api/getNickname';
 
 // 닉네임 업데이트 함수
 const updateNickname = () => {
@@ -19,6 +21,20 @@ const updateNickname = () => {
     }
   }
 };
+function generateRandomUID() {
+  const randomString = shortId.generate();
+  const uppercaseString = randomString.replace(/[a-z]/g, (char) =>
+    char.toUpperCase(),
+  );
+  return uppercaseString;
+}
+async function saveUserInfoToLocalStorage() {
+  const uid = generateRandomUID();
+  const displayName = await getNickname();
+  console.log('displayName', displayName);
+  localStorage.setItem('uid', uid);
+  localStorage.setItem('displayName', displayName);
+}
 
 const ChatBox = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -85,6 +101,14 @@ const ChatBox = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const storedUid = localStorage.getItem('uid');
+    const storedDisplayName = localStorage.getItem('displayName');
+    if (!storedUid || !storedDisplayName) {
+      saveUserInfoToLocalStorage();
+    }
+  }, []);
+
   const overlayStyles: ReactModal.Styles = {
     overlay: {
       zIndex: 2,
@@ -103,7 +127,7 @@ const ChatBox = () => {
 
         <styled.InfoWrapper onClick={updateNickname}>
           <styled.Nickname>
-            {storedDisplayName ? storedDisplayName : 'unknown'}
+            {storedDisplayName ? storedDisplayName : '유저'}
           </styled.Nickname>
           <span>님</span>
         </styled.InfoWrapper>
