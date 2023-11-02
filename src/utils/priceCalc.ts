@@ -1,5 +1,4 @@
 import { IUpbitTicker } from 'hooks/upbit/useUpbitTicker';
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 
 // 공통
 // 김프
@@ -33,24 +32,22 @@ export const lowest_52_week_rate = (data: IUpbitTicker) =>
 
 // 빗썸
 // 전일 대비 증감률
-export const changesRatio = ({
-  closing_price,
-  prev_closing_price,
-}: IBithumbTicker) =>
+export const changesRatio = (
+  closing_price: string,
+  prev_closing_price: string,
+) =>
   ((Number(closing_price) - Number(prev_closing_price)) /
     Number(prev_closing_price)) *
   100;
 
 // 전일 대비
-export const changes = ({
-  closing_price,
-  prev_closing_price,
-}: IBithumbTicker) => Number(closing_price) - Number(prev_closing_price);
+export const changes = (closing_price: string, prev_closing_price: string) =>
+  Number(closing_price) - Number(prev_closing_price);
 
 // 고가 대비 증감률(전일)
-export const highRatio = ({ closing_price, max_price }: IBithumbTicker) =>
+export const highRatio = (closing_price: string, max_price: string) =>
   ((Number(closing_price) - Number(max_price)) / Number(max_price)) * 100;
 
 // 저가 대비 증감률(전일)
-export const lowRatio = ({ closing_price, min_price }: IBithumbTicker) =>
+export const lowRatio = (closing_price: string, min_price: string) =>
   ((Number(closing_price) - Number(min_price)) / Number(min_price)) * 100;

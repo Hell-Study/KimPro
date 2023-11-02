@@ -28,6 +28,7 @@ export default function CoinList({ socketData }: IProps) {
   const {
     symbol,
     closing_price,
+    prev_closing_price,
     min_price,
     max_price,
     acc_trade_value_24H,
@@ -131,18 +132,18 @@ export default function CoinList({ socketData }: IProps) {
 
       <styled.CoinRightWrap>
         <styled.CoinChangeRatio $changeType={judgeColor(Number(changesRatio))}>
-          {changesRatio(socketData) > 0 ? '+' : null}
-          {changesRatio(socketData).toFixed(2)}%
+          {changesRatio(closing_price, prev_closing_price) > 0 ? '+' : null}
+          {changesRatio(closing_price, prev_closing_price).toFixed(2)}%
         </styled.CoinChangeRatio>
         <styled.CoinSubText>
-          {changes(socketData).toLocaleString('ko-KR')}
+          {changes(closing_price, prev_closing_price).toLocaleString('ko-KR')}
         </styled.CoinSubText>
       </styled.CoinRightWrap>
 
       <styled.CoinRightWrap>
         <styled.CoinHighestRatio>
-          {highRatio(socketData) > 0 ? '+' : null}
-          {highRatio(socketData).toFixed(2)}%
+          {highRatio(closing_price, max_price) > 0 ? '+' : null}
+          {highRatio(closing_price, max_price).toFixed(2)}%
         </styled.CoinHighestRatio>
         <styled.CoinSubText>
           {Number(max_price).toLocaleString('ko-KR')}
@@ -151,7 +152,7 @@ export default function CoinList({ socketData }: IProps) {
 
       <styled.CoinRightWrap>
         <styled.CoinLowestRatio>
-          {'+' + lowRatio(socketData).toFixed(2) + '%'}
+          {'+' + lowRatio(closing_price, min_price).toFixed(2) + '%'}
         </styled.CoinLowestRatio>
         <styled.CoinSubText>
           {Number(min_price).toLocaleString('ko-KR')}
