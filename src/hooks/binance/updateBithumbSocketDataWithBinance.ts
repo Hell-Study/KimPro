@@ -1,13 +1,11 @@
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { IBinanceTicker } from './useBinanceTicker';
+import { removeUSDT } from 'utils';
+
 export function updateBithumbSocketDataWithBinance(
   socketData: IBithumbTicker[],
   binanceTickers: IBinanceTicker[],
 ): IBithumbTicker[] {
-  const removeUSDT = (symbol: string) => {
-    return symbol.replace('USDT', '');
-  };
-
   return socketData.map((item) => {
     const binanceTicker = binanceTickers?.find(
       (ticker) => removeUSDT(ticker.s) === item.symbol,

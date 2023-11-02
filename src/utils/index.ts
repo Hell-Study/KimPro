@@ -5,3 +5,4 @@ export * from './getFormattedValues';
 export * from './getTodayDate';
 export * from './judgeColor';
 export * from './priceCalc';
+export * from './removeUSDT';
