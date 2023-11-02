@@ -16,6 +16,7 @@ import {
 } from 'utils/priceCalc';
 import { searchCoinState } from 'recoil/atoms/common';
 import { exchangeRateState } from 'recoil/atoms/exchange';
+import * as styled from './Table.styles';
 
 export function Bithumb() {
   const socketDatas = useBithumbWsTicker();
@@ -162,10 +163,10 @@ export function Bithumb() {
   }, [socketDatas, tableSortValue, tableSortUpDown]);
 
   return (
-    <>
+    <styled.CoinListWrapper>
       {filteredSocketDatas.map((socketData) => {
         return <BithumbTable key={socketData.symbol} socketData={socketData} />;
       })}
-    </>
+    </styled.CoinListWrapper>
   );
 }

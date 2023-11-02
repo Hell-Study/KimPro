@@ -205,63 +205,58 @@ function UpbitTable() {
                 onClick={clickCoinHandler}
                 $selected={selectedCoin[0]?.market === data.code}
               >
-                <div>
-                  <img
+                <styled.CoinIconWrap>
+                  <styled.CoinIcon
                     alt={`${data.code?.split('-')[1]} 아이콘`}
-                    width="15"
-                    height="15"
-                    decoding="async"
-                    data-nimg="1"
-                    className="rounded-full"
                     src={`https://static.upbit.com/logos/${data.code?.split(
                       '-',
                     )[1]}.png`}
                     loading="lazy"
                   />
-                </div>
+                </styled.CoinIconWrap>
 
-                <styled.CoinBoxName>
-                  <styled.CoinBoxNameKorean>
-                    <div>
-                      {
-                        marketCodes.filter(
-                          (code) => code?.market === data.code,
-                        )[0]?.korean_name
-                      }
-                    </div>
-                  </styled.CoinBoxNameKorean>
-                  <styled.CoinBoxNameMarket>
+                <styled.CoinLeftWrap>
+                  <styled.CoinName>
+                    {
+                      marketCodes.filter(
+                        (code) => code?.market === data.code,
+                      )[0]?.korean_name
+                    }
+                  </styled.CoinName>
+                  <styled.CoinSubText>
                     {
                       marketCodes
                         .filter((code) => code?.market === data.code)[0]
                         ?.market?.split('-')[1]
                     }
-                  </styled.CoinBoxNameMarket>
-                </styled.CoinBoxName>
-                <styled.CoinBoxPrice>
-                  <styled.CoinBoxPriceKorean>
+                  </styled.CoinSubText>
+                </styled.CoinLeftWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinKoreanPrice>
                     {data.trade_price?.toLocaleString('ko-KR')}
-                  </styled.CoinBoxPriceKorean>
-                  <styled.CoinBoxPriceBinance>
+                  </styled.CoinKoreanPrice>
+                  <styled.CoinSubText>
                     {data.binancePrice
                       ? binancePriceToKRW(
                           data.binancePrice,
                           myExchangeRate,
                         ).toLocaleString('ko-KR')
                       : ''}
-                  </styled.CoinBoxPriceBinance>
-                </styled.CoinBoxPrice>
-                <styled.CoinBoxKimchiPremium
-                  $isPositive={
-                    data.binancePrice
-                      ? data.trade_price >
-                        binancePriceToKRW(data.binancePrice, myExchangeRate)
-                        ? 'true'
-                        : 'false'
-                      : 'none'
-                  }
-                >
-                  <styled.CoinBoxKimchiPremiumRate>
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinKimpRatio
+                    $isPositive={
+                      data.binancePrice
+                        ? data.trade_price >
+                          binancePriceToKRW(data.binancePrice, myExchangeRate)
+                          ? 'true'
+                          : 'false'
+                        : 'none'
+                    }
+                  >
                     {data.binancePrice ? (
                       <>
                         {kimchiPremiumRatio(
@@ -279,8 +274,8 @@ function UpbitTable() {
                     ) : (
                       ''
                     )}
-                  </styled.CoinBoxKimchiPremiumRate>
-                  <styled.CoinBoxKimchiPremiumDiff>
+                  </styled.CoinKimpRatio>
+                  <styled.CoinSubText>
                     {data.binancePrice ? (
                       <>
                         {kimchiPremiumDiff(
@@ -297,49 +292,53 @@ function UpbitTable() {
                     ) : (
                       ''
                     )}
-                  </styled.CoinBoxKimchiPremiumDiff>
-                </styled.CoinBoxKimchiPremium>
-                <styled.CoinBoxChange $changeType={data.change}>
-                  <styled.CoinBoxChangeRate>
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinChangeRatio $changeType={data.change}>
                     {data.signed_change_rate > 0 ? '+' : null}
                     {(data.signed_change_rate * 100).toFixed(2)}%
-                  </styled.CoinBoxChangeRate>
-                  <styled.CoinBoxChangePrice>
+                  </styled.CoinChangeRatio>
+                  <styled.CoinSubText>
                     {data.signed_change_price?.toLocaleString('ko-KR')}
-                  </styled.CoinBoxChangePrice>
-                </styled.CoinBoxChange>
-                <styled.CoinBoxHighestWeek>
-                  <styled.CoinBoxHighestWeekRate>
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinHighestRatio>
                     {data.highest_52_week_price
                       ? highest_52_week_rate(data).toFixed(2) + '%'
                       : null}
-                  </styled.CoinBoxHighestWeekRate>
-                  <styled.CoinBoxHighestWeekPrice>
+                  </styled.CoinHighestRatio>
+                  <styled.CoinSubText>
                     {data.highest_52_week_price
                       ? data.highest_52_week_price?.toLocaleString('ko-KR')
                       : null}
-                  </styled.CoinBoxHighestWeekPrice>
-                </styled.CoinBoxHighestWeek>
-                <styled.CoinBoxLowestWeek>
-                  <styled.CoinBoxLowestWeekRate>
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinLowestRatio>
                     {data.lowest_52_week_price
                       ? '+' + lowest_52_week_rate(data).toFixed(2) + '%'
                       : null}
-                  </styled.CoinBoxLowestWeekRate>
-                  <styled.CoinBoxLowestWeekPrice>
+                  </styled.CoinLowestRatio>
+                  <styled.CoinSubText>
                     {data.lowest_52_week_price
                       ? data.lowest_52_week_price?.toLocaleString('ko-KR')
                       : null}
-                  </styled.CoinBoxLowestWeekPrice>
-                </styled.CoinBoxLowestWeek>
-                <styled.CoinBoxVolume>
-                  <div>
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
+
+                <styled.CoinRightWrap>
+                  <styled.CoinSubText>
                     {Math.ceil(
                       convertMillonWon(data.acc_trade_price_24h),
                     )?.toLocaleString('ko-KR')}
-                  </div>
-                  <div>백만</div>
-                </styled.CoinBoxVolume>
+                    백만
+                  </styled.CoinSubText>
+                </styled.CoinRightWrap>
               </styled.CoinBox>
             );
           })
