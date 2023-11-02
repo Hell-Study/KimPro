@@ -12,6 +12,8 @@ import { useRecoilValue } from 'recoil';
 import { changes, changesRatio } from 'utils/priceCalc';
 import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
 import { IBithumbTicker } from './Bithumb.type';
+import { useTheme } from 'styled-components';
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
 interface IProps {
   processedData: CandlestickData[];
@@ -22,8 +24,9 @@ export default function ChartComponent({
   processedData,
   updatedCandle,
 }: IProps) {
-  const backgroundColor = 'white';
-  const textColor = 'black';
+  const theme = useTheme();
+  const textColor = theme.colors.text1;
+
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chart = useRef<IChartApi>();
   const newSeries = useRef<ISeriesApi<'Candlestick'>>();
@@ -32,12 +35,19 @@ export default function ChartComponent({
       chart.current = createChart(chartContainerRef.current as HTMLElement, {
         layout: {
           background: {
-            color: backgroundColor,
+            color: 'transparent',
           },
           textColor,
         },
-        width: chartContainerRef.current?.clientWidth,
-        height: 300,
+        autoSize: true,
+        grid: {
+          vertLines: {
+            color: theme.colors.border2,
+          },
+          horzLines: {
+            color: theme.colors.border2,
+          },
+        },
         crosshair: {
           mode: CrosshairMode.Normal,
         },
@@ -46,6 +56,7 @@ export default function ChartComponent({
         },
         rightPriceScale: {
           borderVisible: false,
+          textColor: theme.colors.text1,
           scaleMargins: {
             top: 0.1,
             bottom: 0.1,
@@ -53,14 +64,18 @@ export default function ChartComponent({
         },
         timeScale: {
           borderVisible: false,
+          fixLeftEdge: true,
+          fixRightEdge: true,
         },
       });
-      chart.current.timeScale().fitContent();
+      chart.current.timeScale().applyOptions({
+        barSpacing: 8,
+      });
       newSeries.current = chart.current.addCandlestickSeries({
-        upColor: '#D24F45',
-        wickUpColor: '#D24F45',
-        downColor: '#1261C4',
-        wickDownColor: '#1261C4',
+        upColor: 'rgb( 239, 83, 80)',
+        wickUpColor: 'rgb( 239, 83, 80)',
+        downColor: 'rgb(42,127,255)',
+        wickDownColor: 'rgb(42,127,255)',
         borderVisible: false,
       });
 
@@ -127,11 +142,15 @@ export default function ChartComponent({
           >
             <styled.CoinChangeRate>
               <span>전일대비</span>
-              {changesRatio(selectedBithumbCoinInfo) > 0 ? '+' : null}
+              {changesRatio(selectedBithumbCoinInfo) > 0 ? (
+                <FaCaretUp />
+              ) : (
+                <FaCaretDown />
+              )}
               {changesRatio(selectedBithumbCoinInfo).toFixed(2)}%
             </styled.CoinChangeRate>
             <styled.CoinChangePrice>
-              {changes(selectedBithumbCoinInfo) > 0 ? '▲' : '▼'}
+              {changes(selectedBithumbCoinInfo) > 0 ? '+' : '-'}
               {Math.abs(changes(selectedBithumbCoinInfo))?.toLocaleString(
                 'ko-KR',
               )}
