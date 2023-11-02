@@ -8,7 +8,7 @@ import {
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
 import { IBithumbFetchCandlestick } from './Bithumb.type';
 import { CandlestickData } from 'lightweight-charts';
-import convertDate from 'utils/convertDate';
+import { convertDate } from 'utils';
 
 function RealTimeChart() {
   const selectedBithumbCoin = useRecoilValue(selectedBithumbCoinState);

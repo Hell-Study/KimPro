@@ -20,7 +20,7 @@ import {
   kimchiPremiumDiff,
   highest_52_week_rate,
   lowest_52_week_rate,
-} from 'utils/priceCalc';
+} from 'utils';
 import useUpbitTicker, { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
 
 function UpbitTable() {

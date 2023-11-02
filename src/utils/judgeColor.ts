@@ -1,4 +1,4 @@
-const judgeColor = (num: number) => {
+export const judgeColor = (num: number) => {
   if (num > 0) {
     return 'RISE';
   } else if (num < 0) {
@@ -7,5 +7,3 @@ const judgeColor = (num: number) => {
     return 'EVEN';
   }
 };
-
-export default judgeColor;

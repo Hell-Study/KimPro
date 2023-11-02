@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useWidgetTickers } from 'hooks/useWidgetTickers';
 import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
-import getFormattedValues from 'utils/getFormattedValues';
-import formatNumber from 'utils/formatNumber';
+import { getFormattedValues } from 'utils';
+import { formatNumber } from 'utils';
 import { IWidgetTicker } from './Widget.types';
 import * as styled from './Widget.styles';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';

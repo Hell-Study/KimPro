@@ -9,7 +9,7 @@ import {
 import * as styled from '../ChartRight/ChartRight.styles';
 import { selectedBithumbCoinInfoState } from 'recoil/atoms/bithumbAtoms';
 import { useRecoilValue } from 'recoil';
-import { changes, changesRatio } from 'utils/priceCalc';
+import { changes, changesRatio } from 'utils';
 import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
 import { IBithumbTicker } from './Bithumb.type';
 import { useTheme } from 'styled-components';

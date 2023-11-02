@@ -3,7 +3,7 @@ import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import judgeColor from 'utils/judgeColor';
+import { judgeColor } from 'utils';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {
   binancePriceToKRW,
@@ -13,7 +13,7 @@ import {
   kimchiPremiumDiff,
   kimchiPremiumRatio,
   lowRatio,
-} from 'utils/priceCalc';
+} from 'utils';
 import {
   selectedBithumbCoinInfoState,
   selectedBithumbCoinState,

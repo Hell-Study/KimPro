@@ -4,7 +4,7 @@ import {
   selectedCoinInfoState,
   selectedCoinState,
 } from 'recoil/atoms/commonAtoms';
-import getTodayDate from 'utils/getTodayDate';
+import { getTodayDate } from 'utils';
 
 export interface CandleData {
   time: string;

@@ -11,12 +11,7 @@ import {
   tableSortValueState,
 } from 'recoil/atoms/tableAtoms';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
-import {
-  changesRatio,
-  highRatio,
-  kimchiPremiumRatio,
-  lowRatio,
-} from 'utils/priceCalc';
+import { changesRatio, highRatio, kimchiPremiumRatio, lowRatio } from 'utils';
 import { searchCoinState } from 'recoil/atoms/commonAtoms';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import * as styled from './Table.styles';
