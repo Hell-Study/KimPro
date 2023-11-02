@@ -3,12 +3,34 @@ import { useRecoilValue } from 'recoil';
 import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
 import getTodayDate from 'utils/getTodayDate';
 
+export interface CandleData {
+  time: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
+export interface UpdatedCandleData {
+  time: {
+    day: string;
+    month: string;
+    year: string;
+  };
+  open: number | undefined;
+  high: number | undefined;
+  low: number | undefined;
+  close: number | undefined;
+}
+
 function useCreateChart() {
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
-  const [fetchedData, setFetchedData] = useState<any>(null);
-  const [processedData, setProcessedData] = useState<any>(null);
-  const [updatedCandle, setUpdatedCandle] = useState<any>(null);
+  const [fetchedData, setFetchedData] = useState<CandleData[] | null>(null);
+  const [processedData, setProcessedData] = useState<CandleData[] | null>(null);
+  const [updatedCandle, setUpdatedCandle] = useState<UpdatedCandleData | null>(
+    null,
+  );
 
   const options = { method: 'GET', headers: { Accept: 'application/json' } };
   async function fetchDayCandle(

@@ -32,7 +32,7 @@ function ChartRight() {
           },
           textColor,
         },
-        autoSize: true,
+        autoSize: false,
         grid: {
           vertLines: {
             color: theme.colors.border2,
@@ -74,7 +74,7 @@ function ChartRight() {
       });
       window.addEventListener('resize', handleResize);
 
-      newSeries.current.setData(processedData);
+      newSeries.current?.setData(processedData);
 
       return () => {
         window.removeEventListener('resize', handleResize);

@@ -8,17 +8,10 @@ import { modalIsOpenState } from 'recoil/atoms/upbit';
 import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
 
-// 닉네임 업데이트 함수
-const updateNickname = () => {
-  const userChosenNickname = prompt('변경할 닉네임을 입력해주세요');
-  if (userChosenNickname) {
-    try {
-      localStorage.setItem('displayName', userChosenNickname);
-    } catch (error) {
-      console.error('Error updating nickname:', error);
-    }
-  }
-};
+import {
+  updateNickname,
+  saveUserInfoToLocalStorage,
+} from 'hooks/useChatboxHelper';
 
 const ChatBox = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -85,6 +78,14 @@ const ChatBox = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const storedUid = localStorage.getItem('uid');
+    const storedDisplayName = localStorage.getItem('displayName');
+    if (!storedUid || !storedDisplayName) {
+      saveUserInfoToLocalStorage();
+    }
+  }, []);
+
   const overlayStyles: ReactModal.Styles = {
     overlay: {
       zIndex: 2,
@@ -102,9 +103,7 @@ const ChatBox = () => {
         </styled.HeaderWrapper>
 
         <styled.InfoWrapper onClick={updateNickname}>
-          <styled.Nickname>
-            {storedDisplayName ? storedDisplayName : 'unknown'}
-          </styled.Nickname>
+          <styled.Nickname>{storedDisplayName}</styled.Nickname>
           <span>님</span>
         </styled.InfoWrapper>
       </styled.ChatBoxHeader>
