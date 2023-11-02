@@ -9,7 +9,7 @@ import {
 } from 'recoil/atoms/common';
 import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
 import { upbitMarketCodesState } from 'recoil/atoms/upbit';
-import useFetchUpbitMarketCode from 'api/upbit/useFetchUpbitMarketCode';
+import useFetchUpbitMarketCode from 'hooks/upbit/useFetchUpbitMarketCode';
 import { exchangeRateState } from 'recoil/atoms/exchange';
 import {
   binancePriceToKRW,
