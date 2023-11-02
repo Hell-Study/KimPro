@@ -59,6 +59,7 @@
     "@types/react-modal": "^3.16.2",
     "@types/shortid": "^0.0.31",
     "@types/styled-components": "^5.1.28",
+    "compression-webpack-plugin": "^10.0.0",
     "cra-bundle-analyzer": "^0.1.1",
     "customize-cra": "^1.0.0",
     "eslint": "^8.51.0",

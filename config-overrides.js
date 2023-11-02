@@ -1,5 +1,6 @@
 const { override } = require('customize-cra');
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const isEnvProductionProfile =
   process.env.NODE_ENV === 'production' && process.env.PROFILE === 'true';
@@ -32,16 +33,14 @@ module.exports = override((config, env) => {
         },
       }),
     ];
-    config.optimization.splitChunks = {
-      chunks: 'all',
-      cacheGroups: {
-        default: false,
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-        },
-      },
-    };
+    config.plugins.push(
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: /\.(js|css|html)$/,
+        threshold: 10240,
+        minRatio: 0.8,
+      }),
+    );
     config.devtool = isEnvProductionProfile ? 'source-map' : false;
   }
 
