@@ -94,6 +94,8 @@ export default function ChartComponent({
   }, [updatedCandle]);
 
   const selectedBithumbCoinInfo = useRecoilValue(selectedBithumbCoinInfoState);
+  const { symbol, closing_price, prev_closing_price } =
+    selectedBithumbCoinInfo as IBithumbTicker;
   const { thumb, coinName } = useMatchCoingecko(
     (selectedBithumbCoinInfo as IBithumbTicker).symbol,
   );
@@ -104,7 +106,7 @@ export default function ChartComponent({
         <styled.CoinInfoContainer>
           <styled.CoinImgWrapper>
             <img
-              alt={`${selectedBithumbCoinInfo.symbol} 아이콘`}
+              alt={`${symbol} 아이콘`}
               width="45"
               height="45px"
               decoding="async"
@@ -116,44 +118,38 @@ export default function ChartComponent({
           <styled.CoinInfo>
             <styled.CoinIdentity>
               <styled.CoinName>{coinName}</styled.CoinName>
-              <styled.CoinSymbol>
-                /{selectedBithumbCoinInfo.symbol}
-              </styled.CoinSymbol>
+              <styled.CoinSymbol>/{symbol}</styled.CoinSymbol>
             </styled.CoinIdentity>
 
             <styled.CoinPrice
-              $isPositive={
-                Number(selectedBithumbCoinInfo?.closing_price) > 0
-                  ? 'true'
-                  : 'false'
-              }
+              $isPositive={Number(closing_price) > 0 ? 'true' : 'false'}
             >
-              {Number(selectedBithumbCoinInfo?.closing_price).toLocaleString(
-                'ko-KR',
-              )}{' '}
+              {Number(closing_price).toLocaleString('ko-KR')}{' '}
               <span style={{ fontSize: '0.9rem' }}>KRW</span>
             </styled.CoinPrice>
           </styled.CoinInfo>
 
           <styled.CoinChangeWrapper
             $isPositive={
-              changesRatio(selectedBithumbCoinInfo) > 0 ? 'true' : 'false'
+              changesRatio(closing_price, prev_closing_price) > 0
+                ? 'true'
+                : 'false'
             }
           >
             <styled.CoinChangeRate>
               <span>전일대비</span>
-              {changesRatio(selectedBithumbCoinInfo) > 0 ? (
+              {changesRatio(closing_price, prev_closing_price) > 0 ? (
                 <FaCaretUp />
               ) : (
                 <FaCaretDown />
               )}
-              {changesRatio(selectedBithumbCoinInfo).toFixed(2)}%
+              {changesRatio(closing_price, prev_closing_price).toFixed(2)}%
             </styled.CoinChangeRate>
             <styled.CoinChangePrice>
-              {changes(selectedBithumbCoinInfo) > 0 ? '+' : '-'}
-              {Math.abs(changes(selectedBithumbCoinInfo))?.toLocaleString(
-                'ko-KR',
-              )}
+              {changes(closing_price, prev_closing_price) > 0 ? '+' : '-'}
+              {Math.abs(
+                changes(closing_price, prev_closing_price),
+              )?.toLocaleString('ko-KR')}
             </styled.CoinChangePrice>
           </styled.CoinChangeWrapper>
         </styled.CoinInfoContainer>

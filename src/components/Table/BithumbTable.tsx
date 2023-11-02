@@ -125,23 +125,47 @@ export function BithumbTable() {
         break;
       case '전일대비':
         if (tableSortUpDown) {
-          socketDatas.sort((a, b) => changesRatio(a) - changesRatio(b));
+          socketDatas.sort(
+            (a, b) =>
+              changesRatio(a.closing_price, a.prev_closing_price) -
+              changesRatio(b.closing_price, b.prev_closing_price),
+          );
         } else {
-          socketDatas.sort((a, b) => changesRatio(b) - changesRatio(a));
+          socketDatas.sort(
+            (a, b) =>
+              changesRatio(b.closing_price, b.prev_closing_price) -
+              changesRatio(a.closing_price, a.prev_closing_price),
+          );
         }
         break;
       case '고가대비(전일)':
         if (tableSortUpDown) {
-          socketDatas.sort((a, b) => highRatio(a) - highRatio(b));
+          socketDatas.sort(
+            (a, b) =>
+              highRatio(a.closing_price, a.max_price) -
+              highRatio(b.closing_price, b.max_price),
+          );
         } else {
-          socketDatas.sort((a, b) => highRatio(b) - highRatio(a));
+          socketDatas.sort(
+            (a, b) =>
+              highRatio(b.closing_price, b.max_price) -
+              highRatio(a.closing_price, a.max_price),
+          );
         }
         break;
       case '저가대비(전일)':
         if (tableSortUpDown) {
-          socketDatas.sort((a, b) => lowRatio(a) - lowRatio(b));
+          socketDatas.sort(
+            (a, b) =>
+              lowRatio(a.closing_price, a.min_price) -
+              lowRatio(b.closing_price, b.min_price),
+          );
         } else {
-          socketDatas.sort((a, b) => lowRatio(b) - lowRatio(a));
+          socketDatas.sort(
+            (a, b) =>
+              lowRatio(b.closing_price, b.min_price) -
+              lowRatio(a.closing_price, a.min_price),
+          );
         }
         break;
       case '거래액(일)':
