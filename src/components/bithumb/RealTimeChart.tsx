@@ -8,6 +8,7 @@ import {
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
 import { IBithumbFetchCandlestick } from './Bithumb.type';
 import { CandlestickData } from 'lightweight-charts';
+import convertDate from 'utils/convertDate';
 
 function RealTimeChart() {
   const selectedBithumbCoin = useRecoilValue(selectedBithumbCoinState);
@@ -32,10 +33,7 @@ function RealTimeChart() {
     if (fetchedData) {
       const processed = fetchedData
         .map((data) => {
-          const date = new Date(data[0]);
-          const time = `${date.getFullYear()}-${String(
-            date.getMonth() + 1,
-          ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+          const time = convertDate(data[0]);
           return {
             time: time,
             open: Number(data[1]),
