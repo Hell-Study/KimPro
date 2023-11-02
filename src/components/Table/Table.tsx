@@ -7,7 +7,7 @@ import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 import { TableNav } from './TableNav';
 import { TableHeader } from './TableHeader';
 import UpbitTable from './UpbitTable';
-import { Bithumb } from './Bithumb';
+import { BithumbTable } from './BithumbTable';
 
 export const Table = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
@@ -23,7 +23,7 @@ export const Table = () => {
       <TableNav />
       <styled.TableBox>
         <TableHeader />
-        {baseExchange === 'upbit' ? <UpbitTable /> : <Bithumb />}
+        {baseExchange === 'upbit' ? <UpbitTable /> : <BithumbTable />}
       </styled.TableBox>
     </styled.TableContainer>
   );

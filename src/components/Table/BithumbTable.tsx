@@ -1,171 +1,175 @@
-import * as styled from './Table.styles';
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
-import { convertMillonWon } from 'utils/convertMillonWon';
-import { useEffect } from 'react';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import judgeColor from 'utils/judgeColor';
-import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
+import { useEffect, useState } from 'react';
+import useBithumbWsTicker from 'hooks/bithumb/useBithumbWsTicker';
+import CoinList from './CoinList';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
-  binancePriceToKRW,
-  changes,
+  ICoingeckoCoinData,
+  coingeckoCoinDataState,
+} from 'recoil/atoms/coingeckoAtoms';
+import {
+  tableSortUpDownState,
+  tableSortValueState,
+} from 'recoil/atoms/tableAtoms';
+import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
+import {
   changesRatio,
   highRatio,
-  kimchiPremiumDiff,
   kimchiPremiumRatio,
   lowRatio,
 } from 'utils/priceCalc';
-import {
-  selectedBithumbCoinInfoState,
-  selectedBithumbCoinState,
-} from 'recoil/atoms/bithumbAtoms';
-import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
+import { searchCoinState } from 'recoil/atoms/commonAtoms';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
+import * as styled from './Table.styles';
 
-interface IProps {
-  socketData: IBithumbTicker;
-}
+export function BithumbTable() {
+  const socketDatas = useBithumbWsTicker();
 
-export default function BithumbTable({ socketData }: IProps) {
-  const {
-    symbol,
-    closing_price,
-    min_price,
-    max_price,
-    acc_trade_value_24H,
-    binancePrice,
-  } = socketData;
-
-  const [selectedBithumbCoin, setSelectedBithumbCoin] = useRecoilState(
-    selectedBithumbCoinState,
+  const [coingeckoCoinData, setCoingeckoData] = useRecoilState(
+    coingeckoCoinDataState,
   );
-  const setSelectedBithumbCoinInfo = useSetRecoilState(
-    selectedBithumbCoinInfoState,
-  );
-  const { thumb, coinName } = useMatchCoingecko(symbol);
-  const nowPrice = Number(closing_price);
+  useEffect(() => {
+    getCoingeckoData().then((res) => {
+      setCoingeckoData(res.coins);
+    });
+  }, []);
+  const searchCoin = useRecoilValue(searchCoinState);
+  const [filteredSocketDatas, setFilteredSocketDatas] = useState(socketDatas);
 
   useEffect(() => {
-    if (socketData.symbol === selectedBithumbCoin) {
-      setSelectedBithumbCoinInfo(socketData);
-    }
-  }, [selectedBithumbCoin, socketData]);
-
-  const clickCoinHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    setSelectedBithumbCoin(e.currentTarget.id);
-  };
+    const filteredSocketDatas = socketDatas.filter((socketData) =>
+      coingeckoCoinData.some(
+        (gecko: ICoingeckoCoinData) =>
+          gecko.symbol == socketData.symbol &&
+          gecko.name.toLowerCase().includes(searchCoin.toLowerCase()),
+      ),
+    );
+    setFilteredSocketDatas(filteredSocketDatas);
+  }, [searchCoin, socketDatas]);
 
   const myExchangeRate = useRecoilValue(exchangeRateState);
 
+  // TODO|서지수 - 모듈화 예정
+  const tableSortValue = useRecoilValue(tableSortValueState);
+  const tableSortUpDown = useRecoilValue(tableSortUpDownState);
+  useEffect(() => {
+    switch (tableSortValue) {
+      case '코인':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => {
+            if (a.symbol > b.symbol) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
+        } else {
+          socketDatas.sort((a, b) => {
+            if (a.symbol > b.symbol) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        }
+        break;
+      case '현재가':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) => Number(a.closing_price) - Number(b.closing_price),
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) => Number(b.closing_price) - Number(a.closing_price),
+          );
+        }
+        break;
+      case '김프':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  Number(a.closing_price),
+                  a.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  Number(b.closing_price),
+                  b.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        } else {
+          socketDatas.sort((a, b) => {
+            if (a.binancePrice && b.binancePrice) {
+              return (
+                kimchiPremiumRatio(
+                  Number(b.closing_price),
+                  b.binancePrice,
+                  myExchangeRate,
+                ) -
+                kimchiPremiumRatio(
+                  Number(a.closing_price),
+                  a.binancePrice,
+                  myExchangeRate,
+                )
+              );
+            } else if (a.binancePrice && !b.binancePrice) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+        }
+        break;
+      case '전일대비':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => changesRatio(a) - changesRatio(b));
+        } else {
+          socketDatas.sort((a, b) => changesRatio(b) - changesRatio(a));
+        }
+        break;
+      case '고가대비(전일)':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => highRatio(a) - highRatio(b));
+        } else {
+          socketDatas.sort((a, b) => highRatio(b) - highRatio(a));
+        }
+        break;
+      case '저가대비(전일)':
+        if (tableSortUpDown) {
+          socketDatas.sort((a, b) => lowRatio(a) - lowRatio(b));
+        } else {
+          socketDatas.sort((a, b) => lowRatio(b) - lowRatio(a));
+        }
+        break;
+      case '거래액(일)':
+        if (tableSortUpDown) {
+          socketDatas.sort(
+            (a, b) =>
+              Number(a.acc_trade_value_24H) - Number(b.acc_trade_value_24H),
+          );
+        } else {
+          socketDatas.sort(
+            (a, b) =>
+              Number(b.acc_trade_value_24H) - Number(a.acc_trade_value_24H),
+          );
+        }
+        break;
+    }
+  }, [socketDatas, tableSortValue, tableSortUpDown]);
+
   return (
-    <styled.CoinBox
-      id={symbol}
-      onClick={clickCoinHandler}
-      $selected={selectedBithumbCoin === socketData.symbol}
-    >
-      <styled.CoinIconWrap>
-        <styled.CoinIcon
-          alt={`${coinName} 아이콘`}
-          src={thumb}
-          loading="lazy"
-        />
-      </styled.CoinIconWrap>
-
-      <styled.CoinLeftWrap>
-        <styled.CoinName>{coinName}</styled.CoinName>
-        <styled.CoinSubText>{symbol}</styled.CoinSubText>
-      </styled.CoinLeftWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinKoreanPrice>
-          {Number(closing_price).toLocaleString('ko-KR')}
-        </styled.CoinKoreanPrice>
-        <styled.CoinSubText>{`${
-          binancePrice
-            ? binancePriceToKRW(binancePrice, myExchangeRate).toLocaleString(
-                'ko-KR',
-              )
-            : ''
-        }`}</styled.CoinSubText>
-      </styled.CoinRightWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinKimpRatio
-          $isPositive={
-            binancePrice
-              ? nowPrice > binancePriceToKRW(binancePrice, myExchangeRate)
-                ? 'true'
-                : 'false'
-              : 'none'
-          }
-        >
-          {binancePrice ? (
-            <>
-              {kimchiPremiumRatio(nowPrice, binancePrice, myExchangeRate) > 0 &&
-                '+'}
-              {kimchiPremiumRatio(
-                nowPrice,
-                binancePrice,
-                myExchangeRate,
-              ).toFixed(2)}
-              %
-            </>
-          ) : (
-            ''
-          )}
-        </styled.CoinKimpRatio>
-        <styled.CoinSubText>
-          {binancePrice ? (
-            <>
-              {kimchiPremiumDiff(nowPrice, binancePrice, myExchangeRate) > 0 &&
-                '+'}
-              {kimchiPremiumDiff(
-                nowPrice,
-                binancePrice,
-                myExchangeRate,
-              ).toFixed(2)}
-            </>
-          ) : (
-            ''
-          )}
-        </styled.CoinSubText>
-      </styled.CoinRightWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinChangeRatio $changeType={judgeColor(Number(changesRatio))}>
-          {changesRatio(socketData) > 0 ? '+' : null}
-          {changesRatio(socketData).toFixed(2)}%
-        </styled.CoinChangeRatio>
-        <styled.CoinSubText>
-          {changes(socketData).toLocaleString('ko-KR')}
-        </styled.CoinSubText>
-      </styled.CoinRightWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinHighestRatio>
-          {highRatio(socketData) > 0 ? '+' : null}
-          {highRatio(socketData).toFixed(2)}%
-        </styled.CoinHighestRatio>
-        <styled.CoinSubText>
-          {Number(max_price).toLocaleString('ko-KR')}
-        </styled.CoinSubText>
-      </styled.CoinRightWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinLowestRatio>
-          {'+' + lowRatio(socketData).toFixed(2) + '%'}
-        </styled.CoinLowestRatio>
-        <styled.CoinSubText>
-          {Number(min_price).toLocaleString('ko-KR')}
-        </styled.CoinSubText>
-      </styled.CoinRightWrap>
-
-      <styled.CoinRightWrap>
-        <styled.CoinSubText>
-          {Math.ceil(
-            convertMillonWon(Number(Number(acc_trade_value_24H))),
-          ).toLocaleString('ko-KR')}
-          백만
-        </styled.CoinSubText>
-      </styled.CoinRightWrap>
-    </styled.CoinBox>
+    <styled.CoinListWrapper>
+      {filteredSocketDatas.map((socketData) => {
+        return <CoinList key={socketData.symbol} socketData={socketData} />;
+      })}
+    </styled.CoinListWrapper>
   );
 }
