@@ -4,7 +4,7 @@ import ChartComponent from './ChartComponent';
 import {
   selectedBithumbCoinInfoState,
   selectedBithumbCoinState,
-} from 'recoil/atoms/bithumb';
+} from 'recoil/atoms/bithumbAtoms';
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
 import { IBithumbFetchCandlestick } from './Bithumb.type';
 import { CandlestickData } from 'lightweight-charts';

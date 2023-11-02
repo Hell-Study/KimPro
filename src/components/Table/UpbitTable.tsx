@@ -6,11 +6,14 @@ import {
   selectedCoinInfoState,
   selectedCoinState,
   searchCoinState,
-} from 'recoil/atoms/common';
-import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
-import { upbitMarketCodesState } from 'recoil/atoms/upbit';
+} from 'recoil/atoms/commonAtoms';
+import {
+  tableSortUpDownState,
+  tableSortValueState,
+} from 'recoil/atoms/tableAtoms';
+import { upbitMarketCodesState } from 'recoil/atoms/upbitAtoms';
 import useFetchUpbitMarketCode from 'hooks/upbit/useFetchUpbitMarketCode';
-import { exchangeRateState } from 'recoil/atoms/exchange';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {
   binancePriceToKRW,
   kimchiPremiumRatio,

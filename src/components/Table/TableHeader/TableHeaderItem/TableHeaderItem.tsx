@@ -1,6 +1,9 @@
 import * as styled from './TableHeaderItem.styles';
 import { useRecoilState } from 'recoil';
-import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
+import {
+  tableSortUpDownState,
+  tableSortValueState,
+} from 'recoil/atoms/tableAtoms';
 
 interface IProps {
   value: string;

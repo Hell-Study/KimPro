@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { lightTheme, darkTheme } from './styles/theme';
-import { themeState } from './recoil/atoms/theme';
+import { themeState } from './recoil/atoms/themeAtoms';
 
 const Home = React.lazy(() => import('pages/home'));
 

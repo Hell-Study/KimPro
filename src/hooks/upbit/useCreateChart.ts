@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectedCoinInfoState, selectedCoinState } from 'recoil/atoms/common';
+import {
+  selectedCoinInfoState,
+  selectedCoinState,
+} from 'recoil/atoms/commonAtoms';
 import getTodayDate from 'utils/getTodayDate';
 
 export interface CandleData {

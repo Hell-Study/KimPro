@@ -4,7 +4,7 @@ import { Message } from 'components/Message';
 import { MessageType } from 'components/Message/Message.types';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
-import { modalIsOpenState } from 'recoil/atoms/upbit';
+import { modalIsOpenState } from 'recoil/atoms/upbitAtoms';
 import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
 

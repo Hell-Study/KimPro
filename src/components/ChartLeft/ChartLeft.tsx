@@ -1,7 +1,7 @@
 import React from 'react';
 import TradingViewWidget from './TradingViewWidget';
 import { useSetRecoilState } from 'recoil';
-import { selectState } from 'recoil/atoms/selectState';
+import { selectState } from 'recoil/atoms/selectStateAtoms';
 import { CustomSelect } from 'components/CustomSelect';
 import { ChartInfo } from './ChartInfo';
 import { SELECT_OPTION } from './ChartLeft.constant';

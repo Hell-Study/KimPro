@@ -2,7 +2,10 @@ import React, { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import useCreateChart from 'hooks/upbit/useCreateChart';
 import { useRecoilValue } from 'recoil';
-import { selectedCoinState, selectedCoinInfoState } from 'recoil/atoms/common';
+import {
+  selectedCoinState,
+  selectedCoinInfoState,
+} from 'recoil/atoms/commonAtoms';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import * as styled from './ChartRight.styles';

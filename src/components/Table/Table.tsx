@@ -1,13 +1,13 @@
 import * as styled from './Table.styles';
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { baseExchangeState, searchCoinState } from 'recoil/atoms/common';
+import { baseExchangeState, searchCoinState } from 'recoil/atoms/commonAtoms';
 import UpbitTable from './UpbitTable';
 import { Bithumb } from 'components/bithumb';
-import { upbitMarketCodesState } from 'recoil/atoms/upbit';
-import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
+import { upbitMarketCodesState } from 'recoil/atoms/upbitAtoms';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumbAtoms';
 import { TableHeader } from './TableHeader';
-import { exchangeRateState } from 'recoil/atoms/exchange';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 import { CustomSelect } from 'components/CustomSelect';
 import { SELECT_OPTION, SELECT_SINGLE_OPTION } from './Table.constant';

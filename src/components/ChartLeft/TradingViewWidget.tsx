@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectState } from 'recoil/atoms/selectState';
+import { selectState } from 'recoil/atoms/selectStateAtoms';
 import { TRADING_VIEW_SYMBOLS } from './ChartLeft.constant';
-import { themeState } from 'recoil/atoms/theme';
+import { themeState } from 'recoil/atoms/themeAtoms';
 import { useTheme } from 'styled-components';
 import * as styled from './ChartLeft.styles';
 declare global {

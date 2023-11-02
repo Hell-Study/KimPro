@@ -7,7 +7,7 @@ import {
   ISeriesApi,
 } from 'lightweight-charts';
 import * as styled from '../ChartRight/ChartRight.styles';
-import { selectedBithumbCoinInfoState } from 'recoil/atoms/bithumb';
+import { selectedBithumbCoinInfoState } from 'recoil/atoms/bithumbAtoms';
 import { useRecoilValue } from 'recoil';
 import { changes, changesRatio } from 'utils/priceCalc';
 import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
 import { useRecoilState } from 'recoil';
-import { globalCoinState } from 'recoil/atoms/globalCoin';
+import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
 import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
 import useTheme from 'hooks/useTheme';
 import { HiSun, HiMoon } from 'react-icons/hi2';

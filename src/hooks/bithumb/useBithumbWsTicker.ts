@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useFetchBithumbTicker from './useFetchBithumbticker';
 import { useRecoilValue } from 'recoil';
-import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumbAtoms';
 import {
   IBithumbTicker,
   IBithumbWsTicker,

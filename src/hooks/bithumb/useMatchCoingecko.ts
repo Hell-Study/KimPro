@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import {
   ICoingeckoCoinData,
   coingeckoCoinDataState,
-} from 'recoil/atoms/coingecko';
+} from 'recoil/atoms/coingeckoAtoms';
 
 export default function useMatchCoingecko(bithumbCoinSymbol: string) {
   const coingeckoCoinData = useRecoilValue(coingeckoCoinDataState);

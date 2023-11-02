@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
 import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
 import { useSetRecoilState } from 'recoil';
-import { bithumbMarketCodesState } from 'recoil/atoms/bithumb';
+import { bithumbMarketCodesState } from 'recoil/atoms/bithumbAtoms';
 
 type IFetchTicker = [
   string,

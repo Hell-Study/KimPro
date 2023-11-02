@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { selectState } from 'recoil/atoms/selectState';
+import { selectState } from 'recoil/atoms/selectStateAtoms';
 import { TRADING_VIEW_TICKERS } from './ChartLeft.constant';
 import * as styled from './ChartLeft.styles';
 

@@ -4,7 +4,7 @@ import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import judgeColor from 'utils/judgeColor';
-import { exchangeRateState } from 'recoil/atoms/exchange';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {
   binancePriceToKRW,
   changes,
@@ -17,7 +17,7 @@ import {
 import {
   selectedBithumbCoinInfoState,
   selectedBithumbCoinState,
-} from 'recoil/atoms/bithumb';
+} from 'recoil/atoms/bithumbAtoms';
 import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
 
 interface IProps {

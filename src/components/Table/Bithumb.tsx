@@ -5,8 +5,11 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import {
   ICoingeckoCoinData,
   coingeckoCoinDataState,
-} from 'recoil/atoms/coingecko';
-import { tableSortUpDownState, tableSortValueState } from 'recoil/atoms/table';
+} from 'recoil/atoms/coingeckoAtoms';
+import {
+  tableSortUpDownState,
+  tableSortValueState,
+} from 'recoil/atoms/tableAtoms';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import {
   changesRatio,
@@ -14,8 +17,8 @@ import {
   kimchiPremiumRatio,
   lowRatio,
 } from 'utils/priceCalc';
-import { searchCoinState } from 'recoil/atoms/common';
-import { exchangeRateState } from 'recoil/atoms/exchange';
+import { searchCoinState } from 'recoil/atoms/commonAtoms';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import * as styled from './Table.styles';
 
 export function Bithumb() {
