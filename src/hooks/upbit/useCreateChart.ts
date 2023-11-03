@@ -62,7 +62,6 @@ function useCreateChart() {
 
   useEffect(() => {
     if (fetchedData) {
-      console.log(fetchedData);
       const processed = [...fetchedData].reverse().map((data: any) => {
         return {
           time: data.candle_date_time_kst.slice(0, 10), // 2023-10-08T09:00:00에서 T전까지
