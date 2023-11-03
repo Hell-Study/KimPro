@@ -108,7 +108,7 @@ function Header() {
       </styled.Topbar>
       <styled.HeaderWrapper>
         <styled.InnerSpaceBetween>
-          <styled.Logo href="/Final-Project">
+          <styled.Logo href="/">
             <img
               src={isDarkMode ? LogoDark : LogoLight}
               alt="logo"
