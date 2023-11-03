@@ -1,89 +1,74 @@
+import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
+import { fetchUpbitDayCandle } from 'api/upbit/fetchUpbitDayCandle';
+import { CandlestickData } from 'lightweight-charts';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import {
+  baseExchangeState,
   selectedCoinInfoState,
   selectedCoinState,
 } from 'recoil/atoms/commonAtoms';
 import { getTodayDate } from 'utils';
 
-export interface CandleData {
-  time: string;
-  open: number;
-  high: number;
-  low: number;
-  close: number;
-}
-
-export interface UpdatedCandleData {
-  time: string;
-  open: number | undefined;
-  high: number | undefined;
-  low: number | undefined;
-  close: number | undefined;
-}
-
 export const useCreateChart = () => {
+  const baseExchange = useRecoilValue(baseExchangeState);
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
-  const [fetchedData, setFetchedData] = useState<CandleData[] | null>(null);
-  const [processedData, setProcessedData] = useState<CandleData[] | null>(null);
-  const [updatedCandle, setUpdatedCandle] = useState<UpdatedCandleData | null>(
+
+  const [processedData, setProcessedData] = useState<CandlestickData[]>([]);
+  const [updatedCandle, setUpdatedCandle] = useState<CandlestickData | null>(
     null,
   );
 
-  const options = { method: 'GET', headers: { Accept: 'application/json' } };
-  async function fetchDayCandle(
-    marketCode: string,
-    date: string,
-    count: number,
-  ) {
-    try {
-      const response = await fetch(
-        `https://api.upbit.com/v1/candles/days?market=KRW-${marketCode}&to=${date}T09:00:00Z&count=${count}&convertingPriceUnit=KRW`,
-        options,
-      );
-      const result = await response.json();
-      setFetchedData(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const upbitCreateChart = async () => {
+    const processedData = await fetchUpbitDayCandle(
+      selectedCoin,
+      getTodayDate(),
+      200,
+    );
+    setProcessedData(processedData);
+  };
+
+  const bithumbCreateChart = async () => {
+    const processedData = await fetchBithumbCandlestick(selectedCoin, '24h');
+    setProcessedData(processedData);
+  };
 
   useEffect(() => {
-    if (selectedCoin) {
-      const cachedData = sessionStorage.getItem(selectedCoin); // 시장 코드를 키로 사용
+    if (baseExchange === 'upbit') {
+      const cachedData = sessionStorage.getItem(`upbit_${selectedCoin}`); // 시장 코드를 키로 사용
       if (cachedData) {
-        setFetchedData(JSON.parse(cachedData));
+        setProcessedData(JSON.parse(cachedData));
       } else {
-        fetchDayCandle(selectedCoin, getTodayDate(), 200);
+        upbitCreateChart();
+      }
+    } else if (baseExchange === 'bithumb') {
+      const cachedData = sessionStorage.getItem(`bithumb_${selectedCoin}`);
+      if (cachedData) {
+        setProcessedData(JSON.parse(cachedData));
+      } else {
+        bithumbCreateChart();
       }
     }
-  }, [selectedCoin]);
+  }, [baseExchange, selectedCoin]);
 
   useEffect(() => {
-    if (fetchedData) {
-      const processed = [...fetchedData].reverse().map((data: any) => {
-        return {
-          time: data.candle_date_time_kst.slice(0, 10), // 2023-10-08T09:00:00에서 T전까지
-          open: data.opening_price,
-          high: data.high_price,
-          low: data.low_price,
-          close: data.trade_price,
-        };
-      });
-      setProcessedData(processed);
-      sessionStorage.setItem(selectedCoin, JSON.stringify(fetchedData));
-    }
-  }, [fetchedData]);
+    sessionStorage.setItem(
+      `${baseExchange === 'upbit' ? 'upbit_' : 'bithumb_'}${selectedCoin}`,
+      JSON.stringify(processedData),
+    );
+  }, [processedData]);
 
   useEffect(() => {
     if (selectedCoinInfo) {
+      const { date, openingPrice, highestPrice, lowestPrice, tradePrice } =
+        selectedCoinInfo;
       setUpdatedCandle({
-        time: selectedCoinInfo.date,
-        open: selectedCoinInfo.openingPrice,
-        high: selectedCoinInfo.highestPrice,
-        low: selectedCoinInfo.lowestPrice,
-        close: selectedCoinInfo.tradePrice,
+        time: date,
+        open: openingPrice,
+        high: highestPrice,
+        low: lowestPrice,
+        close: tradePrice,
       });
     }
   }, [selectedCoinInfo]);

@@ -10,6 +10,11 @@ interface IProps {
 }
 
 export const TableHeaderItem = ({ value }: IProps) => {
+  const processedValue = value.slice(0, 4);
+  if (processedValue === '고가대비' || processedValue === '저가대비') {
+    value = processedValue;
+  }
+
   const [tableSortValue, setTableSortValue] =
     useRecoilState(tableSortValueState);
   const [tableSortUpDown, setTableSortUpDown] =
@@ -20,7 +25,11 @@ export const TableHeaderItem = ({ value }: IProps) => {
     if (isSameValue) {
       setTableSortUpDown(!tableSortUpDown);
     } else {
-      setTableSortValue(value);
+      if (processedValue === '고가대비' || processedValue === '저가대비') {
+        setTableSortValue(processedValue);
+      } else {
+        setTableSortValue(value);
+      }
     }
   };
 

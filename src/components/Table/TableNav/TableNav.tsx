@@ -4,6 +4,7 @@ import {
   baseExchangeState,
   marketCodesState,
   searchCoinState,
+  selectedCoinState,
 } from 'recoil/atoms/commonAtoms';
 import { CustomSelect } from 'components/CustomSelect';
 import { SELECT_OPTION, SELECT_SINGLE_OPTION } from '../Table.constant';
@@ -11,6 +12,7 @@ import { BsArrowLeftRight } from 'react-icons/bs';
 
 export const TableNav = () => {
   const setBaseExchange = useSetRecoilState(baseExchangeState);
+  const setSelectedCoin = useSetRecoilState(selectedCoinState);
   const marketCodes = useRecoilValue(marketCodesState);
 
   const [searchCoin, setSearchCoin] = useRecoilState(searchCoinState);
@@ -26,6 +28,7 @@ export const TableNav = () => {
           optionData={SELECT_OPTION}
           onChange={(value) => {
             setBaseExchange(value);
+            setSelectedCoin('BTC');
           }}
         />
         <BsArrowLeftRight />

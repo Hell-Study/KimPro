@@ -1,37 +1,31 @@
 import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
+import type { IChartApi, ISeriesApi } from 'lightweight-charts';
 import { useCreateChart } from 'hooks/upbit';
 import { useRecoilValue } from 'recoil';
-import { selectedCoinInfoState } from 'recoil/atoms/commonAtoms';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import * as styled from './ChartRight.styles';
+import { selectedCoinInfoState } from 'recoil/atoms/commonAtoms';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
-  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const theme = useTheme();
 
-  const textColor = theme.colors.text1;
-  const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const chart = useRef<any>(null);
-  const newSeries = useRef<any>(null);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const chart = useRef<IChartApi>();
+  const newSeries = useRef<ISeriesApi<'Candlestick'>>();
 
   useEffect(() => {
-    if (processedData) {
-      const handleResize = () => {
-        chart.current.applyOptions({
-          width: chartContainerRef.current?.clientWidth,
-        });
-      };
+    if (processedData.length > 0) {
       chart.current = createChart(chartContainerRef.current as HTMLElement, {
         layout: {
           background: {
             color: 'transparent',
           },
-          textColor,
+          textColor: theme.colors.text1,
         },
-        autoSize: false,
+        autoSize: true,
         grid: {
           vertLines: {
             color: theme.colors.border2,
@@ -71,22 +65,22 @@ function ChartRight() {
         wickDownColor: 'rgb(42,127,255)',
         borderVisible: false,
       });
-      window.addEventListener('resize', handleResize);
 
       newSeries.current?.setData(processedData);
 
       return () => {
-        window.removeEventListener('resize', handleResize);
-        chart.current.remove();
+        chart.current?.remove();
       };
     }
-  }, [processedData, theme]);
+  }, [processedData]);
 
   useEffect(() => {
     if (updatedCandle && newSeries.current) {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
+
+  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
 
   return (
     <styled.ChartContainer>
@@ -95,7 +89,7 @@ function ChartRight() {
           <styled.CoinImgWrapper>
             <styled.CoinImg
               alt={`${selectedCoinInfo.symbol} 아이콘`}
-              src={`https://static.upbit.com/logos/${selectedCoinInfo.symbol}.png`}
+              src={selectedCoinInfo.thumbnail}
               loading="lazy"
             />
           </styled.CoinImgWrapper>
@@ -108,8 +102,7 @@ function ChartRight() {
             <styled.CoinPrice
               $isPositive={selectedCoinInfo.changeRatio > 0 ? 'true' : 'false'}
             >
-              {selectedCoinInfo.tradePrice.toLocaleString('ko-KR')}{' '}
-              <span>KRW</span>
+              {selectedCoinInfo.tradePrice.toLocaleString('ko-KR')} KRW
             </styled.CoinPrice>
           </styled.CoinInfo>
 

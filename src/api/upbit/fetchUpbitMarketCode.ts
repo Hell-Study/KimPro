@@ -1,4 +1,4 @@
-import { IUpbitMarketCode } from '../../@types/upbit.types';
+import type { IUpbitMarketCode } from '../../@types/upbit.types';
 
 export const fetchUpbitMarketCode = async (): Promise<IUpbitMarketCode[]> => {
   const REST_API_URL = 'https://api.upbit.com/v1/market/all?isDetails=false';

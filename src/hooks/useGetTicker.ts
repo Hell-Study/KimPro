@@ -3,6 +3,7 @@ import { useBinanceTicker } from 'hooks/binance';
 import { baseExchangeState, marketCodesState } from 'recoil/atoms/commonAtoms';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import type { ITicker } from '../@types/common.types';
+import type { IUpbitMarketCode, IUpbitTicker } from '../@types/upbit.types';
 import type { IBithumbWsTicker } from '../@types/bithumb.types';
 import { updateSocketDataWithBinance } from './binance';
 import {
@@ -16,7 +17,6 @@ import {
 import { fetchUpbitMarketCode } from 'api/upbit/fetchUpbitMarketCode';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
 import { replaceDate } from 'utils';
-import { IUpbitMarketCode, IUpbitTicker } from '../@types/upbit.types';
 
 export function useGetTicker() {
   const baseExchange = useRecoilValue(baseExchangeState);

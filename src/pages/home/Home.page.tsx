@@ -1,13 +1,12 @@
 import * as styled from './Home.styles';
-import { Table } from 'components/Table';
-import { ChartRight } from 'components/ChartRight';
-import { ChartLeft } from 'components/ChartLeft';
-import { ChatBox } from 'components/ChatBox';
-import { Widget } from 'components/Widget';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { Header } from 'components/common/Header';
-import BithumbRealTimeChart from 'components/ChartRight/BithumbRealTimeChart';
-import { baseExchangeState, modalIsOpenState } from 'recoil/atoms/commonAtoms';
+import { Widget } from 'components/Widget';
+import { ChartLeft } from 'components/ChartLeft';
+import { ChartRight } from 'components/ChartRight';
+import { Table } from 'components/Table';
+import { ChatBox } from 'components/ChatBox';
+import { useRecoilState } from 'recoil';
+import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -16,8 +15,6 @@ export const Home: React.FC = () => {
     setModalIsOpen(true);
   };
 
-  const baseExchange = useRecoilValue(baseExchangeState);
-
   return (
     <>
       <Header />
@@ -25,7 +22,7 @@ export const Home: React.FC = () => {
         <Widget />
         <styled.ChartsWrapper>
           <ChartLeft />
-          {baseExchange === 'upbit' ? <ChartRight /> : <BithumbRealTimeChart />}
+          <ChartRight />
         </styled.ChartsWrapper>
         <Table />
         <ChatBox />

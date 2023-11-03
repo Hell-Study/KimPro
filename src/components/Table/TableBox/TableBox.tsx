@@ -100,14 +100,14 @@ export const TableBox = () => {
           socketDatas.sort((a, b) => b.changeRatio - a.changeRatio);
         }
         break;
-      case '고가대비(52주)' || '고가대비(전일)':
+      case '고가대비':
         if (tableSortUpDown) {
           socketDatas.sort((a, b) => a.highestRatio - b.highestRatio);
         } else {
           socketDatas.sort((a, b) => b.highestRatio - a.highestRatio);
         }
         break;
-      case '저가대비(52주)' || '저가대비(전일)':
+      case '저가대비':
         if (tableSortUpDown) {
           socketDatas.sort((a, b) => a.lowestRatio - b.lowestRatio);
         } else {
