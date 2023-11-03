@@ -1,12 +1,12 @@
 import { memo, useEffect, useRef } from 'react';
-import { createChart, CrosshairMode } from 'lightweight-charts';
-import type { IChartApi, ISeriesApi } from 'lightweight-charts';
+import { useTheme } from 'styled-components';
+import * as styled from './ChartRight.styles';
 import { useCreateRightChart } from 'hooks';
 import { useRecoilValue } from 'recoil';
 import { selectedCoinInfoState } from 'recoil/atoms/tableAtoms';
-import { useTheme } from 'styled-components';
+import { createChart, CrosshairMode } from 'lightweight-charts';
+import type { IChartApi, ISeriesApi } from 'lightweight-charts';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
-import * as styled from './ChartRight.styles';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateRightChart();
