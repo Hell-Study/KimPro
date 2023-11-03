@@ -50,7 +50,7 @@ export const useCreateChart = () => {
         bithumbCreateChart();
       }
     }
-  }, [baseExchange, selectedCoin]);
+  }, [selectedCoin]);
 
   useEffect(() => {
     sessionStorage.setItem(
