@@ -27,12 +27,12 @@ const useBinanceTicker = () => {
         // setBinanceTickers(filteredData.slice(0, limit));
         setBinanceTickers(filteredData);
       } catch (e) {
-        console.log('파싱 에러:', e);
+        console.error('파싱 에러:', e);
       }
     };
 
     ws.onerror = (err) => {
-      console.log('WebSocket Error', err);
+      console.error('WebSocket Error', err);
     };
 
     return () => {
