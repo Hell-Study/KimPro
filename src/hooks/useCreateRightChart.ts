@@ -10,7 +10,7 @@ import {
 } from 'recoil/atoms/tableAtoms';
 import { getTodayDate } from 'utils';
 
-export const useCreateChart = () => {
+export const useCreateRightChart = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
