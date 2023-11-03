@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import * as styled from './TableBox.styles';
-import { useGetTicker } from 'hooks';
+import { useKoreanTicker } from 'hooks';
 import { useRecoilValue } from 'recoil';
 import { searchCoinState } from 'recoil/atoms/tableAtoms';
 import {
@@ -12,7 +12,7 @@ import { kimchiPremiumRatio } from 'utils';
 import { CoinList } from './CoinList';
 
 export const TableBox = () => {
-  const socketDatas = useGetTicker();
+  const socketDatas = useKoreanTicker();
 
   const searchCoin = useRecoilValue(searchCoinState);
   const [filteredSocketDatas, setFilteredSocketDatas] = useState(socketDatas);

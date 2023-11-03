@@ -18,7 +18,7 @@ import { fetchUpbitMarketCode } from 'api/upbit/fetchUpbitMarketCode';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
 import { replaceDate } from 'utils';
 
-export function useGetTicker() {
+export function useKoreanTicker() {
   const baseExchange = useRecoilValue(baseExchangeState);
   const setMarketCodes = useSetRecoilState(marketCodesState);
   const { binanceTickers } = useBinanceTicker();
