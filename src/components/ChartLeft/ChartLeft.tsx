@@ -1,4 +1,3 @@
-import React from 'react';
 import TradingViewWidget from './TradingViewWidget';
 import { useSetRecoilState } from 'recoil';
 import { selectState } from 'recoil/atoms/selectStateAtoms';

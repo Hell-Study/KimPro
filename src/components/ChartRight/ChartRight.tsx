@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import useCreateChart from 'hooks/upbit/useCreateChart';
 import { useRecoilValue } from 'recoil';
@@ -12,7 +12,6 @@ import * as styled from './ChartRight.styles';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
-  const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const theme = useTheme();
 

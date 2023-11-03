@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDropdown } from 'hooks/useDropdown';
 import { CustomSelectProps } from './CustomSelect.types';
 import * as styled from './CustomSelect.styles';

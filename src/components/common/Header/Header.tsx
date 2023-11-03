@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
 import { useRecoilState } from 'recoil';
