@@ -3,7 +3,7 @@ import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { baseExchangeState } from 'recoil/atoms/commonAtoms';
 import { useRecoilValue } from 'recoil';
 import { ITicker } from '../@types/common';
-import { IBithumbWsTicker } from 'components/bithumb/Bithumb.type';
+import type { IBithumbWsTicker } from '../@types/bithumb.types';
 import { updateSocketDataWithBinance } from './binance/updateSocketDataWithBinance';
 import {
   changes,

@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import ChartComponent from './ChartComponent';
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
-import { IBithumbFetchCandlestick } from './Bithumb.type';
+import type { IBithumbFetchCandlestick } from '../../@types/bithumb.types';
 import { CandlestickData } from 'lightweight-charts';
 import { convertDate } from 'utils';
 import {
