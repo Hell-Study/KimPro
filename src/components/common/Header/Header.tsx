@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
-import { useFetchExchangeRate } from 'hooks/binance';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import { useTheme } from 'hooks';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { DiGithubAlt } from 'react-icons/di';
@@ -13,7 +13,7 @@ import LogoLight from 'assets/images/Logo-Light.svg';
 function Header() {
   const { theme, onChangeTheme } = useTheme();
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
-  const { exchangeRate } = useFetchExchangeRate();
+  const exchangeRate = useRecoilValue(exchangeRateState);
 
   const isDarkMode = theme === 'dark';
 
