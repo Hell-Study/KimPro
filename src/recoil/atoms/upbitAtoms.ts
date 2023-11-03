@@ -5,8 +5,3 @@ export const upbitMarketCodesState = atom<IUpbitMarketCode[]>({
   key: 'upbitMarketCodesState',
   default: [],
 });
-
-export const modalIsOpenState = atom({
-  key: 'modalIsOpenState',
-  default: true,
-});

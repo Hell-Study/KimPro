@@ -15,7 +15,7 @@ import {
 } from 'utils/priceCalc';
 import { fetchUpbitMarketCode } from 'api/upbit/fetchUpbitMarketCode';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
-import { convertDate, replaceDate } from 'utils';
+import { replaceDate } from 'utils';
 
 export interface IUpbitTicker {
   code: string;

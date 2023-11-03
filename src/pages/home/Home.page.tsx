@@ -4,11 +4,10 @@ import { ChartRight } from 'components/ChartRight';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChatBox } from 'components/ChatBox';
 import { Widget } from 'components/Widget';
-import { modalIsOpenState } from 'recoil/atoms/upbitAtoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Header } from 'components/common/Header';
 import RealTimeChart from 'components/bithumb/RealTimeChart';
-import { baseExchangeState } from 'recoil/atoms/commonAtoms';
+import { baseExchangeState, modalIsOpenState } from 'recoil/atoms/commonAtoms';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);

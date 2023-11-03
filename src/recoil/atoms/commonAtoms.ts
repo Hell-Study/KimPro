@@ -6,6 +6,11 @@ export const baseExchangeState = atom<string>({
   default: 'upbit',
 });
 
+export const modalIsOpenState = atom<boolean>({
+  key: 'modalIsOpenState',
+  default: false,
+});
+
 export const selectedCoinState = atom<string>({
   key: 'selectedCoinState',
   default: 'BTC',
@@ -16,7 +21,7 @@ export const selectedCoinInfoState = atom<ITicker | null>({
   default: null,
 });
 
-export const searchCoinState = atom({
+export const searchCoinState = atom<string>({
   key: 'searchCoinState',
   default: '',
 });
