@@ -47,8 +47,8 @@ export const Rate = styled.span<RateProps>`
   font-weight: 500;
   font-size: 0.7rem;
   margin-left: 3px;
-  color: ${(props) =>
-    props.$isPositive ? props.theme.colors.red : props.theme.colors.blue};
+  color: ${({ $isPositive, theme }) =>
+    $isPositive ? theme.colors.red : theme.colors.blue};
 `;
 
 export const HeaderWrapper = styled.div`

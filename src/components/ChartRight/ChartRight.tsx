@@ -59,10 +59,10 @@ function ChartRight() {
       });
 
       newSeries.current = chart.current.addCandlestickSeries({
-        upColor: 'rgb( 239, 83, 80)',
-        wickUpColor: 'rgb( 239, 83, 80)',
-        downColor: 'rgb(42,127,255)',
-        wickDownColor: 'rgb(42,127,255)',
+        upColor: theme.colors.red,
+        wickUpColor: theme.colors.red,
+        downColor: theme.colors.blue,
+        wickDownColor: theme.colors.blue,
         borderVisible: false,
       });
 
@@ -99,15 +99,13 @@ function ChartRight() {
               <styled.CoinSymbol>/{selectedCoinInfo.symbol}</styled.CoinSymbol>
             </styled.CoinIdentity>
 
-            <styled.CoinPrice
-              $isPositive={selectedCoinInfo.changeRatio > 0 ? 'true' : 'false'}
-            >
+            <styled.CoinPrice $isPositive={selectedCoinInfo.changeRatio > 0}>
               {selectedCoinInfo.tradePrice.toLocaleString('ko-KR')} KRW
             </styled.CoinPrice>
           </styled.CoinInfo>
 
           <styled.CoinChangeWrapper
-            $isPositive={selectedCoinInfo.changeRatio > 0 ? 'true' : 'false'}
+            $isPositive={selectedCoinInfo.changeRatio > 0}
           >
             <styled.CoinChangeRate>
               <span>전일대비</span>

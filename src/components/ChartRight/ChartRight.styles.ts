@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface FontColorProps {
-  $isPositive: string;
+  $isPositive: boolean;
 }
 
 export const ChartContainer = styled.div`
@@ -56,8 +56,8 @@ export const CoinSymbol = styled.div`
 
 export const CoinPrice = styled.div<FontColorProps>`
   flex: 1;
-  color: ${(props) =>
-    props.$isPositive ? props.theme.colors.red : props.theme.colors.blue};
+  color: ${({ $isPositive, theme }) =>
+    $isPositive ? theme.colors.red : theme.colors.blue};
   span {
     font-size: 0.9rem;
   }
@@ -68,8 +68,8 @@ export const CoinChangeWrapper = styled.div<FontColorProps>`
   margin-left: auto;
   font-size: 0.8rem;
   margin-bottom: 8px;
-  color: ${(props) =>
-    props.$isPositive ? props.theme.colors.red : props.theme.colors.blue};
+  color: ${({ $isPositive, theme }) =>
+    $isPositive ? theme.colors.red : theme.colors.blue};
 `;
 
 export const CoinChangeRate = styled.div`
