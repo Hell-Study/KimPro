@@ -3,7 +3,7 @@ import styled, { DefaultTheme } from 'styled-components';
 export const CoinBox = styled.div<{ $selected: boolean }>`
   height: 4rem;
   display: grid;
-  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.4fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr;
   padding: 0.625rem 0.9375rem;
   border-radius: 15px;
 
@@ -29,6 +29,7 @@ export const CoinIconWrap = styled.div`
 export const CoinIcon = styled.img`
   width: 1.6875rem;
   height: 1.6875rem;
+  margin-right: 0.9375rem;
 `;
 
 export const CoinLeftWrap = styled(CoinIconWrap)`

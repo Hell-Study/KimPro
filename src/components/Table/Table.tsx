@@ -17,10 +17,10 @@ export const Table = () => {
   return (
     <styled.TableContainer>
       <TableNav />
-      <styled.TableBox>
+      <styled.TableBoxWrap>
         <TableHeader />
         <TableBox />
-      </styled.TableBox>
+      </styled.TableBoxWrap>
     </styled.TableContainer>
   );
 };
