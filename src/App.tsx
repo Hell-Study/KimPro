@@ -19,7 +19,7 @@ function App() {
           <div className="App">
             <Suspense fallback={<div>로딩중...</div>}>
               <Routes>
-                <Route path="/Final-Project" element={<Home />}></Route>
+                <Route path="/" element={<Home />}></Route>
               </Routes>
             </Suspense>
           </div>
