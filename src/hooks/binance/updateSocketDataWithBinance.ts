@@ -1,5 +1,5 @@
 import { IBinanceTicker } from './useBinanceTicker';
-import { ITicker } from '../../@types/common';
+import { ITicker } from '../../@types/common.types';
 import { removeUSDT } from 'utils';
 
 export function updateSocketDataWithBinance(

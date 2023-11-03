@@ -11,7 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import { selectedCoinInfoState } from 'recoil/atoms/commonAtoms';
-import { ITicker } from '../../@types/common';
+import type { ITicker } from '../../@types/common.types';
 
 interface IProps {
   processedData: CandlestickData[];

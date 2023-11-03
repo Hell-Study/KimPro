@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import useBinanceTicker from 'hooks/binance/useBinanceTicker';
 import { baseExchangeState } from 'recoil/atoms/commonAtoms';
 import { useRecoilValue } from 'recoil';
-import { ITicker } from '../@types/common';
+import type { ITicker } from '../@types/common.types';
 import type { IBithumbWsTicker } from '../@types/bithumb.types';
 import { updateSocketDataWithBinance } from './binance/updateSocketDataWithBinance';
 import {

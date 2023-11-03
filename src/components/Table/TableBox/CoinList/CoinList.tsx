@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as styled from './CoinList.styles';
-import { ITicker } from '../../../../@types/common';
+import type { ITicker } from '../../../../@types/common.types';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {

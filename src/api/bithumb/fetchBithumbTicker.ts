@@ -1,4 +1,4 @@
-import { ITicker } from '../../@types/common';
+import type { ITicker } from '../../@types/common.types';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import { changes, changesRatio, convertDate, highRatio, lowRatio } from 'utils';
 import { matchCoingecko } from 'utils';

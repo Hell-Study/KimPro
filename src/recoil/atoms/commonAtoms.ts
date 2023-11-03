@@ -1,4 +1,4 @@
-import { ITicker } from '../../@types/common';
+import type { ITicker } from '../../@types/common.types';
 import { atom } from 'recoil';
 
 export const baseExchangeState = atom<string>({
