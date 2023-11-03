@@ -22,7 +22,7 @@ export interface UpdatedCandleData {
   close: number | undefined;
 }
 
-function useCreateChart() {
+export const useCreateChart = () => {
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const [fetchedData, setFetchedData] = useState<CandleData[] | null>(null);
@@ -89,5 +89,4 @@ function useCreateChart() {
   }, [selectedCoinInfo]);
 
   return { processedData, updatedCandle };
-}
-export default useCreateChart;
+};

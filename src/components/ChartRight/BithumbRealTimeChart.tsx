@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import ChartComponent from './ChartComponent';
+import BithumbChartComponent from './BithumbChartComponent';
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
 import type { IBithumbFetchCandlestick } from '../../@types/bithumb.types';
 import { CandlestickData } from 'lightweight-charts';
@@ -10,7 +10,7 @@ import {
   selectedCoinState,
 } from 'recoil/atoms/commonAtoms';
 
-function RealTimeChart() {
+function BithumbRealTimeChart() {
   const selectedCoin = useRecoilValue(selectedCoinState);
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const [fetchedData, setFetchedData] = useState<IBithumbFetchCandlestick[]>(
@@ -71,13 +71,13 @@ function RealTimeChart() {
   return (
     <>
       {updatedCandle && (
-        <ChartComponent
+        <BithumbChartComponent
           processedData={processedData}
           updatedCandle={updatedCandle}
-        ></ChartComponent>
+        ></BithumbChartComponent>
       )}
     </>
   );
 }
 
-export default memo(RealTimeChart);
+export default memo(BithumbRealTimeChart);

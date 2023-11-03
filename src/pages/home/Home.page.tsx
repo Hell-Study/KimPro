@@ -6,7 +6,7 @@ import { ChatBox } from 'components/ChatBox';
 import { Widget } from 'components/Widget';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Header } from 'components/common/Header';
-import RealTimeChart from 'components/bithumb/RealTimeChart';
+import BithumbRealTimeChart from 'components/ChartRight/BithumbRealTimeChart';
 import { baseExchangeState, modalIsOpenState } from 'recoil/atoms/commonAtoms';
 
 export const Home: React.FC = () => {
@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
         <Widget />
         <styled.ChartsWrapper>
           <ChartLeft />
-          {baseExchange === 'upbit' ? <ChartRight /> : <RealTimeChart />}
+          {baseExchange === 'upbit' ? <ChartRight /> : <BithumbRealTimeChart />}
         </styled.ChartsWrapper>
         <Table />
         <ChatBox />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
-import * as styled from './Widget.styles';
+import * as styled from '../Widget.styles';
 
 interface CarouselProps {
   children: React.ReactNode[];

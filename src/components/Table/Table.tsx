@@ -2,7 +2,7 @@ import * as styled from './Table.styles';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
+import { useFetchExchangeRate } from 'hooks/binance';
 import { TableNav } from './TableNav';
 import { TableHeader } from './TableHeader';
 import { TableBox } from './TableBox';

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useWidgetTickers } from 'hooks/useWidgetTickers';
+import { useWidgetTickers } from 'hooks';
 import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
 import { getFormattedValues } from 'utils';
 import { formatNumber } from 'utils';
-import type { IWidgetTicker } from './Widget.types';
-import * as styled from './Widget.styles';
+import type { IWidgetTicker } from '../Widget.types';
+import * as styled from '../Widget.styles';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 
 interface IWidgetTickerProps {

@@ -7,11 +7,7 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
 import { AiFillMessage } from 'react-icons/ai';
 import * as styled from './ChatBox.styles';
-
-import {
-  updateNickname,
-  saveUserInfoToLocalStorage,
-} from 'hooks/useChatboxHelper';
+import { updateNickname, saveUserInfoToLocalStorage } from 'hooks';
 
 const ChatBox = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);

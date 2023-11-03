@@ -4,7 +4,7 @@ interface IExchangeRate {
   value: number;
 }
 
-const useFetchExchangeRate = () => {
+export const useFetchExchangeRate = () => {
   const [exchangeRate, setExchangeRate] = useState<number>(0);
   const SSE_URL = process.env.REACT_APP_FX_IDC_API_URL;
 
@@ -32,5 +32,3 @@ const useFetchExchangeRate = () => {
 
   return { exchangeRate };
 };
-
-export default useFetchExchangeRate;

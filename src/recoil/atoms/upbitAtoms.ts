@@ -1,4 +1,4 @@
-import type { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
+import { IUpbitMarketCode } from '../../@types/upbit.types';
 import { atom } from 'recoil';
 
 export const upbitMarketCodesState = atom<IUpbitMarketCode[]>({

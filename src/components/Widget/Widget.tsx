@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWidgetTickers } from 'hooks/useWidgetTickers';
+import { useWidgetTickers } from 'hooks';
 import { PAIR_DATA } from './Widget.constants';
 import { ChartWidget } from './ChartWidget';
 import { TickerWidget } from './TickerWidget';

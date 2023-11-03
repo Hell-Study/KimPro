@@ -1,14 +1,7 @@
+import type { IBinanceTicker } from '../../@types/binance.types';
 import { useState, useEffect } from 'react';
 
-export interface IBinanceTicker {
-  e: string; // Event type
-  E: number; // Event time
-  s: string; // Symbol
-  c: string; //  Last price
-  Q: string; //  Last quantity
-}
-
-const useBinanceTicker = () => {
+export const useBinanceTicker = () => {
   const [binanceTickers, setBinanceTickers] = useState<IBinanceTicker[] | null>(
     null,
   );
@@ -44,5 +37,3 @@ const useBinanceTicker = () => {
 
   return { binanceTickers };
 };
-
-export default useBinanceTicker;

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectState } from 'recoil/atoms/selectStateAtoms';
-import { TRADING_VIEW_SYMBOLS } from './ChartLeft.constant';
+import { TRADING_VIEW_SYMBOLS } from '../ChartLeft.constant';
 import { themeState } from 'recoil/atoms/themeAtoms';
 import { useTheme } from 'styled-components';
-import * as styled from './ChartLeft.styles';
+import * as styled from '../ChartLeft.styles';
 declare global {
   interface Window {
     TradingView: any;
@@ -13,7 +13,7 @@ declare global {
 
 let tvScriptLoadingPromise: Promise<void> | undefined;
 
-export default function TradingViewWidget() {
+export function TradingViewWidget() {
   const currentTheme = useRecoilValue(themeState);
   const selectedOption = useRecoilValue(selectState);
   const onLoadScriptRef = useRef<null | (() => void)>(null);

@@ -1,4 +1,4 @@
-import type { IUpbitMarketCode } from 'hooks/upbit/useUpbitTicker';
+import { IUpbitMarketCode } from '../../@types/upbit.types';
 
 export const fetchUpbitMarketCode = async () => {
   const REST_API_URL = 'https://api.upbit.com/v1/market/all?isDetails=false';

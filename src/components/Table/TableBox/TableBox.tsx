@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import * as styled from './TableBox.styles';
-import useGetTicker from 'hooks/useGetTicker';
+import { useGetTicker } from 'hooks';
 import { useRecoilValue } from 'recoil';
 import { searchCoinState } from 'recoil/atoms/commonAtoms';
 import {

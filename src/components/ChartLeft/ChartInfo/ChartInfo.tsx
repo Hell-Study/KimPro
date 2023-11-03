@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { selectState } from 'recoil/atoms/selectStateAtoms';
-import { TRADING_VIEW_TICKERS } from './ChartLeft.constant';
-import * as styled from './ChartLeft.styles';
+import { TRADING_VIEW_TICKERS } from '../ChartLeft.constant';
+import * as styled from '../ChartLeft.styles';
 
 export const ChartInfo = () => {
   const selectedOption = useRecoilValue(selectState);

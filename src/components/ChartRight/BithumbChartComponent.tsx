@@ -6,7 +6,7 @@ import {
   IChartApi,
   ISeriesApi,
 } from 'lightweight-charts';
-import * as styled from '../ChartRight/ChartRight.styles';
+import * as styled from './ChartRight.styles';
 import { useRecoilValue } from 'recoil';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
@@ -18,7 +18,7 @@ interface IProps {
   updatedCandle: CandlestickData;
 }
 
-export default function ChartComponent({
+export default function BithumbChartComponent({
   processedData,
   updatedCandle,
 }: IProps) {
