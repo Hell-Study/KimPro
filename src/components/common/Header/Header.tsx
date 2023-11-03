@@ -51,7 +51,11 @@ function Header() {
     <styled.HeaderContainer>
       <styled.Topbar>
         <styled.Inner>
-          <div>환율(USD/KRW): {exchangeRate || null}</div>
+          <div>
+            <styled.Label>환율(USD/KRW)</styled.Label>
+            {exchangeRate || null}
+          </div>
+
           {globalCoin && (
             <>
               <div>
@@ -108,7 +112,7 @@ function Header() {
       </styled.Topbar>
       <styled.HeaderWrapper>
         <styled.InnerSpaceBetween>
-          <styled.Logo href="/Final-Project">
+          <styled.Logo to="/Final-Project">
             <img
               src={isDarkMode ? LogoDark : LogoLight}
               alt="logo"
