@@ -4,9 +4,9 @@ import type { ITicker } from '../../../../@types/common.types';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {
-  selectedCoinInfoState,
   selectedCoinState,
-} from 'recoil/atoms/commonAtoms';
+  selectedCoinInfoState,
+} from 'recoil/atoms/tableAtoms';
 import { judgeColor } from 'utils';
 import { convertMillonWon } from 'utils';
 import {

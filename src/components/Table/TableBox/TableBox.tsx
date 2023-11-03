@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import * as styled from './TableBox.styles';
 import { useGetTicker } from 'hooks';
 import { useRecoilValue } from 'recoil';
-import { searchCoinState } from 'recoil/atoms/commonAtoms';
+import { searchCoinState } from 'recoil/atoms/tableAtoms';
 import {
   tableSortUpDownState,
   tableSortValueState,

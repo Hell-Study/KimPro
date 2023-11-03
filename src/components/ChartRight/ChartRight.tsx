@@ -3,13 +3,15 @@ import { createChart, CrosshairMode } from 'lightweight-charts';
 import type { IChartApi, ISeriesApi } from 'lightweight-charts';
 import { useCreateChart } from 'hooks/upbit';
 import { useRecoilValue } from 'recoil';
+import { selectedCoinInfoState } from 'recoil/atoms/tableAtoms';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import * as styled from './ChartRight.styles';
-import { selectedCoinInfoState } from 'recoil/atoms/commonAtoms';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateChart();
+  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
+
   const theme = useTheme();
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -79,8 +81,6 @@ function ChartRight() {
       newSeries.current.update(updatedCandle);
     }
   }, [updatedCandle]);
-
-  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
 
   return (
     <styled.ChartContainer>

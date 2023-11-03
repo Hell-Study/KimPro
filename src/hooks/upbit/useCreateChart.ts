@@ -3,11 +3,11 @@ import { fetchUpbitDayCandle } from 'api/upbit/fetchUpbitDayCandle';
 import { CandlestickData } from 'lightweight-charts';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { baseExchangeState } from 'recoil/atoms/commonAtoms';
 import {
-  baseExchangeState,
-  selectedCoinInfoState,
   selectedCoinState,
-} from 'recoil/atoms/commonAtoms';
+  selectedCoinInfoState,
+} from 'recoil/atoms/tableAtoms';
 import { getTodayDate } from 'utils';
 
 export const useCreateChart = () => {
