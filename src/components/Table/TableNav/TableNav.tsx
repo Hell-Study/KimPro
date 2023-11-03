@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import * as styled from './TableNav.styles';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { baseExchangeState, marketCodesState } from 'recoil/atoms/commonAtoms';
@@ -7,7 +8,7 @@ import { SELECT_OPTION, SELECT_SINGLE_OPTION } from '../Table.constant';
 import { BsArrowLeftRight } from 'react-icons/bs';
 
 export const TableNav = () => {
-  const setBaseExchange = useSetRecoilState(baseExchangeState);
+  const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
   const setSelectedCoin = useSetRecoilState(selectedCoinState);
   const marketCodes = useRecoilValue(marketCodesState);
 
@@ -15,6 +16,10 @@ export const TableNav = () => {
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchCoin(e.target.value);
   };
+
+  useEffect(() => {
+    setSelectedCoin('BTC');
+  }, [baseExchange]);
 
   return (
     <styled.TableNav>
@@ -24,7 +29,6 @@ export const TableNav = () => {
           optionData={SELECT_OPTION}
           onChange={(value) => {
             setBaseExchange(value);
-            setSelectedCoin('BTC');
           }}
         />
         <BsArrowLeftRight />
