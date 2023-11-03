@@ -1,7 +1,7 @@
 import { createChart, ColorType, UTCTimestamp } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 import useChartTickers from 'hooks/useChartTickers';
-import { IWidgetTicker } from './Widget.types';
+import type { IWidgetTicker } from './Widget.types';
 
 interface IWidgetTickerProps {
   pairId: string;

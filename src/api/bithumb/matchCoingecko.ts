@@ -1,4 +1,4 @@
-import { ICoingeckoCoinData } from 'recoil/atoms/coingeckoAtoms';
+import type { ICoingeckoCoinData } from 'recoil/atoms/coingeckoAtoms';
 
 export default function matchCoingecko(
   coingeckoCoinData: ICoingeckoCoinData[],

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Interval } from 'components/Widget/Widget.constants';
-import { IWidgetTicker } from 'components/Widget/Widget.types';
+import type { IWidgetTicker } from 'components/Widget/Widget.types';
 
 export default async function getChartWidgetData(
   pairId: string,
