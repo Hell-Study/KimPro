@@ -22,6 +22,11 @@ export const CoinInfoContainer = styled.div`
 
 export const CoinImgWrapper = styled.div``;
 
+export const CoinImg = styled.img`
+  width: 45px;
+  height: 45px;
+`;
+
 export const CoinInfo = styled.div`
   display: flex;
   flex-direction: column;

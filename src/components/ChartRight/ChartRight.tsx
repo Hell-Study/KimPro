@@ -93,13 +93,8 @@ function ChartRight() {
       {selectedCoinInfo !== null && (
         <styled.CoinInfoContainer>
           <styled.CoinImgWrapper>
-            <img
+            <styled.CoinImg
               alt={`${selectedCoinInfo.symbol} 아이콘`}
-              width="45"
-              height="45px"
-              decoding="async"
-              data-nimg="1"
-              className="rounded-full"
               src={`https://static.upbit.com/logos/${selectedCoinInfo.symbol}.png`}
               loading="lazy"
             />
