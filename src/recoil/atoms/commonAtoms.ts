@@ -11,6 +11,11 @@ export const modalIsOpenState = atom<boolean>({
   default: false,
 });
 
+export const marketCodesState = atom<string[]>({
+  key: 'marketCodesState',
+  default: [],
+});
+
 export const selectedCoinState = atom<string>({
   key: 'selectedCoinState',
   default: 'BTC',

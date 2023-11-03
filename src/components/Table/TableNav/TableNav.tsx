@@ -1,16 +1,17 @@
 import * as styled from './TableNav.styles';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { baseExchangeState, searchCoinState } from 'recoil/atoms/commonAtoms';
-import { upbitMarketCodesState } from 'recoil/atoms/upbitAtoms';
-import { bithumbMarketCodesState } from 'recoil/atoms/bithumbAtoms';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  baseExchangeState,
+  marketCodesState,
+  searchCoinState,
+} from 'recoil/atoms/commonAtoms';
 import { CustomSelect } from 'components/CustomSelect';
 import { SELECT_OPTION, SELECT_SINGLE_OPTION } from '../Table.constant';
 import { BsArrowLeftRight } from 'react-icons/bs';
 
 export const TableNav = () => {
-  const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
-  const upbitMarketCodes = useRecoilValue(upbitMarketCodesState);
-  const bithumbMarketCodes = useRecoilValue(bithumbMarketCodesState);
+  const setBaseExchange = useSetRecoilState(baseExchangeState);
+  const marketCodes = useRecoilValue(marketCodesState);
 
   const [searchCoin, setSearchCoin] = useRecoilState(searchCoinState);
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,13 +33,7 @@ export const TableNav = () => {
         해외 거래소
       </styled.SelectWrapper>
       <styled.SearchWrapper>
-        <styled.CoinCount>
-          암호화폐 총{' '}
-          {baseExchange === 'upbit'
-            ? upbitMarketCodes.length
-            : bithumbMarketCodes.length}
-          개
-        </styled.CoinCount>
+        <styled.CoinCount>암호화폐 총 {marketCodes.length}개</styled.CoinCount>
 
         <styled.SearchForm>
           <styled.SearchIcon />

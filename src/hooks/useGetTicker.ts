@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useBinanceTicker } from 'hooks/binance';
-import { baseExchangeState } from 'recoil/atoms/commonAtoms';
-import { useRecoilValue } from 'recoil';
+import { baseExchangeState, marketCodesState } from 'recoil/atoms/commonAtoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import type { ITicker } from '../@types/common.types';
 import type { IBithumbWsTicker } from '../@types/bithumb.types';
 import { updateSocketDataWithBinance } from './binance';
@@ -20,13 +20,15 @@ import { IUpbitMarketCode, IUpbitTicker } from '../@types/upbit.types';
 
 export function useGetTicker() {
   const baseExchange = useRecoilValue(baseExchangeState);
+  const setMarketCodes = useSetRecoilState(marketCodesState);
   const { binanceTickers } = useBinanceTicker();
   const [socketDatas, setSocketDatas] = useState<ITicker[]>([]);
 
   const socket = useRef<WebSocket | null>(null);
 
-  const upbit = async () => {
+  const upbitWsTicker = async () => {
     const marketCodes = await fetchUpbitMarketCode();
+    setMarketCodes(marketCodes.map((marketCode) => marketCode.market));
 
     socket.current = new WebSocket('wss://api.upbit.com/websocket/v1');
     socket.current.onopen = () => {
@@ -130,9 +132,9 @@ export function useGetTicker() {
     };
   };
 
-  const bithumb = async () => {
+  const bithumbWsTicker = async () => {
     const { marketCodes, fetchData } = await fetchBithumbTicker();
-
+    setMarketCodes(marketCodes);
     setSocketDatas(fetchData);
     socket.current = new WebSocket('wss://pubwss.bithumb.com/pub/ws');
 
@@ -199,14 +201,15 @@ export function useGetTicker() {
 
   useEffect(() => {
     if (baseExchange === 'upbit') {
-      upbit();
+      upbitWsTicker();
     } else if (baseExchange === 'bithumb') {
-      bithumb();
+      bithumbWsTicker();
     }
     return () => {
       if (socket.current?.readyState !== 0) {
         socket.current?.close();
         setSocketDatas([]);
+        setMarketCodes([]);
       }
     };
   }, [baseExchange]);
