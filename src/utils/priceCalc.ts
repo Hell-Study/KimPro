@@ -1,34 +1,36 @@
-import { IUpbitTicker } from 'hooks/upbit/useUpbitTicker';
-
 // 공통
 // 김프
 export const binancePriceToKRW = (
-  binancePrice: string,
+  binancePrice: number,
   myExchangeRate: number,
-) => parseFloat(binancePrice) * myExchangeRate;
+) => binancePrice * myExchangeRate;
 
 // 김프 비율
 export const kimchiPremiumRatio = (
   nowPrice: number,
-  binancePrice: string,
+  binancePrice: number,
   myExchangeRate: number,
-) => (nowPrice / (parseFloat(binancePrice) * myExchangeRate) - 1) * 100;
+) => (nowPrice / (binancePrice * myExchangeRate) - 1) * 100;
 
 // 김프와 국내 거래소 가격 차이
 export const kimchiPremiumDiff = (
   nowPrice: number,
-  binancePrice: string,
+  binancePrice: number,
   myExchangeRate: number,
-) => nowPrice - parseFloat(binancePrice) * myExchangeRate;
+) => nowPrice - binancePrice * myExchangeRate;
 
 // 업비트
 // 고가 대비 증감률(52주)
-export const highest_52_week_rate = (data: IUpbitTicker) =>
-  (data.trade_price / data.highest_52_week_price - 1) * 100;
+export const highest_52_week_rate = (
+  trade_price: number,
+  highest_52_week_price: number,
+) => (trade_price / highest_52_week_price - 1) * 100;
 
 // 저가 대비 증감률(52주)
-export const lowest_52_week_rate = (data: IUpbitTicker) =>
-  (data.trade_price / data.lowest_52_week_price - 1) * 100;
+export const lowest_52_week_rate = (
+  trade_price: number,
+  lowest_52_week_price: number,
+) => (trade_price / lowest_52_week_price - 1) * 100;
 
 // 빗썸
 // 전일 대비 증감률

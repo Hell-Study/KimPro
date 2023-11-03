@@ -1,18 +1,18 @@
 import { memo, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import ChartComponent from './ChartComponent';
-import {
-  selectedBithumbCoinInfoState,
-  selectedBithumbCoinState,
-} from 'recoil/atoms/bithumbAtoms';
 import { fetchBithumbCandlestick } from 'api/bithumb/fetchBithumbCandlestick';
 import { IBithumbFetchCandlestick } from './Bithumb.type';
 import { CandlestickData } from 'lightweight-charts';
 import { convertDate } from 'utils';
+import {
+  selectedCoinInfoState,
+  selectedCoinState,
+} from 'recoil/atoms/commonAtoms';
 
 function RealTimeChart() {
-  const selectedBithumbCoin = useRecoilValue(selectedBithumbCoinState);
-  const selectedBithumbCoinInfo = useRecoilValue(selectedBithumbCoinInfoState);
+  const selectedCoin = useRecoilValue(selectedCoinState);
+  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   const [fetchedData, setFetchedData] = useState<IBithumbFetchCandlestick[]>(
     [],
   );
@@ -22,12 +22,12 @@ function RealTimeChart() {
   );
 
   useEffect(() => {
-    if (selectedBithumbCoin) {
-      fetchBithumbCandlestick(selectedBithumbCoin, '24h').then((res) => {
+    if (selectedCoin) {
+      fetchBithumbCandlestick(selectedCoin, '24h').then((res) => {
         setFetchedData(res);
       });
     }
-  }, [selectedBithumbCoin]);
+  }, [selectedCoin]);
 
   useEffect(() => {
     if (fetchedData) {
@@ -57,24 +57,16 @@ function RealTimeChart() {
   }, [fetchedData]);
 
   useEffect(() => {
-    if (selectedBithumbCoinInfo) {
-      if (selectedBithumbCoinInfo.date) {
-        setUpdatedCandle({
-          time: `${selectedBithumbCoinInfo.date.slice(
-            0,
-            4,
-          )}-${selectedBithumbCoinInfo.date.slice(
-            4,
-            6,
-          )}-${selectedBithumbCoinInfo.date.slice(6, 8)}`,
-          open: Number(selectedBithumbCoinInfo.opening_price),
-          high: Number(selectedBithumbCoinInfo.max_price),
-          low: Number(selectedBithumbCoinInfo.min_price),
-          close: Number(selectedBithumbCoinInfo.closing_price),
-        });
-      }
+    if (selectedCoinInfo) {
+      setUpdatedCandle({
+        time: selectedCoinInfo.date,
+        open: selectedCoinInfo.openingPrice,
+        high: selectedCoinInfo.highestPrice,
+        low: selectedCoinInfo.lowestPrice,
+        close: selectedCoinInfo.tradePrice,
+      });
     }
-  }, [selectedBithumbCoinInfo]);
+  }, [selectedCoinInfo]);
 
   return (
     <>

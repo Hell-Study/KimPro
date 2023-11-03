@@ -1,57 +1,49 @@
-import * as styled from './Table.styles';
-import { IBithumbTicker } from 'components/bithumb/Bithumb.type';
-import { convertMillonWon } from 'utils/convertMillonWon';
 import { useEffect } from 'react';
+import * as styled from './CoinList.styles';
+import { ITicker } from '../../../../@types/common';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import { judgeColor } from 'utils';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import {
+  selectedCoinInfoState,
+  selectedCoinState,
+} from 'recoil/atoms/commonAtoms';
+import { judgeColor } from 'utils';
+import { convertMillonWon } from 'utils';
+import {
   binancePriceToKRW,
-  changes,
-  changesRatio,
-  highRatio,
   kimchiPremiumDiff,
   kimchiPremiumRatio,
-  lowRatio,
 } from 'utils';
-import {
-  selectedBithumbCoinInfoState,
-  selectedBithumbCoinState,
-} from 'recoil/atoms/bithumbAtoms';
-import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
 
 interface IProps {
-  socketData: IBithumbTicker;
+  socketData: ITicker;
 }
 
-export default function CoinList({ socketData }: IProps) {
+export function CoinList({ socketData }: IProps) {
   const {
     symbol,
-    closing_price,
-    prev_closing_price,
-    min_price,
-    max_price,
-    acc_trade_value_24H,
+    coinName,
+    thumbnail,
+    tradePrice,
+    changeRatio,
+    changePrice,
+    highestRatio,
+    highestPrice,
+    lowestRatio,
+    lowestPrice,
+    tradeValue_24H,
     binancePrice,
   } = socketData;
 
-  const [selectedBithumbCoin, setSelectedBithumbCoin] = useRecoilState(
-    selectedBithumbCoinState,
-  );
-  const setSelectedBithumbCoinInfo = useSetRecoilState(
-    selectedBithumbCoinInfoState,
-  );
-  const { thumb, coinName } = useMatchCoingecko(symbol);
-  const nowPrice = Number(closing_price);
+  const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
+  const setSelectedCoinInfo = useSetRecoilState(selectedCoinInfoState);
 
   useEffect(() => {
-    if (socketData.symbol === selectedBithumbCoin) {
-      setSelectedBithumbCoinInfo(socketData);
-    }
-  }, [selectedBithumbCoin, socketData]);
+    if (symbol === selectedCoin) setSelectedCoinInfo(socketData);
+  }, [selectedCoin, socketData]);
 
   const clickCoinHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    setSelectedBithumbCoin(e.currentTarget.id);
+    setSelectedCoin(e.currentTarget.id);
   };
 
   const myExchangeRate = useRecoilValue(exchangeRateState);
@@ -60,12 +52,12 @@ export default function CoinList({ socketData }: IProps) {
     <styled.CoinBox
       id={symbol}
       onClick={clickCoinHandler}
-      $selected={selectedBithumbCoin === socketData.symbol}
+      $selected={selectedCoin === symbol}
     >
       <styled.CoinIconWrap>
         <styled.CoinIcon
           alt={`${coinName} 아이콘`}
-          src={thumb}
+          src={thumbnail}
           loading="lazy"
         />
       </styled.CoinIconWrap>
@@ -77,7 +69,7 @@ export default function CoinList({ socketData }: IProps) {
 
       <styled.CoinRightWrap>
         <styled.CoinKoreanPrice>
-          {Number(closing_price).toLocaleString('ko-KR')}
+          {tradePrice.toLocaleString('ko-KR')}
         </styled.CoinKoreanPrice>
         <styled.CoinSubText>{`${
           binancePrice
@@ -92,7 +84,7 @@ export default function CoinList({ socketData }: IProps) {
         <styled.CoinKimpRatio
           $isPositive={
             binancePrice
-              ? nowPrice > binancePriceToKRW(binancePrice, myExchangeRate)
+              ? tradePrice > binancePriceToKRW(binancePrice, myExchangeRate)
                 ? 'true'
                 : 'false'
               : 'none'
@@ -100,10 +92,10 @@ export default function CoinList({ socketData }: IProps) {
         >
           {binancePrice ? (
             <>
-              {kimchiPremiumRatio(nowPrice, binancePrice, myExchangeRate) > 0 &&
-                '+'}
+              {kimchiPremiumRatio(tradePrice, binancePrice, myExchangeRate) >
+                0 && '+'}
               {kimchiPremiumRatio(
-                nowPrice,
+                tradePrice,
                 binancePrice,
                 myExchangeRate,
               ).toFixed(2)}
@@ -116,10 +108,10 @@ export default function CoinList({ socketData }: IProps) {
         <styled.CoinSubText>
           {binancePrice ? (
             <>
-              {kimchiPremiumDiff(nowPrice, binancePrice, myExchangeRate) > 0 &&
-                '+'}
+              {kimchiPremiumDiff(tradePrice, binancePrice, myExchangeRate) >
+                0 && '+'}
               {kimchiPremiumDiff(
-                nowPrice,
+                tradePrice,
                 binancePrice,
                 myExchangeRate,
               ).toFixed(2)}
@@ -131,39 +123,37 @@ export default function CoinList({ socketData }: IProps) {
       </styled.CoinRightWrap>
 
       <styled.CoinRightWrap>
-        <styled.CoinChangeRatio $changeType={judgeColor(Number(changesRatio))}>
-          {changesRatio(closing_price, prev_closing_price) > 0 ? '+' : null}
-          {changesRatio(closing_price, prev_closing_price).toFixed(2)}%
+        <styled.CoinChangeRatio $changeType={judgeColor(changeRatio)}>
+          {changeRatio > 0 ? '+' : null}
+          {changeRatio.toFixed(2)}%
         </styled.CoinChangeRatio>
         <styled.CoinSubText>
-          {changes(closing_price, prev_closing_price).toLocaleString('ko-KR')}
+          {changePrice.toLocaleString('ko-KR')}
         </styled.CoinSubText>
       </styled.CoinRightWrap>
 
       <styled.CoinRightWrap>
         <styled.CoinHighestRatio>
-          {highRatio(closing_price, max_price) > 0 ? '+' : null}
-          {highRatio(closing_price, max_price).toFixed(2)}%
+          {highestRatio > 0 ? '+' : null}
+          {highestRatio.toFixed(2)}%
         </styled.CoinHighestRatio>
         <styled.CoinSubText>
-          {Number(max_price).toLocaleString('ko-KR')}
+          {highestPrice.toLocaleString('ko-KR')}
         </styled.CoinSubText>
       </styled.CoinRightWrap>
 
       <styled.CoinRightWrap>
         <styled.CoinLowestRatio>
-          {'+' + lowRatio(closing_price, min_price).toFixed(2) + '%'}
+          {'+' + lowestRatio.toFixed(2) + '%'}
         </styled.CoinLowestRatio>
         <styled.CoinSubText>
-          {Number(min_price).toLocaleString('ko-KR')}
+          {lowestPrice.toLocaleString('ko-KR')}
         </styled.CoinSubText>
       </styled.CoinRightWrap>
 
       <styled.CoinRightWrap>
         <styled.CoinSubText>
-          {Math.ceil(
-            convertMillonWon(Number(Number(acc_trade_value_24H))),
-          ).toLocaleString('ko-KR')}
+          {Math.ceil(convertMillonWon(tradeValue_24H)).toLocaleString('ko-KR')}
           백만
         </styled.CoinSubText>
       </styled.CoinRightWrap>

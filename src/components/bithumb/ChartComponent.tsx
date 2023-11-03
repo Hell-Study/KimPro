@@ -7,13 +7,11 @@ import {
   ISeriesApi,
 } from 'lightweight-charts';
 import * as styled from '../ChartRight/ChartRight.styles';
-import { selectedBithumbCoinInfoState } from 'recoil/atoms/bithumbAtoms';
 import { useRecoilValue } from 'recoil';
-import { changes, changesRatio } from 'utils';
-import useMatchCoingecko from 'hooks/bithumb/useMatchCoingecko';
-import { IBithumbTicker } from './Bithumb.type';
 import { useTheme } from 'styled-components';
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { selectedCoinInfoState } from 'recoil/atoms/commonAtoms';
+import { ITicker } from '../../@types/common';
 
 interface IProps {
   processedData: CandlestickData[];
@@ -93,16 +91,13 @@ export default function ChartComponent({
     }
   }, [updatedCandle]);
 
-  const selectedBithumbCoinInfo = useRecoilValue(selectedBithumbCoinInfoState);
-  const { symbol, closing_price, prev_closing_price } =
-    selectedBithumbCoinInfo as IBithumbTicker;
-  const { thumb, coinName } = useMatchCoingecko(
-    (selectedBithumbCoinInfo as IBithumbTicker).symbol,
-  );
+  const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
+  const { symbol, coinName, thumbnail, tradePrice, changeRatio, changePrice } =
+    selectedCoinInfo as ITicker;
 
   return (
     <styled.ChartContainer>
-      {selectedBithumbCoinInfo !== null && (
+      {selectedCoinInfo !== null && (
         <styled.CoinInfoContainer>
           <styled.CoinImgWrapper>
             <img
@@ -112,7 +107,7 @@ export default function ChartComponent({
               decoding="async"
               data-nimg="1"
               className="rounded-full"
-              src={thumb}
+              src={thumbnail}
             />
           </styled.CoinImgWrapper>
           <styled.CoinInfo>
@@ -121,35 +116,23 @@ export default function ChartComponent({
               <styled.CoinSymbol>/{symbol}</styled.CoinSymbol>
             </styled.CoinIdentity>
 
-            <styled.CoinPrice
-              $isPositive={Number(closing_price) > 0 ? 'true' : 'false'}
-            >
-              {Number(closing_price).toLocaleString('ko-KR')}{' '}
+            <styled.CoinPrice $isPositive={tradePrice > 0 ? 'true' : 'false'}>
+              {tradePrice.toLocaleString('ko-KR')}{' '}
               <span style={{ fontSize: '0.9rem' }}>KRW</span>
             </styled.CoinPrice>
           </styled.CoinInfo>
 
           <styled.CoinChangeWrapper
-            $isPositive={
-              changesRatio(closing_price, prev_closing_price) > 0
-                ? 'true'
-                : 'false'
-            }
+            $isPositive={changeRatio > 0 ? 'true' : 'false'}
           >
             <styled.CoinChangeRate>
               <span>전일대비</span>
-              {changesRatio(closing_price, prev_closing_price) > 0 ? (
-                <FaCaretUp />
-              ) : (
-                <FaCaretDown />
-              )}
-              {changesRatio(closing_price, prev_closing_price).toFixed(2)}%
+              {changeRatio > 0 ? <FaCaretUp /> : <FaCaretDown />}
+              {changeRatio.toFixed(2)}%
             </styled.CoinChangeRate>
             <styled.CoinChangePrice>
-              {changes(closing_price, prev_closing_price) > 0 ? '+' : '-'}
-              {Math.abs(
-                changes(closing_price, prev_closing_price),
-              )?.toLocaleString('ko-KR')}
+              {changePrice > 0 ? '+' : '-'}
+              {Math.abs(changePrice).toLocaleString('ko-KR')}
             </styled.CoinChangePrice>
           </styled.CoinChangeWrapper>
         </styled.CoinInfoContainer>

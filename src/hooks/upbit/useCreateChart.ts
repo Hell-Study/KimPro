@@ -15,11 +15,7 @@ export interface CandleData {
 }
 
 export interface UpdatedCandleData {
-  time: {
-    day: string;
-    month: string;
-    year: string;
-  };
+  time: string;
   open: number | undefined;
   high: number | undefined;
   low: number | undefined;
@@ -43,7 +39,7 @@ function useCreateChart() {
   ) {
     try {
       const response = await fetch(
-        `https://api.upbit.com/v1/candles/days?market=${marketCode}&to=${date}T09:00:00Z&count=${count}&convertingPriceUnit=KRW`,
+        `https://api.upbit.com/v1/candles/days?market=KRW-${marketCode}&to=${date}T09:00:00Z&count=${count}&convertingPriceUnit=KRW`,
         options,
       );
       const result = await response.json();
@@ -55,17 +51,18 @@ function useCreateChart() {
 
   useEffect(() => {
     if (selectedCoin) {
-      const cachedData = sessionStorage.getItem(selectedCoin[0].market); // 시장 코드를 키로 사용
+      const cachedData = sessionStorage.getItem(selectedCoin); // 시장 코드를 키로 사용
       if (cachedData) {
         setFetchedData(JSON.parse(cachedData));
       } else {
-        fetchDayCandle(selectedCoin[0].market, getTodayDate(), 200);
+        fetchDayCandle(selectedCoin, getTodayDate(), 200);
       }
     }
   }, [selectedCoin]);
 
   useEffect(() => {
     if (fetchedData) {
+      console.log(fetchedData);
       const processed = [...fetchedData].reverse().map((data: any) => {
         return {
           time: data.candle_date_time_kst.slice(0, 10), // 2023-10-08T09:00:00에서 T전까지
@@ -76,25 +73,18 @@ function useCreateChart() {
         };
       });
       setProcessedData(processed);
-      sessionStorage.setItem(
-        selectedCoin[0].market,
-        JSON.stringify(fetchedData),
-      );
+      sessionStorage.setItem(selectedCoin, JSON.stringify(fetchedData));
     }
   }, [fetchedData]);
 
   useEffect(() => {
     if (selectedCoinInfo) {
       setUpdatedCandle({
-        time: {
-          day: selectedCoinInfo[0]?.trade_date?.slice(6, 8),
-          month: selectedCoinInfo[0]?.trade_date?.slice(4, 6),
-          year: selectedCoinInfo[0]?.trade_date?.slice(0, 4),
-        },
-        open: selectedCoinInfo[0]?.opening_price,
-        high: selectedCoinInfo[0]?.high_price,
-        low: selectedCoinInfo[0]?.low_price,
-        close: selectedCoinInfo[0]?.trade_price,
+        time: selectedCoinInfo.date,
+        open: selectedCoinInfo.openingPrice,
+        high: selectedCoinInfo.highestPrice,
+        low: selectedCoinInfo.lowestPrice,
+        close: selectedCoinInfo.tradePrice,
       });
     }
   }, [selectedCoinInfo]);
