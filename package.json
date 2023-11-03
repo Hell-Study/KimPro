@@ -34,7 +34,7 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://api.kimpro.site/",
+  "homepage": "https://kimpro.site/",
   "eslintConfig": {
     "extends": [
       "react-app",
