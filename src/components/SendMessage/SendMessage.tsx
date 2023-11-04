@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createMessages } from '../../firebase/createMessages';
-import { RiSendPlaneFill } from 'react-icons/ri';
+import { RiSendPlaneFill } from '@react-icons/all-files/ri/RiSendPlaneFill';
 import * as styled from './SendMessage.styles';
 import swal from 'sweetalert';
 

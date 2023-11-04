@@ -5,7 +5,7 @@ import { MessageType } from 'components/Message/Message.types';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
-import { AiFillMessage } from 'react-icons/ai';
+import { AiFillMessage } from '@react-icons/all-files/ai/AiFillMessage';
 import * as styled from './ChatBox.styles';
 import { updateNickname, saveUserInfoToLocalStorage } from 'hooks';
 

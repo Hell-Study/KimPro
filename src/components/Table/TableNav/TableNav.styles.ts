@@ -1,4 +1,4 @@
-import { CiSearch } from 'react-icons/ci';
+import { CgSearch } from '@react-icons/all-files/cg/CgSearch';
 import styled from 'styled-components';
 
 export const TableNav = styled.div`
@@ -55,7 +55,7 @@ export const SearchForm = styled.form`
   }
 `;
 
-export const SearchIcon = styled(CiSearch)`
+export const SearchIcon = styled(CgSearch)`
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;

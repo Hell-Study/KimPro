@@ -5,8 +5,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import { useTheme } from 'hooks';
-import { HiSun, HiMoon } from 'react-icons/hi2';
-import { DiGithubAlt } from 'react-icons/di';
+import { HiSun } from '@react-icons/all-files/hi/HiSun';
+import { HiMoon } from '@react-icons/all-files/hi/HiMoon';
+import { DiGithubAlt } from '@react-icons/all-files/di/DiGithubAlt';
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaSortUp } from '@react-icons/all-files/fa/FaSortUp';
+import { FaSortDown } from '@react-icons/all-files/fa/FaSortDown';
 
 export const TableHeaderItemContainer = styled.button<{ $value?: string }>`
   display: flex;
