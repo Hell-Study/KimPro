@@ -18,7 +18,7 @@ const CoinKimp = ({ binanceKRWPrice, kimpRatio, kimpDiff }: IProps) => {
           </styled.CoinKimpRatio>
           <styled.CoinSubText>
             {kimpDiff > 0 && '+'}
-            {kimpDiff.toFixed(2)}
+            {Number(kimpDiff.toFixed(2)).toLocaleString('ko-KR')}
           </styled.CoinSubText>
         </>
       )}
