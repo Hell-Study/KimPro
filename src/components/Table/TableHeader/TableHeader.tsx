@@ -5,21 +5,22 @@ import { TableHeaderItem } from './TableHeaderItem/TableHeaderItem';
 
 export const TableHeader = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
+  const headerItemList = [
+    '코인',
+    '현재가',
+    '김프',
+    '전일대비',
+    `고가대비${baseExchange === 'upbit' ? '(52주)' : '(전일)'}`,
+    `저가대비${baseExchange === 'upbit' ? '(52주)' : '(전일)'}`,
+    '거래액(일)',
+  ];
 
   return (
     <styled.TableHeaderContainer>
       <div></div>
-      <TableHeaderItem value="코인" />
-      <TableHeaderItem value="현재가" />
-      <TableHeaderItem value="김프" />
-      <TableHeaderItem value="전일대비" />
-      <TableHeaderItem
-        value={`고가대비${baseExchange === 'upbit' ? '(52주)' : '(전일)'}`}
-      />
-      <TableHeaderItem
-        value={`저가대비${baseExchange === 'upbit' ? '(52주)' : '(전일)'}`}
-      />
-      <TableHeaderItem value="거래액(일)" />
+      {headerItemList.map((headerItem) => (
+        <TableHeaderItem key={headerItem} value={headerItem} />
+      ))}
     </styled.TableHeaderContainer>
   );
 };
