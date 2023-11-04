@@ -19,12 +19,13 @@ import { CoinKimp } from './CoinKimp';
 import { CoinChange } from './CoinChange';
 import { CoinHighest } from './CoinHighest';
 import { CoinLowest } from './CoinLowest';
+import { ListChildComponentProps } from 'react-window';
 
-interface IProps {
-  socketData: ITicker;
-}
-
-const CoinList = ({ socketData }: IProps) => {
+const CoinList = ({
+  data: socketData,
+  index,
+  style,
+}: ListChildComponentProps) => {
   const {
     symbol,
     coinName,
@@ -38,14 +39,14 @@ const CoinList = ({ socketData }: IProps) => {
     lowestPrice,
     tradeValue_24H,
     binancePrice,
-  } = socketData;
+  }: ITicker = socketData[index];
 
   const [selectedCoin, setSelectedCoin] = useRecoilState(selectedCoinState);
   const setSelectedCoinInfo = useSetRecoilState(selectedCoinInfoState);
 
   useEffect(() => {
-    if (symbol === selectedCoin) setSelectedCoinInfo(socketData);
-  }, [selectedCoin, socketData]);
+    if (symbol === selectedCoin) setSelectedCoinInfo(socketData[index]);
+  }, [selectedCoin, socketData[index]]);
 
   const clickCoinHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     setSelectedCoin(e.currentTarget.id);
@@ -70,6 +71,7 @@ const CoinList = ({ socketData }: IProps) => {
       id={symbol}
       onClick={clickCoinHandler}
       $selected={selectedCoin === symbol}
+      style={style}
     >
       <CoinInfo coinName={coinName} thumbnail={thumbnail} symbol={symbol} />
       <CoinPrice tradePrice={tradePrice} binanceKRWPrice={binanceKRWPrice} />

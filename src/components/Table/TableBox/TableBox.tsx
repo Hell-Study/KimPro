@@ -125,10 +125,14 @@ export const TableBox = () => {
   }, [socketDatas, tableSortValue, tableSortUpDown]);
 
   return (
-    <styled.CoinListWrapper>
-      {filteredSocketDatas.map((socketData) => (
-        <CoinList key={socketData.symbol} socketData={socketData} />
-      ))}
+    <styled.CoinListWrapper
+      height={480}
+      itemCount={filteredSocketDatas.length}
+      itemSize={64}
+      width={1030}
+      itemData={filteredSocketDatas}
+    >
+      {CoinList}
     </styled.CoinListWrapper>
   );
 };
