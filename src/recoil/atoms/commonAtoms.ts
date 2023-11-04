@@ -10,14 +10,6 @@ export const modalIsOpenState = atom<boolean>({
   default: false,
 });
 
-export const modalIsOpenSelector = selector({
-  key: 'modalIsOpenSelector',
-  get: ({ get }) => {
-    const modalIsOpen = get(modalIsOpenState);
-    return modalIsOpen;
-  },
-});
-
 export const marketCodesState = atom<string[]>({
   key: 'marketCodesState',
   default: [],
