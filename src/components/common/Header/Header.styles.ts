@@ -11,18 +11,10 @@ export const HeaderContainer = styled.header`
   z-index: 3;
 `;
 
-export const Topbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.0625rem;
-  gap: 0.75rem;
-  font-size: 0.6875rem;
+export const Label = styled.span`
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.text1};
-  background-color: ${({ theme }) => theme.colors.bg_element5};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
-  transition: all 0.15s ease-out 0s;
+  margin-right: 0.375rem;
+  color: ${({ theme }) => theme.colors.text3};
 `;
 
 export const Inner = styled.div`
@@ -35,12 +27,6 @@ export const Inner = styled.div`
 
 export const InnerSpaceBetween = styled(Inner)`
   justify-content: space-between;
-`;
-
-export const Label = styled.span`
-  font-weight: 400;
-  margin-right: 0.375rem;
-  color: ${({ theme }) => theme.colors.text3};
 `;
 
 export const Rate = styled.span<RateProps>`
@@ -70,11 +56,26 @@ export const Logo = styled(Link)`
 
   & > img {
     width: 100px;
+    height: auto;
   }
 `;
 
 export const BtnGroup = styled.div`
   display: flex;
+`;
+
+export const Topbar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.0625rem;
+  gap: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.text1};
+  background-color: ${({ theme }) => theme.colors.bg_element5};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
+  transition: all 0.15s ease-out 0s;
 `;
 
 export const GithubButton = styled.button`
