@@ -5,7 +5,8 @@ import { getFormattedValues } from 'utils';
 import { formatNumber } from 'utils';
 import type { IWidgetTicker } from '../Widget.types';
 import * as styled from '../Widget.styles';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { FaCaretUp } from '@react-icons/all-files/fa/FaCaretUp';
+import { FaCaretDown } from '@react-icons/all-files/fa/FaCaretDown';
 
 interface IWidgetTickerProps {
   pairId: string;

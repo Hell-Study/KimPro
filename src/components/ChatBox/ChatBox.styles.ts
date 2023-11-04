@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown } from '@react-icons/all-files/fi/FiChevronDown';
 
 export const StyledModal = styled(Modal)`
   position: fixed;

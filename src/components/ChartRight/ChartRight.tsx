@@ -6,7 +6,8 @@ import { useRecoilValue } from 'recoil';
 import { selectedCoinInfoState } from 'recoil/atoms/tableAtoms';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import type { IChartApi, ISeriesApi } from 'lightweight-charts';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
+import { FaCaretUp } from '@react-icons/all-files/fa/FaCaretUp';
+import { FaCaretDown } from '@react-icons/all-files/fa/FaCaretDown';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateRightChart();

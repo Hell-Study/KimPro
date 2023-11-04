@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { FiChevronDown } from 'react-icons/fi';
-import { CgCheck } from 'react-icons/cg';
+import { FiChevronDown } from '@react-icons/all-files/fi/FiChevronDown';
+import { CgCheck } from '@react-icons/all-files/cg/CgCheck';
 
 export const SelectBox = styled.div<{ $disabled?: boolean }>`
   display: flex;

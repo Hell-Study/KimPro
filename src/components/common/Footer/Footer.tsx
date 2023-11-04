@@ -1,5 +1,5 @@
 import * as styled from './Footer.styles';
-import { DiGithubAlt } from 'react-icons/di';
+import { DiGithubAlt } from '@react-icons/all-files/di/DiGithubAlt';
 import { useTheme } from 'hooks';
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
