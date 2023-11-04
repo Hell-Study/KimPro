@@ -1,11 +1,12 @@
 import * as styled from './Footer.styles';
-import { DiGithubAlt } from '@react-icons/all-files/di/DiGithubAlt';
 import { useTheme } from 'hooks';
+import { useTheme as myUseTheme } from 'styled-components';
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
 
 function Footer() {
   const { theme, onChangeTheme } = useTheme();
+  const myTheme = myUseTheme();
   const isDarkMode = theme === 'dark';
 
   return (
@@ -32,7 +33,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <DiGithubAlt />
+                <styled.GithubSVG fill={myTheme.colors.icon} />
               </styled.GithubButton>
             </a>
             <styled.Name>어승준</styled.Name>
@@ -44,7 +45,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <DiGithubAlt />
+                <styled.GithubSVG fill={myTheme.colors.icon} />
               </styled.GithubButton>
             </a>
             <styled.Name>서지수</styled.Name>
@@ -56,7 +57,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <DiGithubAlt />
+                <styled.GithubSVG fill={myTheme.colors.icon} />
               </styled.GithubButton>
             </a>
             <styled.Name>박나영</styled.Name>

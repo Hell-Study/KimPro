@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Github } from 'assets/images/Github.svg';
 
 export const FooterContainer = styled.footer`
   display: grid;
@@ -58,6 +59,12 @@ export const GithubButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-right: -0.4rem;
+`;
+
+export const GithubSVG = styled(Github)`
+  width: 1rem;
+  height: 1rem;
+  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const Name = styled.div`

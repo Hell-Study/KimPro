@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { FiChevronDown } from '@react-icons/all-files/fi/FiChevronDown';
-import { CgCheck } from '@react-icons/all-files/cg/CgCheck';
+import { ReactComponent as ChevronDown } from 'assets/images/Chevron-Down.svg';
+import { ReactComponent as Check } from 'assets/images/Check.svg';
 
 export const SelectBox = styled.div<{ $disabled?: boolean }>`
   display: flex;
@@ -73,19 +73,19 @@ export const Option = styled.li`
   }
 `;
 
-export const DropdownIcon = styled(FiChevronDown)`
+export const ChevronDownSVG = styled(ChevronDown)`
+  fill: ${({ theme }) => theme.colors.icon};
   margin-left: auto;
-  color: ${({ theme }) => theme.colors.icon};
-  height: 1rem;
-  width: 1rem;
+  height: 0.75rem;
+  width: 0.75rem;
 `;
 
-export const Check = styled(CgCheck)<{ $isChecked: boolean }>`
-  color: ${(props) =>
+export const CheckSVG = styled(Check)<{ $isChecked: boolean }>`
+  fill: ${(props) =>
     props.$isChecked ? props.theme.colors.primary2 : 'transparent'};
   margin-left: auto;
-  height: auto;
-  width: 1.3rem;
+  width: 0.85rem;
+  height: 0.85rem;
 `;
 
 export const Symbol = styled.img`

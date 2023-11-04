@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { createMessages } from '../../firebase/createMessages';
-import { RiSendPlaneFill } from '@react-icons/all-files/ri/RiSendPlaneFill';
 import * as styled from './SendMessage.styles';
 import Swal from 'sweetalert2';
 
@@ -31,7 +30,7 @@ const SendMessage = () => {
           onChange={(e) => setMessage(e.target.value)}
         />
         <styled.SendMessageButton type="submit">
-          <RiSendPlaneFill />
+          <styled.PaperPlaneSVG />
         </styled.SendMessageButton>
       </styled.SendMessageWrapper>
     </styled.SendMessageForm>

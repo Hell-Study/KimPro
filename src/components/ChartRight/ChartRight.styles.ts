@@ -1,8 +1,19 @@
 import styled from 'styled-components';
+import { ReactComponent as CaretUp } from 'assets/images/Caret-Up.svg';
+import { ReactComponent as CaretDown } from 'assets/images/Caret-Down.svg';
 
 interface FontColorProps {
   $isPositive: boolean;
 }
+
+export const CaretUpSVG = styled(CaretUp)`
+  margin-left: 0.175rem;
+  margin-right: 0.15rem;
+`;
+export const CaretDownSVG = styled(CaretDown)`
+  margin-left: 0.175rem;
+  margin-right: 0.15rem;
+`;
 
 export const ChartContainer = styled.div`
   display: flex;
