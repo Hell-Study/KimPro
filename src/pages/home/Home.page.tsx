@@ -8,6 +8,7 @@ import { ChatBox } from 'components/ChatBox';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
 import { useFetchExchangeRate } from 'hooks/binance';
+import { useTitle } from 'hooks/useTitle';
 
 export const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
@@ -17,6 +18,7 @@ export const Home: React.FC = () => {
   };
 
   useFetchExchangeRate();
+  useTitle();
 
   return (
     <>
