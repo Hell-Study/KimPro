@@ -63,8 +63,6 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = ({
   const changeRateCurrent = getChangeRate(currentData, prevData.current);
   const changeRatePrev = getChangeRate(currentData, baseData);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
   if (!currentData || !baseData) return null;
 
   const { diff, percent } = getFormattedValues(
