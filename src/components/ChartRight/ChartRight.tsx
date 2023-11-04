@@ -27,7 +27,7 @@ function ChartRight() {
           },
           textColor: theme.colors.text1,
         },
-        autoSize: true,
+        autoSize: false,
         grid: {
           vertLines: {
             color: theme.colors.border2,

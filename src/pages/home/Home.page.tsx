@@ -1,5 +1,6 @@
 import * as styled from './Home.styles';
 import { Header } from 'components/common/Header';
+import { Footer } from 'components/common/Footer';
 import { Widget } from 'components/Widget';
 import { ChartLeft } from 'components/ChartLeft';
 import { ChartRight } from 'components/ChartRight';
@@ -33,6 +34,7 @@ export const Home: React.FC = () => {
       <styled.ChatButton onClick={openModal} $isOpen={modalIsOpen}>
         <styled.Icon />
       </styled.ChatButton>
+      <Footer />
     </>
   );
 };
