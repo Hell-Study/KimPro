@@ -109,9 +109,9 @@ function ChartRight() {
             <styled.CoinChangeRate>
               <span>전일대비</span>
               {selectedCoinInfo.changeRatio > 0 ? (
-                <styled.CaretUpSVG fill={theme.colors.red} />
+                <styled.CaretUpSVG />
               ) : (
-                <styled.CaretDownSVG fill={theme.colors.blue} />
+                <styled.CaretDownSVG />
               )}
               {Math.abs(selectedCoinInfo.changeRatio).toFixed(2)}%
             </styled.CoinChangeRate>

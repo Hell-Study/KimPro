@@ -5,7 +5,6 @@ import { MessageType } from 'components/Message/Message.types';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
-import { ReactComponent as MessageDots } from 'assets/images/MessageDots.svg';
 import * as styled from './ChatBox.styles';
 import { updateNickname, saveUserInfoToLocalStorage } from 'hooks';
 import { useTheme } from 'styled-components';
@@ -97,7 +96,7 @@ const ChatBox = () => {
     <styled.StyledModal isOpen={modalIsOpen} style={overlayStyles}>
       <styled.ChatBoxHeader>
         <styled.HeaderWrapper onClick={closeModal}>
-          <styled.ChevronDownSVG fill={theme.colors.icon} />
+          <styled.ChevronDownSVG />
           <styled.Title>Chat</styled.Title>
         </styled.HeaderWrapper>
 
@@ -110,7 +109,7 @@ const ChatBox = () => {
         <styled.ButtonWrapper>
           <styled.Button onClick={loadPreviousMessages}>
             <styled.Icon>
-              <MessageDots fill={theme.colors.blue} />
+              <styled.MessageDotsSVG />
             </styled.Icon>
             이전 채팅 불러오기
           </styled.Button>

@@ -33,7 +33,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <styled.GithubSVG fill={myTheme.colors.icon} />
+                <styled.GithubSVG />
               </styled.GithubButton>
             </a>
             <styled.Name>어승준</styled.Name>
@@ -45,7 +45,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <styled.GithubSVG fill={myTheme.colors.icon} />
+                <styled.GithubSVG />
               </styled.GithubButton>
             </a>
             <styled.Name>서지수</styled.Name>
@@ -57,7 +57,7 @@ function Footer() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <styled.GithubSVG fill={myTheme.colors.icon} />
+                <styled.GithubSVG />
               </styled.GithubButton>
             </a>
             <styled.Name>박나영</styled.Name>

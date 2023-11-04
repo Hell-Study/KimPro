@@ -9,10 +9,12 @@ interface FontColorProps {
 export const CaretUpSVG = styled(CaretUp)`
   margin-left: 0.175rem;
   margin-right: 0.15rem;
+  fill: ${({ theme }) => theme.colors.red};
 `;
 export const CaretDownSVG = styled(CaretDown)`
   margin-left: 0.175rem;
   margin-right: 0.15rem;
+  fill: ${({ theme }) => theme.colors.blue};
 `;
 
 export const ChartContainer = styled.div`

@@ -126,18 +126,14 @@ function Header() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <styled.GithubSVG fill={myTheme.colors.icon} />
+                <styled.GithubSVG />
               </styled.GithubButton>
             </a>
             <styled.SwitchButton
               $isDarkMode={isDarkMode}
               onClick={onChangeTheme}
             >
-              {isDarkMode ? (
-                <styled.MoonSVG fill={myTheme.colors.icon} />
-              ) : (
-                <styled.SunSVG fill={myTheme.colors.icon} />
-              )}
+              {isDarkMode ? <styled.MoonSVG /> : <styled.SunSVG />}
             </styled.SwitchButton>
           </styled.BtnGroup>
         </styled.InnerSpaceBetween>

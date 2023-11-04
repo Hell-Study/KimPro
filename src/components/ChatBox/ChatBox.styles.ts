@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import { ReactComponent as ChevronDown } from 'assets/images/Chevron-Down.svg';
+import { ReactComponent as MessageDots } from 'assets/images/MessageDots.svg';
+
+export const MessageDotsSVG = styled(MessageDots)`
+  fill: ${({ theme }) => theme.colors.blue};
+`;
 
 export const StyledModal = styled(Modal)`
   position: fixed;
@@ -48,6 +53,7 @@ export const ChevronDownSVG = styled(ChevronDown)`
   margin: auto;
   height: 0.75rem;
   width: 0.75rem;
+  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const InfoWrapper = styled.div`
