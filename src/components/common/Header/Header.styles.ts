@@ -66,6 +66,11 @@ export const HeaderWrapper = styled.div`
 
 export const Logo = styled(Link)`
   cursor: pointer;
+  display: flex;
+
+  & > img {
+    width: 100px;
+  }
 `;
 
 export const BtnGroup = styled.div`

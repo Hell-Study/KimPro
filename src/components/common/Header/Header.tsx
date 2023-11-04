@@ -116,6 +116,8 @@ function Header() {
             <img
               src={isDarkMode ? LogoDark : LogoLight}
               alt="logo"
+              width="100"
+              height="auto"
               loading="lazy"
             />
           </styled.Logo>
