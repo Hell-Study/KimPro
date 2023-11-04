@@ -22,7 +22,7 @@ export const ChatButton = styled.button<ChatButtonProps>`
   transition:
     background 180ms cubic-bezier(0.25, 0.75, 0.5, 1.25) 0ms,
     transform 0.4s cubic-bezier(0.25, 0.75, 0.5, 1.25);
-  z-index: 1;
+  z-index: 2;
   cursor: pointer;
   overflow: hidden;
 

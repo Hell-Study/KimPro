@@ -122,7 +122,7 @@ export const ScrollToBottomButton = styled.div<ScrollToBottomButtonProps>`
   justify-content: center;
   cursor: pointer;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   right: 8px;
   bottom: 88px;
   width: 40px;
