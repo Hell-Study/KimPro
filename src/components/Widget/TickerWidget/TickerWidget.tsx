@@ -57,8 +57,6 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = ({
     if (!currentData || !prevData) return '';
     if (currentData.value > prevData.value) return 'increase';
     if (currentData.value < prevData.value) return 'decrease';
-    // console.log('currentData.value:', currentData.value);
-    // console.log('prevData.value:', prevData.value);
     return '';
   };
 

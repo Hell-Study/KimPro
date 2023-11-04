@@ -109,8 +109,5 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
     };
   }, [data]);
 
-  if (isLoading) return <>로딩중...</>;
-  if (!data) return <>데이터 없음</>;
-
   return <div ref={chartContainerRef} />;
 };
