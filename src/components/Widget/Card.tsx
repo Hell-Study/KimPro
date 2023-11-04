@@ -2,11 +2,11 @@ import React, { Suspense, memo } from 'react';
 import { useWidgetTickers } from 'hooks';
 import { ChartWidget } from './ChartWidget';
 import { TickerWidget } from './TickerWidget';
-import { CardProps } from './Widget.types';
+import type { CardProps } from './Widget.types';
 import * as styled from './Widget.styles';
 
 export const Card = memo(({ ticker, id }: CardProps) => {
-  const { data: baseData, status } = useWidgetTickers(id, 'P1D', 'previous');
+  const { data: baseData } = useWidgetTickers(id, 'P1D', 'previous');
   if (!baseData) {
     return null;
   }

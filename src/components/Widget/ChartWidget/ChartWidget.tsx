@@ -13,7 +13,9 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
   baseData,
 }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const { data, isLoading } = useChartTickers(pairId, 'PT1H');
+  const { data } = useChartTickers(pairId, 'PT1H');
+
+  console.log(data);
 
   useEffect(() => {
     if (!chartContainerRef.current || !data || data.length === 0) return;
@@ -104,7 +106,6 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
 
     return () => {
       window.removeEventListener('resize', handleResize);
-
       chart.remove();
     };
   }, [data]);
