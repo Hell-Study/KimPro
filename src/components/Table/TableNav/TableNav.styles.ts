@@ -1,5 +1,6 @@
-import { CiSearch } from 'react-icons/ci';
 import styled from 'styled-components';
+import { ReactComponent as Search } from 'assets/images/search.svg';
+import { ReactComponent as ArrowLeftRight } from 'assets/images/arrow-left-right.svg';
 
 export const TableNav = styled.div`
   display: flex;
@@ -20,6 +21,11 @@ export const SelectWrapper = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+`;
+
+export const ArrowLeftRightIcon = styled(ArrowLeftRight)`
+  width: 0.875rem;
+  height: 0.875rem;
 `;
 
 export const SearchWrapper = styled.div`
@@ -55,7 +61,7 @@ export const SearchForm = styled.form`
   }
 `;
 
-export const SearchIcon = styled(CiSearch)`
+export const SearchIcon = styled(Search)`
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;

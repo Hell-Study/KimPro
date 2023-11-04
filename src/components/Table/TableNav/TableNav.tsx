@@ -5,7 +5,6 @@ import { baseExchangeState, marketCodesState } from 'recoil/atoms/commonAtoms';
 import { searchCoinState, selectedCoinState } from 'recoil/atoms/tableAtoms';
 import { CustomSelect } from 'components/CustomSelect';
 import { SELECT_OPTION, SELECT_SINGLE_OPTION } from '../Table.constant';
-import { BsArrowLeftRight } from 'react-icons/bs';
 
 export const TableNav = () => {
   const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
@@ -31,7 +30,7 @@ export const TableNav = () => {
             setBaseExchange(value);
           }}
         />
-        <BsArrowLeftRight />
+        <styled.ArrowLeftRightIcon />
         <CustomSelect optionData={SELECT_SINGLE_OPTION} disabled={true} />
         해외 거래소
       </styled.SelectWrapper>
