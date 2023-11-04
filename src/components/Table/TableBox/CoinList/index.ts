@@ -1,1 +1,2 @@
-export { CoinList } from './CoinList';
+import CoinList from './CoinList';
+export { CoinList };
