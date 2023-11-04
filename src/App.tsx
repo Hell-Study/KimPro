@@ -3,9 +3,9 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { GlobalStyle } from './assets/style/GlobalStyle';
-import { lightTheme, darkTheme } from './assets/style/theme';
-import { themeState } from './recoil/atoms/theme';
+import { GlobalStyle } from './styles/globalStyle';
+import { lightTheme, darkTheme } from './styles/theme';
+import { themeState } from './recoil/atoms/themeAtoms';
 
 const Home = React.lazy(() => import('pages/home'));
 

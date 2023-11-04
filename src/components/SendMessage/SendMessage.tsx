@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createMessages } from '../../firebase/createMessages';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import * as styled from './SendMessage.styles';

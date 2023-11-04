@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDropdown } from 'hooks/useDropdown';
+import { useState } from 'react';
+import { useDropdown } from 'hooks';
 import { CustomSelectProps } from './CustomSelect.types';
 import * as styled from './CustomSelect.styles';
 

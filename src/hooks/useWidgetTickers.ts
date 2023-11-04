@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from 'react-query';
 import { Interval } from 'components/Widget/Widget.constants';
 import getTickerWidgetData from 'api/getTickerWidgetData';
-import { IWidgetTicker } from 'components/Widget/Widget.types';
+import type { IWidgetTicker } from 'components/Widget/Widget.types';
 
 const setRefetchInterval = (interval: Interval): number | false => {
   switch (interval) {

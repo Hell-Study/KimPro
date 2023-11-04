@@ -1,5 +1,3 @@
-import { ChangeEvent } from 'react';
-
 interface IOptionData {
   key: string;
   value: string;

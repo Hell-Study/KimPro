@@ -54,5 +54,4 @@ export const SendMessageButton = styled.button`
     border: 1px solid ${({ theme }) => theme.colors.primary1};
     box-shadow: ${({ theme }) => theme.colors.alpha_primary1} 0px 0px 0px 3px;
   }
-  }
 `;

@@ -1,26 +1,7 @@
 import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import useBinanceTicker from 'hooks/binance/useBinanceTicker';
-import { updateUpbitListWithBinance } from 'hooks/binance/updateUpbitListWithBinance';
 import { throttle } from 'lodash';
-
-export interface IUpbitTicker {
-  code: string;
-  change: string;
-  trade_price: number;
-  signed_change_rate: number;
-  signed_change_price: number;
-  highest_52_week_price: number;
-  lowest_52_week_price: number;
-  acc_trade_price_24h: number;
-  acc_trade_volume_24h: number;
-  binancePrice?: string;
-}
-
-export interface IUpbitMarketCode {
-  market: string;
-  korean_name: string;
-  english_name: string;
-}
+import type { IUpbitMarketCode, IUpbitTicker } from '../../@types/upbit.types';
+import { useBinanceTicker } from 'hooks/binance';
 
 const createWebSocketRequest = (
   ticket: string,
@@ -32,7 +13,7 @@ const createWebSocketRequest = (
   return JSON.stringify(request);
 };
 
-function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
+export function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
   const SOCKET_URL = 'wss://api.upbit.com/websocket/v1';
   const socket = useRef<WebSocket | null>(null);
   const [list, setList] = useState<IUpbitTicker[]>([]);
@@ -95,14 +76,12 @@ function useUpbitTicker(marketCodes: IUpbitMarketCode[]) {
     };
   }, [marketCodes, wsRequest]);
 
-  useEffect(() => {
-    if (binanceTickers) {
-      const newList = updateUpbitListWithBinance(list, binanceTickers);
-      setList(newList);
-    }
-  }, [binanceTickers]);
+  // useEffect(() => {
+  //   if (binanceTickers) {
+  //     const newList = updateSocketDataWithBinance(list, binanceTickers);
+  //     setList(newList);
+  //   }
+  // }, [binanceTickers]);
 
   return { socketDatas: list };
 }
-
-export default useUpbitTicker;

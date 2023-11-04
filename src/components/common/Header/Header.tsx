@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
-import { useRecoilState } from 'recoil';
-import { globalCoinState } from 'recoil/atoms/globalCoin';
-import useFetchExchangeRate from 'hooks/binance/useFetchExchangeRate';
-import useTheme from 'hooks/useTheme';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
+import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
+import { useTheme } from 'hooks';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { DiGithubAlt } from 'react-icons/di';
 import LogoDark from 'assets/images/Logo-Dark.svg';
@@ -13,7 +13,7 @@ import LogoLight from 'assets/images/Logo-Light.svg';
 function Header() {
   const { theme, onChangeTheme } = useTheme();
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
-  const { exchangeRate } = useFetchExchangeRate();
+  const exchangeRate = useRecoilValue(exchangeRateState);
 
   const isDarkMode = theme === 'dark';
 
@@ -51,7 +51,11 @@ function Header() {
     <styled.HeaderContainer>
       <styled.Topbar>
         <styled.Inner>
-          <div>환율(USD/KRW): {exchangeRate || null}</div>
+          <div>
+            <styled.Label>환율(USD/KRW)</styled.Label>
+            {exchangeRate || null}
+          </div>
+
           {globalCoin && (
             <>
               <div>
@@ -108,7 +112,7 @@ function Header() {
       </styled.Topbar>
       <styled.HeaderWrapper>
         <styled.InnerSpaceBetween>
-          <styled.Logo href="/">
+          <styled.Logo to="/">
             <img
               src={isDarkMode ? LogoDark : LogoLight}
               alt="logo"

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface RateProps {
@@ -10,45 +11,44 @@ export const HeaderContainer = styled.header`
   z-index: 3;
 `;
 
-export const Inner = styled.div`
-  width: ${({ theme }) => theme.sizes.lg};
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.75rem;
-`;
-
-export const InnerSpaceBetween = styled(Inner)`
-  justify-content: space-between;
-`;
-
 export const Topbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3.8vh;
+  height: 2.0625rem;
   gap: 0.75rem;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: -0.3px;
+  font-size: 0.6875rem;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.text1};
   background-color: ${({ theme }) => theme.colors.bg_element5};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border1};
   transition: all 0.15s ease-out 0s;
 `;
 
+export const Inner = styled.div`
+  width: ${({ theme }) => theme.sizes.lg};
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.9375rem;
+`;
+
+export const InnerSpaceBetween = styled(Inner)`
+  justify-content: space-between;
+`;
+
 export const Label = styled.span`
-  font-weight: 500;
-  margin-right: 6px;
-  color: ${({ theme }) => theme.colors.text2};
+  font-weight: 400;
+  margin-right: 0.375rem;
+  color: ${({ theme }) => theme.colors.text3};
 `;
 
 export const Rate = styled.span<RateProps>`
   font-weight: 500;
   font-size: 0.7rem;
   margin-left: 3px;
-  color: ${(props) =>
-    props.$isPositive ? props.theme.colors.red : props.theme.colors.blue};
+  color: ${({ $isPositive, theme }) =>
+    $isPositive ? theme.colors.red : theme.colors.blue};
 `;
 
 export const HeaderWrapper = styled.div`
@@ -56,7 +56,7 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 7.5vh;
+  height: 3.125rem;
   background-color: ${({ theme }) => theme.colors.alpha3};
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -64,7 +64,7 @@ export const HeaderWrapper = styled.div`
   transition: all 0.15s ease-out 0s;
 `;
 
-export const Logo = styled.a`
+export const Logo = styled(Link)`
   cursor: pointer;
 `;
 

@@ -1,14 +1,7 @@
+import type { IBinanceTicker } from '../../@types/binance.types';
 import { useState, useEffect } from 'react';
 
-export interface IBinanceTicker {
-  e: string; // Event type
-  E: number; // Event time
-  s: string; // Symbol
-  c: string; //  Last price
-  Q: string; //  Last quantity
-}
-
-const useBinanceTicker = () => {
+export const useBinanceTicker = () => {
   const [binanceTickers, setBinanceTickers] = useState<IBinanceTicker[] | null>(
     null,
   );
@@ -27,12 +20,12 @@ const useBinanceTicker = () => {
         // setBinanceTickers(filteredData.slice(0, limit));
         setBinanceTickers(filteredData);
       } catch (e) {
-        console.log('파싱 에러:', e);
+        console.error('파싱 에러:', e);
       }
     };
 
     ws.onerror = (err) => {
-      console.log('WebSocket Error', err);
+      console.error('WebSocket Error', err);
     };
 
     return () => {
@@ -44,5 +37,3 @@ const useBinanceTicker = () => {
 
   return { binanceTickers };
 };
-
-export default useBinanceTicker;

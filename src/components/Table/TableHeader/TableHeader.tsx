@@ -1,6 +1,6 @@
 import * as styled from './TableHeader.styles';
 import { useRecoilValue } from 'recoil';
-import { baseExchangeState } from 'recoil/atoms/common';
+import { baseExchangeState } from 'recoil/atoms/commonAtoms';
 import { TableHeaderItem } from './TableHeaderItem/TableHeaderItem';
 
 export const TableHeader = () => {
