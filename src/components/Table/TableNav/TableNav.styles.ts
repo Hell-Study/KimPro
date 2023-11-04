@@ -1,4 +1,4 @@
-import { CgSearch } from '@react-icons/all-files/cg/CgSearch';
+import { ReactComponent as Search } from 'assets/images/Search.svg';
 import styled from 'styled-components';
 
 export const TableNav = styled.div`
@@ -55,10 +55,11 @@ export const SearchForm = styled.form`
   }
 `;
 
-export const SearchIcon = styled(CgSearch)`
+export const SearchSVG = styled(Search)`
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;
+  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const SearchInput = styled.input`

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { FiChevronRight } from '@react-icons/all-files/fi/FiChevronRight';
-import { FiChevronLeft } from '@react-icons/all-files/fi/FiChevronLeft';
 import * as styled from '../Widget.styles';
 
 interface CarouselProps {
@@ -29,7 +27,7 @@ export const Carousel: React.FC<CarouselProps> = ({
     <styled.Container>
       <styled.PrevButton onClick={handlePrevClick} $visible={currentIndex > 0}>
         <styled.Icon>
-          <FiChevronLeft />
+          <styled.ChevronLeftSVG />
         </styled.Icon>
       </styled.PrevButton>
       <styled.LeftShade $visible={currentIndex > 0} />
@@ -46,7 +44,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         $visible={currentIndex < maxIndex}
       >
         <styled.Icon>
-          <FiChevronRight />
+          <styled.ChevronRightSVG />
         </styled.Icon>
       </styled.NextButton>
     </styled.Container>

@@ -5,8 +5,6 @@ import { getFormattedValues } from 'utils';
 import { formatNumber } from 'utils';
 import type { IWidgetTicker } from '../Widget.types';
 import * as styled from '../Widget.styles';
-import { FaCaretUp } from '@react-icons/all-files/fa/FaCaretUp';
-import { FaCaretDown } from '@react-icons/all-files/fa/FaCaretDown';
 
 interface IWidgetTickerProps {
   pairId: string;
@@ -85,7 +83,11 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = ({
         $isDecrease={changeRatePrev === 'decrease'}
       >
         <styled.Perc>
-          {changeRatePrev === 'increase' ? <FaCaretUp /> : <FaCaretDown />}{' '}
+          {changeRatePrev === 'increase' ? (
+            <styled.CaretUpSVG />
+          ) : (
+            <styled.CaretDownSVG />
+          )}{' '}
           {percent}%{' '}
         </styled.Perc>
         <styled.Change>{diff}</styled.Change>

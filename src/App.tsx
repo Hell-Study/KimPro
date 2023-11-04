@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { GlobalStyle } from './styles/globalStyle';
 import { lightTheme, darkTheme } from './styles/theme';
 import { themeState } from './recoil/atoms/themeAtoms';
+import { LoadingAnimation } from 'components/LoadingAnimation';
 
 const Home = React.lazy(() => import('pages/home'));
 
@@ -17,7 +18,7 @@ function App() {
         <GlobalStyle />
         <BrowserRouter>
           <div className="App">
-            <Suspense fallback={<div>로딩중...</div>}>
+            <Suspense fallback={<LoadingAnimation></LoadingAnimation>}>
               <Routes>
                 <Route path="/" element={<Home />}></Route>
               </Routes>

@@ -39,7 +39,7 @@ export const TableNav = () => {
         <styled.CoinCount>암호화폐 총 {marketCodes.length}개</styled.CoinCount>
 
         <styled.SearchForm>
-          <styled.SearchIcon />
+          <styled.SearchSVG />
           <styled.SearchInput
             placeholder="암호 화폐 검색"
             value={searchCoin}

@@ -5,11 +5,13 @@ import { MessageType } from 'components/Message/Message.types';
 import { SendMessage } from 'components/SendMessage';
 import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
-import { AiFillMessage } from '@react-icons/all-files/ai/AiFillMessage';
 import * as styled from './ChatBox.styles';
 import { updateNickname, saveUserInfoToLocalStorage } from 'hooks';
+import { useTheme } from 'styled-components';
 
 const ChatBox = () => {
+  const theme = useTheme();
+
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
 
   const closeModal = () => {
@@ -94,7 +96,7 @@ const ChatBox = () => {
     <styled.StyledModal isOpen={modalIsOpen} style={overlayStyles}>
       <styled.ChatBoxHeader>
         <styled.HeaderWrapper onClick={closeModal}>
-          <styled.CloseButton />
+          <styled.ChevronDownSVG />
           <styled.Title>Chat</styled.Title>
         </styled.HeaderWrapper>
 
@@ -107,7 +109,7 @@ const ChatBox = () => {
         <styled.ButtonWrapper>
           <styled.Button onClick={loadPreviousMessages}>
             <styled.Icon>
-              <AiFillMessage />
+              <styled.MessageDotsSVG />
             </styled.Icon>
             이전 채팅 불러오기
           </styled.Button>

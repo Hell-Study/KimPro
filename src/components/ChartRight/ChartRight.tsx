@@ -6,8 +6,6 @@ import { useRecoilValue } from 'recoil';
 import { selectedCoinInfoState } from 'recoil/atoms/tableAtoms';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import type { IChartApi, ISeriesApi } from 'lightweight-charts';
-import { FaCaretUp } from '@react-icons/all-files/fa/FaCaretUp';
-import { FaCaretDown } from '@react-icons/all-files/fa/FaCaretDown';
 
 function ChartRight() {
   const { processedData, updatedCandle } = useCreateRightChart();
@@ -111,11 +109,11 @@ function ChartRight() {
             <styled.CoinChangeRate>
               <span>전일대비</span>
               {selectedCoinInfo.changeRatio > 0 ? (
-                <FaCaretUp />
+                <styled.CaretUpSVG />
               ) : (
-                <FaCaretDown />
+                <styled.CaretDownSVG />
               )}
-              {Math.abs(selectedCoinInfo.changeRatio * 100).toFixed(2)}%
+              {Math.abs(selectedCoinInfo.changeRatio).toFixed(2)}%
             </styled.CoinChangeRate>
             <styled.CoinChangePrice>
               {selectedCoinInfo.changePrice > 0 ? '+' : '-'}
