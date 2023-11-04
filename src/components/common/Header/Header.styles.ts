@@ -68,6 +68,11 @@ export const Logo = styled(Link)`
   cursor: pointer;
 `;
 
+export const LogoImg = styled.img`
+  width: 8.5rem;
+  height: 2.8125rem;
+`;
+
 export const BtnGroup = styled.div`
   display: flex;
 `;
