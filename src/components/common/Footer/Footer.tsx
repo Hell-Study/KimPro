@@ -2,8 +2,9 @@ import * as styled from './Footer.styles';
 import { useTheme } from 'hooks';
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
+import { memo } from 'react';
 
-function Footer() {
+const Footer = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
 
@@ -64,6 +65,6 @@ function Footer() {
       </styled.ContributorsWrapper>
     </styled.FooterContainer>
   );
-}
+};
 
-export default Footer;
+export default memo(Footer);

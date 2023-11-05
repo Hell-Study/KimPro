@@ -1,1 +1,2 @@
-export { TableNav } from './TableNav';
+import TableNav from './TableNav';
+export { TableNav };
