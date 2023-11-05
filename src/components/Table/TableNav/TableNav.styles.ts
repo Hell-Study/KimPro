@@ -59,7 +59,6 @@ export const SearchSVG = styled(Search)`
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;
-  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const SearchInput = styled.input`
