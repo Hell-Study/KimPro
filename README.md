@@ -160,144 +160,208 @@
 <summary>폴더 구조 보기</summary>
 
 ```
-Final-Project
-├─ src
-│  ├─ api
-│  │  ├─ bithumb
-│  │  │  ├─ fetchBithumbCandlestick.ts
-│  │  │  └─ fetchBithumbTicker.ts
-│  │  ├─ coingecko
-│  │  │  └─ getCoingeckoData.ts
-│  │  ├─ getChartWidgetData.ts
-│  │  ├─ getGlobalCoinData.ts
-│  │  ├─ getNickname.ts
-│  │  ├─ getTickerWidgetData.ts
-│  │  └─ upbit
-│  │     ├─ useCreateChart.ts
-│  │     └─ useFetchUpbitMarketCode.ts
-│  ├─ App.css
-│  ├─ App.test.tsx
-│  ├─ App.tsx
-│  ├─ assets
-│  │  ├─ fonts
-│  │  │  └─ foo
-│  │  ├─ images
-│  │  │  ├─ Chat-Btn.svg
-│  │  │  ├─ Chat.svg
-│  │  │  ├─ Logo-Dark.svg
-│  │  │  └─ Logo-Light.svg
-│  │  └─ style
-│  │     ├─ GlobalStyle.ts
-│  │     └─ theme.ts
-│  ├─ components
-│  │  ├─ bithumb
-│  │  │  ├─ Bithumb.type.ts
-│  │  │  ├─ ChartComponent.tsx
-│  │  │  ├─ index.ts
-│  │  │  └─ RealTimeChart.tsx
-│  │  ├─ ChartLeft
-│  │  │  ├─ ChartInfo.tsx
-│  │  │  ├─ ChartLeft.constant.ts
-│  │  │  ├─ ChartLeft.styles.ts
-│  │  │  ├─ ChartLeft.tsx
-│  │  │  ├─ index.ts
-│  │  │  └─ TradingViewWidget.tsx
-│  │  ├─ ChartRight
-│  │  │  ├─ ChartRight.styles.ts
-│  │  │  ├─ ChartRight.tsx
-│  │  │  └─ index.ts
-│  │  ├─ ChatBox
-│  │  │  ├─ ChatBox.styles.ts
-│  │  │  ├─ ChatBox.tsx
-│  │  │  └─ index.ts
-│  │  ├─ common
-│  │  │  ├─ Footer
-│  │  │  │  ├─ Footer.styles.ts
-│  │  │  │  ├─ Footer.tsx
-│  │  │  │  └─ index.ts
-│  │  │  └─ Header
-│  │  │     ├─ Header.styles.ts
-│  │  │     ├─ Header.tsx
-│  │  │     └─ index.ts
-│  │  ├─ CustomSelect
-│  │  │  ├─ CustomSelect.styles.ts
-│  │  │  ├─ CustomSelect.tsx
-│  │  │  ├─ CustomSelect.types.ts
-│  │  │  └─ index.ts
-│  │  ├─ Message
-│  │  │  ├─ index.ts
-│  │  │  ├─ Message.styles.ts
-│  │  │  ├─ Message.tsx
-│  │  │  └─ Message.types.ts
-│  │  ├─ SendMessage
-│  │  │  ├─ index.ts
-│  │  │  ├─ SendMessage.styles.ts
-│  │  │  └─ SendMessage.tsx
-│  │  ├─ Table
-│  │  │  ├─ Bithumb.tsx
-│  │  │  ├─ BithumbTable.tsx
-│  │  │  ├─ index.ts
-│  │  │  ├─ Table.constant.ts
-│  │  │  ├─ Table.styles.ts
-│  │  │  ├─ Table.tsx
-│  │  │  ├─ TableHeader
-│  │  │  │  ├─ index.ts
-│  │  │  │  ├─ TableHeader.styles.ts
-│  │  │  │  ├─ TableHeader.tsx
-│  │  │  │  ├─ TableHeaderItem.styles.tsx
-│  │  │  │  └─ TableHeaderItem.tsx
-│  │  │  └─ UpbitTable.tsx
-│  │  └─ Widget
-│  │     ├─ Carousel.tsx
-│  │     ├─ ChartWidget.tsx
-│  │     │  ...
-│  │     └─ Widget.types.ts
-│  ├─ firebase
-│  │  ├─ config.ts
-│  │  ├─ createMessages.ts
-│  │  │  ...
-│  │  └─ orderSnapshotMessages.ts
-│  ├─ hooks
-│  │  ├─ binance
-│  │  │  ├─ updateBithumbSocketDataWithBinance.ts
-│  │  │  ├─ updateUpbitListWithBinance.ts
-│  │  │  ├─ useBinanceTicker.ts
-│  │  │  └─ useFetchExchangeRate.ts
-│  │  ├─ bithumb
-│  │  │  ├─ useBithumbWsTicker.ts
-│  │  │  ├─ useFetchBithumbticker.ts
-│  │  │  └─ useMatchCoingecko.ts
-│  │  ├─ upbit
-│  │  │  └─ useUpbitTicker.ts
-│  │  ├─ useChartTickers.ts
-│  │  ├─ useDropdown.ts
-│  │  │  ...
-│  │  └─ useWidgetTickers.ts
-│  ├─ index.css
-│  ├─ index.tsx
-│  ├─ pages
-│  │  └─ home
-│  │     ├─ Home.page.tsx
-│  │     ├─ Home.styles.ts
-│  │     └─ index.ts
-│  ├─ react-app-env.d.ts
-│  ├─ recoil
-│  │  ├─ atoms
-│  │  │  ├─ bithumb.ts
-│  │  │  ├─ coingecko.ts
-│  │  │  │  ...
-│  │  │  └─ upbit.ts
-│  │  └─ selectors
-│  │     └─ foo.ts
-│  ├─ reportWebVitals.ts
-│  ├─ setupTests.ts
-│  ├─ styles
-│  │  └─ globalStyle.ts
-│  └─ utils
-│     ├─ convertMillonWon.ts
-│     │  ...
-│     ├─ getFormattedValues.ts
-└─ tsconfig.json
+📦Final-Project
+ ┣ 📂src
+ ┃ ┣ 📂@types
+ ┃ ┃ ┣ 📜binance.types.ts
+ ┃ ┃ ┣ 📜bithumb.types.ts
+ ┃ ┃ ┣ 📜common.types.ts
+ ┃ ┃ ┗ 📜upbit.types.ts
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂bithumb
+ ┃ ┃ ┃ ┣ 📜fetchBithumbCandlestick.ts
+ ┃ ┃ ┃ ┗ 📜fetchBithumbTicker.ts
+ ┃ ┃ ┣ 📂coingecko
+ ┃ ┃ ┃ ┗ 📜getCoingeckoData.ts
+ ┃ ┃ ┣ 📂upbit
+ ┃ ┃ ┃ ┣ 📜fetchUpbitDayCandle.ts
+ ┃ ┃ ┃ ┗ 📜fetchUpbitMarketCode.ts
+ ┃ ┃ ┣ 📜getChartWidgetData.ts
+ ┃ ┃ ┣ 📜getGlobalCoinData.ts
+ ┃ ┃ ┣ 📜getNickname.ts
+ ┃ ┃ ┗ 📜getTickerWidgetData.ts
+ ┃ ┣ 📂assets
+ ┃ ┃ ┗ 📂images
+ ┃ ┃ ┃ ┣ 📜Caret-Down.svg
+ ┃ ┃ ┃ ┣ ...
+ ┃ ┃ ┃ ┗ 📜usdt.svg
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂ChartLeft
+ ┃ ┃ ┃ ┣ 📂ChartInfo
+ ┃ ┃ ┃ ┃ ┣ 📜ChartInfo.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TradingViewWidget
+ ┃ ┃ ┃ ┃ ┣ 📜TradingViewWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.constant.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChartRight
+ ┃ ┃ ┃ ┣ 📂ChartCoinInfo
+ ┃ ┃ ┃ ┃ ┣ 📜ChartCoinInfo.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜ChartCoinInfo.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ChartContent
+ ┃ ┃ ┃ ┃ ┣ 📜ChartContent.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜ChartContent.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜ChartRight.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChartRight.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChatBox
+ ┃ ┃ ┃ ┣ 📜ChatBox.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChatBox.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChatBtn
+ ┃ ┃ ┃ ┣ 📜ChatBtn.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChatBtn.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂CustomSelect
+ ┃ ┃ ┃ ┣ 📜CustomSelect.styles.ts
+ ┃ ┃ ┃ ┣ 📜CustomSelect.tsx
+ ┃ ┃ ┃ ┣ 📜CustomSelect.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂LoadingAnimation
+ ┃ ┃ ┃ ┣ 📜LoadingAnimation.styles.ts
+ ┃ ┃ ┃ ┣ 📜LoadingAnimation.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Message
+ ┃ ┃ ┃ ┣ 📜Message.styles.ts
+ ┃ ┃ ┃ ┣ 📜Message.tsx
+ ┃ ┃ ┃ ┣ 📜Message.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂SendMessage
+ ┃ ┃ ┃ ┣ 📜SendMessage.styles.ts
+ ┃ ┃ ┃ ┣ 📜SendMessage.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Table
+ ┃ ┃ ┃ ┣ 📂TableBox
+ ┃ ┃ ┃ ┃ ┣ 📂CoinList
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinChange
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinChange.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinHighest
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinHighest.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinInfo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinInfo.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinKimp
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinKimp.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinLowest
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinLowest.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinPrice
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinPrice.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂TradeValue
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TradeValue.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinList.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableBox.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableBox.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TableHeader
+ ┃ ┃ ┃ ┃ ┣ 📂TableHeaderItem
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableHeaderItem.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableHeaderItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableHeader.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableHeader.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TableNav
+ ┃ ┃ ┃ ┃ ┣ 📜TableNav.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableNav.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜Table.constant.ts
+ ┃ ┃ ┃ ┣ 📜Table.styles.ts
+ ┃ ┃ ┃ ┣ 📜Table.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Widget
+ ┃ ┃ ┃ ┣ 📂Carousel
+ ┃ ┃ ┃ ┃ ┣ 📜Carousel.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ChartWidget
+ ┃ ┃ ┃ ┃ ┣ 📜ChartWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TickerWidget
+ ┃ ┃ ┃ ┃ ┣ 📜TickerWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜Card.tsx
+ ┃ ┃ ┃ ┣ 📜Widget.constants.ts
+ ┃ ┃ ┃ ┣ 📜Widget.styles.ts
+ ┃ ┃ ┃ ┣ 📜Widget.tsx
+ ┃ ┃ ┃ ┣ 📜Widget.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┗ 📂common
+ ┃ ┃ ┃ ┣ 📂Footer
+ ┃ ┃ ┃ ┃ ┣ 📜Footer.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📂Header
+ ┃ ┃ ┃ ┃ ┣ 📂ExchangeRateDisplay
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExchangeRateDisplay.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExchangeRateDisplay.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📂GlobalCoinLabel
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalCoinLabel.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalCoinLabel.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Header.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜Header.types.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂firebase
+ ┃ ┃ ┣ 📜config.ts
+ ┃ ┃ ┣ 📜createMessages.ts
+ ┃ ┃ ┣ 📜fetchMessages.ts
+ ┃ ┃ ┣ 📜messageQuery.ts
+ ┃ ┃ ┗ 📜orderSnapshotMessages.ts
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📂binance
+ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜updateSocketDataWithBinance.ts
+ ┃ ┃ ┃ ┣ 📜useBinanceTicker.ts
+ ┃ ┃ ┃ ┗ 📜useFetchExchangeRate.ts
+ ┃ ┃ ┣ 📂upbit
+ ┃ ┃ ┃ ┗ 📜useUpbitTicker.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜useChartTickers.ts
+ ┃ ┃ ┣ ...
+ ┃ ┃ ┗ 📜useWidgetTickers.ts
+ ┃ ┣ 📂pages
+ ┃ ┃ ┗ 📂home
+ ┃ ┃ ┃ ┣ 📜Home.page.tsx
+ ┃ ┃ ┃ ┣ 📜Home.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂recoil
+ ┃ ┃ ┗ 📂atoms
+ ┃ ┃ ┃ ┣ 📜commonAtoms.ts
+ ┃ ┃ ┃ ┣ ...
+ ┃ ┃ ┃ ┗ 📜themeAtoms.ts
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📜globalStyle.ts
+ ┃ ┃ ┗ 📜theme.ts
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜convertDate.ts
+ ┃ ┃ ┣ ...
+ ┃ ┃ ┗ 📜removeUSDT.ts
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜index.tsx
+ ┃ ┣ 📜react-app-env.d.ts
+ ┃ ┗ 📜reportWebVitals.ts
+ ┣ 📜.eslintrc
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜README.md
+ ┣ 📜config-overrides.js
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┗ 📜tsconfig.json
 
 ```
 </details>
