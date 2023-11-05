@@ -69,12 +69,9 @@ function Header() {
       <styled.HeaderWrapper>
         <styled.InnerSpaceBetween>
           <styled.Logo to="/">
-            <img
+            <styled.LogoImg
               src={isDarkMode ? LogoDark : LogoLight}
               alt="logo"
-              width="100"
-              height="auto"
-              loading="lazy"
             />
           </styled.Logo>
           <styled.BtnGroup>

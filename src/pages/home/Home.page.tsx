@@ -7,9 +7,11 @@ import { Table } from 'components/Table';
 import { ChatBox } from 'components/ChatBox';
 import { ChatBtn } from 'components/ChatBtn';
 import { useFetchExchangeRate } from 'hooks/binance';
+import { useTitle } from 'hooks/useTitle';
 
 export const Home: React.FC = () => {
   useFetchExchangeRate();
+  useTitle();
 
   return (
     <>

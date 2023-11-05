@@ -61,17 +61,11 @@ export const CoinRightWrap = styled(CoinLeftWrap)`
 
 export const CoinKoreanPrice = styled(CoinName)``;
 
-export const CoinKimpRatio = styled(CoinName)<{ $isPositive: string }>`
-  color: ${({ $isPositive }) => {
-    switch ($isPositive) {
-      case 'true':
-        return ({ theme }: DefaultTheme) => theme.colors.red;
-      case 'false':
-        return ({ theme }: DefaultTheme) => theme.colors.blue;
-      case 'none':
-        return ({ theme }: DefaultTheme) => theme.colors.heading1;
-    }
-  }};
+export const CoinKimpRatio = styled(CoinName)<{ $isPositive: number }>`
+  color: ${({ $isPositive }) =>
+    $isPositive > 0
+      ? ({ theme }: DefaultTheme) => theme.colors.red
+      : ({ theme }: DefaultTheme) => theme.colors.blue};
 `;
 
 export const CoinChangeRatio = styled(CoinName)<{ $changeType: string }>`
