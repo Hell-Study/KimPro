@@ -54,7 +54,7 @@ export const SearchForm = styled.form`
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.border1};
   background: ${({ theme }) => theme.colors.bg_element4};
-  box-shadow: 0px 0px 40px 0px ${({ theme }) => theme.colors.border1};
+  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 2px 10px 0px;
 
   &:focus-within {
     border: 1px solid ${({ theme }) => theme.colors.blue};
