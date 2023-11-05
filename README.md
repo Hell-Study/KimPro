@@ -1,10 +1,10 @@
-![main](https://github.com/2weeks-team/2weeks-team/assets/39702832/f8318c48-b88d-4f20-a901-634feab46414)
+![dark](https://github.com/Hell-Study/Final-Project/assets/39702832/549f0fb2-8fcc-4f2e-8fc3-7b8a73649f91)
 
 ## 목차
 1. [**프로젝트 소개**](#1)
 2. [**기술 스택**](#2)
 3. [**주요 기능**](#3)
-4. [**프로젝트 구성도**](#4)
+4. [**아키텍처**](#4)
 5. [**최적화**](#5)
 6. [**팀 소개**](#6)
 7. [**폴더 구조**](#7)
@@ -16,7 +16,7 @@
 
 '김치 프리미엄'의 'KIMP'와 '프로페셔널'의 'PRO'를 조합하여 **KIMPRO**를 저희 서비스 이름으로 정하였으며, 이름에 걸맞게 김치 프리미엄을 유저들에게 프로페셔널하게 제공하고자 합니다.
 
-[**🔗 서비스 바로가기 Click !**](https://hell-study.github.io/Final-Project/) 👈
+[**🔗 서비스 바로가기 Click !**](https://kimpro.site/) 👈
 
 > **김치 프리미엄(Kimchi premium)**, 김프는 한국에서 거래되는 암호화폐의 시세가 해외 거래소 시세와 비교해 얼마나 높은가를 뜻하는 단어입니다. 해외 거래소보다 높을 경우 '김치 프리미엄이 끼어 있다.' 비슷한 정도로 낮아질 경우 '김치 프리미엄이 빠졌다.'라고 표현합니다.
 
@@ -66,42 +66,53 @@
 <div id="3"></div>
 
 ## 📌 주요 기능
-| 기능                      | 내용                                                                                                                                |
-| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
-| 김프 차트                   | 사용자가 원하는 차트를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 김치프리미엄과 바이낸스 비트코인 차트를 실시간으로 보여줍니다. |
+| 기능                                          | 내용                           |
+| :------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
+| 김프 차트    ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ               | 사용자가 원하는 차트를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 김치프리미엄과 바이낸스 비트코인 차트를 실시간으로 보여줍니다. |
 | 코인 차트               | 코인 테이블에서 선택한 코인 정보와 시세 차트를 실시간으로 보여줍니다.            |
-| 코인 테이블 | 사용자가 원하는 거래소를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 코인의 이름, 현재가, 전일대비, 고가/저가대비, 거래량, 그리고 각각 코인마다 바이낸스와의 김치프리미엄을 실시간으로 보여줍니다. 또한 각 카테고리별 오름/내림차순 정렬이 가능하며, 코인 검색 기능을 지원합니다.       |
-| 위젯 | S&P 500, NASDAQ, KOSPI, KOSDAQ, 금 선물의 시세, 전일대비를 수치 및 차트로 보여주며, 캐러셀 형태로 구현하였습니다.                  |
-| 채팅 | 사이트 이용자들과 실시간 채팅을 할 수 있으며, 로컬스토리지로 부여받은 닉네임으로 소통할 수 있습니다. (로그인 필요 x)                  |
+| 코인 테이블 | 사용자가 원하는 거래소를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 코인의 이름, 현재가, 전일대비, 고가/저가대비, 거래량, 그리고 각각 코인마다 바이낸스와의 김치프리미엄을 실시간으로 보여줍니다. 또한 각 카테고리별 오름/내림차순 정렬과 코인 검색 기능을 지원합니다.       |
+| 위젯 | S&P 500, NASDAQ, KOSPI, KOSDAQ, 금 선물 시세, 전일대비를 수치 및 차트로 보여주며, 캐러셀 형태로 구현하였습니다.                  |
+| 채팅 | 사이트 이용자들과 실시간 채팅을 할 수 있으며, 로컬스토리지로 부여받은 닉네임으로 소통할 수 있습니다. (로그인 x)                  |
 | 다크/라이트 모드 | 토글 버튼을 통해 서비스 전체의 색상을 다크 또는 라이트로 설정할 수 있으며, 상태를 로컬스토리지로 저장합니다.                 |
 | 헤더 | 환율(USD/KRW), 암호화폐/거래소 개수, 전체 시가총액, 24시간 거래량, BTC 점유율, 즉 암호화폐 시장과 관련된 전체적인 수치를 보여줍니다.                  |
 
 <div id="4"></div>
 
-## 📌 프로젝트 구성도
+## 📌 아키텍처
 |                                   아키텍처(Architecture)                                   |
 | :----------------------------------------------------------------------------------------: |
-| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/023485a5-276b-4c82-9a13-a2b4e06c75d0" /> |
+| <img src="https://github.com/KDT1-FE/Y_FE_JAVASCRIPT_PICTURE/assets/39702832/3083396c-73ea-4c93-b89d-105884885333" /> |
 
 <div id="5"></div>
 
 ## 📌 최적화
-|                                              웹 성능 최적화 전                                              |                                     웹 성능 최적화 후                                      |
+|                                              Lighthouse BEFORE                                              |                                     Lighthouse AFTER                                      |
 | :---------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/Hell-Study/Final-Project/assets/39702832/8b674efa-2dfa-45cd-a95c-c8d6882b0756" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> | <img src="https://github.com/Hell-Study/Final-Project/assets/39702832/8b674efa-2dfa-45cd-a95c-c8d6882b0756" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> |
+| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/d393f883-cebf-4ecb-b673-0b345ffc2df3" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> | <img src="https://github.com/KDT1-FE/Y_FE_JAVASCRIPT_PICTURE/assets/39702832/3d173220-0ef0-4bff-8fc5-e82ad7563ac8" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> |
 
 |           항목           | 웹 성능 최적화 전 | 웹 성능 최적화 후 |
 | :----------------------: | :---------------: | :---------------: |
-|    Performance Score     |        62         |        88         |
-|  First Contentful Paint  |       0.6s        |       0.5s        |
-|   Time to Interactive    |       2.8s        |       1.3s        |
-|       Speed Index        |       3.5s        |       1.3s        |
-|   Total Blocking Time    |       100ms       |        0ms        |
-| Largest Contentful Paint |       6.2s        |       2.2s        |
-| Cumulative Layout Shift  |       0.128       |       0.001       |
+|    Performance Score     |        26         |        89         |
+|  First Contentful Paint  |       0.5s        |       0.5s        |
+|   Total Blocking Time    |       1,670ms     |       90ms        |
+|       Speed Index        |       9.5s        |       1.6s        |
+| Largest Contentful Paint |       4.7s        |       1.7s        |
+| Cumulative Layout Shift  |       0.227       |       0.086       |
 
-> 무엇, 무엇을 사용하여서 어떻게 바뀌었다
+#### ▶️ 성능 개선을 위해 어떠한 노력을 했나?
+- React.memo로 불필요한 리렌더링 개선
+- useCallback, useMemo로 메모이제이션
+- windowing으로 첫 렌더링 시 보이는 코인만 DOM에 표시
+- webpack으로 bunle size 최적화
+- 렌더링 전 layout 유지하여 layout shift 최소화
+- Code Splitting, Lazy Loading, Suspense
+- Lottie로 애니메이션 최적화
+- API 캐싱을 통해 네트워크 대역폭 절약
+- throttle로 Socket 부하 분산
+- react-icons 라이브러리 대신 svg 사용
 
+> 위와 같은 작업들을 통해 **Performace Score 26점 -> 89점**으로 개선하였고, 
+> **TBT, SI, LCP, CLS**에서도 유의미한 성과를 보였습니다!
 <div id="6"></div>
 
 ## 📌 팀 소개
@@ -114,7 +125,7 @@
       </a>
     </td>
     <td align="center" width="150px">
-      <a href="https://github.com/suyeonnnnnnn" target="_blank">
+      <a href="https://github.com/jseo9732" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/79249376?v=4" alt="서지수 프로필" />
       </a>
     </td>
@@ -132,13 +143,13 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/HOOOO98" target="_blank">
+      <a href="https://github.com/jseo9732" target="_blank">
         서지수<br />
                 팀원 (FE)
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/JeongMin83" target="_blank">
+      <a href="https://github.com/im-na0" target="_blank">
         박나영<br />
                 팀원 (FE)
       </a>
@@ -148,9 +159,9 @@
 
 |  이름  |        역할        | <div align="center">개발 내용</div>                                                                                                                                                                                        |
 | :----: | :-------: | :------ |
-| 어승준 | FE<br />팀장 | - DB 설계<br />- Spring Data JPA 세팅<br />&nbsp;&nbsp;&nbsp;&nbsp;- 채팅 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 도메인 개발<br />- TypeScript, Nest.js와 Socket.io를 이용한 실시간 채팅 서버 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 웹소켓 연결<br />&nbsp;&nbsp;&nbsp;&nbsp;- 1대1 실시간 채팅 구현<br />                                                                                                                                                                                                                                                              |
-| 서지수 |      FE      | - DB 설계<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 회원가입 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 아이디 찾기 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 비밀번호 재설정 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 회원 정보 조회 및 수정 도메인 개발<br />- SMTP Server, Redis를 이용한 이메일 인증 기능 구현<br />                                                                                                                             |
-| 박나영 |      FE      | - DB 설계<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 데이터 전처리<br />&nbsp;&nbsp;&nbsp;&nbsp;- 교육생 인증 데이터 전처리<br />- 서버에 기술 스택 이미지 업로드<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 조회 서비스 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 팀 생성/수정/삭제 서비스 도메인 개발                                       |
+| 어승준 | FE<br />팀장 | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Upbit WebSocket API 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Binance 데이터와 매칭 및 김프 계산<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 검색 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Upbit Candlestick API 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 선택한 코인 정보 표시<br />&nbsp;&nbsp;&nbsp;&nbsp;- 채팅<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 실시간 메시지 주고받기<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 이전 대화 가져오기<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 닉네임 랜덤 생성 및 변경<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 스크롤 맨 아래로 이동하기<br />&nbsp;&nbsp;&nbsp;&nbsp;- 헤더<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coinlore API를 통해 global coin 정보 표시<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo로 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- useCallback, useMemo로 메모이제이션<br />&nbsp;&nbsp;&nbsp;&nbsp;- throttle로 Socket 부하 분산<br />&nbsp;&nbsp;&nbsp;&nbsp;- Code Splitting, Lazy Loading, Suspense<br />&nbsp;&nbsp;&nbsp;&nbsp;- Lottie로 애니메이션 최적화<br />&nbsp;&nbsp;&nbsp;&nbsp;- react-icons 라이브러리 대신 svg 사용<br />&nbsp;&nbsp;&nbsp;&nbsp;- API 캐싱을 통해 네트워크 대역폭 절약                                                                                                                                                                                                                                                        |
+| 서지수 |      FE<br />팀원      | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb websocket api 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coingecko api를 이용한 bithumb 코인명, 아이콘 매칭<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 테이블 컴포넌트화 및 정렬 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb candlestick api 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트 컴포넌트화<br />&nbsp;&nbsp;&nbsp;&nbsp;- upbit, bithumb api 타입 통일을 통한 컴포넌트화 개선<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo를 이용한 시세 차트, 테이블 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- 첫 렌더링 시 보이는 코인만 dom에 표시하기 위한 windowing 적용<br />                                                                                                                             |
+| 박나영ㅤ |      FE<br />팀원  ㅤ    | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp; - 실시간 환율 스트리밍<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 실시간 환율을 크롤링한 정보를 클라이언트에게 Server-Sent Events를 통해 전송하는 백엔드 서버 구축<br />&nbsp;&nbsp;&nbsp;&nbsp; - 위젯<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 서브지표 api 연동 및 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 캐러셀 구현<br />&nbsp;&nbsp;&nbsp;&nbsp; - 김프 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- tradingview 위젯 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 셀렉트 박스로 심볼값 제공<br />&nbsp;&nbsp;&nbsp;&nbsp; - 다크/라이트 모드<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 디자인 시스템 구축<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Theme Provider로 공통 스타일 속성 관리구현<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 웹팩을 이용한 번들 사이즈 최적화<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- React.memo과 컴포넌트 분리로 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Suspense로 비동기처리 관리<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 렌더링 전 레이아웃 유지하여 layout shift 최소화                           |
 
 <div id="7"></div>
 
@@ -160,146 +171,211 @@
 <summary>폴더 구조 보기</summary>
 
 ```
-Final-Project
-├─ src
-│  ├─ api
-│  │  ├─ bithumb
-│  │  │  ├─ fetchBithumbCandlestick.ts
-│  │  │  └─ fetchBithumbTicker.ts
-│  │  ├─ coingecko
-│  │  │  └─ getCoingeckoData.ts
-│  │  ├─ getChartWidgetData.ts
-│  │  ├─ getGlobalCoinData.ts
-│  │  ├─ getNickname.ts
-│  │  ├─ getTickerWidgetData.ts
-│  │  └─ upbit
-│  │     ├─ useCreateChart.ts
-│  │     └─ useFetchUpbitMarketCode.ts
-│  ├─ App.css
-│  ├─ App.test.tsx
-│  ├─ App.tsx
-│  ├─ assets
-│  │  ├─ fonts
-│  │  │  └─ foo
-│  │  ├─ images
-│  │  │  ├─ Chat-Btn.svg
-│  │  │  ├─ Chat.svg
-│  │  │  ├─ Logo-Dark.svg
-│  │  │  └─ Logo-Light.svg
-│  │  └─ style
-│  │     ├─ GlobalStyle.ts
-│  │     └─ theme.ts
-│  ├─ components
-│  │  ├─ bithumb
-│  │  │  ├─ Bithumb.type.ts
-│  │  │  ├─ ChartComponent.tsx
-│  │  │  ├─ index.ts
-│  │  │  └─ RealTimeChart.tsx
-│  │  ├─ ChartLeft
-│  │  │  ├─ ChartInfo.tsx
-│  │  │  ├─ ChartLeft.constant.ts
-│  │  │  ├─ ChartLeft.styles.ts
-│  │  │  ├─ ChartLeft.tsx
-│  │  │  ├─ index.ts
-│  │  │  └─ TradingViewWidget.tsx
-│  │  ├─ ChartRight
-│  │  │  ├─ ChartRight.styles.ts
-│  │  │  ├─ ChartRight.tsx
-│  │  │  └─ index.ts
-│  │  ├─ ChatBox
-│  │  │  ├─ ChatBox.styles.ts
-│  │  │  ├─ ChatBox.tsx
-│  │  │  └─ index.ts
-│  │  ├─ common
-│  │  │  ├─ Footer
-│  │  │  │  ├─ Footer.styles.ts
-│  │  │  │  ├─ Footer.tsx
-│  │  │  │  └─ index.ts
-│  │  │  └─ Header
-│  │  │     ├─ Header.styles.ts
-│  │  │     ├─ Header.tsx
-│  │  │     └─ index.ts
-│  │  ├─ CustomSelect
-│  │  │  ├─ CustomSelect.styles.ts
-│  │  │  ├─ CustomSelect.tsx
-│  │  │  ├─ CustomSelect.types.ts
-│  │  │  └─ index.ts
-│  │  ├─ Message
-│  │  │  ├─ index.ts
-│  │  │  ├─ Message.styles.ts
-│  │  │  ├─ Message.tsx
-│  │  │  └─ Message.types.ts
-│  │  ├─ SendMessage
-│  │  │  ├─ index.ts
-│  │  │  ├─ SendMessage.styles.ts
-│  │  │  └─ SendMessage.tsx
-│  │  ├─ Table
-│  │  │  ├─ Bithumb.tsx
-│  │  │  ├─ BithumbTable.tsx
-│  │  │  ├─ index.ts
-│  │  │  ├─ Table.constant.ts
-│  │  │  ├─ Table.styles.ts
-│  │  │  ├─ Table.tsx
-│  │  │  ├─ TableHeader
-│  │  │  │  ├─ index.ts
-│  │  │  │  ├─ TableHeader.styles.ts
-│  │  │  │  ├─ TableHeader.tsx
-│  │  │  │  ├─ TableHeaderItem.styles.tsx
-│  │  │  │  └─ TableHeaderItem.tsx
-│  │  │  └─ UpbitTable.tsx
-│  │  └─ Widget
-│  │     ├─ Carousel.tsx
-│  │     ├─ ChartWidget.tsx
-│  │     │  ...
-│  │     └─ Widget.types.ts
-│  ├─ firebase
-│  │  ├─ config.ts
-│  │  ├─ createMessages.ts
-│  │  │  ...
-│  │  └─ orderSnapshotMessages.ts
-│  ├─ hooks
-│  │  ├─ binance
-│  │  │  ├─ updateBithumbSocketDataWithBinance.ts
-│  │  │  ├─ updateUpbitListWithBinance.ts
-│  │  │  ├─ useBinanceTicker.ts
-│  │  │  └─ useFetchExchangeRate.ts
-│  │  ├─ bithumb
-│  │  │  ├─ useBithumbWsTicker.ts
-│  │  │  ├─ useFetchBithumbticker.ts
-│  │  │  └─ useMatchCoingecko.ts
-│  │  ├─ upbit
-│  │  │  └─ useUpbitTicker.ts
-│  │  ├─ useChartTickers.ts
-│  │  ├─ useDropdown.ts
-│  │  │  ...
-│  │  └─ useWidgetTickers.ts
-│  ├─ index.css
-│  ├─ index.tsx
-│  ├─ pages
-│  │  └─ home
-│  │     ├─ Home.page.tsx
-│  │     ├─ Home.styles.ts
-│  │     └─ index.ts
-│  ├─ react-app-env.d.ts
-│  ├─ recoil
-│  │  ├─ atoms
-│  │  │  ├─ bithumb.ts
-│  │  │  ├─ coingecko.ts
-│  │  │  │  ...
-│  │  │  └─ upbit.ts
-│  │  └─ selectors
-│  │     └─ foo.ts
-│  ├─ reportWebVitals.ts
-│  ├─ setupTests.ts
-│  ├─ styles
-│  │  └─ globalStyle.ts
-│  └─ utils
-│     ├─ convertMillonWon.ts
-│     │  ...
-│     ├─ getFormattedValues.ts
-└─ tsconfig.json
+📦Final-Project
+ ┣ 📂src
+ ┃ ┣ 📂@types
+ ┃ ┃ ┣ 📜binance.types.ts
+ ┃ ┃ ┣ 📜bithumb.types.ts
+ ┃ ┃ ┣ 📜common.types.ts
+ ┃ ┃ ┗ 📜upbit.types.ts
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂bithumb
+ ┃ ┃ ┃ ┣ 📜fetchBithumbCandlestick.ts
+ ┃ ┃ ┃ ┗ 📜fetchBithumbTicker.ts
+ ┃ ┃ ┣ 📂coingecko
+ ┃ ┃ ┃ ┗ 📜getCoingeckoData.ts
+ ┃ ┃ ┣ 📂upbit
+ ┃ ┃ ┃ ┣ 📜fetchUpbitDayCandle.ts
+ ┃ ┃ ┃ ┗ 📜fetchUpbitMarketCode.ts
+ ┃ ┃ ┣ 📜getChartWidgetData.ts
+ ┃ ┃ ┣ 📜getGlobalCoinData.ts
+ ┃ ┃ ┣ 📜getNickname.ts
+ ┃ ┃ ┗ 📜getTickerWidgetData.ts
+ ┃ ┣ 📂assets
+ ┃ ┃ ┗ 📂images
+ ┃ ┃ ┃ ┣ 📜Caret-Down.svg
+ ┃ ┃ ┃ ┣ ...
+ ┃ ┃ ┃ ┗ 📜usdt.svg
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂ChartLeft
+ ┃ ┃ ┃ ┣ 📂ChartInfo
+ ┃ ┃ ┃ ┃ ┣ 📜ChartInfo.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TradingViewWidget
+ ┃ ┃ ┃ ┃ ┣ 📜TradingViewWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.constant.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChartLeft.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChartRight
+ ┃ ┃ ┃ ┣ 📂ChartCoinInfo
+ ┃ ┃ ┃ ┃ ┣ 📜ChartCoinInfo.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜ChartCoinInfo.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ChartContent
+ ┃ ┃ ┃ ┃ ┣ 📜ChartContent.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜ChartContent.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜ChartRight.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChartRight.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChatBox
+ ┃ ┃ ┃ ┣ 📜ChatBox.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChatBox.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂ChatBtn
+ ┃ ┃ ┃ ┣ 📜ChatBtn.styles.ts
+ ┃ ┃ ┃ ┣ 📜ChatBtn.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂CustomSelect
+ ┃ ┃ ┃ ┣ 📜CustomSelect.styles.ts
+ ┃ ┃ ┃ ┣ 📜CustomSelect.tsx
+ ┃ ┃ ┃ ┣ 📜CustomSelect.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂LoadingAnimation
+ ┃ ┃ ┃ ┣ 📜LoadingAnimation.styles.ts
+ ┃ ┃ ┃ ┣ 📜LoadingAnimation.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Message
+ ┃ ┃ ┃ ┣ 📜Message.styles.ts
+ ┃ ┃ ┃ ┣ 📜Message.tsx
+ ┃ ┃ ┃ ┣ 📜Message.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂SendMessage
+ ┃ ┃ ┃ ┣ 📜SendMessage.styles.ts
+ ┃ ┃ ┃ ┣ 📜SendMessage.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Table
+ ┃ ┃ ┃ ┣ 📂TableBox
+ ┃ ┃ ┃ ┃ ┣ 📂CoinList
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinChange
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinChange.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinHighest
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinHighest.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinInfo
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinInfo.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinKimp
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinKimp.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinLowest
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinLowest.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂CoinPrice
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinPrice.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂TradeValue
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TradeValue.tsx
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinList.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CoinList.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableBox.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableBox.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TableHeader
+ ┃ ┃ ┃ ┃ ┣ 📂TableHeaderItem
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableHeaderItem.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TableHeaderItem.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableHeader.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableHeader.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TableNav
+ ┃ ┃ ┃ ┃ ┣ 📜TableNav.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜TableNav.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜Table.constant.ts
+ ┃ ┃ ┃ ┣ 📜Table.styles.ts
+ ┃ ┃ ┃ ┣ 📜Table.tsx
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂Widget
+ ┃ ┃ ┃ ┣ 📂Carousel
+ ┃ ┃ ┃ ┃ ┣ 📜Carousel.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂ChartWidget
+ ┃ ┃ ┃ ┃ ┣ 📜ChartWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📂TickerWidget
+ ┃ ┃ ┃ ┃ ┣ 📜TickerWidget.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜Card.tsx
+ ┃ ┃ ┃ ┣ 📜Widget.constants.ts
+ ┃ ┃ ┃ ┣ 📜Widget.styles.ts
+ ┃ ┃ ┃ ┣ 📜Widget.tsx
+ ┃ ┃ ┃ ┣ 📜Widget.types.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┗ 📂common
+ ┃ ┃ ┃ ┣ 📂Footer
+ ┃ ┃ ┃ ┃ ┣ 📜Footer.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┗ 📂Header
+ ┃ ┃ ┃ ┃ ┣ 📂ExchangeRateDisplay
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExchangeRateDisplay.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExchangeRateDisplay.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📂GlobalCoinLabel
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalCoinLabel.styles.ts
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GlobalCoinLabel.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Header.styles.ts
+ ┃ ┃ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜Header.types.ts
+ ┃ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂firebase
+ ┃ ┃ ┣ 📜config.ts
+ ┃ ┃ ┣ 📜createMessages.ts
+ ┃ ┃ ┣ 📜fetchMessages.ts
+ ┃ ┃ ┣ 📜messageQuery.ts
+ ┃ ┃ ┗ 📜orderSnapshotMessages.ts
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📂binance
+ ┃ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┃ ┣ 📜updateSocketDataWithBinance.ts
+ ┃ ┃ ┃ ┣ 📜useBinanceTicker.ts
+ ┃ ┃ ┃ ┗ 📜useFetchExchangeRate.ts
+ ┃ ┃ ┣ 📂upbit
+ ┃ ┃ ┃ ┗ 📜useUpbitTicker.ts
+ ┃ ┃ ┣ 📜index.ts
+ ┃ ┃ ┣ 📜useChartTickers.ts
+ ┃ ┃ ┣ ...
+ ┃ ┃ ┗ 📜useWidgetTickers.ts
+ ┃ ┣ 📂pages
+ ┃ ┃ ┗ 📂home
+ ┃ ┃ ┃ ┣ 📜Home.page.tsx
+ ┃ ┃ ┃ ┣ 📜Home.styles.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┣ 📂recoil
+ ┃ ┃ ┗ 📂atoms
+ ┃ ┃ ┃ ┣ 📜commonAtoms.ts
+ ┃ ┃ ┃ ┣ ...
+ ┃ ┃ ┃ ┗ 📜themeAtoms.ts
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📜globalStyle.ts
+ ┃ ┃ ┗ 📜theme.ts
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜convertDate.ts
+ ┃ ┃ ┣ ...
+ ┃ ┃ ┗ 📜removeUSDT.ts
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜index.tsx
+ ┃ ┣ 📜react-app-env.d.ts
+ ┃ ┗ 📜reportWebVitals.ts
+ ┣ 📜.eslintrc
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜README.md
+ ┣ 📜config-overrides.js
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┗ 📜tsconfig.json
 
 ```
 </details>
 
-### 📌 개발 기간 :  `4주` `23.10.09 ~ 23.11.03`
+### 📌 개발 기간 :  `4주 - 23.10.09 ~ 23.11.03`
+
