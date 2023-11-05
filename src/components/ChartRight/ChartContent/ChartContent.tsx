@@ -69,7 +69,7 @@ export const ChartContent = () => {
         chart.current?.remove();
       };
     }
-  }, [processedData]);
+  }, [processedData, theme.colors]);
 
   useEffect(() => {
     if (updatedCandle && newSeries.current) {
