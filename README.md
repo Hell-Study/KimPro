@@ -1,10 +1,10 @@
-![main](https://github.com/2weeks-team/2weeks-team/assets/39702832/f8318c48-b88d-4f20-a901-634feab46414)
+![dark](https://github.com/Hell-Study/Final-Project/assets/39702832/549f0fb2-8fcc-4f2e-8fc3-7b8a73649f91)
 
 ## 목차
 1. [**프로젝트 소개**](#1)
 2. [**기술 스택**](#2)
 3. [**주요 기능**](#3)
-4. [**프로젝트 구성도**](#4)
+4. [**아키텍처**](#4)
 5. [**최적화**](#5)
 6. [**팀 소개**](#6)
 7. [**폴더 구조**](#7)
@@ -16,7 +16,7 @@
 
 '김치 프리미엄'의 'KIMP'와 '프로페셔널'의 'PRO'를 조합하여 **KIMPRO**를 저희 서비스 이름으로 정하였으며, 이름에 걸맞게 김치 프리미엄을 유저들에게 프로페셔널하게 제공하고자 합니다.
 
-[**🔗 서비스 바로가기 Click !**](https://hell-study.github.io/Final-Project/) 👈
+[**🔗 서비스 바로가기 Click !**](https://kimpro.site/) 👈
 
 > **김치 프리미엄(Kimchi premium)**, 김프는 한국에서 거래되는 암호화폐의 시세가 해외 거래소 시세와 비교해 얼마나 높은가를 뜻하는 단어입니다. 해외 거래소보다 높을 경우 '김치 프리미엄이 끼어 있다.' 비슷한 정도로 낮아질 경우 '김치 프리미엄이 빠졌다.'라고 표현합니다.
 
@@ -43,7 +43,7 @@
   <img src="https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white">
   <img src="https://img.shields.io/badge/Recoil-oran?style=for-the-badge&logo=Recoil" />
   <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101">
+  <img src="https://img.shields.io/badge/websocket-FFFF64.svg?&style=for-the-badge&logo=rsocket&logoColor=black">
     <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 </div>
 
@@ -66,42 +66,52 @@
 <div id="3"></div>
 
 ## 📌 주요 기능
-| 기능                      | 내용                                                                                                                                |
-| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
-| 김프 차트                   | 사용자가 원하는 차트를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 김치프리미엄과 바이낸스 비트코인 차트를 실시간으로 보여줍니다. |
+| 기능                                          | 내용                           |
+| :------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
+| 김프 차트    ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ               | 사용자가 원하는 차트를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 김치프리미엄과 바이낸스 비트코인 차트를 실시간으로 보여줍니다. |
 | 코인 차트               | 코인 테이블에서 선택한 코인 정보와 시세 차트를 실시간으로 보여줍니다.            |
 | 코인 테이블 | 사용자가 원하는 거래소를 셀렉트박스로 선택할 수 있으며, 업비트/빗썸 코인의 이름, 현재가, 전일대비, 고가/저가대비, 거래량, 그리고 각각 코인마다 바이낸스와의 김치프리미엄을 실시간으로 보여줍니다. 또한 각 카테고리별 오름/내림차순 정렬이 가능하며, 코인 검색 기능을 지원합니다.       |
-| 위젯 | S&P 500, NASDAQ, KOSPI, KOSDAQ, 금 선물의 시세, 전일대비를 수치 및 차트로 보여주며, 캐러셀 형태로 구현하였습니다.                  |
-| 채팅 | 사이트 이용자들과 실시간 채팅을 할 수 있으며, 로컬스토리지로 부여받은 닉네임으로 소통할 수 있습니다. (로그인 필요 x)                  |
+| 위젯 | S&P 500, NASDAQ, KOSPI, KOSDAQ, 금 선물 시세, 전일대비를 수치 및 차트로 보여주며, 캐러셀 형태로 구현하였습니다.                  |
+| 채팅 | 사이트 이용자들과 실시간 채팅을 할 수 있으며, 로컬스토리지로 부여받은 닉네임으로 소통할 수 있습니다. (로그인 x)                  |
 | 다크/라이트 모드 | 토글 버튼을 통해 서비스 전체의 색상을 다크 또는 라이트로 설정할 수 있으며, 상태를 로컬스토리지로 저장합니다.                 |
 | 헤더 | 환율(USD/KRW), 암호화폐/거래소 개수, 전체 시가총액, 24시간 거래량, BTC 점유율, 즉 암호화폐 시장과 관련된 전체적인 수치를 보여줍니다.                  |
 
 <div id="4"></div>
 
-## 📌 프로젝트 구성도
+## 📌 아키텍처
 |                                   아키텍처(Architecture)                                   |
 | :----------------------------------------------------------------------------------------: |
-| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/023485a5-276b-4c82-9a13-a2b4e06c75d0" /> |
+| <img src="https://github.com/KDT1-FE/Y_FE_JAVASCRIPT_PICTURE/assets/39702832/3083396c-73ea-4c93-b89d-105884885333" /> |
 
 <div id="5"></div>
 
 ## 📌 최적화
-|                                              웹 성능 최적화 전                                              |                                     웹 성능 최적화 후                                      |
+|                                              Lighthouse BEFORE                                              |                                     Lighthouse AFTER                                      |
 | :---------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/Hell-Study/Final-Project/assets/39702832/8b674efa-2dfa-45cd-a95c-c8d6882b0756" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> | <img src="https://github.com/Hell-Study/Final-Project/assets/39702832/8b674efa-2dfa-45cd-a95c-c8d6882b0756" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> |
+| <img src="https://github.com/ssafy-mate/ssafy-mate_front-end/assets/39702832/d393f883-cebf-4ecb-b673-0b345ffc2df3" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> | <img src="https://github.com/KDT1-FE/Y_FE_JAVASCRIPT_PICTURE/assets/39702832/3d173220-0ef0-4bff-8fc5-e82ad7563ac8" alt="웹 성능 최적화 전 분석 이미지" width="500px"/> |
 
 |           항목           | 웹 성능 최적화 전 | 웹 성능 최적화 후 |
 | :----------------------: | :---------------: | :---------------: |
-|    Performance Score     |        62         |        88         |
-|  First Contentful Paint  |       0.6s        |       0.5s        |
-|   Time to Interactive    |       2.8s        |       1.3s        |
-|       Speed Index        |       3.5s        |       1.3s        |
-|   Total Blocking Time    |       100ms       |        0ms        |
-| Largest Contentful Paint |       6.2s        |       2.2s        |
-| Cumulative Layout Shift  |       0.128       |       0.001       |
+|    Performance Score     |        26         |        89         |
+|  First Contentful Paint  |       0.5s        |       0.5s        |
+|   Total Blocking Time    |       1,670ms     |       90ms        |
+|       Speed Index        |       9.5s        |       1.6s        |
+| Largest Contentful Paint |       4.7s        |       1.7s        |
+| Cumulative Layout Shift  |       0.227       |       0.086       |
 
-> 무엇, 무엇을 사용하여서 어떻게 바뀌었다
+#### 성능 개선을 위해 어떠한 노력을 했나?
+- React.memo로 불필요한 리렌더링 개선
+- useCallback, useMemo로 메모이제이션
+- windowing으로 첫 렌더링 시 보이는 코인만 DOM에 표시
+- webpack으로 bunle size 최적화
+- 렌더링 전 layout 유지하여 layout shift 최소화
+- Code Splitting, Lazy Loading, Suspense
+- Lottie로 애니메이션 최적화
+- API 캐싱을 통해 네트워크 대역폭 절약
+- throttle로 Socket 부하 분산
+- react-icons 라이브러리 대신 svg 사용
 
+> 위와 같은 작업들을 통해 **Performace Score 26점 -> 89점**으로 개선하였고, **TBT, SI, LCP, CLS**에서도 유의미한 성과를 보였습니다!
 <div id="6"></div>
 
 ## 📌 팀 소개
@@ -148,9 +158,9 @@
 
 |  이름  |        역할        | <div align="center">개발 내용</div>                                                                                                                                                                                        |
 | :----: | :-------: | :------ |
-| 어승준 | FE<br />팀장 | - DB 설계<br />- Spring Data JPA 세팅<br />&nbsp;&nbsp;&nbsp;&nbsp;- 채팅 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 도메인 개발<br />- TypeScript, Nest.js와 Socket.io를 이용한 실시간 채팅 서버 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 웹소켓 연결<br />&nbsp;&nbsp;&nbsp;&nbsp;- 1대1 실시간 채팅 구현<br />                                                                                                                                                                                                                                                              |
-| 서지수 |      FE      | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb websocket api 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coingecko api를 이용한 bithumb 코인명, 아이콘 매칭<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 테이블 컴포넌트화 및 정렬 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb candlestick api 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트 컴포넌트화<br />&nbsp;&nbsp;&nbsp;&nbsp;- upbit, bithumb api 타입 통일을 통한 컴포넌트화 개선<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo를 이용한 시세 차트, 테이블 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- 첫 렌더링 시 보이는 코인만 dom에 표시하기 위한 windowing 적용<br />                                                                                                                             |
-| 박나영 |      FE      | - DB 설계<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 데이터 전처리<br />&nbsp;&nbsp;&nbsp;&nbsp;- 교육생 인증 데이터 전처리<br />- 서버에 기술 스택 이미지 업로드<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 조회 서비스 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 팀 생성/수정/삭제 서비스 도메인 개발                                       |
+| 어승준 | FE<br />팀장 | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Upbit WebSocket API 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Binance 데이터와 매칭 및 김프 계산<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 검색 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Upbit Candlestick API 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 선택한 코인 정보 표시<br />&nbsp;&nbsp;&nbsp;&nbsp;- 채팅<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 실시간 메시지 주고받기<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 이전 대화 가져오기<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 닉네임 랜덤 생성 및 변경<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 스크롤 맨 아래로 이동하기<br />&nbsp;&nbsp;&nbsp;&nbsp;- 헤더<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coinlore API를 통해 global coin 정보 표시<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo로 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- useCallback, useMemo로 메모이제이션<br />&nbsp;&nbsp;&nbsp;&nbsp;- throttle로 Socket 부하 분산<br />&nbsp;&nbsp;&nbsp;&nbsp;- Code Splitting, Lazy Loading, Suspense<br />&nbsp;&nbsp;&nbsp;&nbsp;- Lottie로 애니메이션 최적화<br />&nbsp;&nbsp;&nbsp;&nbsp;- react-icons 라이브러리 대신 svg 사용<br />&nbsp;&nbsp;&nbsp;&nbsp;- API 캐싱을 통해 네트워크 대역폭 절약                                                                                                                                                                                                                                                        |
+| 서지수 |      FE<br />팀원      | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb websocket api 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coingecko api를 이용한 bithumb 코인명, 아이콘 매칭<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 테이블 컴포넌트화 및 정렬 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 코인 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb candlestick api 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트 컴포넌트화<br />&nbsp;&nbsp;&nbsp;&nbsp;- upbit, bithumb api 타입 통일을 통한 컴포넌트화 개선<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo를 이용한 시세 차트, 테이블 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- 첫 렌더링 시 보이는 코인만 dom에 표시하기 위한 windowing 적용<br />                                                                                                                             |
+| 박나영 |      FE<br />팀원      | - DB 설계<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 데이터 전처리<br />&nbsp;&nbsp;&nbsp;&nbsp;- 교육생 인증 데이터 전처리<br />- 서버에 기술 스택 이미지 업로드<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 조회 서비스 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 팀 생성/수정/삭제 서비스 도메인 개발                                       |
 
 <div id="7"></div>
 
@@ -366,4 +376,4 @@
 ```
 </details>
 
-### 📌 개발 기간 :  `4주` `23.10.09 ~ 23.11.03`
+### 📌 개발 기간 :  `4주 - 23.10.09 ~ 23.11.03`
