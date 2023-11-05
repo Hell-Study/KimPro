@@ -15,8 +15,6 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const { data } = useChartTickers(pairId, 'PT1H');
 
-  console.log(data);
-
   useEffect(() => {
     if (!chartContainerRef.current || !data || data.length === 0) return;
     const baselineValue = baseData?.value;

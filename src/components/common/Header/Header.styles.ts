@@ -23,6 +23,10 @@ export const Inner = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 0.9375rem;
+
+  & > div {
+    font-weight: 500;
+  }
 `;
 
 export const InnerSpaceBetween = styled(Inner)`
