@@ -40,7 +40,7 @@ const ChartCoinInfo = ({
           ) : (
             <styled.CaretDownSVG viewBox="0 60 320 512" />
           )}
-          {Math.abs(changeRatio * 100).toFixed(2)}%
+          {Math.abs(changeRatio).toFixed(2)}%
         </styled.CoinChangeText>
         <styled.CoinChangeText>
           {changePrice > 0 ? '+' : '-'}
