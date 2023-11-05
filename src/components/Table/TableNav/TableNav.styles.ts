@@ -54,7 +54,7 @@ export const SearchForm = styled.form`
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.border1};
   background: ${({ theme }) => theme.colors.bg_element4};
-  box-shadow: 0px 0px 40px 0px ${({ theme }) => theme.colors.border1};
+  box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 2px 10px 0px;
 
   &:focus-within {
     border: 1px solid ${({ theme }) => theme.colors.blue};
@@ -62,10 +62,10 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchIcon = styled(Search)`
->>>>>>> dev
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;
+  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const SearchInput = styled.input`

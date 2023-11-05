@@ -1,1 +1,2 @@
-export { TableBox } from './TableBox';
+import TableBox from './TableBox';
+export { TableBox };
