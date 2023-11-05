@@ -35,7 +35,7 @@ export const GlobalCoinLabel: React.FC<IGlobalCoin> = ({
         : isPercentage
         ? `${value}%`
         : value?.toString() || '로딩 중...'}
-      {change !== undefined && (
+      {change && (
         <styled.Rate $isPositive={change >= 0}>
           {(change >= 0 ? '+' : '-') + Math.abs(change).toString() + '%'}
         </styled.Rate>

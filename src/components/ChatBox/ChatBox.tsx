@@ -7,11 +7,8 @@ import { useRecoilState } from 'recoil';
 import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
 import * as styled from './ChatBox.styles';
 import { updateNickname, saveUserInfoToLocalStorage } from 'hooks';
-import { useTheme } from 'styled-components';
 
 const ChatBox = () => {
-  const theme = useTheme();
-
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
 
   const closeModal = () => {
