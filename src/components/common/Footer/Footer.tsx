@@ -1,12 +1,10 @@
 import * as styled from './Footer.styles';
 import { useTheme } from 'hooks';
-import { useTheme as myUseTheme } from 'styled-components';
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
 
 function Footer() {
-  const { theme, onChangeTheme } = useTheme();
-  const myTheme = myUseTheme();
+  const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
 
   return (
@@ -66,6 +64,6 @@ function Footer() {
       </styled.ContributorsWrapper>
     </styled.FooterContainer>
   );
-}
+};
 
 export default Footer;

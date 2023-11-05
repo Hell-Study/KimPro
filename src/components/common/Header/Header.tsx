@@ -5,7 +5,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import { useTheme } from 'hooks';
-import { useTheme as myUseTheme } from 'styled-components';
 import { ExchangeRateDisplay } from './ExchangeRateDisplay';
 import { GlobalCoinLabel } from './GlobalCoinLabel';
 
@@ -14,7 +13,6 @@ import LogoLight from 'assets/images/Logo-Light.svg';
 
 function Header() {
   const { theme, onChangeTheme } = useTheme();
-  const myTheme = myUseTheme();
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
   const exchangeRate = useRecoilValue(exchangeRateState);
 
