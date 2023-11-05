@@ -5,15 +5,16 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import { useTheme } from 'hooks';
+import { useTheme as myUseTheme } from 'styled-components';
 import { ExchangeRateDisplay } from './ExchangeRateDisplay';
 import { GlobalCoinLabel } from './GlobalCoinLabel';
-import { HiSun, HiMoon } from 'react-icons/hi2';
-import { DiGithubAlt } from 'react-icons/di';
+
 import LogoDark from 'assets/images/Logo-Dark.svg';
 import LogoLight from 'assets/images/Logo-Light.svg';
 
 function Header() {
   const { theme, onChangeTheme } = useTheme();
+  const myTheme = myUseTheme();
   const [globalCoin, setGlobalCoin] = useRecoilState(globalCoinState);
   const exchangeRate = useRecoilValue(exchangeRateState);
 
@@ -81,14 +82,14 @@ function Header() {
               rel="noopener noreferrer"
             >
               <styled.GithubButton>
-                <DiGithubAlt />
+                <styled.GithubSVG />
               </styled.GithubButton>
             </a>
             <styled.SwitchButton
               $isDarkMode={isDarkMode}
               onClick={onChangeTheme}
             >
-              {isDarkMode ? <HiMoon /> : <HiSun />}
+              {isDarkMode ? <styled.MoonSVG /> : <styled.SunSVG />}
             </styled.SwitchButton>
           </styled.BtnGroup>
         </styled.InnerSpaceBetween>

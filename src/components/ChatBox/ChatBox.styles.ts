@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import { FiChevronDown } from 'react-icons/fi';
+import { ReactComponent as ChevronDown } from 'assets/images/Chevron-Down.svg';
+import { ReactComponent as MessageDots } from 'assets/images/MessageDots.svg';
+
+export const MessageDotsSVG = styled(MessageDots)`
+  fill: ${({ theme }) => theme.colors.blue};
+`;
 
 export const StyledModal = styled(Modal)`
   position: fixed;
@@ -44,11 +49,11 @@ export const Title = styled.div`
   font-size: 0.95rem;
 `;
 
-export const CloseButton = styled(FiChevronDown)`
+export const ChevronDownSVG = styled(ChevronDown)`
   margin: auto;
-  height: 1rem;
-  width: 1rem;
-  color: ${({ theme }) => theme.colors.icon};
+  height: 0.75rem;
+  width: 0.75rem;
+  fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const InfoWrapper = styled.div`
@@ -135,9 +140,9 @@ export const ScrollToBottomButton = styled.div<ScrollToBottomButtonProps>`
   transition: all 0.2s ease;
 `;
 
-export const BottomIcon = styled(FiChevronDown)`
+export const BottomIcon = styled(ChevronDown)`
   margin: auto;
-  height: 1.5rem;
-  width: 1.5rem;
-  color: ${({ theme }) => theme.colors.bg_element5};
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: ${({ theme }) => theme.colors.white};
 `;

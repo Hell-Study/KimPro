@@ -4,7 +4,6 @@ import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
 import { getFormattedValues } from 'utils';
 import { formatNumber } from 'utils';
 import type { IWidgetTicker } from '../Widget.types';
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa';
 import * as styled from '../Widget.styles';
 
 interface IWidgetTickerProps {
@@ -71,23 +70,27 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = memo(
       baseData.value,
     );
 
-    return (
-      <styled.Price>
-        <styled.Nowprice $highlight={highlight}>
-          {formatNumber(parseFloat(currentData.value.toFixed(2)))}
-        </styled.Nowprice>
-        <styled.DiffPrice
-          $isIncrease={changeRatePrev === 'increase'}
-          $isDecrease={changeRatePrev === 'decrease'}
-        >
-          <styled.Perc>
-            {changeRatePrev === 'increase' ? <FaCaretUp /> : <FaCaretDown />}{' '}
-            {percent}%{' '}
-          </styled.Perc>
-          <styled.Change>{diff}</styled.Change>
-        </styled.DiffPrice>
-      </styled.Price>
-    );
-  },
-);
+  return (
+    <styled.Price>
+      <styled.Nowprice $highlight={highlight}>
+        {formatNumber(parseFloat(currentData.value.toFixed(2)))}
+      </styled.Nowprice>
+      <styled.DiffPrice
+        $isIncrease={changeRatePrev === 'increase'}
+        $isDecrease={changeRatePrev === 'decrease'}
+      >
+        <styled.Perc>
+          {changeRatePrev === 'increase' ? (
+            <styled.CaretUpSVG />
+          ) : (
+            <styled.CaretDownSVG />
+          )}{' '}
+          {percent}%{' '}
+        </styled.Perc>
+        <styled.Change>{diff}</styled.Change>
+      </styled.DiffPrice>
+    </styled.Price>
+  );
+};
+
 TickerWidget.displayName = 'TickerWidget';

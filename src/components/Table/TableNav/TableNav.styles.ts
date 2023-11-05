@@ -62,6 +62,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchIcon = styled(Search)`
+>>>>>>> dev
   width: 18px;
   height: 18px;
   margin-right: 0.625rem;

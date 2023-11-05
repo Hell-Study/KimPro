@@ -1,5 +1,33 @@
 import styled, { css } from 'styled-components';
 
+import { ReactComponent as ChevronRight } from 'assets/images/Chevron-Right.svg';
+import { ReactComponent as ChevronLeft } from 'assets/images/Chevron-Left.svg';
+import { ReactComponent as CaretUp } from 'assets/images/Caret-Up.svg';
+import { ReactComponent as CaretDown } from 'assets/images/Caret-Down.svg';
+
+export const ChevronRightSVG = styled(ChevronRight)`
+  fill: ${({ theme }) => theme.colors.white};
+  width: 1rem;
+  height: 1rem;
+`;
+export const ChevronLeftSVG = styled(ChevronLeft)`
+  fill: ${({ theme }) => theme.colors.white};
+  width: 1rem;
+  height: 1rem;
+`;
+
+export const CaretUpSVG = styled(CaretUp)`
+  fill: ${({ theme }) => theme.colors.red};
+  width: 1rem;
+  height: 1rem;
+`;
+
+export const CaretDownSVG = styled(CaretDown)`
+  fill: ${({ theme }) => theme.colors.blue};
+  width: 1rem;
+  height: 1rem;
+`;
+
 export const Container = styled.div`
   position: relative;
   width: ${({ theme }) => theme.sizes.lg};
@@ -44,7 +72,10 @@ export const NextButton = styled(Button)`
   right: 8px;
 `;
 
-export const Icon = styled.span`
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: ${({ theme }) => theme.colors.white};
   font-size: 1.5rem;
   line-height: 0.5;
