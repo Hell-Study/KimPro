@@ -11,18 +11,22 @@ interface IProps {
 
 export const TableHeaderItem = ({ value }: IProps) => {
   const processedValue = value.slice(0, 4);
-  if (processedValue === '고가대비' || processedValue === '저가대비') {
-    value = processedValue;
-  }
 
   const [tableSortValue, setTableSortValue] =
     useRecoilState(tableSortValueState);
   const [tableSortUpDown, setTableSortUpDown] =
     useRecoilState(tableSortUpDownState);
-  const isSameValue = tableSortValue === value;
+
+  const isSameValue = () => {
+    if (processedValue === '고가대비' || processedValue === '저가대비') {
+      return tableSortValue === processedValue;
+    } else {
+      return tableSortValue === value;
+    }
+  };
 
   const changeSortVlaue = () => {
-    if (isSameValue) {
+    if (isSameValue()) {
       setTableSortUpDown(!tableSortUpDown);
     } else {
       if (processedValue === '고가대비' || processedValue === '저가대비') {
@@ -37,16 +41,16 @@ export const TableHeaderItem = ({ value }: IProps) => {
     <styled.TableHeaderItemContainer
       $value={value}
       onClick={changeSortVlaue}
-      className={isSameValue ? 'active' : ''}
+      className={isSameValue() ? 'active' : ''}
     >
       {value}
       <styled.SortIconWrapper>
         <styled.SortUpIcon
-          className={isSameValue ? (tableSortUpDown ? 'active' : '') : ''}
+          className={isSameValue() ? (tableSortUpDown ? 'active' : '') : ''}
           viewBox="0 -250 320 512"
         />
         <styled.SortDownIcon
-          className={isSameValue ? (tableSortUpDown ? '' : 'active') : ''}
+          className={isSameValue() ? (tableSortUpDown ? '' : 'active') : ''}
           viewBox="0 250 320 512"
         />
       </styled.SortIconWrapper>
