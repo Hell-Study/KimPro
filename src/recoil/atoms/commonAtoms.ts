@@ -7,7 +7,7 @@ export const baseExchangeState = atom<string>({
 
 export const modalIsOpenState = atom<boolean>({
   key: 'modalIsOpenState',
-  default: false,
+  default: true,
 });
 
 export const marketCodesState = atom<string[]>({
