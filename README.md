@@ -132,7 +132,7 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/HOOOO98" target="_blank">
+      <a href="https://github.com/jseo9732" target="_blank">
         서지수<br />
                 팀원 (FE)
       </a>
@@ -149,7 +149,7 @@
 |  이름  |        역할        | <div align="center">개발 내용</div>                                                                                                                                                                                        |
 | :----: | :-------: | :------ |
 | 어승준 | FE<br />팀장 | - DB 설계<br />- Spring Data JPA 세팅<br />&nbsp;&nbsp;&nbsp;&nbsp;- 채팅 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 도메인 개발<br />- TypeScript, Nest.js와 Socket.io를 이용한 실시간 채팅 서버 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 웹소켓 연결<br />&nbsp;&nbsp;&nbsp;&nbsp;- 1대1 실시간 채팅 구현<br />                                                                                                                                                                                                                                                              |
-| 서지수 |      FE      | - DB 설계<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 회원가입 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 아이디 찾기 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 비밀번호 재설정 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 회원 정보 조회 및 수정 도메인 개발<br />- SMTP Server, Redis를 이용한 이메일 인증 기능 구현<br />                                                                                                                             |
+| 서지수 |      FE      | - 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 테이블<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb websocket api 연동 및 테이블 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coingecko api를 이용한 bithumb 코인명, 아이콘 매칭<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 테이블 컴포넌트화 및 정렬 기능 구현<br />&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- bithumb candlestick api 연동 및 시세 차트 적용<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 시세 차트 컴포넌트화<br />&nbsp;&nbsp;&nbsp;&nbsp;- upbit, bithumb api 타입 통일을 통한 컴포넌트화 개선<br />- 성능 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- React.memo를 이용한 시세 차트, 테이블 불필요한 리렌더링 개선<br />&nbsp;&nbsp;&nbsp;&nbsp;- 첫 렌더링 시 보이는 코인만 dom에 표시하기 위한 windowing 적용<br />                                                                                                                             |
 | 박나영 |      FE      | - DB 설계<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 데이터 전처리<br />&nbsp;&nbsp;&nbsp;&nbsp;- 교육생 인증 데이터 전처리<br />- 서버에 기술 스택 이미지 업로드<br />- Spring Boot로 RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 기술 스택 조회 서비스 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 팀 생성/수정/삭제 서비스 도메인 개발                                       |
 
 <div id="7"></div>
