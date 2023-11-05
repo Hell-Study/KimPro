@@ -2,10 +2,10 @@ import React, { Suspense } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { GlobalStyle } from './assets/style/GlobalStyle';
-import { lightTheme, darkTheme } from './assets/style/theme';
-import { themeState } from './recoil/atoms/theme';
+import { GlobalStyle } from './styles/globalStyle';
+import { lightTheme, darkTheme } from './styles/theme';
+import { themeState } from './recoil/atoms/themeAtoms';
+import { LoadingAnimation } from 'components/LoadingAnimation';
 
 const Home = React.lazy(() => import('pages/home'));
 
@@ -17,14 +17,13 @@ function App() {
         <GlobalStyle />
         <BrowserRouter>
           <div className="App">
-            <Suspense fallback={<div>로딩중...</div>}>
+            <Suspense fallback={<LoadingAnimation></LoadingAnimation>}>
               <Routes>
-                <Route path="/Final-Project" element={<Home />}></Route>
+                <Route path="/" element={<Home />}></Route>
               </Routes>
             </Suspense>
           </div>
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>
   );

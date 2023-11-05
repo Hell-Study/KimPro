@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createMessages } from '../../firebase/createMessages';
-import { RiSendPlaneFill } from 'react-icons/ri';
 import * as styled from './SendMessage.styles';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const SendMessage = () => {
   const [message, setMessage] = useState('');
@@ -10,7 +9,7 @@ const SendMessage = () => {
   const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
     if (message.trim() === '') {
-      swal({
+      Swal.fire({
         title: '메시지를 입력해주세요.',
         text: '아무것도 입력하지 않으면 메시지를 전송할 수 없습니다.',
         icon: 'error',
@@ -31,7 +30,7 @@ const SendMessage = () => {
           onChange={(e) => setMessage(e.target.value)}
         />
         <styled.SendMessageButton type="submit">
-          <RiSendPlaneFill />
+          <styled.PaperPlaneSVG />
         </styled.SendMessageButton>
       </styled.SendMessageWrapper>
     </styled.SendMessageForm>

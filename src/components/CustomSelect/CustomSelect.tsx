@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { useDropdown } from 'hooks/useDropdown';
+import { useState } from 'react';
+import { useDropdown } from 'hooks';
 import { CustomSelectProps } from './CustomSelect.types';
 import * as styled from './CustomSelect.styles';
+import { useTheme } from 'styled-components';
 
 export const CustomSelect: React.FC<CustomSelectProps> = ({
   optionData,
   onChange,
   disabled,
 }) => {
+  const theme = useTheme();
   const [currentValue, setCurrentValue] = useState(optionData[0].value);
   const [currentTitle, setCurrentTitle] = useState(optionData[0].title);
   const { ref, isOpen, setIsOpen } = useDropdown();
@@ -46,7 +48,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         />
         {currentTitle}
       </styled.Label>
-      <styled.DropdownIcon />
+      <styled.ChevronDownSVG />
       <styled.SelectOptions $show={isOpen}>
         {optionData.map((data) => (
           <styled.Option
@@ -56,7 +58,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
           >
             <styled.Symbol src={data.symbol} alt={data.value} loading="lazy" />
             {data.title}
-            <styled.Check $isChecked={data.value === currentValue} />
+            <styled.CheckSVG $isChecked={data.value === currentValue} />
           </styled.Option>
         ))}
       </styled.SelectOptions>

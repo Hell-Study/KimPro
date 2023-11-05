@@ -1,48 +1,38 @@
-import { useState, useEffect } from 'react';
+import { throttle } from 'lodash';
+import { useState, useEffect, useCallback } from 'react';
+import type { IBinanceTicker } from '../../@types/binance.types';
 
-export interface IBinanceTicker {
-  e: string; // Event type
-  E: number; // Event time
-  s: string; // Symbol
-  c: string; //  Last price
-  Q: string; //  Last quantity
-}
-
-const useBinanceTicker = () => {
+export const useBinanceTicker = () => {
   const [binanceTickers, setBinanceTickers] = useState<IBinanceTicker[] | null>(
     null,
   );
   const SOCKET_URL = `wss://stream.binance.com:9443/ws/!ticker@arr`;
-  // const limit = 30;
+
+  const updateBinanceTickers = useCallback(
+    throttle((data: IBinanceTicker[]) => {
+      const filteredData = data.filter((ticker) => ticker.s.endsWith('USDT'));
+      setBinanceTickers(filteredData);
+    }, 500),
+    [],
+  );
 
   useEffect(() => {
     const ws = new WebSocket(SOCKET_URL);
 
     ws.onmessage = (e) => {
-      try {
-        const data: IBinanceTicker[] = JSON.parse(e.data);
-        const filteredData = data.filter((ticker: IBinanceTicker) =>
-          ticker.s.endsWith('USDT'),
-        );
-        // setBinanceTickers(filteredData.slice(0, limit));
-        setBinanceTickers(filteredData);
-      } catch (e) {
-        console.log('파싱 에러:', e);
-      }
+      const data: IBinanceTicker[] = JSON.parse(e.data);
+      updateBinanceTickers(data);
     };
 
     ws.onerror = (err) => {
-      console.log('WebSocket Error', err);
+      console.error('WebSocket Error', err);
     };
 
     return () => {
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
-      }
+      ws.close();
+      updateBinanceTickers.cancel();
     };
-  }, []);
+  }, [updateBinanceTickers]);
 
   return { binanceTickers };
 };
-
-export default useBinanceTicker;

@@ -1,4 +1,4 @@
-const getFormattedValues = (current: number, prev: number) => {
+export const getFormattedValues = (current: number, prev: number) => {
   const diff = current - prev;
   const percent = (diff / prev) * 100;
 
@@ -10,5 +10,3 @@ const getFormattedValues = (current: number, prev: number) => {
     percent: Math.abs(percent).toFixed(2),
   };
 };
-
-export default getFormattedValues;

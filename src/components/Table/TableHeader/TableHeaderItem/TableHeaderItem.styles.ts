@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { FaSortUp, FaSortDown } from 'react-icons/fa';
+import { ReactComponent as SortUp } from 'assets/images/sort-up.svg';
+import { ReactComponent as SortDown } from 'assets/images/sort-down.svg';
 
 export const TableHeaderItemContainer = styled.button<{ $value?: string }>`
   display: flex;
@@ -30,16 +31,20 @@ export const SortIconWrapper = styled.span`
   flex-direction: column;
 `;
 
-export const SortUpIcon = styled(FaSortUp)`
-  color: ${({ theme }) => theme.colors.heading2};
+export const SortUpIcon = styled(SortUp)`
+  width: 0.8125rem;
+  height: 0.8125rem;
+  fill: ${({ theme }) => theme.colors.heading2};
   &.active {
-    color: ${({ theme }) => theme.colors.heading1};
+    fill: ${({ theme }) => theme.colors.heading1};
   }
 `;
 
-export const SortDownIcon = styled(FaSortDown)`
-  color: ${({ theme }) => theme.colors.heading2};
+export const SortDownIcon = styled(SortDown)`
+  width: 0.8125rem;
+  height: 0.8125rem;
+  fill: ${({ theme }) => theme.colors.heading2};
   &.active {
-    color: ${({ theme }) => theme.colors.heading1};
+    fill: ${({ theme }) => theme.colors.heading1};
   }
 `;

@@ -1,4 +1,32 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { ReactComponent as ChevronRight } from 'assets/images/Chevron-Right.svg';
+import { ReactComponent as ChevronLeft } from 'assets/images/Chevron-Left.svg';
+import { ReactComponent as CaretUp } from 'assets/images/Caret-Up.svg';
+import { ReactComponent as CaretDown } from 'assets/images/Caret-Down.svg';
+
+export const ChevronRightSVG = styled(ChevronRight)`
+  fill: ${({ theme }) => theme.colors.white};
+  width: 1rem;
+  height: 1rem;
+`;
+export const ChevronLeftSVG = styled(ChevronLeft)`
+  fill: ${({ theme }) => theme.colors.white};
+  width: 1rem;
+  height: 1rem;
+`;
+
+export const CaretUpSVG = styled(CaretUp)`
+  fill: ${({ theme }) => theme.colors.red};
+  width: 1rem;
+  height: 1rem;
+`;
+
+export const CaretDownSVG = styled(CaretDown)`
+  fill: ${({ theme }) => theme.colors.blue};
+  width: 1rem;
+  height: 1rem;
+`;
 
 export const Container = styled.div`
   position: relative;
@@ -8,7 +36,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem 0.3rem;
+  padding: 2rem 0.3rem 1rem;
   font-family: 'Pretendard', sans-serif;
 `;
 
@@ -44,7 +72,10 @@ export const NextButton = styled(Button)`
   right: 8px;
 `;
 
-export const Icon = styled.span`
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: ${({ theme }) => theme.colors.white};
   font-size: 1.5rem;
   line-height: 0.5;
@@ -86,20 +117,29 @@ export const RightShade = styled(Shade)`
   );
 `;
 
-export const Card = styled.div`
-  background-color: ${({ theme }) => theme.colors.bg_element4};
+const commonCardStyles = css`
   display: flex;
   padding: 1rem 1.1rem;
   gap: 1.5rem;
   border: 1px solid ${({ theme }) => theme.colors.border1};
   border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.bg_element4};
   box-shadow: ${({ theme }) => theme.colors.alpha1} 0px 2px 10px 0px;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   cursor: pointer;
+  width: 218px;
+  height: 93.97px;
+`;
 
+export const Card = styled.div`
+  ${commonCardStyles};
   &:hover {
     background-color: ${({ theme }) => theme.colors.alpha1};
   }
+`;
+
+export const SkeletonCard = styled.div`
+  ${commonCardStyles};
 `;
 
 export const TickerRow = styled.div`
@@ -116,6 +156,11 @@ export const ChartRow = styled(TickerRow)`
 export const Ticker = styled.div`
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.heading2};
+`;
+
+export const SkeletonTicker = styled(Ticker)`
+  width: 100%;
+  height: 36.8px;
 `;
 
 export const Price = styled.div`
@@ -163,4 +208,9 @@ export const Perc = styled.span`
 
 export const Change = styled.span`
   font-size: 0.65rem;
+`;
+
+export const SkeletonChart = styled.div`
+  width: 100%;
+  height: 44px;
 `;

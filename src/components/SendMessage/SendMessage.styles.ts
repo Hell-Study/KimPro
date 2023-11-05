@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import { ReactComponent as PaperPlane } from 'assets/images/Paper-Plane.svg';
+
+export const PaperPlaneSVG = styled(PaperPlane)`
+  fill: ${({ theme }) => theme.colors.blue};
+`;
 
 export const SendMessageForm = styled.form`
   width: 100%;
@@ -45,14 +50,8 @@ export const SendMessageButton = styled.button`
   bottom: 5px;
   right: 5px;
 
-  svg {
-    height: 1.5em;
-    width: 1.5em;
-  }
-
   &:hover {
     border: 1px solid ${({ theme }) => theme.colors.primary1};
     box-shadow: ${({ theme }) => theme.colors.alpha_primary1} 0px 0px 0px 3px;
-  }
   }
 `;

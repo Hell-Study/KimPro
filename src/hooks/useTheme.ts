@@ -1,8 +1,8 @@
 import { useCallback, useLayoutEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { themeState } from 'recoil/atoms/theme';
+import { themeState } from 'recoil/atoms/themeAtoms';
 
-function useTheme() {
+export function useTheme() {
   const [theme, setTheme] = useRecoilState(themeState);
 
   const onChangeTheme = useCallback(() => {
@@ -30,5 +30,3 @@ function useTheme() {
     onChangeTheme,
   };
 }
-
-export default useTheme;

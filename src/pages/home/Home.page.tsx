@@ -1,23 +1,18 @@
 import * as styled from './Home.styles';
-import { Table } from 'components/Table';
-import { ChartRight } from 'components/ChartRight';
-import { ChartLeft } from 'components/ChartLeft';
-import { ChatBox } from 'components/ChatBox';
-import { Widget } from 'components/Widget';
-import { modalIsOpenState } from 'recoil/atoms/upbit';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { Header } from 'components/common/Header';
-import RealTimeChart from 'components/bithumb/RealTimeChart';
-import { baseExchangeState } from 'recoil/atoms/common';
+import { Footer } from 'components/common/Footer';
+import { Widget } from 'components/Widget';
+import { ChartLeft } from 'components/ChartLeft';
+import { ChartRight } from 'components/ChartRight';
+import { Table } from 'components/Table';
+import { ChatBox } from 'components/ChatBox';
+import { ChatBtn } from 'components/ChatBtn';
+import { useFetchExchangeRate } from 'hooks/binance';
+import { useTitle } from 'hooks/useTitle';
 
 export const Home: React.FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const baseExchange = useRecoilValue(baseExchangeState);
+  useFetchExchangeRate();
+  useTitle();
 
   return (
     <>
@@ -26,14 +21,13 @@ export const Home: React.FC = () => {
         <Widget />
         <styled.ChartsWrapper>
           <ChartLeft />
-          {baseExchange === 'upbit' ? <ChartRight /> : <RealTimeChart />}
+          <ChartRight />
         </styled.ChartsWrapper>
         <Table />
         <ChatBox />
       </styled.DisplayBoard>
-      <styled.ChatButton onClick={openModal} $isOpen={modalIsOpen}>
-        <styled.Icon />
-      </styled.ChatButton>
+      <ChatBtn />
+      <Footer />
     </>
   );
 };
