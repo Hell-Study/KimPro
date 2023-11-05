@@ -1,1 +1,2 @@
-export { TableHeader } from './TableHeader';
+import TableHeader from './TableHeader';
+export { TableHeader };

@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import * as styled from './TableNav.styles';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { baseExchangeState, marketCodesState } from 'recoil/atoms/commonAtoms';
 import { searchCoinState, selectedCoinState } from 'recoil/atoms/tableAtoms';
-import { CustomSelect } from 'components/CustomSelect';
-import { SELECT_OPTION, SELECT_SINGLE_OPTION } from '../Table.constant';
+import { TableNavSelect } from './TableNavSelect';
 
-export const TableNav = () => {
-  const [baseExchange, setBaseExchange] = useRecoilState(baseExchangeState);
+const TableNav = () => {
+  const baseExchange = useRecoilValue(baseExchangeState);
   const setSelectedCoin = useSetRecoilState(selectedCoinState);
   const marketCodes = useRecoilValue(marketCodesState);
 
@@ -22,21 +21,9 @@ export const TableNav = () => {
 
   return (
     <styled.TableNav>
-      <styled.SelectWrapper>
-        기준 거래소
-        <CustomSelect
-          optionData={SELECT_OPTION}
-          onChange={(value) => {
-            setBaseExchange(value);
-          }}
-        />
-        <styled.ArrowLeftRightIcon />
-        <CustomSelect optionData={SELECT_SINGLE_OPTION} disabled={true} />
-        해외 거래소
-      </styled.SelectWrapper>
+      <TableNavSelect />
       <styled.SearchWrapper>
         <styled.CoinCount>암호화폐 총 {marketCodes.length}개</styled.CoinCount>
-
         <styled.SearchForm>
           <styled.SearchIcon />
           <styled.SearchInput
@@ -49,3 +36,5 @@ export const TableNav = () => {
     </styled.TableNav>
   );
 };
+
+export default memo(TableNav);
