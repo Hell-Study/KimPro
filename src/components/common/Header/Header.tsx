@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import * as styled from './Header.styles';
 import getGlobalCoinData from 'api/getGlobalCoinData';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { globalCoinState } from 'recoil/atoms/globalCoinAtoms';
 import { exchangeRateState } from 'recoil/atoms/exchangeAtoms';
 import { useTheme } from 'hooks';
+import { ExchangeRateDisplay } from './ExchangeRateDisplay';
+import { GlobalCoinLabel } from './GlobalCoinLabel';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { DiGithubAlt } from 'react-icons/di';
 import LogoDark from 'assets/images/Logo-Dark.svg';
@@ -28,86 +30,40 @@ function Header() {
     };
 
     fetchData();
-  }, []);
+  }, [setGlobalCoin]);
 
-  const multiplyByExchangeRate = (value: number) => {
-    return exchangeRate ? value * exchangeRate : 0;
-  };
-  const formatCurrency = (value: number) => {
-    if (value === null || value === undefined) {
-      return '로딩 중...';
-    }
+  const {
+    coins_count,
+    active_markets,
+    total_mcap,
+    mcap_change,
+    total_volume,
+    volume_change,
+    btc_d,
+  } = globalCoin[0] || {};
 
-    const trillion = Math.floor(value / 1e12);
-    const billion = Math.floor((value % 1e12) / 1e8);
-
-    if (trillion > 0) {
-      return `${trillion}조 ${billion}억`;
-    } else {
-      return `${billion}억`;
-    }
-  };
   return (
     <styled.HeaderContainer>
       <styled.Topbar>
         <styled.Inner>
-          <div>
-            <styled.Label>환율(USD/KRW)</styled.Label>
-            {exchangeRate || null}
-          </div>
-
-          {globalCoin && (
-            <>
-              <div>
-                <styled.Label>암호화폐</styled.Label>
-                {globalCoin[0]?.coins_count
-                  ? globalCoin[0].coins_count.toString()
-                  : '로딩 중...'}
-              </div>
-              <div>
-                <styled.Label>거래소</styled.Label>
-                {globalCoin[0]?.active_markets
-                  ? globalCoin[0].active_markets.toString()
-                  : '로딩 중...'}
-              </div>
-              <div>
-                <styled.Label>시가총액</styled.Label>
-                {globalCoin[0]?.total_mcap
-                  ? formatCurrency(
-                      multiplyByExchangeRate(globalCoin[0].total_mcap),
-                    )
-                  : '로딩 중...'}
-                <styled.Rate $isPositive={globalCoin[0]?.mcap_change >= 0}>
-                  {globalCoin[0]?.mcap_change !== undefined
-                    ? (globalCoin[0].mcap_change >= 0 ? '+' : '-') +
-                      Math.abs(globalCoin[0].mcap_change).toString() +
-                      '%'
-                    : '로딩 중...'}
-                </styled.Rate>
-              </div>
-              <div>
-                <styled.Label>24시간 거래량</styled.Label>
-                {globalCoin[0]?.total_volume
-                  ? formatCurrency(
-                      multiplyByExchangeRate(globalCoin[0].total_volume),
-                    )
-                  : '로딩 중...'}
-                <styled.Rate $isPositive={globalCoin[0]?.volume_change >= 0}>
-                  {globalCoin[0]?.volume_change !== undefined
-                    ? (globalCoin[0].volume_change >= 0 ? '+' : '-') +
-                      Math.abs(globalCoin[0].volume_change).toString() +
-                      '%'
-                    : '로딩 중...'}
-                </styled.Rate>
-              </div>
-              <div>
-                <styled.Label>BTC 점유율</styled.Label>
-                {globalCoin[0]?.btc_d
-                  ? `${globalCoin[0].btc_d}%`
-                  : '로딩 중...'}
-              </div>
-            </>
-          )}
+          <ExchangeRateDisplay exchangeRate={exchangeRate} />
+          <GlobalCoinLabel label="암호화폐" value={coins_count} />
+          <GlobalCoinLabel label="거래소" value={active_markets} />
+          <GlobalCoinLabel
+            label="시가총액"
+            value={total_mcap}
+            change={mcap_change}
+            isCurrency
+            exchangeRate={exchangeRate}
+          />
+          <GlobalCoinLabel
+            label="24시간 거래량"
+            value={total_volume}
+            change={volume_change}
+            isCurrency
+            exchangeRate={exchangeRate}
+          />
+          <GlobalCoinLabel label="BTC 점유율" value={btc_d} isPercentage />
         </styled.Inner>
       </styled.Topbar>
       <styled.HeaderWrapper>
@@ -141,4 +97,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

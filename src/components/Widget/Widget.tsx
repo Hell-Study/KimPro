@@ -1,29 +1,17 @@
-import React from 'react';
-import { useWidgetTickers } from 'hooks';
+import React, { Suspense } from 'react';
 import { PAIR_DATA } from './Widget.constants';
-import { ChartWidget } from './ChartWidget';
-import { TickerWidget } from './TickerWidget';
 import { Carousel } from './Carousel';
+import { Card } from './Card';
 import * as styled from './Widget.styles';
 
 export const Widget: React.FC = () => {
   return (
-    <Carousel slidesToShow={4}>
-      {Object.entries(PAIR_DATA).map(([key, { id }]) => {
-        const { data: baseData } = useWidgetTickers(id, 'P1D', 'previous');
-        if (!baseData) return null;
-        return (
-          <styled.Card key={key}>
-            <styled.TickerRow>
-              <styled.Ticker>{key}</styled.Ticker>
-              <TickerWidget pairId={id} baseData={baseData} />
-            </styled.TickerRow>
-            <styled.ChartRow>
-              <ChartWidget pairId={id} baseData={baseData} />
-            </styled.ChartRow>
-          </styled.Card>
-        );
-      })}
-    </Carousel>
+    <Suspense fallback={<styled.SkeletonCard />}>
+      <Carousel slidesToShow={4}>
+        {Object.entries(PAIR_DATA).map(([ticker, { id }]) => (
+          <Card key={ticker} ticker={ticker} id={id} />
+        ))}
+      </Carousel>
+    </Suspense>
   );
 };
