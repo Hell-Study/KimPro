@@ -6,18 +6,11 @@ import { ChartLeft } from 'components/ChartLeft';
 import { ChartRight } from 'components/ChartRight';
 import { Table } from 'components/Table';
 import { ChatBox } from 'components/ChatBox';
-import { useRecoilState } from 'recoil';
-import { modalIsOpenState } from 'recoil/atoms/commonAtoms';
+import { ChatBtn } from 'components/ChatBtn';
 import { useFetchExchangeRate } from 'hooks/binance';
 import { useTitle } from 'hooks/useTitle';
 
 export const Home: React.FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useRecoilState(modalIsOpenState);
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
   useFetchExchangeRate();
   useTitle();
 
@@ -33,9 +26,7 @@ export const Home: React.FC = () => {
         <Table />
         <ChatBox />
       </styled.DisplayBoard>
-      <styled.ChatButton onClick={openModal} $isOpen={modalIsOpen}>
-        <styled.Icon />
-      </styled.ChatButton>
+      <ChatBtn />
       <Footer />
     </>
   );

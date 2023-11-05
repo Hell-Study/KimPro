@@ -13,7 +13,7 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
   baseData,
 }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const { data, isLoading } = useChartTickers(pairId, 'PT1H');
+  const { data } = useChartTickers(pairId, 'PT1H');
 
   useEffect(() => {
     if (!chartContainerRef.current || !data || data.length === 0) return;
@@ -104,13 +104,9 @@ export const ChartWidget: React.FC<IWidgetTickerProps> = ({
 
     return () => {
       window.removeEventListener('resize', handleResize);
-
       chart.remove();
     };
   }, [data]);
-
-  if (isLoading) return <>로딩중...</>;
-  if (!data) return <>데이터 없음</>;
 
   return <div ref={chartContainerRef} />;
 };

@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { GlobalStyle } from './styles/globalStyle';
 import { lightTheme, darkTheme } from './styles/theme';
 import { themeState } from './recoil/atoms/themeAtoms';
@@ -25,7 +24,6 @@ function App() {
             </Suspense>
           </div>
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import { useWidgetTickers } from 'hooks';
 import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
 import { getFormattedValues } from 'utils';
@@ -11,67 +11,64 @@ interface IWidgetTickerProps {
   baseData?: IWidgetTicker;
 }
 
-export const TickerWidget: React.FC<IWidgetTickerProps> = ({
-  pairId,
-  baseData,
-}) => {
-  const validInterval =
-    Object.values(PAIR_DATA).find((p) => p.id === pairId)?.intervals || [];
-  const currentInterval: Interval = validInterval.includes('PT1M')
-    ? 'PT1M'
-    : 'PT5M';
-  const {
-    data: currentData,
-    isLoading,
-    error,
-  } = useWidgetTickers(pairId, currentInterval, 'current');
+export const TickerWidget: React.FC<IWidgetTickerProps> = memo(
+  ({ pairId, baseData }: IWidgetTickerProps) => {
+    const validInterval =
+      Object.values(PAIR_DATA).find((p) => p.id === pairId)?.intervals || [];
+    const currentInterval: Interval = validInterval.includes('PT1M')
+      ? 'PT1M'
+      : 'PT5M';
+    const { data: currentData } = useWidgetTickers(
+      pairId,
+      currentInterval,
+      'current',
+    );
 
-  const prevData = useRef<IWidgetTicker | null>(currentData!);
+    const prevData = useRef<IWidgetTicker | null>(currentData!);
 
-  const [highlight, setHighlight] = useState<'increase' | 'decrease' | null>(
-    null,
-  );
+    const [highlight, setHighlight] = useState<'increase' | 'decrease' | null>(
+      null,
+    );
 
-  useEffect(() => {
-    if (currentData) {
-      prevData.current = currentData;
-    }
-  }, [currentData]);
+    useEffect(() => {
+      if (currentData) {
+        prevData.current = currentData;
+      }
+    }, [currentData]);
 
-  useEffect(() => {
-    if (changeRateCurrent === 'increase' || changeRateCurrent === 'decrease') {
-      setHighlight(changeRateCurrent);
-      const timer = setTimeout(() => {
-        setHighlight(null);
-      }, 150);
+    useEffect(() => {
+      if (
+        changeRateCurrent === 'increase' ||
+        changeRateCurrent === 'decrease'
+      ) {
+        setHighlight(changeRateCurrent);
+        const timer = setTimeout(() => {
+          setHighlight(null);
+        }, 150);
 
-      return () => clearTimeout(timer);
-    }
-  }, [currentData]);
+        return () => clearTimeout(timer);
+      }
+    }, [currentData]);
 
-  const getChangeRate = (
-    currentData?: IWidgetTicker | null,
-    prevData?: IWidgetTicker | null,
-  ): 'increase' | 'decrease' | '' => {
-    if (!currentData || !prevData) return '';
-    if (currentData.value > prevData.value) return 'increase';
-    if (currentData.value < prevData.value) return 'decrease';
-    // console.log('currentData.value:', currentData.value);
-    // console.log('prevData.value:', prevData.value);
-    return '';
-  };
+    const getChangeRate = (
+      currentData?: IWidgetTicker | null,
+      prevData?: IWidgetTicker | null,
+    ): 'increase' | 'decrease' | '' => {
+      if (!currentData || !prevData) return '';
+      if (currentData.value > prevData.value) return 'increase';
+      if (currentData.value < prevData.value) return 'decrease';
+      return '';
+    };
 
-  const changeRateCurrent = getChangeRate(currentData, prevData.current);
-  const changeRatePrev = getChangeRate(currentData, baseData);
+    const changeRateCurrent = getChangeRate(currentData, prevData.current);
+    const changeRatePrev = getChangeRate(currentData, baseData);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!currentData || !baseData) return null;
+    if (!currentData || !baseData) return null;
 
-  const { diff, percent } = getFormattedValues(
-    currentData.value,
-    baseData.value,
-  );
+    const { diff, percent } = getFormattedValues(
+      currentData.value,
+      baseData.value,
+    );
 
   return (
     <styled.Price>
@@ -95,3 +92,5 @@ export const TickerWidget: React.FC<IWidgetTickerProps> = ({
     </styled.Price>
   );
 };
+
+TickerWidget.displayName = 'TickerWidget';
