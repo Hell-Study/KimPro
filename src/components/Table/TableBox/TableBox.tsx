@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { searchCoinState } from 'recoil/atoms/tableAtoms';
 import { CoinList } from './CoinList';
 
-export const TableBox = () => {
+const TableBox = () => {
   const socketDatas = useKoreanTicker();
   const sortedSocketDatas = useTableSort(socketDatas);
 
