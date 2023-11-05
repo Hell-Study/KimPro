@@ -125,7 +125,7 @@
       </a>
     </td>
     <td align="center" width="150px">
-      <a href="https://github.com/suyeonnnnnnn" target="_blank">
+      <a href="https://github.com/jseo9732" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/79249376?v=4" alt="서지수 프로필" />
       </a>
     </td>
@@ -149,7 +149,7 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/JeongMin83" target="_blank">
+      <a href="https://github.com/im-na0" target="_blank">
         박나영<br />
                 팀원 (FE)
       </a>
