@@ -2,8 +2,9 @@ import * as styled from './TableHeader.styles';
 import { useRecoilValue } from 'recoil';
 import { baseExchangeState } from 'recoil/atoms/commonAtoms';
 import { TableHeaderItem } from './TableHeaderItem';
+import { memo } from 'react';
 
-export const TableHeader = () => {
+const TableHeader = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
   const headerItemList = [
     '코인',
@@ -24,3 +25,5 @@ export const TableHeader = () => {
     </styled.TableHeaderContainer>
   );
 };
+
+export default memo(TableHeader);
