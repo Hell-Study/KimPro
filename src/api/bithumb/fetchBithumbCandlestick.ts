@@ -16,28 +16,17 @@ export const fetchBithumbCandlestick = async (
       )
     ).json();
 
-    const processedData: CandlestickData[] = fetchedData.data
-      .map((data: IBithumbFetchCandlestick) => {
-        const time = convertDate(data[0]);
+    const processedData: CandlestickData[] = fetchedData.data.map(
+      (data: IBithumbFetchCandlestick) => {
         return {
-          time: time,
+          time: convertDate(data[0]),
           open: Number(data[1]),
           close: Number(data[2]),
           high: Number(data[3]),
           low: Number(data[4]),
         };
-      })
-      // 중복되는 코인 삭제
-      .reduce((acc: CandlestickData[], current: CandlestickData) => {
-        if (
-          acc.findIndex(({ time }) => {
-            return time === current.time;
-          }) === -1
-        ) {
-          acc.push(current);
-        }
-        return acc;
-      }, []);
+      },
+    );
 
     return processedData;
   } catch (error) {
