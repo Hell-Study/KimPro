@@ -26,9 +26,10 @@ export const TableHeaderItem = ({ value }: IProps) => {
       return tableSortValue === value;
     }
   };
+  const sortValue = isSameValue();
 
   const changeSortVlaue = () => {
-    if (isSameValue()) {
+    if (sortValue) {
       setTableSortUpDown(!tableSortUpDown);
     } else {
       if (isSortHighLowValue) {
@@ -43,16 +44,16 @@ export const TableHeaderItem = ({ value }: IProps) => {
     <styled.TableHeaderItemContainer
       $value={value}
       onClick={changeSortVlaue}
-      className={isSameValue() ? 'active' : ''}
+      className={sortValue ? 'active' : ''}
     >
       {value}
       <styled.SortIconWrapper>
         <styled.SortUpIcon
-          className={isSameValue() ? (tableSortUpDown ? 'active' : '') : ''}
+          className={sortValue ? (tableSortUpDown ? 'active' : '') : ''}
           viewBox="0 -250 320 512"
         />
         <styled.SortDownIcon
-          className={isSameValue() ? (tableSortUpDown ? '' : 'active') : ''}
+          className={sortValue ? (tableSortUpDown ? '' : 'active') : ''}
           viewBox="0 250 320 512"
         />
       </styled.SortIconWrapper>
