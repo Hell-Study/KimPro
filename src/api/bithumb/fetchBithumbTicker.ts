@@ -1,3 +1,4 @@
+import type { ICoingeckoCoinList } from '../../@types/coingecko.types';
 import type { ITicker } from '../../@types/common.types';
 import { getCoingeckoData } from 'api/coingecko/getCoingeckoData';
 import { changes, changesRatio, convertDate, highRatio, lowRatio } from 'utils';
@@ -23,7 +24,13 @@ type IFetchTicker = [
 const options = { method: 'GET', headers: { accept: 'application/json' } };
 
 export const fetchBithumbTicker = async () => {
-  const coingeckoData = await getCoingeckoData();
+  const coingeckoData: ICoingeckoCoinList[] = [];
+  for (let page = 1; page <= 3; page++) {
+    const fetchData = await getCoingeckoData(page);
+    if (fetchData) {
+      coingeckoData.push(...fetchData);
+    }
+  }
 
   try {
     const bithumbTicker = await (
@@ -37,7 +44,7 @@ export const fetchBithumbTicker = async () => {
 
     const fetchData: ITicker[] = [];
     fetchArr.map((data) => {
-      const { coinName, thumb } = matchCoingecko(coingeckoData.coins, data[0]);
+      const { coinName, thumb } = matchCoingecko(coingeckoData, data[0]);
       const {
         opening_price,
         closing_price,
