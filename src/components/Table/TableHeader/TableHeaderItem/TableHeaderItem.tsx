@@ -11,6 +11,8 @@ interface IProps {
 
 export const TableHeaderItem = ({ value }: IProps) => {
   const processedValue = value.slice(0, 4);
+  const isSortHighLowValue =
+    processedValue === '고가대비' || processedValue === '저가대비';
 
   const [tableSortValue, setTableSortValue] =
     useRecoilState(tableSortValueState);
@@ -18,7 +20,7 @@ export const TableHeaderItem = ({ value }: IProps) => {
     useRecoilState(tableSortUpDownState);
 
   const isSameValue = () => {
-    if (processedValue === '고가대비' || processedValue === '저가대비') {
+    if (isSortHighLowValue) {
       return tableSortValue === processedValue;
     } else {
       return tableSortValue === value;
@@ -29,7 +31,7 @@ export const TableHeaderItem = ({ value }: IProps) => {
     if (isSameValue()) {
       setTableSortUpDown(!tableSortUpDown);
     } else {
-      if (processedValue === '고가대비' || processedValue === '저가대비') {
+      if (isSortHighLowValue) {
         setTableSortValue(processedValue);
       } else {
         setTableSortValue(value);
