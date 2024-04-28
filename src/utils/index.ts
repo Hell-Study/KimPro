@@ -7,3 +7,5 @@ export * from './judgeColor';
 export * from './priceCalc';
 export * from './removeUSDT';
 export * from './matchCoingeckoMarketData';
+export * from './preprocessBithumbTicker';
+export * from './getAllcoingeckoMarketData';
