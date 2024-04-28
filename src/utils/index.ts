@@ -8,4 +8,5 @@ export * from './priceCalc';
 export * from './removeUSDT';
 export * from './matchCoingeckoMarketData';
 export * from './preprocessBithumbTicker';
+export * from './preprocessBithumbCandlestick';
 export * from './getAllcoingeckoMarketData';

@@ -8,7 +8,7 @@ import {
   selectedCoinState,
   selectedCoinInfoState,
 } from 'recoil/atoms/tableAtoms';
-import { getTodayDate } from 'utils';
+import { getTodayDate, preprocessBithumbCandlestick } from 'utils';
 
 export const useCreateRightChart = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
@@ -30,8 +30,14 @@ export const useCreateRightChart = () => {
   };
 
   const createBithumbChart = async () => {
-    const processedData = await fetchBithumbCandlestick(selectedCoin, '24h');
-    setProcessedData(processedData);
+    const fetchedBithumbCandlestick = await fetchBithumbCandlestick(
+      selectedCoin,
+      '24h',
+    );
+    const processedBithumbCandlestick = preprocessBithumbCandlestick(
+      fetchedBithumbCandlestick,
+    );
+    setProcessedData(processedBithumbCandlestick);
   };
 
   useEffect(() => {
