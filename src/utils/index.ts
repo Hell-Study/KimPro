@@ -6,4 +6,4 @@ export * from './getTodayDate';
 export * from './judgeColor';
 export * from './priceCalc';
 export * from './removeUSDT';
-export * from './matchCoingecko';
+export * from './matchCoingeckoMarketData';

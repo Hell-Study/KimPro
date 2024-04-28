@@ -1,10 +1,10 @@
-import type { ICoingeckoCoinList } from '../@types/coingecko.types';
+import type { ICoingeckoMarketData } from '../@types/coingecko.types';
 
-export function matchCoingecko(
-  coingeckoCoinData: ICoingeckoCoinList[],
+export const matchCoingeckoMarketData = (
+  coingeckoMarketData: ICoingeckoMarketData[],
   symbol: string,
-) {
-  const target = coingeckoCoinData.filter(
+) => {
+  const target = coingeckoMarketData.filter(
     (coin) => coin.symbol === symbol.toLowerCase(),
   );
   if (target.length > 0) {
@@ -16,4 +16,4 @@ export function matchCoingecko(
     const thumb = `https://cdn.vectorstock.com/i/500p/82/99/no-image-available-like-missing-picture-vector-43938299.jpg`;
     return { coinName, thumb };
   }
-}
+};

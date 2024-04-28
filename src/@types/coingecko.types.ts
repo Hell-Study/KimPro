@@ -1,4 +1,4 @@
-export interface ICoingeckoCoinList {
+export interface ICoingeckoMarketData {
   ath: number;
   ath_change_percentage: number;
   ath_date: string;
