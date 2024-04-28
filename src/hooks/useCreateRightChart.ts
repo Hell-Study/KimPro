@@ -20,7 +20,7 @@ export const useCreateRightChart = () => {
     null,
   );
 
-  const upbitCreateChart = async () => {
+  const createUpbitChart = async () => {
     const processedData = await fetchUpbitDayCandle(
       selectedCoin,
       getTodayDate(),
@@ -29,7 +29,7 @@ export const useCreateRightChart = () => {
     setProcessedData(processedData);
   };
 
-  const bithumbCreateChart = async () => {
+  const createBithumbChart = async () => {
     const processedData = await fetchBithumbCandlestick(selectedCoin, '24h');
     setProcessedData(processedData);
   };
@@ -40,14 +40,14 @@ export const useCreateRightChart = () => {
       if (cachedData) {
         setProcessedData(JSON.parse(cachedData));
       } else {
-        upbitCreateChart();
+        createUpbitChart();
       }
     } else if (baseExchange === 'bithumb') {
       const cachedData = sessionStorage.getItem(`bithumb_${selectedCoin}`);
       if (cachedData) {
         setProcessedData(JSON.parse(cachedData));
       } else {
-        bithumbCreateChart();
+        createBithumbChart();
       }
     }
   }, [selectedCoin]);
