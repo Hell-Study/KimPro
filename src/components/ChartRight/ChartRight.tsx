@@ -9,16 +9,7 @@ function ChartRight() {
   const selectedCoinInfo = useRecoilValue(selectedCoinInfoState);
   return (
     <styled.ChartContainer>
-      {selectedCoinInfo !== null && (
-        <ChartCoinInfo
-          symbol={selectedCoinInfo.symbol}
-          thumbnail={selectedCoinInfo.thumbnail}
-          coinName={selectedCoinInfo.coinName}
-          tradePrice={selectedCoinInfo.tradePrice}
-          changeRatio={selectedCoinInfo.changeRatio}
-          changePrice={selectedCoinInfo.changePrice}
-        />
-      )}
+      {selectedCoinInfo !== null && <ChartCoinInfo {...selectedCoinInfo} />}
       <ChartContent />
     </styled.ChartContainer>
   );

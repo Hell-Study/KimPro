@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import { useWidgetTickers } from 'hooks';
 import { PAIR_DATA, Interval } from 'components/Widget/Widget.constants';
-import { getFormattedValues } from 'utils';
-import { formatNumber } from 'utils';
+import { getFormattedValues, formatNumber } from 'utils';
 import type { IWidgetTicker } from '../Widget.types';
 import * as styled from '../Widget.styles';
 
