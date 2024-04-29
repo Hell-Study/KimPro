@@ -13,10 +13,11 @@ import {
   highest_52_week_rate,
   lowRatio,
   lowest_52_week_rate,
-} from 'utils/priceCalc';
+  preprocessBithumbTicker,
+  replaceDate,
+} from 'utils';
 import { fetchUpbitMarketCode } from 'api/upbit/fetchUpbitMarketCode';
 import { fetchBithumbTicker } from 'api/bithumb/fetchBithumbTicker';
-import { replaceDate } from 'utils';
 
 export function useKoreanTicker() {
   const baseExchange = useRecoilValue(baseExchangeState);
@@ -133,9 +134,11 @@ export function useKoreanTicker() {
   };
 
   const bithumbWsTicker = async () => {
-    const { marketCodes, fetchData } = await fetchBithumbTicker();
+    const { marketCodes, bithumbTicker } = await fetchBithumbTicker();
+    const preprocessedBithumbTicker =
+      await preprocessBithumbTicker(bithumbTicker);
     setMarketCodes(marketCodes);
-    setSocketDatas(fetchData);
+    setSocketDatas(preprocessedBithumbTicker);
     socket.current = new WebSocket('wss://pubwss.bithumb.com/pub/ws');
 
     socket.current.onopen = () => {

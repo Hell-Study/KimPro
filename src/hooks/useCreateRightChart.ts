@@ -8,7 +8,7 @@ import {
   selectedCoinState,
   selectedCoinInfoState,
 } from 'recoil/atoms/tableAtoms';
-import { getTodayDate } from 'utils';
+import { getTodayDate, preprocessBithumbCandlestick } from 'utils';
 
 export const useCreateRightChart = () => {
   const baseExchange = useRecoilValue(baseExchangeState);
@@ -20,7 +20,7 @@ export const useCreateRightChart = () => {
     null,
   );
 
-  const upbitCreateChart = async () => {
+  const createUpbitChart = async () => {
     const processedData = await fetchUpbitDayCandle(
       selectedCoin,
       getTodayDate(),
@@ -29,9 +29,15 @@ export const useCreateRightChart = () => {
     setProcessedData(processedData);
   };
 
-  const bithumbCreateChart = async () => {
-    const processedData = await fetchBithumbCandlestick(selectedCoin, '24h');
-    setProcessedData(processedData);
+  const createBithumbChart = async () => {
+    const fetchedBithumbCandlestick = await fetchBithumbCandlestick(
+      selectedCoin,
+      '24h',
+    );
+    const processedBithumbCandlestick = preprocessBithumbCandlestick(
+      fetchedBithumbCandlestick,
+    );
+    setProcessedData(processedBithumbCandlestick);
   };
 
   useEffect(() => {
@@ -40,14 +46,14 @@ export const useCreateRightChart = () => {
       if (cachedData) {
         setProcessedData(JSON.parse(cachedData));
       } else {
-        upbitCreateChart();
+        createUpbitChart();
       }
     } else if (baseExchange === 'bithumb') {
       const cachedData = sessionStorage.getItem(`bithumb_${selectedCoin}`);
       if (cachedData) {
         setProcessedData(JSON.parse(cachedData));
       } else {
-        bithumbCreateChart();
+        createBithumbChart();
       }
     }
   }, [selectedCoin]);
