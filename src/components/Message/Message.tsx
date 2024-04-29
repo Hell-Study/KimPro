@@ -5,7 +5,7 @@ import { MessageProps } from './Message.types';
 const Message: React.FC<MessageProps> = ({ message }) => {
   const storedUid = localStorage.getItem('uid');
   const createdAt = message.createdAt.toDate();
-  const firstThreeChars = message.uid.substring(0, 3);
+  const firstThreeChars = message?.uid?.substring(0, 3);
   const formattedTime = createdAt.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
